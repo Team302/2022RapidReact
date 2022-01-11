@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE auton SYSTEM "auton.dtd">
+<auton>
+    <primitive id="DRIVE_TIME"
+               drivespeed="-0.5"
+               time="2.0"/>
+    <primitive id="DO_NOTHING"
+               time="1.0"
+               armMovement="UP"/>
+    <primitive id="DO_NOTHING"
+               time="1.0"
+               release="TRUE"/>
+    <primitive id="DRIVE_TIME"
+               drivespeed="0.5"
+               armMovement="DOWN"
+               time="1.0"/>
+    <primitive id="DO_NOTHING"
+               time="6.0"/>
+</auton>

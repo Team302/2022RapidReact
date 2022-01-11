@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE statedata SYSTEM "stateData.dtd">
+<statedata>
+	<controlData identifier="openloop" 
+	             mode="POSITION_DEGREES"/>
+	<mechanismTarget stateIdentifier="BALLRELEASEHOLD"
+	                 controlDataIdentifier="openloop"
+					 value="120.0"/>
+	<mechanismTarget stateIdentifier="BALLRELEASEOPEN"
+	                 controlDataIdentifier="openloop"
+					 value="60.0"/>
+
+</statedata>

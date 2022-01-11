@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE statedata SYSTEM "stateData.dtd">
+<statedata>
+	<controlData identifier="openloop" 
+	             mode="PERCENT_OUTPUT"/>
+	<mechanismTarget stateIdentifier="ARMUP"
+	                 controlDataIdentifier="openloop"
+					 value="0.5"/>
+	<mechanismTarget stateIdentifier="ARMDOWN"
+	                 controlDataIdentifier="openloop"
+					 value="-0.25"/>
+	<mechanismTarget stateIdentifier="ARMHOLDUP"
+	                 controlDataIdentifier="openloop"
+					 value="0.0"/>
+	<mechanismTarget stateIdentifier="ARMHOLDDOWN"
+	                 controlDataIdentifier="openloop"
+					 value="0.0"/>
+	<mechanismTarget stateIdentifier="ARMHOLDPOSITION"
+	                 controlDataIdentifier="openloop"
+					 value="0.0"/>
+
+</statedata>

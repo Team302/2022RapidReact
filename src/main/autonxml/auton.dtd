@@ -1,0 +1,21 @@
+<!ELEMENT auton (primitive*) >
+
+
+<!ELEMENT primitive EMPTY >
+<!ATTLIST primitive 
+          id                ( DO_NOTHING | HOLD_POSITION | 
+                              DRIVE_DISTANCE | DRIVE_TIME | 
+                              TURN_ANGLE_ABS | TURN_ANGLE_REL | DRIVE_PATH | RESET_POSITION) "DO_NOTHING"
+		  time				CDATA #IMPLIED
+          distance		    CDATA "0.0"
+          heading           CDATA "0.0"
+          drivespeed        CDATA "0.0"
+          enddrivespeed     CDATA "0.0"
+          xloc				CDATA "0.0"
+          yloc				CDATA "0.0"
+          runIntake         ( TRUE | FALSE ) "FALSE"
+          armMovement       ( UP | DOWN | HOLD ) "HOLD"
+          release           ( TRUE | FALSE ) "FALSE"
+          pathname          CDATA #IMPLIED
+>
+
