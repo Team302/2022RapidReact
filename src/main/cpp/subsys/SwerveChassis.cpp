@@ -27,6 +27,7 @@
 #include <wpi/numbers>
 
 // Team 302 includes
+#include <subsys/ChassisSpeedCalcEnum.h>
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/SwerveChassis.h>
 
@@ -60,6 +61,8 @@ SwerveChassis::SwerveChassis
     units::radians_per_second_t                                 maxAngularSpeed,
     units::acceleration::meters_per_second_squared_t            maxAcceleration,
     units::angular_acceleration::radians_per_second_squared_t   maxAngularAcceleration,
+    ChassisSpeedCalcEnum 									    speedCalcOption,
+    PoseEstimatorEnum    										poseEstOption,
     string                                                      networkTableName,
     string                                                      controlFileName
 ) : m_frontLeft(frontLeft), 
@@ -84,8 +87,7 @@ SwerveChassis::SwerveChassis
     m_scale(1.0),
     m_boost(0.0),
     m_brake(0.0),
-    m_runWPI(false),
-    m_poseOpt(PoseEstimationMethod::EULER_AT_CHASSIS),
+    m_poseOpt(PoseEstimatorEnum::EULER_AT_CHASSIS),
     m_pose(),
     m_offsetPoseAngle(0_deg),
     m_timer(),
@@ -93,6 +95,8 @@ SwerveChassis::SwerveChassis
     m_steer(units::velocity::meters_per_second_t(0.0)),
     m_rotate(units::angular_velocity::radians_per_second_t(0.0)),
     m_isFieldOriented(true),
+    m_speedCalcOption(speedCalcOption),
+    m_poseEstOption(poseEstOption),
     m_ntName(networkTableName),
     m_controlFileName(controlFileName),
     m_frontLeftLocation(wheelBase/2.0, track/2.0),
@@ -183,7 +187,7 @@ void SwerveChassis::Drive( units::meters_per_second_t xSpeed,
         m_steer = units::velocity::meters_per_second_t(ySpeed*(m_scale+m_boost));
         m_rotate = units::angular_velocity::radians_per_second_t(rot*(m_scale+m_boost));
 
-        if ( m_runWPI )
+        if (m_speedCalcOption == ChassisSpeedCalcEnum::WPI_METHOD)
         {
             units::degree_t yaw{m_pigeon->GetYaw()};
             Rotation2d currentOrientation {yaw};
@@ -312,7 +316,7 @@ void SwerveChassis::Drive(double drive, double steer, double rotate, bool fieldR
 
 Pose2d SwerveChassis::GetPose() const
 {
-    if (m_poseOpt==PoseEstimationMethod::WPI)
+    if (m_poseOpt==PoseEstimatorEnum::WPI)
     {
         return m_poseEstimator.GetEstimatedPosition();
     }
@@ -331,7 +335,7 @@ void SwerveChassis::UpdatePose()
     Rotation2d rot2d {yaw+m_offsetPoseAngle};
     Rotation2d realAngle {yaw};
 
-    if (m_poseOpt == PoseEstimationMethod::WPI)
+    if (m_poseOpt == PoseEstimatorEnum::WPI)
     {
         auto currentPose = m_poseEstimator.GetEstimatedPosition();
         Logger::GetLogger()->ToNtTable("Robot Odometry", "Current X", currentPose.X().to<double>());
@@ -346,7 +350,7 @@ void SwerveChassis::UpdatePose()
         Logger::GetLogger()->ToNtTable("Robot Odometry", "Updated X", updatedPose.X().to<double>());
         Logger::GetLogger()->ToNtTable("Robot Odometry", "Updated Y", updatedPose.Y().to<double>());
     }
-    else if (m_poseOpt==PoseEstimationMethod::EULER_AT_CHASSIS)
+    else if (m_poseOpt==PoseEstimatorEnum::EULER_AT_CHASSIS)
     {
         // get change in time
         auto deltaT = m_timer.Get();
@@ -372,8 +376,8 @@ void SwerveChassis::UpdatePose()
         auto trans = currPose - m_pose;
         m_pose = m_pose.TransformBy(trans);
     }
-    else if (m_poseOpt==PoseEstimationMethod::EULER_USING_MODULES ||
-             m_poseOpt==PoseEstimationMethod::POSE_EST_USING_MODULES)
+    else if (m_poseOpt==PoseEstimatorEnum::EULER_USING_MODULES ||
+             m_poseOpt==PoseEstimatorEnum::POSE_EST_USING_MODULES)
     {
         auto flPose = m_frontLeft.get()->GetCurrentPose(m_poseOpt);
         auto frPose = m_frontRight.get()->GetCurrentPose(m_poseOpt);

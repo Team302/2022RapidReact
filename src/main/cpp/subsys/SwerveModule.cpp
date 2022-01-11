@@ -421,7 +421,7 @@ void SwerveModule::StopMotors()
     m_driveMotor.get()->GetSpeedController()->StopMotor();
 }
 
-frc::Pose2d SwerveModule::GetCurrentPose(PoseEstimationMethod opt)
+frc::Pose2d SwerveModule::GetCurrentPose(PoseEstimatorEnum opt)
 {
     // get change in time
     //auto deltaT = m_timer.Get();
@@ -445,7 +445,7 @@ frc::Pose2d SwerveModule::GetCurrentPose(PoseEstimationMethod opt)
     units::length::meter_t currentX {units::length::meter_t(0)};
     units::length::meter_t currentY {units::length::meter_t(0)};
 
-    if (opt == PoseEstimationMethod::EULER_USING_MODULES)
+    if (opt == PoseEstimatorEnum::EULER_USING_MODULES)
     {
         // Euler Method
         //
@@ -491,7 +491,7 @@ frc::Pose2d SwerveModule::GetCurrentPose(PoseEstimationMethod opt)
         //                                          sin(startAngle.to<double>()) *      // sine of the average angle
         //                                          deltaT.to<double>()));             // delta T (seconds)
     }
-    else if (opt == PoseEstimationMethod::POSE_EST_USING_MODULES)
+    else if (opt == PoseEstimatorEnum::POSE_EST_USING_MODULES)
     {
         // Pose estimation method from Controls Engineering in FIRST Robotics Competition by 
         // Tyler Veness

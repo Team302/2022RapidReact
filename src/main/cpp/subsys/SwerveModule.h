@@ -118,7 +118,7 @@ class SwerveModule
 
         void StopMotors();
 
-        frc::Pose2d GetCurrentPose(PoseEstimationMethod opt);
+        frc::Pose2d GetCurrentPose(PoseEstimatorEnum opt);
 
         void UpdateCurrPose
         (

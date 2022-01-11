@@ -29,6 +29,8 @@
               wheelDiameter="4.13"
               wheelBase="14.0"  
               track="14.0"
+              wheelSpeedCalcOption="ETHER"
+              poseEstimationOption="EULERCHASSIS"
               odometryComplianceCoefficient="0.85"
               maxVelocity="194.4"
               maxAngularVelocity="1591.2"
