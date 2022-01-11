@@ -231,7 +231,49 @@ void SwerveChassis::Drive( units::meters_per_second_t xSpeed,
         auto ay = m_accel.GetY();
         auto az = m_accel.GetZ();
 
-        m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
+        if (m_speedCalcOption == ChassisSpeedCalcEnum::WPI_METHOD)
+        {
+            units::degree_t yaw{m_pigeon->GetYaw()};
+            Rotation2d currentOrientation {yaw};
+            auto states = m_kinematics.ToSwerveModuleStates
+                                    (fieldRelative ?  ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rot, currentOrientation) : 
+                                                      ChassisSpeeds{xSpeed, ySpeed, rot} );
+            m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
+
+            auto [fl, fr, bl, br] = states;
+        
+            m_frontLeft.get()->SetDesiredState(fl);
+            m_frontRight.get()->SetDesiredState(fr);
+            m_backLeft.get()->SetDesiredState(bl);
+            m_backRight.get()->SetDesiredState(br); 
+            auto ax = m_accel.GetX();
+            auto ay = m_accel.GetY();
+            auto az = m_accel.GetZ();
+
+            m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
+        }
+        else
+        {
+            ChassisSpeeds speeds = fieldRelative ? GetFieldRelativeSpeeds(xSpeed,ySpeed, rot) : 
+                                                   ChassisSpeeds{xSpeed, ySpeed, rot};
+            // TODO: need to spin our own kinematics module, but in the mean time do the following to get
+            // approximate updates
+            auto states = m_kinematics.ToSwerveModuleStates(speeds);
+            m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
+
+            CalcSwerveModuleStates(speeds);
+
+            m_frontLeft.get()->SetDesiredState(m_flState);
+            m_frontRight.get()->SetDesiredState(m_frState);
+            m_backLeft.get()->SetDesiredState(m_blState);
+            m_backRight.get()->SetDesiredState(m_brState);
+
+            auto ax = m_accel.GetX();
+            auto ay = m_accel.GetY();
+            auto az = m_accel.GetZ();
+
+            m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
+        }
     }
 }
 

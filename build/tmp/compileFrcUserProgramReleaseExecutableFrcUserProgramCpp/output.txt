@@ -27,57 +27,59 @@ compiling ControlData.cpp successful.
 
 compiling MechanismTargetData.cpp successful.
 
-compiling AnalogAxis.cpp successful.
+compiling DriveToWall.cpp successful.
 
 compiling CubedProfile.cpp successful.
 
+compiling HoldPosition.cpp successful.
+
 compiling DeadbandValue.cpp successful.
-
-compiling SuperDrive.cpp successful.
-
-compiling LinearProfile.cpp successful.
 
 compiling FlippedAxis.cpp successful.
 
+compiling LinearProfile.cpp successful.
+
 compiling NoDeadbandValue.cpp successful.
+
+compiling AnalogAxis.cpp successful.
 
 compiling PiecewiseLinearProfile.cpp successful.
 
-compiling ScaledDeadbandValue.cpp successful.
-
 compiling SquaredProfile.cpp successful.
 
-compiling ScaledAxis.cpp successful.
+compiling ScaledDeadbandValue.cpp successful.
 
 compiling ButtonDecorator.cpp successful.
 
 compiling DebouncedButton.cpp successful.
 
-compiling AnalogButton.cpp successful.
+compiling ScaledAxis.cpp successful.
 
 compiling POVButton.cpp successful.
 
-compiling DigitalButton.cpp successful.
-
 compiling ToggleButton.cpp successful.
 
-compiling DriveToWall.cpp successful.
+compiling AnalogButton.cpp successful.
+
+compiling DigitalButton.cpp successful.
 
 compiling DragonXBox.cpp successful.
 
-compiling FunctionMap.cpp successful.
+compiling SuperDrive.cpp successful.
 
 compiling DragonGamepad.cpp successful.
 
-compiling ResetPosition.cpp successful.
+compiling TurnAngle.cpp successful.
+
+compiling FunctionMap.cpp successful.
+
+compiling DragonDigitalInput.cpp successful.
 
 compiling DragonPDP.cpp successful.
 
-compiling TeleopControl.cpp successful.
-
 compiling DragonPigeon.cpp successful.
 
-compiling DragonServo.cpp successful.
+compiling TeleopControl.cpp successful.
 
 compiling DragonLimelight.cpp successful.
 
@@ -91,17 +93,17 @@ compiling DragonSolenoid.cpp successful.
 
 compiling DragonTalon.cpp successful.
 
-compiling DragonServoFactory.cpp successful.
-
-compiling LimelightFactory.cpp successful.
-
 compiling PDPFactory.cpp successful.
 
-compiling DragonMotorControllerFactory.cpp successful.
+compiling DragonServoFactory.cpp successful.
 
 compiling DigitalInputUsage.cpp successful.
 
+compiling DragonMotorControllerFactory.cpp successful.
+
 compiling MotorControllerUsage.cpp successful.
+
+compiling LimelightFactory.cpp successful.
 
 compiling PigeonFactory.cpp successful.
 
@@ -109,11 +111,7 @@ compiling ServoUsage.cpp successful.
 
 compiling SolenoidUsage.cpp successful.
 
-compiling DragonDigitalInput.cpp successful.
-
 compiling Mech1MotorState.cpp successful.
-
-compiling Mech2MotorState.cpp successful.
 
 compiling StateMgr.cpp successful.
 C:\GitRepos\2022RapidReact\src\main\cpp\states\StateMgr.cpp: In member function 'void StateMgr::Init(IMech*, const std::map<std::__cxx11::basic_string<char>, StateStruc>&)':
@@ -134,16 +132,6 @@ compiling Mech2IndMotors.cpp successful.
 
 compiling MechanismFactory.cpp successful.
 
-compiling TurnAngle.cpp successful.
-
-compiling AngleUtils.cpp successful.
-
-compiling HardwareIDValidation.cpp successful.
-
-compiling Logger.cpp successful.
-
-compiling UsageValidation.cpp successful.
-
 compiling Robot.cpp successful.
 C:\GitRepos\2022RapidReact\src\main\cpp\Robot.cpp: In member function 'virtual void Robot::RobotInit()':
 C:\GitRepos\2022RapidReact\src\main\cpp\Robot.cpp:43:8: warning: unused variable 'mechFactory' [-Wunused-variable]
@@ -151,6 +139,18 @@ C:\GitRepos\2022RapidReact\src\main\cpp\Robot.cpp:43:8: warning: unused variable
         ^~~~~~~~~~~
 
 compiling SwerveDrive.cpp successful.
+
+compiling ResetPosition.cpp successful.
+
+compiling HardwareIDValidation.cpp successful.
+
+compiling ChassisFactory.cpp successful.
+
+compiling AngleUtils.cpp successful.
+
+compiling Logger.cpp successful.
+
+compiling UsageValidation.cpp successful.
 
 compiling CameraDefn.cpp successful.
 C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\CameraDefn.cpp: In member function 'cs::UsbCamera CameraDefn::ParseXML(pugi::xml_node)':
@@ -173,9 +173,9 @@ compiling CanCoderDefn.cpp successful.
 
 compiling DigitalInputDefn.cpp successful.
 
-compiling ChassisFactory.cpp successful.
-
 compiling LimelightDefn.cpp successful.
+
+compiling MechanismDefn.cpp successful.
 
 compiling MotorDefn.cpp successful.
 C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\MotorDefn.cpp: In member function 'std::shared_ptr<IDragonMotorController> MotorDefn::ParseXML(pugi::xml_node)':
@@ -183,37 +183,37 @@ C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\MotorDefn.cpp:68:9: warning: varia
      int continuousCurrentLimit = 0;
          ^~~~~~~~~~~~~~~~~~~~~~
 
-compiling MechanismDefn.cpp successful.
-
 compiling PCMDefn.cpp successful.
 
+compiling PDPDefn.cpp successful.
+
 compiling PigeonDefn.cpp successful.
+
+compiling SwerveModule.cpp successful.
 
 compiling ServoDefn.cpp successful.
 
 compiling RobotDefn.cpp successful.
 
+compiling Mech2MotorState.cpp successful.
+
 compiling SolenoidDefn.cpp successful.
-
-compiling SwerveModule.cpp successful.
-
-compiling ThroughBoreEncoderDefn.cpp successful.
 
 compiling ControlDataDefn.cpp successful.
 
 compiling MechanismTargetDefn.cpp successful.
 
-compiling StateDataDefn.cpp successful.
+compiling DragonServo.cpp successful.
 
-compiling PDPDefn.cpp successful.
+compiling ThroughBoreEncoderDefn.cpp successful.
+
+compiling StateDataDefn.cpp successful.
 
 compiling pugixml.cpp successful.
 
 compiling ChassisDefn.cpp successful.
 
 compiling SwerveModuleDefn.cpp successful.
-
-compiling HoldPosition.cpp successful.
 
 compiling SwerveChassis.cpp successful.
 
