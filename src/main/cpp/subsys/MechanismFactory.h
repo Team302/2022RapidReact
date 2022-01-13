@@ -124,4 +124,6 @@ class MechanismFactory
 
 		static MechanismFactory*	m_mechanismFactory;
 
+		Intake* m_intake;
+
 };
