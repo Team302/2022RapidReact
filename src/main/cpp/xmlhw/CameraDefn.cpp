@@ -133,7 +133,7 @@ cs::UsbCamera CameraDefn::ParseXML
 
 	if (!hasError)
 	{
-	   	camera = CameraServer::StartAutomaticCapture( id );
+		camera = CameraServer::StartAutomaticCapture( id );
 		camera.SetVideoMode(type, width, height, fps );
 	}
 	return camera;
