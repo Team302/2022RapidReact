@@ -133,18 +133,8 @@ cs::UsbCamera CameraDefn::ParseXML
 
 	if (!hasError)
 	{
-		CameraServer* server = CameraServer::GetInstance();
-		if ( server != nullptr )
-		{
-		    camera = server->StartAutomaticCapture( id );
-            camera.SetVideoMode(type, width, height, fps );
-		}
-		else
-		{
-            string msg = "camera server not found ";
-            Logger::GetLogger()->LogError( "CameraDefn::ParseXML", msg );
-            hasError = true;
-		}
+		camera = CameraServer::StartAutomaticCapture( id );
+		camera.SetVideoMode(type, width, height, fps );
 	}
 	return camera;
 }

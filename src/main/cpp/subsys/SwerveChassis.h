@@ -44,11 +44,24 @@
 #include <subsys/SwerveModule.h>
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/interfaces/IChassis.h>
+#include <subsys/interfaces/ISwerveChassisModuleStates.h>
+#include <subsys/SwerveHelpers/EtherDirtySwerve.h>
+#include <subsys/SwerveHelpers/EtherFieldSwerve.h>
+#include <subsys/SwerveHelpers/WPIDirtySwerve.h>
+#include <subsys/SwerveHelpers/WPIFieldSwerve.h>
 
 
 class SwerveChassis : public IChassis
 {
     public:
+
+        enum SwerveMode
+        {
+            ETHER_DIRTY,
+            ETHER_FIELD,
+            WPI_DIRTY,
+            WPI_FIELD
+        };
 
         /// @brief Construct a swerve chassis
         /// @param [in] std::shared_ptr<SwerveModule>           frontleft:          front left swerve module
@@ -82,8 +95,9 @@ class SwerveChassis : public IChassis
         );
 
         /// @brief Align all of the swerve modules to point forward
-        void ZeroAlignSwerveModules();
+        void Initialize() override;
         void SetFieldRelative(bool isFieldRelative);
+        void SetSwerveMode(SwerveMode mode);
 
         /// @brief      return the chassis type
         /// @returns    CHASSIS_TYPE
@@ -216,7 +230,7 @@ class SwerveChassis : public IChassis
         double                                                      m_boost;
         double                                                      m_brake;
         bool                                                        m_runWPI;
-        PoseEstimatorEnum                                        m_poseOpt;
+        PoseEstimatorEnum                                           m_poseOpt;
         frc::Pose2d                                                 m_pose;
         units::angle::degree_t                                      m_offsetPoseAngle;
         frc::Timer                                                  m_timer;
@@ -230,6 +244,11 @@ class SwerveChassis : public IChassis
         PoseEstimatorEnum 										    m_poseEstOption;
         std::string                                                 m_ntName;
         std::string                                                 m_controlFileName;
+        EtherDirtySwerve*                                           m_etherDirty;
+        EtherFieldSwerve*                                           m_etherField;
+        WPIDirtySwerve*                                             m_wpiDirty;
+        WPIFieldSwerve*                                             m_wpiField;
+        ISwerveChassisModuleStates*                                 m_currentHelper;
 
         const double                                                m_deadband = 0.1;
         

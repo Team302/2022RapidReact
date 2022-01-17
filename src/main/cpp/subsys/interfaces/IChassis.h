@@ -58,6 +58,7 @@ class IChassis
             frc::ChassisSpeeds chassisSpeeds
         ) = 0;
 
+        virtual void Initialize() = 0;
 
         virtual frc::Pose2d GetPose() const = 0;
         virtual void ResetPose
