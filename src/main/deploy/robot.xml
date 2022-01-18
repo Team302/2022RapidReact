@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
+       <pdp canId="1"
+            type="REV"/>
+
+	<pigeon canId="50"
+               rotation="0.0" />
 
 <!--
-    <pdp canId="0"
-        type="CTRE"/>
-
-    <pigeon canId="50"
-            rotation="0.0" />
        <limelight tablename="limelight"
                      mountingheight="31.5"
                      horizontaloffset="0.0"
@@ -23,7 +23,7 @@
                      crosshairy="0.5"
                      secondcrosshairx="0.25"
                      secondcrosshairy="0.25" />
--->
+                     -->
 <!-- ====================================================
      Chassis
      ====================================================  -->
@@ -69,6 +69,7 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
+              <!-- gearRatio="8.4" -->
              <motor  usage="SWERVE_TURN"
                     canId="2"
                     pdpID="2"
@@ -92,6 +93,7 @@
                             offset="-106.787"/>
         </swervemodule>
 
+       <!-- .25 -->
         <swervemodule type="LEFT_BACK"
                       turn_p="0.07"
                       turn_i="0.00075"
@@ -120,6 +122,7 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
+              <!-- gearRatio="8.4" -->
              <motor usage="SWERVE_TURN"
                     canId="0"
                     pdpID="0"
@@ -143,6 +146,7 @@
                             offset="67.06055"/>
         </swervemodule>
 
+       <!-- .25 -->
         <swervemodule type="RIGHT_FRONT"
                       turn_p="0.07"
                       turn_i="0.00075"
@@ -171,6 +175,7 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
+              <!-- gearRatio="8.4" -->
              <motor  usage="SWERVE_TURN"
                     canId="12"
                     pdpID="12"
@@ -194,6 +199,7 @@
                             offset="60.81"/>
         </swervemodule>
 
+       <!-- 0.25 -->
         <swervemodule type="LEFT_FRONT"
                       turn_p="0.07"
                       turn_i="0.00075"
@@ -222,6 +228,7 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
+              <!-- gearRatio="8.4" -->
              <motor usage="SWERVE_TURN"
                     canId="14"
                     pdpID="14"

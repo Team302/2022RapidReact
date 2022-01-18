@@ -13,6 +13,7 @@
 #include <units/angular_velocity.h>
 #include <Robot.h>
 
+#include <states/chassis/SwerveDrive.h>
 #include <xmlhw/RobotDefn.h>
 #include <subsys/ChassisFactory.h>
 #include <gamepad/TeleopControl.h>
@@ -41,6 +42,7 @@ void Robot::RobotInit()
   {
       m_swerve = new SwerveDrive();
   }
+
   else
   {
       m_swerve = nullptr;

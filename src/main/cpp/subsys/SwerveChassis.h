@@ -55,14 +55,6 @@ class SwerveChassis : public IChassis
 {
     public:
 
-        enum SwerveMode
-        {
-            ETHER_DIRTY,
-            ETHER_FIELD,
-            WPI_DIRTY,
-            WPI_FIELD
-        };
-
         /// @brief Construct a swerve chassis
         /// @param [in] std::shared_ptr<SwerveModule>           frontleft:          front left swerve module
         /// @param [in] std::shared_ptr<SwerveModule>           frontright:         front right swerve module
@@ -97,7 +89,7 @@ class SwerveChassis : public IChassis
         /// @brief Align all of the swerve modules to point forward
         void Initialize() override;
         void SetFieldRelative(bool isFieldRelative);
-        void SetSwerveMode(SwerveMode mode);
+        void SetMode(ChassisMode mode) override;
 
         /// @brief      return the chassis type
         /// @returns    CHASSIS_TYPE
