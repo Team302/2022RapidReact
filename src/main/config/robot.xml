@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
-       <pdp canId="0"
-            type="CTRE"/>
+       <pdp canId="1"
+            type="REV"/>
 
 	<pigeon canId="50"
                rotation="0.0" />
 
+<!--
        <limelight tablename="limelight"
                      mountingheight="31.5"
                      horizontaloffset="0.0"
@@ -22,13 +23,16 @@
                      crosshairy="0.5"
                      secondcrosshairx="0.25"
                      secondcrosshairy="0.25" />
+                     -->
 <!-- ====================================================
      Chassis
      ====================================================  -->
     <chassis  type="SWERVE"
               wheelDiameter="4.13"
-              wheelBase="14.0"  
-              track="14.0"
+              wheelBase="21.0"  
+              track="21.0"
+              wheelSpeedCalcOption="ETHER"
+              poseEstimationOption="EULERCHASSIS"
               odometryComplianceCoefficient="0.85"
               maxVelocity="194.4"
               maxAngularVelocity="1591.2"
@@ -38,8 +42,8 @@
               controlFile="chassis.xml">
 			 
         <swervemodule type="RIGHT_BACK"
-                      turn_p="0.125"
-                      turn_i="0.00045"
+                      turn_p="0.07"
+                      turn_i="0.00075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -86,13 +90,13 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="2"
-                            offset="-130.078"/>
+                            offset="-106.787"/>
         </swervemodule>
 
        <!-- .25 -->
         <swervemodule type="LEFT_BACK"
-                      turn_p="0.125"
-                      turn_i="0.00045"
+                      turn_p="0.07"
+                      turn_i="0.00075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -139,13 +143,13 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="0"
-                            offset="67.061"/>
+                            offset="67.06055"/>
         </swervemodule>
 
        <!-- .25 -->
         <swervemodule type="RIGHT_FRONT"
-                      turn_p="0.125"
-                      turn_i="0.00045"
+                      turn_p="0.07"
+                      turn_i="0.00075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -192,13 +196,13 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="12"
-                            offset="108.105"/>
+                            offset="60.81"/>
         </swervemodule>
 
        <!-- 0.25 -->
         <swervemodule type="LEFT_FRONT"
-                      turn_p="0.125"
-                      turn_i="0.0045"
+                      turn_p="0.07"
+                      turn_i="0.00075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -209,7 +213,7 @@
                     canId="15"
                     pdpID="15"
                     type="FALCON"
-                    inverted="false"
+                    inverted="true"
                     sensorInverted="false"
                     feedbackDevice="INTERNAL"
                     countsPerRev="2048"
@@ -245,7 +249,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="14"
-                            offset="-72.07"/>
+                            offset="-47.021"/>
         </swervemodule>
 
     </chassis>  

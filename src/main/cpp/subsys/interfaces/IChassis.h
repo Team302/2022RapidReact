@@ -47,6 +47,14 @@ class IChassis
             SWERVE
         };
 
+        enum ChassisMode
+        {
+            ETHER_DIRTY,
+            ETHER_FIELD,
+            WPI_DIRTY,
+            WPI_FIELD
+        };
+
         /// @brief      return the chassis type
         /// @returns    CHASSIS_TYPE
         virtual CHASSIS_TYPE GetType() const = 0;
@@ -58,12 +66,14 @@ class IChassis
             frc::ChassisSpeeds chassisSpeeds
         ) = 0;
 
+        virtual void Initialize() = 0;
 
         virtual frc::Pose2d GetPose() const = 0;
         virtual void ResetPose
         (
             const frc::Pose2d&      pose
         ) = 0;
+        virtual void SetMode(ChassisMode mode) = 0;
 
         virtual void UpdatePose() = 0;
         virtual units::length::inch_t GetWheelDiameter() const = 0;

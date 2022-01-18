@@ -123,6 +123,8 @@
           wheelDiameter                     CDATA #REQUIRED
           wheelBase                         CDATA #REQUIRED
           track                             CDATA #REQUIRED
+          wheelSpeedCalcOption              (WPI | ETHER | 2910 ) "ETHER"
+          poseEstimationOption              (WPI | EULERCHASSIS | EULERWHEEL | POSECHASSIS | POSEWHEEL) "EULERCHASSIS"
           odometryComplianceCoefficient     CDATA "1.0"
           maxVelocity                       CDATA #REQUIRED
           maxAngularVelocity                CDATA #REQUIRED

@@ -97,7 +97,7 @@ void SwerveDrive::Run( )
             auto factory = PigeonFactory::GetFactory();
             auto m_pigeon = factory->GetPigeon();
             m_pigeon->ReZeroPigeon( 0, 0);
-            m_chassis->ZeroAlignSwerveModules();
+            m_chassis->Initialize();
             m_lastUp   = false;
             m_lastDown = false;
         }

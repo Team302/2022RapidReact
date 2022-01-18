@@ -9,6 +9,8 @@
 
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/ChassisFactory.h>
+#include <subsys/ChassisSpeedCalcEnum.h>
+#include <subsys/PoseEstimatorEnum.h>
 #include <subsys/SwerveChassis.h>
 #include <subsys/SwerveModule.h>
 #include <hw/interfaces/IDragonMotorController.h>
@@ -55,6 +57,8 @@ IChassis* ChassisFactory::CreateChassis
     std::shared_ptr<SwerveModule>                               frontRight,
     std::shared_ptr<SwerveModule>                               backLeft, 
     std::shared_ptr<SwerveModule>                               backRight, 
+	ChassisSpeedCalcEnum 									    speedCalcOption,
+	PoseEstimatorEnum 										    poseEstOption,
     double                                                      odometryComplianceCoefficient
 )
 {
@@ -98,6 +102,8 @@ IChassis* ChassisFactory::CreateChassis
                                            maxAngularSpeed, 
                                            maxAcceleration,
                                            maxAngularAcceleration,
+                                           speedCalcOption,
+                                           poseEstOption, 
                                            networkTableName,
                                            controlFileName);
         }
