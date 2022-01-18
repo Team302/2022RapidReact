@@ -11,6 +11,7 @@
 #include <gamepad/TeleopControl.h>
 #include <subsys/interfaces/IChassis.h>
 #include <auton/CyclePrimitives.h>
+#include <states/chassis/SwerveDrive.h>
 
 
 class Robot : public frc::TimedRobot {
@@ -30,4 +31,5 @@ class Robot : public frc::TimedRobot {
   TeleopControl*        m_controller;
   IChassis*             m_chassis;
   CyclePrimitives*      m_cyclePrims;
+  SwerveDrive*          m_swerve;
 };

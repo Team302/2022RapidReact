@@ -12,6 +12,7 @@
 #include <units/velocity.h>
 #include <units/angular_velocity.h>
 
+#include <states/chassis/SwerveDrive.h>
 #include <xmlhw/RobotDefn.h>
 #include <subsys/ChassisFactory.h>
 #include <gamepad/TeleopControl.h>
@@ -39,6 +40,8 @@ void Robot::RobotInit()
   {
     
   }
+
+  m_swerve = new SwerveDrive();
   
   auto mechFactory = MechanismFactory::GetMechanismFactory();
 
@@ -91,13 +94,17 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
-
+  if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
+  {
+    m_swerve->Init();
+  }
 }
 
 void Robot::TeleopPeriodic() 
 {
-  if (m_chassis != nullptr && m_controller != nullptr)
+  if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
   {
+    m_swerve->Run();
   }
 }
 
