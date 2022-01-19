@@ -3,10 +3,11 @@
 enum StateType
 {
     INTAKE,
-    BALLTRANSER,
+   /* BALLTRANSER,
     ARM,
     BALLRELEASE,
     MAX_STATE_TYPES
+    */
 };
 
 

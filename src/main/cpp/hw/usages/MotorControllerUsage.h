@@ -41,6 +41,7 @@ class MotorControllerUsage
             UNKNOWN_MOTOR_CONTROLLER_USAGE = -1,
             SWERVE_DRIVE,
             SWERVE_TURN,
+            INTAKE,
             MAX_MOTOR_CONTROLLER_USAGES
         };
 

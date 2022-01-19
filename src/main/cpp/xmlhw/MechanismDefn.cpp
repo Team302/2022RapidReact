@@ -88,7 +88,7 @@ void MechanismDefn::ParseXML
             {
                 type = MechanismTypes::MECHANISM_TYPE::INTAKE;
             }
-            else if (typeStr.compare( "BALLTRANSFER") == 0)
+           /* else if (typeStr.compare( "BALLTRANSFER") == 0)
             {
                 type = MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER;
             }
@@ -100,6 +100,7 @@ void MechanismDefn::ParseXML
             {
                 type = MechanismTypes::MECHANISM_TYPE::BALL_RELEASE;
             }
+            */
             else
             {
                     string msg = "unknown Mechanism type ";

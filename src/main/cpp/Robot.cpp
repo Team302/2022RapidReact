@@ -11,6 +11,7 @@
 
 #include <units/velocity.h>
 #include <units/angular_velocity.h>
+#include <Robot.h>
 
 #include <xmlhw/RobotDefn.h>
 #include <subsys/ChassisFactory.h>
@@ -18,6 +19,7 @@
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/MechanismFactory.h>
 #include <auton/CyclePrimitives.h>
+#include <states/Intake/IntakeStateMgr.h>
 
 void Robot::RobotInit() 
 {
@@ -43,6 +45,10 @@ void Robot::RobotInit()
   auto mechFactory = MechanismFactory::GetMechanismFactory();
 
   m_cyclePrims = new CyclePrimitives();
+  m_intake = mechFactory->GetIntake();
+
+  m_intakeStateMgr = IntakeStateMgr::GetInstance();
+
 
 }
 
@@ -91,13 +97,26 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
-
+    m_intakeStateMgr->SetCurrentState(m_intakeStateMgr->INTAKE, false);
 }
 
 void Robot::TeleopPeriodic() 
 {
   if (m_chassis != nullptr && m_controller != nullptr)
   {
+    auto throttle = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::ARCADE_THROTTLE);
+    auto steer = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::ARCADE_STEER);
+
+    frc::ChassisSpeeds speeds;
+    speeds.vx = throttle * m_chassis->GetMaxSpeed();
+    speeds.vy = 0_mps; //units::velocity::meters_per_second_t(0)
+    speeds.omega = steer * m_chassis->GetMaxAngularSpeed();
+    m_chassis->Drive(speeds);
+  }
+
+  if (m_intake != nullptr && m_intakeStateMgr != nullptr)
+  {
+    m_intakeStateMgr->RunCurrentState();
   }
 }
 
