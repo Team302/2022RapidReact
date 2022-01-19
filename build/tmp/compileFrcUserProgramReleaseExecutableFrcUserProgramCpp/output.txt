@@ -1,10 +1,223 @@
-See file:///C:/Users/joewi/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
-compiling DragonVision.cpp successful.
+See file:///C:/Users/user/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+compiling AutonSelector.cpp successful.
 
-compiling CameraDefn.cpp successful.
+compiling CyclePrimitives.cpp successful.
+
+compiling FieldDefn.cpp successful.
+
+compiling FieldMeasurement.cpp successful.
 
 compiling PrimitiveFactory.cpp successful.
 
+compiling PrimitiveParams.cpp successful.
+
+compiling PrimitiveParser.cpp successful.
+
+compiling DoNothing.cpp successful.
+
+compiling DriveDistance.cpp successful.
+
+compiling DrivePath.cpp successful.
+
+compiling DriveTime.cpp successful.
+
+compiling DriveToTarget.cpp successful.
+
+compiling DriveToWall.cpp successful.
+
+compiling HoldPosition.cpp successful.
+
 compiling ResetPosition.cpp successful.
 
-Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/Users/joewi/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
+compiling SuperDrive.cpp successful.
+
+compiling TurnAngle.cpp successful.
+
+compiling ControlData.cpp successful.
+
+compiling MechanismTargetData.cpp successful.
+
+compiling AnalogAxis.cpp successful.
+
+compiling CubedProfile.cpp successful.
+
+compiling DeadbandValue.cpp successful.
+
+compiling FlippedAxis.cpp successful.
+
+compiling LinearProfile.cpp successful.
+
+compiling NoDeadbandValue.cpp successful.
+
+compiling PiecewiseLinearProfile.cpp successful.
+
+compiling ScaledAxis.cpp successful.
+
+compiling ScaledDeadbandValue.cpp successful.
+
+compiling SquaredProfile.cpp successful.
+
+compiling AnalogButton.cpp successful.
+
+compiling ButtonDecorator.cpp successful.
+
+compiling DebouncedButton.cpp successful.
+
+compiling DigitalButton.cpp successful.
+
+compiling POVButton.cpp successful.
+
+compiling ToggleButton.cpp successful.
+
+compiling DragonGamepad.cpp successful.
+
+compiling DragonXBox.cpp successful.
+
+compiling FunctionMap.cpp successful.
+
+compiling TeleopControl.cpp successful.
+
+compiling DragonDigitalInput.cpp successful.
+
+compiling DragonFalcon.cpp successful.
+
+compiling DragonLimelight.cpp successful.
+
+compiling DragonPDP.cpp successful.
+
+compiling DragonPigeon.cpp successful.
+
+compiling DragonServo.cpp successful.
+
+compiling DragonSolenoid.cpp successful.
+
+compiling DragonTalon.cpp successful.
+
+compiling DragonVision.cpp successful.
+
+compiling DigitalInputFactory.cpp successful.
+
+compiling DragonMotorControllerFactory.cpp successful.
+
+compiling DragonServoFactory.cpp successful.
+
+compiling LimelightFactory.cpp successful.
+
+compiling PDPFactory.cpp successful.
+
+compiling PigeonFactory.cpp successful.
+
+compiling DigitalInputUsage.cpp successful.
+
+compiling MotorControllerUsage.cpp successful.
+
+compiling SolenoidUsage.cpp successful.
+
+compiling BallTransferState.cpp successful.
+
+compiling BallTransferStateMgr.cpp successful.
+
+compiling Mech1MotorState.cpp successful.
+
+compiling Mech2MotorState.cpp successful.
+
+compiling MechSolenoidState.cpp successful.
+
+compiling StateMgr.cpp successful.
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\states\StateMgr.cpp: In member function 'void StateMgr::Init(IMech*, const std::map<std::__cxx11::basic_string<char>, StateStruc>&)':
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\states\StateMgr.cpp:74:22: warning: unused variable 'controlData' [-Wunused-variable]
+                 auto controlData = td->GetController();
+                      ^~~~~~~~~~~
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\states\StateMgr.cpp:75:22: warning: unused variable 'target' [-Wunused-variable]
+                 auto target = td->GetTarget();
+                      ^~~~~~
+
+compiling BallTransfer.cpp successful.
+
+compiling Mech.cpp successful.
+
+compiling Robot.cpp successful.
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\Robot.cpp: In member function 'virtual void Robot::RobotInit()':
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\Robot.cpp:46:8: warning: unused variable 'mechFactory' [-Wunused-variable]
+   auto mechFactory = MechanismFactory::GetMechanismFactory();
+        ^~~~~~~~~~~
+
+compiling Mech1IndMotor.cpp successful.
+
+compiling Mech1Servo.cpp successful.
+
+compiling SwerveDrive.cpp successful.
+
+compiling Mech2IndMotors.cpp successful.
+
+compiling Mech1Solenoid.cpp successful.
+
+compiling MechanismFactory.cpp successful.
+
+compiling EtherDirtySwerve.cpp successful.
+
+compiling EtherFieldSwerve.cpp successful.
+
+compiling WPIDirtySwerve.cpp successful.
+
+compiling WPIFieldSwerve.cpp successful.
+
+compiling AngleUtils.cpp successful.
+
+compiling SwerveChassis.cpp successful.
+
+compiling HardwareIDValidation.cpp successful.
+
+compiling UsageValidation.cpp successful.
+
+compiling Logger.cpp successful.
+
+compiling CameraDefn.cpp successful.
+
+compiling CanCoderDefn.cpp successful.
+
+compiling ChassisFactory.cpp successful.
+
+compiling DigitalInputDefn.cpp successful.
+
+compiling LimelightDefn.cpp successful.
+
+compiling MechanismDefn.cpp successful.
+
+compiling MotorDefn.cpp successful.
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\xmlhw\MotorDefn.cpp: In member function 'std::shared_ptr<IDragonMotorController> MotorDefn::ParseXML(pugi::xml_node)':
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\xmlhw\MotorDefn.cpp:68:9: warning: variable 'continuousCurrentLimit' set but not used [-Wunused-but-set-variable]
+     int continuousCurrentLimit = 0;
+         ^~~~~~~~~~~~~~~~~~~~~~
+
+compiling PCMDefn.cpp successful.
+
+compiling SwerveModule.cpp successful.
+
+compiling PDPDefn.cpp successful.
+
+compiling PigeonDefn.cpp successful.
+
+compiling ServoDefn.cpp successful.
+
+compiling RobotDefn.cpp successful.
+
+compiling SolenoidDefn.cpp successful.
+
+compiling ThroughBoreEncoderDefn.cpp successful.
+
+compiling ControlDataDefn.cpp successful.
+
+compiling MechanismTargetDefn.cpp successful.
+
+compiling StateDataDefn.cpp successful.
+
+compiling ChassisDefn.cpp successful.
+
+compiling ServoUsage.cpp successful.
+
+compiling pugixml.cpp successful.
+
+compiling SwerveModuleDefn.cpp successful.
+
+Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/Users/user/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.

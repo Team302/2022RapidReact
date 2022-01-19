@@ -39,6 +39,7 @@
 #include <hw/usages/ServoMap.h>
 #include <hw/usages/DragonSolenoidMap.h>
 #include <subsys/interfaces/IMech.h>
+#include <subsys/BallTransfer.h>
 
 // Third Party Includes
 
@@ -84,6 +85,7 @@ class MechanismFactory
 			const DigitalInputMap&									digitalInputs,
 			std::shared_ptr<ctre::phoenix::sensors::CANCoder>		canCoder
 		);
+		inline BallTransfer* GetBallTransfer() const { return m_ballTransfer;};
 		
 		IMech* GetMechanism
 		(
@@ -123,5 +125,6 @@ class MechanismFactory
 		virtual ~MechanismFactory() = default;
 
 		static MechanismFactory*	m_mechanismFactory;
+		BallTransfer* 				m_ballTransfer;
 
 };

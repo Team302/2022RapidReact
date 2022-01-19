@@ -69,7 +69,10 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 	return MechanismFactory::m_mechanismFactory;
 }
 
-MechanismFactory::MechanismFactory()
+MechanismFactory::MechanismFactory() :// m_intake(nullptr),
+                                       m_ballTransfer(nullptr)
+									  // m_arm(nullptr),
+									 //  m_ballRelease(nullptr)
 {
 }
 
@@ -118,6 +121,19 @@ void MechanismFactory::CreateIMechanism
 		}
 		break;
 		**/
+			case MechanismTypes::BALL_TRANSFER:
+		{
+			if (m_ballTransfer == nullptr)
+			{
+				auto motor = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER);
+				if (motor.get() != nullptr)
+				{
+					m_ballTransfer = new BallTransfer(motor);
+				}
+			}
+		}
+		break;
+
 		default:
 		{
 			string msg = "unknown Mechanism type ";
