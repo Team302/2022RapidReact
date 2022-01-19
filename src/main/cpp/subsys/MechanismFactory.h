@@ -40,6 +40,7 @@
 #include <hw/usages/DragonSolenoidMap.h>
 #include <subsys/interfaces/IMech.h>
 #include <subsys/Intake.h>
+#include <subsys/BallTransfer.h>
 #include <subsys/Shooter.h>
 #include <subsys/Climber.h>
 
@@ -87,6 +88,7 @@ class MechanismFactory
 			const DigitalInputMap&									digitalInputs,
 			std::shared_ptr<ctre::phoenix::sensors::CANCoder>		canCoder
 		);
+		inline BallTransfer* GetBallTransfer() const { return m_ballTransfer;};
 		
 		inline Intake* GetLeftIntake() const { return m_leftIntake;};
 		inline Intake* GetRightIntake() const { return m_rightIntake;};
@@ -134,12 +136,12 @@ class MechanismFactory
 		virtual ~MechanismFactory() = default;
 
 		static MechanismFactory*	m_mechanismFactory;
-		Climber*	m_climber;
-
-		Intake* m_leftIntake;
-		Intake* m_rightIntake;
 		
 
-		Shooter* m_shooter;
+		Intake* 		m_leftIntake;
+		Intake* 		m_rightIntake;
+		BallTransfer* 		m_ballTransfer;
+		Shooter* 		m_shooter;
+		Climber*        	m_climber;
 
 };
