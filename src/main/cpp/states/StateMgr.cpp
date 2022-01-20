@@ -17,6 +17,7 @@
 #include <map>
 #include <memory>
 #include <vector>
+#include <iostream>
 
 // FRC includes
 #include <networktables/NetworkTableInstance.h>
@@ -65,11 +66,16 @@ void StateMgr::Init
     for ( auto td: targetData )
     {
         auto stateString = td->GetStateString();
+
+        cout << string("state string: ") << stateString << endl;
+
         auto stateStringToStrucItr = stateMap.find( stateString );
         if ( stateStringToStrucItr != stateMap.end() )
         {
+            cout << string("found") << endl;
             auto struc = stateStringToStrucItr->second;
             auto slot = struc.id;
+            cout << string("slot: ") << to_string(slot) << endl;
             if ( m_stateVector[slot] == nullptr )
             {
                 auto controlData = td->GetController();

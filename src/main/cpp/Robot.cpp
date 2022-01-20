@@ -41,11 +41,10 @@ void Robot::RobotInit()
   {
     
   }
-  
   auto mechFactory = MechanismFactory::GetMechanismFactory();
+  m_intake = mechFactory->GetIntake();
 
   m_cyclePrims = new CyclePrimitives();
-  m_intake = mechFactory->GetIntake();
 
   m_intakeStateMgr = IntakeStateMgr::GetInstance();
 
@@ -97,7 +96,7 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
-    m_intakeStateMgr->SetCurrentState(m_intakeStateMgr->INTAKE, false);
+    m_intakeStateMgr->SetCurrentState(IntakeStateMgr::INTAKE_STATE::INTAKE, false);
 }
 
 void Robot::TeleopPeriodic() 
@@ -118,6 +117,7 @@ void Robot::TeleopPeriodic()
   {
     m_intakeStateMgr->RunCurrentState();
   }
+
 }
 
 void Robot::DisabledInit() 

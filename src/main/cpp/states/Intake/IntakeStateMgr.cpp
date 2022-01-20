@@ -42,9 +42,9 @@ IntakeStateMgr* IntakeStateMgr::GetInstance()
 IntakeStateMgr::IntakeStateMgr()
 {
     map<string, StateStruc> stateMap;
-    //stateMap["INTAKEOFF"] = m_offState;
-    stateMap["INTAKEON"] = m_intakeState;
-   // stateMap["INTAKEEXPEL"] = m_expelState;
+    stateMap["INTAKEOFF"] = m_offState;
+    stateMap["INTAKEON"]  = m_intakeState;
+    stateMap["INTAKEEXPEL"] = m_expelState;
 
     Init(MechanismFactory::GetMechanismFactory()->GetIntake(), stateMap);
 }   
@@ -54,6 +54,7 @@ IntakeStateMgr::IntakeStateMgr()
 /// @return void
 void IntakeStateMgr::CheckForStateTransition()
 {
+    /**
     if ( MechanismFactory::GetMechanismFactory()->GetIntake() != nullptr )
     {
         // process teleop/manual interrupts
@@ -68,17 +69,18 @@ void IntakeStateMgr::CheckForStateTransition()
             {
                 SetCurrentState( INTAKE_STATE::INTAKE, false );
             }
-            /*else if (expelPressed && currentState != INTAKE_STATE::EXPEL )
-            {
-                SetCurrentState( INTAKE_STATE::EXPEL, false );
-            }           
-            else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF )
-            {
-                SetCurrentState( INTAKE_STATE::OFF, false );
-            }
-            */
+            //else if (expelPressed && currentState != INTAKE_STATE::EXPEL )
+            //{
+            //    SetCurrentState( INTAKE_STATE::EXPEL, false );
+            //}           
+            //else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF )
+            //{
+            //    SetCurrentState( INTAKE_STATE::OFF, false );
+            //}
+            
         }
         
     }
+    **/
     
 }

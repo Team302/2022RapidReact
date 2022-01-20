@@ -42,7 +42,7 @@ MotorControllerUsage::MotorControllerUsage()
 {
     m_usageMap["SWERVE_DRIVE"]  = MOTOR_CONTROLLER_USAGE::SWERVE_DRIVE;
     m_usageMap["SWERVE_TURN"]   = MOTOR_CONTROLLER_USAGE::SWERVE_TURN;
-    m_usageMap["INTAKE"]   = MOTOR_CONTROLLER_USAGE::INTAKE;
+    m_usageMap["INTAKE"]        = MOTOR_CONTROLLER_USAGE::INTAKE;
 }
 
 MotorControllerUsage::~MotorControllerUsage()

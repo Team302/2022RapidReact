@@ -69,7 +69,7 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 	return MechanismFactory::m_mechanismFactory;
 }
 
-MechanismFactory::MechanismFactory()
+MechanismFactory::MechanismFactory() : m_intake(nullptr)
 {
 }
 
@@ -104,7 +104,7 @@ void MechanismFactory::CreateIMechanism
 				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE );
 				if ( motor.get() != nullptr )
 				{
-					m_intake = new Intake(motor);
+					m_intake = new Intake(controlFileName, networkTableName, motor);
 				}
 				else
 				{

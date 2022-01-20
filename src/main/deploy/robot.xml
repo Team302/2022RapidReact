@@ -292,8 +292,7 @@
 
     <mechanism type="INTAKE"
                networkTable="IntakeNT"
-               controlFile="intake.xml"
->
+               controlFile="intake.xml">
        <motor usage="INTAKE"
               canId="0"
               pdpID="0"

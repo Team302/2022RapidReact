@@ -2,6 +2,7 @@
 
 // C++ Includes
 #include <memory>
+#include <string>
 
 // FRC includes
 
@@ -18,6 +19,8 @@ class Intake : public Mech1IndMotor
 
         Intake
         (
+            std::string                             controlFileName,
+            std::string                             ntName,
             std::shared_ptr<IDragonMotorController> motor1
         );
 

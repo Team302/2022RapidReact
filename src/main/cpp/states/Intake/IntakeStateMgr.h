@@ -19,10 +19,10 @@ class IntakeStateMgr : public StateMgr
         /// @enum the various states of the Intake
         enum INTAKE_STATE
         {
-           // OFF,
+            OFF,
             INTAKE,
-           // EXPEL,
-           // MAX_INTAKE_STATES
+            EXPEL,
+            MAX_INTAKE_STATES
         };
 
         
@@ -38,7 +38,7 @@ class IntakeStateMgr : public StateMgr
 
 		static IntakeStateMgr*	m_instance;
 
-      //  const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::INTAKE, true};
+        const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::INTAKE, true};
         const StateStruc  m_intakeState = {INTAKE_STATE::INTAKE, StateType::INTAKE, false};
-      //  const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::INTAKE, false};
+        const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::INTAKE, false};
 };
