@@ -1,10 +1,435 @@
-See file:///C:/Users/joewi/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
-compiling CameraDefn.cpp successful.
+See file:///home/fishy/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
+compiling AutonSelector.cpp failed.
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/AutonSelector.cpp:25:10: fatal error: frc/SmartDashboard/SendableChooser.h: No such file or directory
+ #include <frc/SmartDashboard/SendableChooser.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling CyclePrimitives.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/CyclePrimitives.cpp:30:0:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/AutonSelector.h:21:10: fatal error: frc/SmartDashboard/SendableChooser.h: No such file or directory
+ #include <frc/SmartDashboard/SendableChooser.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling PrimitiveParser.cpp failed.
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/PrimitiveParser.cpp:26:10: fatal error: frc/SmartDashboard/SmartDashboard.h: No such file or directory
+ #include <frc/SmartDashboard/SmartDashboard.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Robot.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/Robot.h:11:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/Robot.cpp:5:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/gamepad/TeleopControl.h:25:10: fatal error: frc/Driverstation.h: No such file or directory
+ #include <frc/Driverstation.h>
+          ^~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling PrimitiveParams.cpp successful.
+
+compiling DriveDistance.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/ChassisFactory.h:17,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/primitives/DriveDistance.cpp:28:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DrivePath.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/ChassisFactory.h:17,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/primitives/DrivePath.h:39,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/primitives/DrivePath.cpp:28:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling FieldMeasurement.cpp successful.
+
+compiling DriveToWall.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/ChassisFactory.h:17,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/primitives/DriveToWall.cpp:44:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling SuperDrive.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/primitives/SuperDrive.cpp:31:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling HoldPosition.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/ChassisFactory.h:17,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/primitives/HoldPosition.cpp:29:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ResetPosition.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/ChassisFactory.h:17,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/primitives/ResetPosition.cpp:26:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling TurnAngle.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/primitives/TurnAngle.h:26:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/primitives/TurnAngle.cpp:28:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ControlData.cpp successful.
+
+compiling FunctionMap.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/gamepad/FunctionMap.cpp:24:0:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/gamepad/TeleopControl.h:25:10: fatal error: frc/Driverstation.h: No such file or directory
+ #include <frc/Driverstation.h>
+          ^~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling TeleopControl.cpp failed.
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/gamepad/TeleopControl.cpp:29:10: fatal error: gamepad/DragonGamePad.h: No such file or directory
+ #include <gamepad/DragonGamePad.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonXBox.cpp successful.
+
+compiling MechanismTargetData.cpp successful.
+
+compiling FieldDefn.cpp successful.
+
+compiling DeadbandValue.cpp successful.
+
+compiling CubedProfile.cpp successful.
+
+compiling LinearProfile.cpp successful.
+
+compiling FlippedAxis.cpp successful.
+
+compiling PiecewiseLinearProfile.cpp successful.
+
+compiling NoDeadbandValue.cpp successful.
+
+compiling SquaredProfile.cpp successful.
+
+compiling DragonGamepad.cpp successful.
+
+compiling ButtonDecorator.cpp successful.
+
+compiling ScaledDeadbandValue.cpp successful.
+
+compiling DebouncedButton.cpp successful.
+
+compiling DriveTime.cpp successful.
+
+compiling ToggleButton.cpp successful.
+
+compiling ScaledAxis.cpp successful.
+
+compiling AnalogAxis.cpp successful.
+
+compiling POVButton.cpp successful.
+
+compiling DriveToTarget.cpp successful.
+
+compiling DragonPigeon.cpp failed.
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.cpp:17:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonPDP.cpp successful.
+
+compiling DragonDigitalInput.cpp successful.
+
+compiling AnalogButton.cpp successful.
+
+compiling DragonServo.cpp successful.
+
+compiling DigitalButton.cpp successful.
+
+compiling DragonMotorControllerFactory.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/DragonMotorControllerFactory.cpp:5:0:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/DragonMotorControllerFactory.h:41:10: fatal error: ctre/phoenix/MotorControl/FeedbackDevice.h: No such file or directory
+ #include <ctre/phoenix/MotorControl/FeedbackDevice.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DigitalInputFactory.cpp successful.
+
+compiling DragonLimelight.cpp successful.
 
 compiling DragonVision.cpp successful.
 
-compiling PrimitiveFactory.cpp successful.
+compiling PigeonFactory.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.cpp:32:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling ResetPosition.cpp successful.
+compiling PDPFactory.cpp successful.
 
-Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/joewi/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.
+compiling DigitalInputUsage.cpp successful.
+
+compiling DragonFalcon.cpp successful.
+
+compiling DragonServoFactory.cpp successful.
+
+compiling Mech1MotorState.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/states/Mech1MotorState.cpp:30:0:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/gamepad/TeleopControl.h:25:10: fatal error: frc/Driverstation.h: No such file or directory
+ #include <frc/Driverstation.h>
+          ^~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech2MotorState.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/states/Mech2MotorState.cpp:30:0:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/gamepad/TeleopControl.h:25:10: fatal error: frc/Driverstation.h: No such file or directory
+ #include <frc/Driverstation.h>
+          ^~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ServoUsage.cpp successful.
+
+compiling DragonSolenoid.cpp successful.
+
+compiling MotorControllerUsage.cpp successful.
+
+compiling SolenoidUsage.cpp successful.
+
+compiling MechSolenoidState.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/states/MechSolenoidState.cpp:28:0:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/gamepad/TeleopControl.h:25:10: fatal error: frc/Driverstation.h: No such file or directory
+ #include <frc/Driverstation.h>
+          ^~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling SwerveDrive.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/states/chassis/SwerveDrive.h:24,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/states/chassis/SwerveDrive.cpp:25:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonTalon.cpp successful.
+
+compiling LimelightFactory.cpp successful.
+
+compiling ChassisFactory.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/ChassisFactory.h:17,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/ChassisFactory.cpp:11:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling StateMgr.cpp successful.
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/states/StateMgr.cpp: In member function 'void StateMgr::Init(IMech*, const std::map<std::__cxx11::basic_string<char>, StateStruc>&)':
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/states/StateMgr.cpp:74:22: warning: unused variable 'controlData' [-Wunused-variable]
+                 auto controlData = td->GetController();
+                      ^~~~~~~~~~~
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/states/StateMgr.cpp:75:22: warning: unused variable 'target' [-Wunused-variable]
+                 auto target = td->GetTarget();
+                      ^~~~~~
+
+compiling Mech.cpp successful.
+
+compiling Mech1IndMotor.cpp successful.
+
+compiling SwerveChassis.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.cpp:32:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling EtherDirtySwerve.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveHelpers/EtherDirtySwerve.cpp:29:0:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech1Servo.cpp successful.
+
+compiling EtherFieldSwerve.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveHelpers/EtherFieldSwerve.cpp:29:0:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech2IndMotors.cpp successful.
+
+compiling StationaryClimber.cpp failed.
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/StationaryClimber.cpp:21:10: fatal error: IDragonMotorController.h: No such file or directory
+ #include <IDragonMotorController.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling WPIDirtySwerve.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveHelpers/WPIDirtySwerve.cpp:29:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling WPIFieldSwerve.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveHelpers/WPIFieldSwerve.cpp:29:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Logger.cpp failed.
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/utils/Logger.cpp:34:10: fatal error: frc/SmartDashboard/SmartDashboard.h: No such file or directory
+ #include <frc/SmartDashboard/SmartDashboard.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling SwerveModule.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveModule.cpp:37:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech1Solenoid.cpp successful.
+
+compiling ChassisDefn.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/ChassisFactory.h:17,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/xmlhw/ChassisDefn.cpp:39:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DigitalInputDefn.cpp failed.
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/xmlhw/DigitalInputDefn.cpp:20:10: fatal error: frc/SmartDashboard/SmartDashboard.h: No such file or directory
+ #include <frc/SmartDashboard/SmartDashboard.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling MechanismFactory.cpp successful.
+
+compiling MechanismDefn.cpp failed.
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/xmlhw/MechanismDefn.cpp:29:10: fatal error: frc/SmartDashboard/SmartDashboard.h: No such file or directory
+ #include <frc/SmartDashboard/SmartDashboard.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling MotorDefn.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/xmlhw/MotorDefn.cpp:32:0:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/DragonMotorControllerFactory.h:41:10: fatal error: ctre/phoenix/MotorControl/FeedbackDevice.h: No such file or directory
+ #include <ctre/phoenix/MotorControl/FeedbackDevice.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling HardwareIDValidation.cpp successful.
+
+compiling UsageValidation.cpp successful.
+
+compiling PigeonDefn.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/xmlhw/PigeonDefn.cpp:15:0:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/xmlhw/PigeonDefn.h:23:10: fatal error: frc/SmartDashboard/SmartDashboard.h: No such file or directory
+ #include <frc/SmartDashboard/SmartDashboard.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling CameraDefn.cpp successful.
+
+compiling RobotDefn.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/xmlhw/RobotDefn.cpp:47:0:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/xmlhw/PigeonDefn.h:23:10: fatal error: frc/SmartDashboard/SmartDashboard.h: No such file or directory
+ #include <frc/SmartDashboard/SmartDashboard.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling CanCoderDefn.cpp successful.
+
+compiling AngleUtils.cpp successful.
+
+compiling SwerveModuleDefn.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/ChassisFactory.h:17,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/xmlhw/SwerveModuleDefn.cpp:35:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling LimelightDefn.cpp successful.
+
+compiling ControlDataDefn.cpp successful.
+
+compiling PCMDefn.cpp successful.
+
+compiling ServoDefn.cpp successful.
+
+compiling SolenoidDefn.cpp successful.
+
+compiling PDPDefn.cpp successful.
+
+compiling ThroughBoreEncoderDefn.cpp successful.
+
+compiling MechanismTargetDefn.cpp successful.
+
+compiling PrimitiveFactory.cpp failed.
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/PrimitiveFactory.cpp:9:10: fatal error: frc/SmartDashboard/SmartDashboard.h: No such file or directory
+ #include <frc/SmartDashboard/SmartDashboard.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling StateDataDefn.cpp successful.
+
+compiling pugixml.cpp successful.
+
+compiling DoNothing.cpp failed.
+In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/factories/PigeonFactory.h:24:0,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/SwerveChassis.h:40,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/subsys/ChassisFactory.h:17,
+                 from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/auton/primitives/DoNothing.cpp:30:
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/hw/DragonPigeon.h:19:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+ #include <ctre/phoenix/Sensors/PigeonIMU.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///home/fishy/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.

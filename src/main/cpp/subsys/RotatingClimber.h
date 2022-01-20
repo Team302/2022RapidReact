@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
@@ -16,27 +15,27 @@
 
 #pragma once
 
-//========================================================================================================
-///	 @class			MechanismTypes
-///  @brief      	This contains the enum for the mechanism types
-//========================================================================================================
-class MechanismTypes
-{
-	public:
+// C++ Includes
+#include <memory>
 
-        //==================================================================================
-        /// enum:           MECHANISM_TYPE
-        /// description:    Indicates the type of mechanism
-        //==================================================================================
-        enum MECHANISM_TYPE
-        {
-            UNKNOWN_MECHANISM = -1,
-            INTAKE,
-            BALL_TRANSFER,
-            ARM,
-            BALL_RELEASE,
-            STATIONARY_CLIMBER,
-            ROTATING_CLIMBER,           
-            MAX_MECHANISM_TYPES
-        };
+// FRC includes
+
+// Team 302 includes
+#include <subsys/Mech1Solenoid.h>
+
+// Third Party Includes
+
+class DragonSolenoid;
+
+class RotatingClimber : public Mech1Solenoid
+{
+    public:
+
+        RotatingClimber
+        (
+            std::shared_ptr<DragonSolenoid> solenoid
+        );
+
+        RotatingClimber() = delete;
+        virtual ~RotatingClimber() = default;
 };
