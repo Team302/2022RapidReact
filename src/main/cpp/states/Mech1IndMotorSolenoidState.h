@@ -14,66 +14,40 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-// C++ Includes
+#pragma once
+
 #include <memory>
 
-// FRC includes
-
-// Team 302 includes
 #include <states/IState.h>
+#include <controllers/ControlData.h>
+#include <controllers/MechanismTargetData.h>
+#include <states/Mech1MotorState.h>
 #include <states/MechSolenoidState.h>
-#include <subsys/interfaces/IMech1Solenoid.h>
-#include <utils/Logger.h>
+#include <subsys/interfaces/IMech1IndMotorSolenoid.h>
 
-#include <gamepad/TeleopControl.h>
-
-// Third Party Includes
-
-using namespace std;
-
-/// @class MechSolenoidState
-/// @brief information about the control (open loop, closed loop position, closed loop velocity, etc.) for a mechanism state
-MechSolenoidState::MechSolenoidState
-(
-    IMech1Solenoid*                 mechanism,
-    MechanismTargetData::SOLENOID   solState
-) : IState(),
-    m_mechanism( mechanism ),
-    m_solenoidState( solState )
+class Mech1IndMotorSolenoidState : public IState
 {
-    if ( mechanism == nullptr )
-    {
-        Logger::GetLogger()->LogError( string("MechSolenoidState::MechSolenoidState"), string("no mechanism"));
-    }    
-}
+    public:
 
-void MechSolenoidState::Init()
-{
-}
+        Mech1IndMotorSolenoidState
+        (
+            IMech1IndMotorSolenoid*         mechanism,
+            ControlData*                    control,
+            double                          target,
+            MechanismTargetData::SOLENOID   solState
+        );
+        Mech1IndMotorSolenoidState() = delete;
+        ~Mech1IndMotorSolenoidState() = default;
 
+        void Init() override;
+        void Run() override;
+        bool AtTarget() const override;
 
-void MechSolenoidState::Run()           
-{
-    if ( m_mechanism != nullptr )
-    {
-        switch ( m_solenoidState )
-        {
-            case MechanismTargetData::SOLENOID::REVERSE:
-                m_mechanism->ActivateSolenoid( false );
-                break;
-            
-            case MechanismTargetData::SOLENOID::ON:
-                m_mechanism->ActivateSolenoid( true );
-                break;
+        double GetTarget() const;
+        double GetRPS() const;
 
-            default:
-                break;
-        }   
-    }
-}
-
-bool MechSolenoidState::AtTarget() const
-{
-    return true;
-}
-
+    private:
+        IMech1IndMotorSolenoid*                 m_mechanism;
+        std::shared_ptr<Mech1MotorState>        m_motorState;
+        std::shared_ptr<MechSolenoidState>      m_solenoidState;
+};

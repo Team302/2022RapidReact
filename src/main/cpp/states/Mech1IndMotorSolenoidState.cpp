@@ -21,8 +21,10 @@
 
 // Team 302 includes
 #include <states/IState.h>
-#include <states/MechSolenoidState.h>
-#include <subsys/interfaces/IMech1Solenoid.h>
+#include <states/Mech1IndMotorSolenoidState.h>
+#include <controllers/ControlData.h>
+#include <controllers/MechanismTargetData.h>
+#include <subsys/interfaces/IMech1IndMotorSolenoid.h>
 #include <utils/Logger.h>
 
 #include <gamepad/TeleopControl.h>
@@ -31,49 +33,57 @@
 
 using namespace std;
 
-/// @class MechSolenoidState
+/// @class Mech1IndMotorSolenoidState
 /// @brief information about the control (open loop, closed loop position, closed loop velocity, etc.) for a mechanism state
-MechSolenoidState::MechSolenoidState
+Mech1IndMotorSolenoidState::Mech1IndMotorSolenoidState
 (
-    IMech1Solenoid*                 mechanism,
+    IMech1IndMotorSolenoid*         mechanism,
+    ControlData*                    control,
+    double                          target,
     MechanismTargetData::SOLENOID   solState
+
 ) : IState(),
     m_mechanism( mechanism ),
-    m_solenoidState( solState )
+    m_motorState(make_shared<Mech1MotorState>(mechanism->Get1IndMotorMech(), control, target)),
+    m_solenoidState(make_shared<MechSolenoidState>(mechanism->GetSolenoidMech(), solState))
 {
+    if ( control == nullptr )
+    {
+        Logger::GetLogger()->LogError( string("Mech1IndMotorSolenoidState::Mech1IndMotorSolenoidState"), string("no control data"));
+    }
+
     if ( mechanism == nullptr )
     {
-        Logger::GetLogger()->LogError( string("MechSolenoidState::MechSolenoidState"), string("no mechanism"));
+        Logger::GetLogger()->LogError( string("Mech1IndMotorSolenoidState::Mech1IndMotorSolenoidState"), string("no mechanism"));
     }    
 }
 
-void MechSolenoidState::Init()
+void Mech1IndMotorSolenoidState::Init()
 {
+    m_motorState.get()->Init();
+    m_solenoidState.get()->Init();
 }
 
 
-void MechSolenoidState::Run()           
+void Mech1IndMotorSolenoidState::Run()           
 {
-    if ( m_mechanism != nullptr )
-    {
-        switch ( m_solenoidState )
-        {
-            case MechanismTargetData::SOLENOID::REVERSE:
-                m_mechanism->ActivateSolenoid( false );
-                break;
-            
-            case MechanismTargetData::SOLENOID::ON:
-                m_mechanism->ActivateSolenoid( true );
-                break;
+    m_motorState.get()->Run();
+    m_solenoidState.get()->Run();
 
-            default:
-                break;
-        }   
-    }
 }
 
-bool MechSolenoidState::AtTarget() const
+bool Mech1IndMotorSolenoidState::AtTarget() const
 {
-    return true;
+    return m_motorState.get()->AtTarget();
+}
+
+double Mech1IndMotorSolenoidState::GetTarget() const
+{
+    return m_motorState.get()->GetTarget();
+}
+
+double Mech1IndMotorSolenoidState::GetRPS() const
+{
+    return m_motorState.get()->GetRPS();
 }
 

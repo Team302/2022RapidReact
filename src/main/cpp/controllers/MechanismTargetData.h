@@ -26,7 +26,7 @@ class MechanismTargetData
         {
             NONE,
             ON,
-            OFF
+            REVERSE
         };
         /// @brief      Create the ControlData object that is used to control mechanisms
         /// @param [in] state - State indentifier
@@ -42,8 +42,8 @@ class MechanismTargetData
             std::string                                 controller,
             std::string                                 controller2,
             double                                      target,
-            SOLENOID                                    solenoid,
-            double                                      secondTarget
+            double                                      secondTarget,
+            SOLENOID                                    solenoid
         );
         MechanismTargetData() = delete;
 
