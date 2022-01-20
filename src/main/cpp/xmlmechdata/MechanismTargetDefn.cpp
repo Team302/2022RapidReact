@@ -47,7 +47,9 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
 
     string stateName;
     string controllerIdentifier;
+    string controllerIdentifier2;
     double target = 0.0;
+    double secondTarget = 0.0;
     MechanismTargetData::SOLENOID solenoid = MechanismTargetData::SOLENOID::NONE; 
     string controllerIdentifier2;
     double secondTarget = 0.0;
@@ -63,9 +65,17 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
         {
             controllerIdentifier = string( attr.value() );
         }
+        else if ( strcmp( attr.name(), "controlDataIdentifier2" ) == 0 )
+        {
+            controllerIdentifier2 = string( attr.value() );
+        }
         else if ( strcmp( attr.name(), "value") == 0 )
         {
             target = attr.as_double();
+        }
+        else if ( strcmp( attr.name(), "secondValue") == 0 )
+        {
+            secondTarget = attr.as_double();
         }
         else if( strcmp( attr.name(), "solenoid" ) == 0 )
         {
@@ -94,7 +104,6 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
         else if ( strcmp( attr.name(), "secondValue") == 0 )
         {
             secondTarget = attr.as_double();
-        }
         else
         {
             string msg = "unknown attribute ";
@@ -106,7 +115,12 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
 
     if ( !hasError && !stateName.empty() && !controllerIdentifier.empty() )
     {
-        mechData = new MechanismTargetData( stateName, controllerIdentifier, controllerIdentifier2, target, secondTarget, solenoid );
+        mechData = new MechanismTargetData( stateName, 
+                                            controllerIdentifier, 
+                                            controllerIdentifier2, 
+                                            target, 
+                                            secondTarget,
+                                            solenoid );
     }
     else
     {
