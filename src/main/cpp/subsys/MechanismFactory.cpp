@@ -163,12 +163,10 @@ IMech* MechanismFactory::GetMechanism
 	MechanismTypes::MECHANISM_TYPE	type
 ) const
 {
-	/**
-	if (type == MechanismTypes::MECHANISM_TYPE::ARM)
+	if (type == MechanismTypes::MECHANISM_TYPE::INTAKE)
 	{
-		return GetArm();
+		return GetIntake();
 	}
-	**/
 	return nullptr;
 }
 

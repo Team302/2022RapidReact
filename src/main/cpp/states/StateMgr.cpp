@@ -16,13 +16,11 @@
 // C++ Includes
 #include <map>
 #include <memory>
+#include <string>
 #include <vector>
-#include <iostream>
 
 // FRC includes
-#include <networktables/NetworkTableInstance.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
+
 
 // Team 302 includes
 #include <controllers/MechanismTargetData.h>
@@ -60,6 +58,8 @@ void StateMgr::Init
     auto stateXML = make_unique<StateDataDefn>();
     vector<MechanismTargetData*> targetData = stateXML.get()->ParseXML(mech->GetType());
 
+    Logger::GetLogger()->ToNtTable(string("StateMgr"), string("vector size"), to_string(targetData.size()));
+    Logger::GetLogger()->ToNtTable(string("StateMgr"), string("map size"), to_string(stateMap.size()));
     // initialize the xml string to state map
     m_stateVector.resize(stateMap.size());
     // create the states passing the configuration data
@@ -67,15 +67,14 @@ void StateMgr::Init
     {
         auto stateString = td->GetStateString();
 
-        cout << string("state string: ") << stateString << endl;
+        Logger::GetLogger()->ToNtTable(string("StateMgr"), string("state string"), stateString);
 
         auto stateStringToStrucItr = stateMap.find( stateString );
         if ( stateStringToStrucItr != stateMap.end() )
         {
-            cout << string("found") << endl;
             auto struc = stateStringToStrucItr->second;
             auto slot = struc.id;
-            cout << string("slot: ") << to_string(slot) << endl;
+            Logger::GetLogger()->ToNtTable(string("StateMgr"), string("slot"), to_string(slot));
             if ( m_stateVector[slot] == nullptr )
             {
                 auto controlData = td->GetController();
