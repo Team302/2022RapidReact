@@ -14,6 +14,8 @@
 #include <states/intake/IntakeStateMgr.h>
 #include <subsys/Intake.h>
 #include <auton/CyclePrimitives.h>
+#include <states/ShooterStateMgr.h>
+#include <subsys/Shooter.h>
 #include <states/chassis/SwerveDrive.h>
 
 
@@ -42,4 +44,6 @@ class Robot : public frc::TimedRobot
   IntakeStateMgr*       m_intakeStateMgr;
 
   Intake*               m_intake;
+  ShooterStateMgr*      m_shooterStateMgr;
+  Shooter*              m_shooter;
 };

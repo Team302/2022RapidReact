@@ -67,9 +67,11 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 		MechanismFactory::m_mechanismFactory = new MechanismFactory();
 	}
 	return MechanismFactory::m_mechanismFactory;
+
 }
 
-MechanismFactory::MechanismFactory() : m_intake(nullptr)
+MechanismFactory::MechanismFactory() : m_intake(nullptr),
+ 				       m_shooter(nullptr)
 {
 }
 
@@ -117,7 +119,22 @@ void MechanismFactory::CreateIMechanism
 			}
 		}
 		break;
-		
+		case MechanismTypes::MECHANISM_TYPE::SHOOTER:
+		{
+			if (m_shooter == nullptr)
+			{
+				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER);
+				if ( motor.get() != nullptr )
+				{
+					m_shooter = new Shooter(networkTableName, controlFileName, motor);
+				}
+				else
+				{
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No Shooter motor exists in XML"));
+				}
+			}
+		}
+		break;		
 		default:
 		{
 			string msg = "unknown Mechanism type ";
@@ -167,8 +184,13 @@ IMech* MechanismFactory::GetMechanism
 	{
 		return GetIntake();
 	}
+	else if (type == MechanismTypes::MECHANISM_TYPE::SHOOTER)
+	{
+		return GetShooter();
+	}
 	return nullptr;
 }
+
 
 
 shared_ptr<DragonSolenoid> MechanismFactory::GetSolenoid
@@ -226,6 +248,10 @@ DragonServo* MechanismFactory::GetServo
 	return servo;
 
 }
+Shooter* MechanismFactory::GetShooter () const
+{
+	return m_shooter;
+}
 shared_ptr<DragonDigitalInput> MechanismFactory::GetDigitalInput
 (
 	const DigitalInputMap&							digitaInputs,
@@ -253,6 +279,7 @@ shared_ptr<DragonDigitalInput> MechanismFactory::GetDigitalInput
 	}
 	return dio;
 }
+	
 /**
 shared_ptr<DragonAnalogInput> MechanismFactory::GetAnalogInput
 (

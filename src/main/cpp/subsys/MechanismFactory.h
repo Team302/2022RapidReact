@@ -40,6 +40,7 @@
 #include <hw/usages/DragonSolenoidMap.h>
 #include <subsys/interfaces/IMech.h>
 #include <subsys/Intake.h>
+#include <subsys/Shooter.h>
 
 // Third Party Includes
 
@@ -92,7 +93,11 @@ class MechanismFactory
 		(
 			MechanismTypes::MECHANISM_TYPE	type
 		) const;
-
+		
+	Shooter* GetShooter
+		(
+			
+		)const;
 	private:
 		std::shared_ptr<IDragonMotorController> GetMotorController
 		(
@@ -114,6 +119,7 @@ class MechanismFactory
 			const DigitalInputMap&							digitaInputs,
 			DigitalInputUsage::DIGITAL_SENSOR_USAGE			usage
 		);
+		
 		/**
 		std::shared_ptr<DragonAnalogInput> GetAnalogInput
 		(
@@ -129,5 +135,7 @@ class MechanismFactory
 
 		Intake* m_intake;
 		
+
+		Shooter* m_shooter;
 
 };
