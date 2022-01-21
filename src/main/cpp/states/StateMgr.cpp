@@ -31,6 +31,7 @@
 #include <subsys/interfaces/IMech.h>
 #include <utils/Logger.h>
 #include <xmlmechdata/StateDataDefn.h>
+#include <states/ShooterState.h>
 
 
 // Third Party Includes
@@ -77,9 +78,9 @@ void StateMgr::Init
                 IState* thisState = nullptr;
                 switch (type)
                 {
-                    //case StateType::INTAKE:
-                    //    thisState = new IntakeState(controlData, target);
-                    //    break;
+                    case StateType::SHOOTER:
+                       thisState = new ShooterState(controlData, target);
+                       break;
                     default:
                     {
                         Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));

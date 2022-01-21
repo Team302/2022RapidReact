@@ -20,6 +20,8 @@
 #include <subsys/MechanismFactory.h>
 #include <auton/CyclePrimitives.h>
 
+#include <states/ShooterStateMgr.h>
+
 void Robot::RobotInit() 
 {
   // Read the XML file to build the robot 
@@ -94,6 +96,8 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
+m_shooterStateMgr = ShooterStateMgr::GetInstance();
+m_shooterStateMgr->SetCurrentState(m_shooterStateMgr->ON,true);
   if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
   {
     m_swerve->Init();
@@ -102,6 +106,7 @@ void Robot::TeleopInit()
 
 void Robot::TeleopPeriodic() 
 {
+  m_shooterStateMgr->RunCurrentState();
   if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
   {
     m_swerve->Run();

@@ -34,7 +34,8 @@ class MechanismTypes
             INTAKE,
             BALL_TRANSFER,
             ARM,
-            BALL_RELEASE,           
+            BALL_RELEASE,      
+            SHOOTER,     
             MAX_MECHANISM_TYPES
         };
 };

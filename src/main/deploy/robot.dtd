@@ -153,7 +153,7 @@
 <!-- ========================================================================================================================================== -->
 <!ELEMENT mechanism (motor*, solenoid*, servo*, analogInput*, digitalInput*, cancoder*, colorsensor?)>
 <!ATTLIST mechanism
-          type              ( INTAKE | BALL_TRANSFER | ARM | BALLRELEASE ) "INTAKE"
+          type              ( INTAKE | BALL_TRANSFER | ARM | BALLRELEASE | SHOOTER ) "INTAKE"
           networkTable      CDATA #IMPLIED
           controlFile       CDATA #IMPLIED
 >

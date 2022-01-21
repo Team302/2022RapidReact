@@ -1,6 +1,5 @@
-
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302
+// Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -14,54 +13,25 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
-
 // C++ Includes
-#include <map>
 #include <memory>
 #include <string>
 
 // FRC includes
 
 // Team 302 includes
+#include <subsys/Shooter.h>
+#include <subsys/Mech1IndMotor.h>
+#include <hw/interfaces/IDragonMotorController.h>
 
 // Third Party Includes
+using namespace std;
 
-
-
-class MotorControllerUsage
+Shooter::Shooter
+(
+    string                             networkTableName,
+	string                             controlFileName,
+    shared_ptr<IDragonMotorController> shooterMotor
+) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::SHOOTER,  controlFileName, networkTableName, shooterMotor)
 {
-
-    public:
-
-        /// @enum MOTOR_CONTROLLER_USAGE
-        /// @brief Defines motor usages.  This should be modified for each robot.
-        enum MOTOR_CONTROLLER_USAGE
-        {
-            UNKNOWN_MOTOR_CONTROLLER_USAGE = -1,
-            SWERVE_DRIVE,
-            SWERVE_TURN,
-            SHOOTER,
-            MAX_MOTOR_CONTROLLER_USAGES
-        };
-
-
-        static MotorControllerUsage* GetInstance();
-
-        MOTOR_CONTROLLER_USAGE GetUsage
-        ( 
-            std::string         usageString
-        );
-
-
-    private:
-        static MotorControllerUsage*    m_instance;
-        MotorControllerUsage();
-        ~MotorControllerUsage();
-        
-		std::map <std::string, MOTOR_CONTROLLER_USAGE> m_usageMap;
-
-};
-
-
-
+}

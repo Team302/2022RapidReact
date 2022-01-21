@@ -67,9 +67,10 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 		MechanismFactory::m_mechanismFactory = new MechanismFactory();
 	}
 	return MechanismFactory::m_mechanismFactory;
+
 }
 
-MechanismFactory::MechanismFactory()
+MechanismFactory::MechanismFactory() : m_shooter(nullptr)
 {
 }
 
@@ -96,28 +97,28 @@ void MechanismFactory::CreateIMechanism
 	// Create the mechanism
 	switch ( type )
 	{
-		/**
-		case MechanismTypes::MECHANISM_TYPE::INTAKE:
+	
+		case MechanismTypes::MECHANISM_TYPE::SHOOTER:
 		{
-			if (m_intake == nullptr)
+			if (m_shooter == nullptr)
 			{
-				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE );
+				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER);
 				if ( motor.get() != nullptr )
 				{
-					m_intake = new Intake(networkTableName, controlFileName, motor);
+					m_shooter = new Shooter(networkTableName, controlFileName, motor);
 				}
 				else
 				{
-					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No intake motor exists in XML"));
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No Shooter motor exists in XML"));
 				}
 			}
 			else
 			{
-				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Intake already exists") );
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Shooter already exists") );
 			}
 		}
 		break;
-		**/
+		
 		default:
 		{
 			string msg = "unknown Mechanism type ";
@@ -162,12 +163,12 @@ IMech* MechanismFactory::GetMechanism
 	MechanismTypes::MECHANISM_TYPE	type
 ) const
 {
-	/**
-	if (type == MechanismTypes::MECHANISM_TYPE::ARM)
+	
+	if (type == MechanismTypes::MECHANISM_TYPE::SHOOTER)
 	{
-		return GetArm();
+		return GetShooter();
 	}
-	**/
+	
 	return nullptr;
 }
 
@@ -227,6 +228,10 @@ DragonServo* MechanismFactory::GetServo
 	return servo;
 
 }
+Shooter* MechanismFactory::GetShooter () const
+	{
+		return m_shooter;
+	}
 shared_ptr<DragonDigitalInput> MechanismFactory::GetDigitalInput
 (
 	const DigitalInputMap&							digitaInputs,
@@ -254,6 +259,7 @@ shared_ptr<DragonDigitalInput> MechanismFactory::GetDigitalInput
 	}
 	return dio;
 }
+	
 /**
 shared_ptr<DragonAnalogInput> MechanismFactory::GetAnalogInput
 (

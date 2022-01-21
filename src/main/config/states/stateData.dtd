@@ -21,6 +21,7 @@
                                           BALLTRANSFEROFF | BALLTRANSFERINTAKE | BALLTRANSFEREXPEL |
                                           ARMUP | ARMDOWN | ARMHOLDUP | ARMHOLDDOWN | ARMHOLDPOSITION |
                                           BALLRELEASEHOLD | BALLRELEASEOPEN |
+                                          SHOOTERON | SHOOTEROFF |
                                           UNKNOWN ) "UNKNOWN"
           controlDataIdentifier         CDATA #REQUIRED
           controlDataIdentifier2        CDATA #IMPLIED

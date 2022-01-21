@@ -42,6 +42,7 @@ MotorControllerUsage::MotorControllerUsage()
 {
     m_usageMap["SWERVE_DRIVE"]  = MOTOR_CONTROLLER_USAGE::SWERVE_DRIVE;
     m_usageMap["SWERVE_TURN"]   = MOTOR_CONTROLLER_USAGE::SWERVE_TURN;
+    m_usageMap["SHOOTER"] = MOTOR_CONTROLLER_USAGE::SHOOTER;
 }
 
 MotorControllerUsage::~MotorControllerUsage()

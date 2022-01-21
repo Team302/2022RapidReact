@@ -100,6 +100,10 @@ void MechanismDefn::ParseXML
             {
                 type = MechanismTypes::MECHANISM_TYPE::BALL_RELEASE;
             }
+            else if (typeStr.compare("SHOOTER") == 0)
+            {
+                type = MechanismTypes::MECHANISM_TYPE::SHOOTER;
+            }
             else
             {
                     string msg = "unknown Mechanism type ";
