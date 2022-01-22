@@ -40,6 +40,11 @@ class SolenoidUsage
         enum SOLENOID_USAGE
         {
             UNKNOWN_SOLENOID_USAGE = -1,
+            INTAKE,
+            INTAKE2,
+            BALL_TRANSFER,
+            SHOOTER_HOOD,
+            CLIMBER,
             MAX_SOLENOID_USAGES
         };
 

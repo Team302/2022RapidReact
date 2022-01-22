@@ -41,9 +41,18 @@ class MotorControllerUsage
             UNKNOWN_MOTOR_CONTROLLER_USAGE = -1,
             SWERVE_DRIVE,
             SWERVE_TURN,
+            DIFFERENTIAL_LEFT_MAIN, 
+            DIFFERENTIAL_LEFT_FOLLOWER, 
+            DIFFERENTIAL_RIGHT_MAIN, 
+            DIFFERENTIAL_RIGHT_FOLLOWER, 
+            INTAKE,
+            INTAKE2,
+            BALL_TRANSFER_SPIN,
+            BALL_TRANSFER_LIFT,
+            SHOOTER,
+            CLIMBER,
             MAX_MOTOR_CONTROLLER_USAGES
         };
-
 
         static MotorControllerUsage* GetInstance();
 

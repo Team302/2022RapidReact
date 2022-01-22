@@ -40,7 +40,11 @@ SolenoidUsage* SolenoidUsage::GetInstance()
 
 SolenoidUsage::SolenoidUsage()
 {
-   // m_usageMap["INTAKE"] = SOLENOID_USAGE::INTAKE;
+    m_usageMap["INTAKE"] = SOLENOID_USAGE::INTAKE;
+    m_usageMap["INTAKE2"] = SOLENOID_USAGE::INTAKE2;
+    m_usageMap["BALL_TRANSFER"] = SOLENOID_USAGE::BALL_TRANSFER;
+    m_usageMap["SHOOTER_HOOD"] = SOLENOID_USAGE::SHOOTER_HOOD;
+    m_usageMap["CLIMBER"] = SOLENOID_USAGE::CLIMBER;
 }
 
 SolenoidUsage::~SolenoidUsage()
