@@ -88,17 +88,25 @@ void MechanismDefn::ParseXML
             {
                 type = MechanismTypes::MECHANISM_TYPE::INTAKE;
             }
-            else if (typeStr.compare( "BALLTRANSFER") == 0)
+            else if ( typeStr.compare( "INTAKE2") == 0 )
+            {
+                type = MechanismTypes::MECHANISM_TYPE::INTAKE2;
+            }
+            else if (typeStr.compare( "BALL_TRANSFER") == 0)
             {
                 type = MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER;
             }
-            else if (typeStr.compare( "ARM") == 0)
+            else if (typeStr.compare( "SHOOTER") == 0)
             {
-                type = MechanismTypes::MECHANISM_TYPE::ARM;
+                type = MechanismTypes::MECHANISM_TYPE::SHOOTER;
             }
-            else if (typeStr.compare( "BALLRELEASE") == 0)
+            else if (typeStr.compare( "SHOOTER_HOOD") == 0)
             {
-                type = MechanismTypes::MECHANISM_TYPE::BALL_RELEASE;
+                type = MechanismTypes::MECHANISM_TYPE::SHOOTER_HOOD;
+            }
+            else if (typeStr.compare( "CLIMBER") == 0)
+            {
+                type = MechanismTypes::MECHANISM_TYPE::CLIMBER;
             }
             else
             {

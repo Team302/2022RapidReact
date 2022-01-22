@@ -32,9 +32,11 @@ class MechanismTypes
         {
             UNKNOWN_MECHANISM = -1,
             INTAKE,
+            INTAKE2,
             BALL_TRANSFER,
-            ARM,
-            BALL_RELEASE,           
+            SHOOTER,
+            SHOOTER_HOOD,
+            CLIMBER,           
             MAX_MECHANISM_TYPES
         };
 };
