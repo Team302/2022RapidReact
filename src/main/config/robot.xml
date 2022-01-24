@@ -23,13 +23,16 @@
                      crosshairy="0.5"
                      secondcrosshairx="0.25"
                      secondcrosshairy="0.25" />
- ====================================================
+-->
+<!-- ====================================================
      Chassis
-     ====================================================  
+     ====================================================  -->
     <chassis  type="SWERVE"
               wheelDiameter="4.13"
-              wheelBase="14.0"  
-              track="14.0"
+              wheelBase="21.0"  
+              track="21.0"
+              wheelSpeedCalcOption="ETHER"
+              poseEstimationOption="EULERCHASSIS"
               odometryComplianceCoefficient="0.85"
               maxVelocity="194.4"
               maxAngularVelocity="1591.2"
@@ -39,8 +42,8 @@
               controlFile="chassis.xml">
 			 
         <swervemodule type="RIGHT_BACK"
-                      turn_p="0.125"
-                      turn_i="0.00045"
+                      turn_p="0.07"
+                      turn_i="0.00075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -66,7 +69,6 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
-              
              <motor  usage="SWERVE_TURN"
                     canId="2"
                     pdpID="2"
@@ -87,13 +89,12 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="2"
-                            offset="-130.078"/>
+                            offset="-106.787"/>
         </swervemodule>
 
-         
         <swervemodule type="LEFT_BACK"
-                      turn_p="0.125"
-                      turn_i="0.00045"
+                      turn_p="0.07"
+                      turn_i="0.00075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -119,7 +120,6 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
-             
              <motor usage="SWERVE_TURN"
                     canId="0"
                     pdpID="0"
@@ -140,13 +140,12 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="0"
-                            offset="67.061"/>
+                            offset="67.06055"/>
         </swervemodule>
 
-     
         <swervemodule type="RIGHT_FRONT"
-                      turn_p="0.125"
-                      turn_i="0.00045"
+                      turn_p="0.07"
+                      turn_i="0.00075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -172,7 +171,6 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
-            
              <motor  usage="SWERVE_TURN"
                     canId="12"
                     pdpID="12"
@@ -193,13 +191,12 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="12"
-                            offset="108.105"/>
+                            offset="60.81"/>
         </swervemodule>
 
-    
         <swervemodule type="LEFT_FRONT"
-                      turn_p="0.125"
-                      turn_i="0.0045"
+                      turn_p="0.07"
+                      turn_i="0.00075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -210,7 +207,7 @@
                     canId="15"
                     pdpID="15"
                     type="FALCON"
-                    inverted="false"
+                    inverted="true"
                     sensorInverted="false"
                     feedbackDevice="INTERNAL"
                     countsPerRev="2048"
@@ -225,7 +222,6 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
-            
              <motor usage="SWERVE_TURN"
                     canId="14"
                     pdpID="14"
@@ -244,55 +240,18 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>       
-                     
+                    reverselimitswitchopen="true"/>        
 		    <cancoder canId="14"
-                            offset="-72.07"/>
+                            offset="-47.021"/>
         </swervemodule>
 
     </chassis>  
--->
 
 
-    <!-- chassis type="TANK"
-             wheelDiameter="4.0"
-             wheelBase="13.75"
-             track="15.0"
-             maxVelocity="28.0"
-             maxAngularVelocity="60.0"
-             maxAcceleration="12.0"
-             maxAngularAcceleration="6.0"
-             networkTable="ChassisNT"
-             controlFile="chassis.xml">
-
-        <motor usage="DIFFERENTIAL_LEFT_MAIN"
-               canId="1"
-               pdpID="1"
-               type="TALONSRX"
-               inverted="false"
-               sensorInverted="false"
-               feedbackDevice="QUADENCODER"
-               countsPerRev="4096"
-               gearRatio="1.0"
-               brakeMode="true"/>
-
-        <motor usage="DIFFERENTIAL_RIGHT_MAIN"
-               canId="13"
-               pdpID="13"
-               type="TALONSRX"
-               inverted="true"
-               sensorInverted="false"
-               feedbackDevice="QUADENCODER"
-               countsPerRev="4096"
-               gearRatio="1.0"
-               brakeMode="true"/>
-    </chassis>
--->
-
+    <!--
     <mechanism type="INTAKE"
                networkTable="IntakeNT"
-               controlFile="intake.xml"
->
+               controlFile="intake.xml">
        <motor usage="INTAKE"
               canId="0"
               pdpID="0"
@@ -312,7 +271,7 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
-    <!--
+
     <mechanism type="BALLTRANSFER"
                networkTable="BallTransferNT"
                controlFile="balltransfer.xml">
@@ -335,35 +294,6 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
-    <mechanism type="ARM"
-               networkTable="ArmNT"
-               controlFile="arm.xml">
-       <motor usage="ARM"
-              canId="15"
-              pdpID="15"
-              type="TALONSRX"
-              inverted="true"
-              sensorInverted="false"
-              feedbackDevice="NONE"
-              countsPerRev="0"
-              gearRatio="1.0"
-              brakeMode="true"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="true"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="true"
-              reverselimitswitchopen="true"/>
-    </mechanism>    
-    <mechanism type="BALLRELEASE"
-               networkTable="BallReleaseNT"
-               controlFile="ballrelease.xml">
-       <servo usage="BALLRELEASE"
-              pwmId="0"
-              minAngle="0.0"
-              maxAngle="360.0" />
               -->
     </mechanism    
 </robot>
