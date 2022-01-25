@@ -43,13 +43,13 @@ class ClimberStateMgr
             ROTATE_OUT,
             ROTATE_IN,
             HOLD,
-            MAX_SHOOTER_STATES
+            MAX_CLIMBER_STATES
         };
 
         
 		/// @brief  Find or create the state manmanager
-		/// @return ShooterStateMgr* pointer to the state manager
-		static ShooterStateMgr* GetInstance();
+		/// @return ClimberStateMgr* pointer to the state manager
+		static ClimberStateMgr* GetInstance();
 
 
 
@@ -58,28 +58,28 @@ class ClimberStateMgr
         void RunCurrentState();
 
         /// @brief  set the current state, initialize it and run it
-        /// @param [in]     SHOOTER_STATE - state to set
+        /// @param [in]     CLIMBER_STATE - state to set
         /// @param [in]     run - true means run, false just initialize it
         /// @return void
         void SetCurrentState
         (
-            SHOOTER_STATE  state,
+            CLIMBER_STATE  state,
             bool            run
         );
 
         /// @brief  return the current state
-        /// @return SHOOTER_STATE - the current state
-        inline SHOOTER_STATE GetCurrentState() const { return m_currentStateEnum; };
+        /// @return CLIMBER_STATE - the current state
+        inline CLIMBER_STATE GetCurrentState() const { return m_currentStateEnum; };
 
     private:
-        std::array<IState*,MAX_SHOOTER_STATES> m_states;
+        std::array<IState*,MAX_CLIMBER_STATES> m_states;
         IState* m_currentState;
-        SHOOTER_STATE m_currentStateEnum;
-        SHOOTER_STATE m_prevStateEnum;
+        CLIMBER_STATE m_currentStateEnum;
+        CLIMBER_STATE m_prevStateEnum;
         std::shared_ptr<nt::NetworkTable> m_nt;
 
-		static ShooterStateMgr*	m_instance;
+		static ClimberStateMgr*	m_instance;
 
-        ShooterStateMgr();
-        ~ShooterStateMgr() = default;
+        ClimberStateMgr();
+        ~ClimberStateMgr() = default;
 };
