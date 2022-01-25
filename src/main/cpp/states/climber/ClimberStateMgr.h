@@ -37,9 +37,10 @@ class ClimberStateMgr
         enum CLIMBER_STATE
         {
             OFF,
-            CLIMB,
+            INITIAL_REACH,
             RETRACT,
             RELEASE,
+            REACH_TO_BAR,
             ROTATE_OUT,
             ROTATE_IN,
             HOLD,

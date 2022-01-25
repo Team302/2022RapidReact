@@ -34,6 +34,7 @@
 #include <states/Intake/IntakeState.h>
 #include <states/ShooterState.h>
 #include <subsys/MechanismFactory.h>
+#include <states/climber/ClimberState.h>
 
 
 // Third Party Includes

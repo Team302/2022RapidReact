@@ -13,19 +13,23 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#include <controllers/ControlData.h>
-#include <controllers/MechanismTargetData.h>
-#include <states/Climber/ClimberState.h>
-#include <states/Mech2MotorState.h>
-#include <subsys/MechanismFactory.h>
+// C++ Includes
+#include <memory>
+#include <string>
 
+// FRC includes
 
-ClimberState::ClimberState
+// Team 302 includes
+#include <subsys/Climber.h>
+#include <hw/interfaces/IDragonMotorController.h>
+
+// Third Party Includes
+using namespace std;
+
+Climber::Climber
 (
-    ControlData*                    controlData, 
-    ControlData*                    controlData2, 
-    double                          target1,
-    double                          target2
-) : Mech2MotorState( MechanismFactory::GetMechanismFactory()->GetClimber(), controlData, controlData2, target1, target2 )
+    shared_ptr<IDragonMotorController> motor1,
+    shared_ptr<IDragonMotorController> motor2
+) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::CLIMBER,  string("climber.xml"),  string("ClimberNT"), motor1, motor2 )
 {
 }

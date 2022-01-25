@@ -16,17 +16,17 @@
 
 #pragma once
 
-#include <states/MechSolenoidState.h>
-#include <states/Mech1MotorState.h>
+//Team 302 Includes
+#include <states/Mech2MotorState.h>
 #include <controllers/MechanismTargetData.h>
 
 class ControlData;
 
 
-class ShooterState : public Mech2MotorState
+class ClimberState : public Mech2MotorState
 {
     public:
-        ShooterState
+        ClimberState
         (
             ControlData*                    controlData,
             ControlData*                    controlData2,
@@ -34,6 +34,6 @@ class ShooterState : public Mech2MotorState
             double                          target2
         );
 
-        ShooterState() = delete;
-        ~ShooterState() = default;
+        ClimberState() = delete;
+        ~ClimberState() = default;
 };
