@@ -5,8 +5,8 @@
     "operatingSystem": "linux",
     "flavor": "default",
     "buildType": "debug",
-    "cppPath": "/home/fishy/wpilib/2022/roborio/bin/arm-frc2022-linux-gnueabi-g++",
-    "cPath": "/home/fishy/wpilib/2022/roborio/bin/arm-frc2022-linux-gnueabi-gcc",
+    "cppPath": "C:\\Users\\Public\\wpilib\\2022\\roborio\\bin\\arm-frc2022-linux-gnueabi-g++.exe",
+    "cPath": "C:\\Users\\Public\\wpilib\\2022\\roborio\\bin\\arm-frc2022-linux-gnueabi-gcc.exe",
     "msvc": false,
     "gcc": true,
     "systemCppMacros": [],
@@ -14,6 +14,7 @@
     "systemCMacros": [],
     "systemCArgs": [],
     "allLibFiles": [
+<<<<<<< main
 <<<<<<< main
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\34d0201f160c832bf169a901216f9e50\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
@@ -85,19 +86,56 @@
       "/home/fishy/.gradle/caches/transforms-3/9c2a1132978722d64a8f975fa4756b1e/transformed/cscore-cpp-2022.2.1-sources/",
       "/home/fishy/.gradle/caches/transforms-3/912147b57e9c88d116ffd65a595d969d/transformed/opencv-cpp-4.5.2-1-sources/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\678c487d035f7820cbdf38d776c56333\\transformed\\cci-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\76a64aa53d94e880395f682966ba4791\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9ef3d3faf11380fd3c1625523d7a9428\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ceeecbee7ea9ef32127fd0fbce1fdce6\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9e192ee7b3222256d272fa4b99d314ca\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c2ed79707fa9bdae4a0eb7fe7f7eafae\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\53e9f86703b67b6d069ec7bc792c4226\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6bfe390671799b54507d14e12128a356\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\2d58ab9024764f8eebb48d2f8037238d\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\60ab979d5c0d33f65aa278b1d30fe9ec\\transformed\\wpilibc-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\91adf8daf6055d739fecc75c565b5e65\\transformed\\ntcore-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ad16abab68f9b1988635124eb61b4634\\transformed\\hal-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\3e2a4cef1dad9596ee8c2403363b87ff\\transformed\\wpimath-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\13e16f6d00fe299fb36dcbe82772049b\\transformed\\wpiutil-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fc3a5549f7273f9b818e7f274a78d986\\transformed\\netcomm-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\4a9fca9c1d266d5b95618580c10e0e0e\\transformed\\chipobject-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\229622b710d76f720bbb57836edc0b6c\\transformed\\visa-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\da1e2e6b3efb158ea28a08175494a922\\transformed\\cameraserver-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\962abf8e3deb6af7a3526af2e23a02ab\\transformed\\cscore-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0010e3dd4a581fe91f56df7d2c1bbbd0\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0a27a68bcbb7c9281dd5a01498c3f317\\transformed\\wpilibNewCommands-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0b781392b5b8d10a2a56754cdc004eb1\\transformed\\wpilibc-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\28d44d754e49431fb64bad516fcd76fa\\transformed\\ntcore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42d0400f07d9343b24c604fd68e37875\\transformed\\hal-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\73227c56dd5c939320d92487c745b2b3\\transformed\\wpimath-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\e8211e872d18d42263f024482bae2c42\\transformed\\wpiutil-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\03d9f07deeea5f783c94ae257db3f9a7\\transformed\\cameraserver-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\24bf98810d48d6ea08706c29d22dd470\\transformed\\cscore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\cf5140d6c7ac5d89a714ad04d846a876\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+>>>>>>> Added basic auton paths and began work on climber
     ],
     "allLibSources": [
-      "/home/fishy/.gradle/caches/transforms-3/88ee063edfe6a04df4efbe27a35a6715/transformed/wpilibNewCommands-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/f7aa1a02ef353aaeeb0afcc77c44a29d/transformed/wpilibc-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/541358c6b7e9088a2f3bfca2ec0cfa2a/transformed/ntcore-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/6447cbdccab939f1df2225e65b6ad86c/transformed/hal-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/3e017fb321cb6d895b6aaf616f683364/transformed/wpimath-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/eb271285e67594d9794cfd7a04ad38c3/transformed/wpiutil-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/af4f585a326a8094cbfd88bc7c901d7f/transformed/cameraserver-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/9c2a1132978722d64a8f975fa4756b1e/transformed/cscore-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/912147b57e9c88d116ffd65a595d969d/transformed/opencv-cpp-4.5.2-1-sources/"
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0a27a68bcbb7c9281dd5a01498c3f317\\transformed\\wpilibNewCommands-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0b781392b5b8d10a2a56754cdc004eb1\\transformed\\wpilibc-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\28d44d754e49431fb64bad516fcd76fa\\transformed\\ntcore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42d0400f07d9343b24c604fd68e37875\\transformed\\hal-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\73227c56dd5c939320d92487c745b2b3\\transformed\\wpimath-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\e8211e872d18d42263f024482bae2c42\\transformed\\wpiutil-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\03d9f07deeea5f783c94ae257db3f9a7\\transformed\\cameraserver-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\24bf98810d48d6ea08706c29d22dd470\\transformed\\cscore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\cf5140d6c7ac5d89a714ad04d846a876\\transformed\\opencv-cpp-4.5.2-1-sources\\"
     ],
     "allLibHeaders": [
+<<<<<<< main
 <<<<<<< main
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\34d0201f160c832bf169a901216f9e50\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
@@ -151,6 +189,33 @@
       "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
       "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\678c487d035f7820cbdf38d776c56333\\transformed\\cci-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\76a64aa53d94e880395f682966ba4791\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9ef3d3faf11380fd3c1625523d7a9428\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ceeecbee7ea9ef32127fd0fbce1fdce6\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9e192ee7b3222256d272fa4b99d314ca\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c2ed79707fa9bdae4a0eb7fe7f7eafae\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\53e9f86703b67b6d069ec7bc792c4226\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6bfe390671799b54507d14e12128a356\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\2d58ab9024764f8eebb48d2f8037238d\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\60ab979d5c0d33f65aa278b1d30fe9ec\\transformed\\wpilibc-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\91adf8daf6055d739fecc75c565b5e65\\transformed\\ntcore-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ad16abab68f9b1988635124eb61b4634\\transformed\\hal-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\3e2a4cef1dad9596ee8c2403363b87ff\\transformed\\wpimath-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\13e16f6d00fe299fb36dcbe82772049b\\transformed\\wpiutil-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fc3a5549f7273f9b818e7f274a78d986\\transformed\\netcomm-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\4a9fca9c1d266d5b95618580c10e0e0e\\transformed\\chipobject-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\229622b710d76f720bbb57836edc0b6c\\transformed\\visa-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\da1e2e6b3efb158ea28a08175494a922\\transformed\\cameraserver-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\962abf8e3deb6af7a3526af2e23a02ab\\transformed\\cscore-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0010e3dd4a581fe91f56df7d2c1bbbd0\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
     ],
     "binaries": [
       {
@@ -160,12 +225,17 @@
             "source": {
               "srcDirs": [
 <<<<<<< main
+<<<<<<< main
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
                 "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
                 "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
               ],
               "includes": [
                 "**/*.cpp",
@@ -178,12 +248,17 @@
             "exportedHeaders": {
               "srcDirs": [
 <<<<<<< main
+<<<<<<< main
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
                 "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
                 "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
               ],
               "includes": [
                 "**/*.hpp",
@@ -212,6 +287,7 @@
           }
         ],
         "libHeaders": [
+<<<<<<< main
 <<<<<<< main
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\34d0201f160c832bf169a901216f9e50\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
@@ -265,6 +341,33 @@
           "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
           "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\678c487d035f7820cbdf38d776c56333\\transformed\\cci-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\76a64aa53d94e880395f682966ba4791\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9ef3d3faf11380fd3c1625523d7a9428\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ceeecbee7ea9ef32127fd0fbce1fdce6\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9e192ee7b3222256d272fa4b99d314ca\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c2ed79707fa9bdae4a0eb7fe7f7eafae\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\53e9f86703b67b6d069ec7bc792c4226\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6bfe390671799b54507d14e12128a356\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\2d58ab9024764f8eebb48d2f8037238d\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\60ab979d5c0d33f65aa278b1d30fe9ec\\transformed\\wpilibc-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\91adf8daf6055d739fecc75c565b5e65\\transformed\\ntcore-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ad16abab68f9b1988635124eb61b4634\\transformed\\hal-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\3e2a4cef1dad9596ee8c2403363b87ff\\transformed\\wpimath-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\13e16f6d00fe299fb36dcbe82772049b\\transformed\\wpiutil-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fc3a5549f7273f9b818e7f274a78d986\\transformed\\netcomm-2022.2.3-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\4a9fca9c1d266d5b95618580c10e0e0e\\transformed\\chipobject-2022.2.3-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\229622b710d76f720bbb57836edc0b6c\\transformed\\visa-2022.2.3-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\da1e2e6b3efb158ea28a08175494a922\\transformed\\cameraserver-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\962abf8e3deb6af7a3526af2e23a02ab\\transformed\\cscore-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0010e3dd4a581fe91f56df7d2c1bbbd0\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
         ],
         "sharedLibrary": false,
         "executable": true
@@ -275,12 +378,17 @@
         "source": {
           "srcDirs": [
 <<<<<<< main
+<<<<<<< main
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
             "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
             "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
           ],
           "includes": [
             "**/*.cpp",
@@ -315,12 +423,17 @@
         "source": {
           "srcDirs": [
 <<<<<<< main
+<<<<<<< main
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
             "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
             "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
           ],
           "includes": [
             "**/*.hpp",
@@ -361,8 +474,8 @@
     "operatingSystem": "linux",
     "flavor": "default",
     "buildType": "release",
-    "cppPath": "/home/fishy/wpilib/2022/roborio/bin/arm-frc2022-linux-gnueabi-g++",
-    "cPath": "/home/fishy/wpilib/2022/roborio/bin/arm-frc2022-linux-gnueabi-gcc",
+    "cppPath": "C:\\Users\\Public\\wpilib\\2022\\roborio\\bin\\arm-frc2022-linux-gnueabi-g++.exe",
+    "cPath": "C:\\Users\\Public\\wpilib\\2022\\roborio\\bin\\arm-frc2022-linux-gnueabi-gcc.exe",
     "msvc": false,
     "gcc": true,
     "systemCppMacros": [],
@@ -370,6 +483,7 @@
     "systemCMacros": [],
     "systemCArgs": [],
     "allLibFiles": [
+<<<<<<< main
 <<<<<<< main
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\34d0201f160c832bf169a901216f9e50\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
@@ -441,19 +555,56 @@
       "/home/fishy/.gradle/caches/transforms-3/9c2a1132978722d64a8f975fa4756b1e/transformed/cscore-cpp-2022.2.1-sources/",
       "/home/fishy/.gradle/caches/transforms-3/912147b57e9c88d116ffd65a595d969d/transformed/opencv-cpp-4.5.2-1-sources/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\678c487d035f7820cbdf38d776c56333\\transformed\\cci-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\76a64aa53d94e880395f682966ba4791\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9ef3d3faf11380fd3c1625523d7a9428\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ceeecbee7ea9ef32127fd0fbce1fdce6\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9e192ee7b3222256d272fa4b99d314ca\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c2ed79707fa9bdae4a0eb7fe7f7eafae\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\53e9f86703b67b6d069ec7bc792c4226\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6bfe390671799b54507d14e12128a356\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\2d58ab9024764f8eebb48d2f8037238d\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\60ab979d5c0d33f65aa278b1d30fe9ec\\transformed\\wpilibc-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\91adf8daf6055d739fecc75c565b5e65\\transformed\\ntcore-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ad16abab68f9b1988635124eb61b4634\\transformed\\hal-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\3e2a4cef1dad9596ee8c2403363b87ff\\transformed\\wpimath-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\13e16f6d00fe299fb36dcbe82772049b\\transformed\\wpiutil-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fc3a5549f7273f9b818e7f274a78d986\\transformed\\netcomm-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\4a9fca9c1d266d5b95618580c10e0e0e\\transformed\\chipobject-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\229622b710d76f720bbb57836edc0b6c\\transformed\\visa-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\da1e2e6b3efb158ea28a08175494a922\\transformed\\cameraserver-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\962abf8e3deb6af7a3526af2e23a02ab\\transformed\\cscore-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0010e3dd4a581fe91f56df7d2c1bbbd0\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0a27a68bcbb7c9281dd5a01498c3f317\\transformed\\wpilibNewCommands-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0b781392b5b8d10a2a56754cdc004eb1\\transformed\\wpilibc-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\28d44d754e49431fb64bad516fcd76fa\\transformed\\ntcore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42d0400f07d9343b24c604fd68e37875\\transformed\\hal-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\73227c56dd5c939320d92487c745b2b3\\transformed\\wpimath-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\e8211e872d18d42263f024482bae2c42\\transformed\\wpiutil-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\03d9f07deeea5f783c94ae257db3f9a7\\transformed\\cameraserver-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\24bf98810d48d6ea08706c29d22dd470\\transformed\\cscore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\cf5140d6c7ac5d89a714ad04d846a876\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+>>>>>>> Added basic auton paths and began work on climber
     ],
     "allLibSources": [
-      "/home/fishy/.gradle/caches/transforms-3/88ee063edfe6a04df4efbe27a35a6715/transformed/wpilibNewCommands-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/f7aa1a02ef353aaeeb0afcc77c44a29d/transformed/wpilibc-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/541358c6b7e9088a2f3bfca2ec0cfa2a/transformed/ntcore-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/6447cbdccab939f1df2225e65b6ad86c/transformed/hal-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/3e017fb321cb6d895b6aaf616f683364/transformed/wpimath-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/eb271285e67594d9794cfd7a04ad38c3/transformed/wpiutil-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/af4f585a326a8094cbfd88bc7c901d7f/transformed/cameraserver-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/9c2a1132978722d64a8f975fa4756b1e/transformed/cscore-cpp-2022.2.1-sources/",
-      "/home/fishy/.gradle/caches/transforms-3/912147b57e9c88d116ffd65a595d969d/transformed/opencv-cpp-4.5.2-1-sources/"
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0a27a68bcbb7c9281dd5a01498c3f317\\transformed\\wpilibNewCommands-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0b781392b5b8d10a2a56754cdc004eb1\\transformed\\wpilibc-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\28d44d754e49431fb64bad516fcd76fa\\transformed\\ntcore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42d0400f07d9343b24c604fd68e37875\\transformed\\hal-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\73227c56dd5c939320d92487c745b2b3\\transformed\\wpimath-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\e8211e872d18d42263f024482bae2c42\\transformed\\wpiutil-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\03d9f07deeea5f783c94ae257db3f9a7\\transformed\\cameraserver-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\24bf98810d48d6ea08706c29d22dd470\\transformed\\cscore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\cf5140d6c7ac5d89a714ad04d846a876\\transformed\\opencv-cpp-4.5.2-1-sources\\"
     ],
     "allLibHeaders": [
+<<<<<<< main
 <<<<<<< main
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\34d0201f160c832bf169a901216f9e50\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
@@ -507,6 +658,33 @@
       "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
       "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\678c487d035f7820cbdf38d776c56333\\transformed\\cci-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\76a64aa53d94e880395f682966ba4791\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9ef3d3faf11380fd3c1625523d7a9428\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ceeecbee7ea9ef32127fd0fbce1fdce6\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9e192ee7b3222256d272fa4b99d314ca\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c2ed79707fa9bdae4a0eb7fe7f7eafae\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\53e9f86703b67b6d069ec7bc792c4226\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6bfe390671799b54507d14e12128a356\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\2d58ab9024764f8eebb48d2f8037238d\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\60ab979d5c0d33f65aa278b1d30fe9ec\\transformed\\wpilibc-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\91adf8daf6055d739fecc75c565b5e65\\transformed\\ntcore-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ad16abab68f9b1988635124eb61b4634\\transformed\\hal-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\3e2a4cef1dad9596ee8c2403363b87ff\\transformed\\wpimath-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\13e16f6d00fe299fb36dcbe82772049b\\transformed\\wpiutil-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fc3a5549f7273f9b818e7f274a78d986\\transformed\\netcomm-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\4a9fca9c1d266d5b95618580c10e0e0e\\transformed\\chipobject-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\229622b710d76f720bbb57836edc0b6c\\transformed\\visa-2022.2.3-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\da1e2e6b3efb158ea28a08175494a922\\transformed\\cameraserver-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\962abf8e3deb6af7a3526af2e23a02ab\\transformed\\cscore-cpp-2022.2.1-headers\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0010e3dd4a581fe91f56df7d2c1bbbd0\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
     ],
     "binaries": [
       {
@@ -516,12 +694,17 @@
             "source": {
               "srcDirs": [
 <<<<<<< main
+<<<<<<< main
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
                 "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
                 "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
               ],
               "includes": [
                 "**/*.cpp",
@@ -534,12 +717,17 @@
             "exportedHeaders": {
               "srcDirs": [
 <<<<<<< main
+<<<<<<< main
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
                 "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
                 "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
               ],
               "includes": [
                 "**/*.hpp",
@@ -567,6 +755,7 @@
           }
         ],
         "libHeaders": [
+<<<<<<< main
 <<<<<<< main
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\34d0201f160c832bf169a901216f9e50\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
@@ -620,6 +809,33 @@
           "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
           "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\678c487d035f7820cbdf38d776c56333\\transformed\\cci-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\76a64aa53d94e880395f682966ba4791\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9ef3d3faf11380fd3c1625523d7a9428\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ceeecbee7ea9ef32127fd0fbce1fdce6\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\9e192ee7b3222256d272fa4b99d314ca\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c2ed79707fa9bdae4a0eb7fe7f7eafae\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\53e9f86703b67b6d069ec7bc792c4226\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6bfe390671799b54507d14e12128a356\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\2d58ab9024764f8eebb48d2f8037238d\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\60ab979d5c0d33f65aa278b1d30fe9ec\\transformed\\wpilibc-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\91adf8daf6055d739fecc75c565b5e65\\transformed\\ntcore-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ad16abab68f9b1988635124eb61b4634\\transformed\\hal-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\3e2a4cef1dad9596ee8c2403363b87ff\\transformed\\wpimath-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\13e16f6d00fe299fb36dcbe82772049b\\transformed\\wpiutil-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fc3a5549f7273f9b818e7f274a78d986\\transformed\\netcomm-2022.2.3-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\4a9fca9c1d266d5b95618580c10e0e0e\\transformed\\chipobject-2022.2.3-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\229622b710d76f720bbb57836edc0b6c\\transformed\\visa-2022.2.3-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\da1e2e6b3efb158ea28a08175494a922\\transformed\\cameraserver-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\962abf8e3deb6af7a3526af2e23a02ab\\transformed\\cscore-cpp-2022.2.1-headers\\",
+          "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0010e3dd4a581fe91f56df7d2c1bbbd0\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
         ],
         "sharedLibrary": false,
         "executable": true
@@ -630,12 +846,17 @@
         "source": {
           "srcDirs": [
 <<<<<<< main
+<<<<<<< main
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
             "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
             "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
           ],
           "includes": [
             "**/*.cpp",
@@ -669,12 +890,17 @@
         "source": {
           "srcDirs": [
 <<<<<<< main
+<<<<<<< main
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
             "/home/fishy/GitRepos/2022RapidReact/src/main/cpp/",
             "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
+=======
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added basic auton paths and began work on climber
           ],
           "includes": [
             "**/*.hpp",
