@@ -6,6 +6,7 @@ enum StateType
     BALLTRANSER,
     ARM,
     BALLRELEASE,
+    CLIMBER,
     MAX_STATE_TYPES
 };
 

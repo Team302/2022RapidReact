@@ -118,6 +118,31 @@ void MechanismFactory::CreateIMechanism
 		}
 		break;
 		**/
+
+		
+		case MechanismTypes::MECHANISM_TYPE::CLIMBER :
+		{
+			if (m_climber == nullptr)
+			{
+				auto motor1 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_CLIMB );
+				auto motor2 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_ROTATE);
+				if ( motor1.get() != nullptr && motor2.get() != nullptr )
+				{
+					m_climber = new Climber(motor1, motor2);
+					//m_climber = make_shared<Climber>(motor1, motor2);
+				}
+				else
+				{
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No climber motors exist in XML"));
+				}
+			}
+			else
+			{
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Climber already exists") );
+			}
+		}
+		break;
+
 		default:
 		{
 			string msg = "unknown Mechanism type ";
@@ -162,12 +187,12 @@ IMech* MechanismFactory::GetMechanism
 	MechanismTypes::MECHANISM_TYPE	type
 ) const
 {
-	/**
-	if (type == MechanismTypes::MECHANISM_TYPE::ARM)
+	
+	if (type == MechanismTypes::MECHANISM_TYPE::CLIMBER)
 	{
-		return GetArm();
+		return GetClimber();
 	}
-	**/
+	
 	return nullptr;
 }
 

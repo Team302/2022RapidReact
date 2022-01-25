@@ -41,6 +41,8 @@ class MotorControllerUsage
             UNKNOWN_MOTOR_CONTROLLER_USAGE = -1,
             SWERVE_DRIVE,
             SWERVE_TURN,
+            CLIMBER_CLIMB,
+            CLIMBER_ROTATE,
             MAX_MOTOR_CONTROLLER_USAGES
         };
 

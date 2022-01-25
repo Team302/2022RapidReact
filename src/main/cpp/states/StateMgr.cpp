@@ -31,6 +31,7 @@
 #include <subsys/interfaces/IMech.h>
 #include <utils/Logger.h>
 #include <xmlmechdata/StateDataDefn.h>
+#include <states/climber/ClimberState.h>
 
 
 // Third Party Includes
@@ -73,6 +74,8 @@ void StateMgr::Init
             {
                 auto controlData = td->GetController();
                 auto target = td->GetTarget();
+                auto controlData2 = td->GetController2();
+                auto target2 = td->GetSecondTarget();
                 auto type = struc.type;
                 IState* thisState = nullptr;
                 switch (type)
@@ -80,6 +83,10 @@ void StateMgr::Init
                     //case StateType::INTAKE:
                     //    thisState = new IntakeState(controlData, target);
                     //    break;
+
+                    case StateType::CLIMBER:
+                        thisState = new ClimberState(controlData, controlData2, target, target2);
+                        break;
                     default:
                     {
                         Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));

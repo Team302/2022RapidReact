@@ -1,5 +1,5 @@
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302 
+// Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -13,19 +13,25 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#include <controllers/ControlData.h>
-#include <controllers/MechanismTargetData.h>
-#include <states/Climber/ClimberState.h>
-#include <states/Mech2MotorState.h>
-#include <subsys/MechanismFactory.h>
+#pragma once
 
+//C++ Includes
+#include <memory>
 
-ClimberState::ClimberState
-(
-    ControlData*                    controlData, 
-    ControlData*                    controlData2, 
-    double                          target1,
-    double                          target2
-) : Mech2MotorState( MechanismFactory::GetMechanismFactory()->GetClimber(), controlData, controlData2, target1, target2 )
+//Team 302 Includes
+#include <subsys/Mech2IndMotors.h>
+
+class IDragonMotorController;
+
+class Climber : public Mech2IndMotors
 {
-}
+    public:
+        Climber
+        (
+            std::shared_ptr<IDragonMotorController> motor1,
+            std::shared_ptr<IDragonMotorController> motor2
+        );
+
+        Climber() = delete;
+        virtual ~Climber() = default;
+};

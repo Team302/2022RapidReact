@@ -100,6 +100,10 @@ void MechanismDefn::ParseXML
             {
                 type = MechanismTypes::MECHANISM_TYPE::BALL_RELEASE;
             }
+            else if (typeStr.compare( "CLIMBER") == 0)
+            {
+                type = MechanismTypes::MECHANISM_TYPE::CLIMBER;
+            }
             else
             {
                     string msg = "unknown Mechanism type ";

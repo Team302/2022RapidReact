@@ -35,8 +35,7 @@ class MechanismTypes
             BALL_TRANSFER,
             ARM,
             BALL_RELEASE,
-            STATIONARY_CLIMBER,
-            ROTATING_CLIMBER,           
+            CLIMBER,        
             MAX_MECHANISM_TYPES
         };
 };
