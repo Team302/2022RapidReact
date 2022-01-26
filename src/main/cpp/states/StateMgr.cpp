@@ -31,6 +31,8 @@
 #include <subsys/interfaces/IMech.h>
 #include <utils/Logger.h>
 #include <xmlmechdata/StateDataDefn.h>
+#include <states/BallTransfer/BallTransferState.h>
+
 
 
 // Third Party Includes
@@ -80,6 +82,10 @@ void StateMgr::Init
                     //case StateType::INTAKE:
                     //    thisState = new IntakeState(controlData, target);
                     //    break;
+                    case StateType::BALLTRANSER:
+                        thisState = new BallTransferState(controlData, target);
+                        break;
+                    
                     default:
                     {
                         Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));

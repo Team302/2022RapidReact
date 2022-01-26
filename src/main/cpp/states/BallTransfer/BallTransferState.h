@@ -1,6 +1,7 @@
 #pragma once
 
 #include <states/Mech1MotorState.h>
+#include <states/StateStruc.h>
 
 class ControlData;
 
