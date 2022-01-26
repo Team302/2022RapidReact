@@ -96,20 +96,33 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
-m_shooterStateMgr = ShooterStateMgr::GetInstance();
-m_shooterStateMgr->SetCurrentState(m_shooterStateMgr->ON,true);
   if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
   {
-    m_swerve->Init();
+        m_swerve->Init();
+
+ 
   }
+
+  if(m_shooterStateMgr != nullptr)
+  {
+    m_shooterStateMgr = ShooterStateMgr::GetInstance();
+    m_shooterStateMgr->SetCurrentState(m_shooterStateMgr->ON,true);
+
+  }
+
 }
 
 void Robot::TeleopPeriodic() 
 {
-  m_shooterStateMgr->RunCurrentState();
-  if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
+  if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr )
   {
+
     m_swerve->Run();
+  }
+  if(m_shooterStateMgr != nullptr)
+  {
+      m_shooterStateMgr->RunCurrentState();
+
   }
 }
 
