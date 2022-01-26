@@ -33,6 +33,7 @@
 #include <xmlmechdata/StateDataDefn.h>
 #include <states/Intake/IntakeState.h>
 #include <states/ShooterState.h>
+#include <states/BallTransfer/BallTransferState.h>
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
 
@@ -83,9 +84,9 @@ void StateMgr::Init
                     if ( m_stateVector[slot] == nullptr )
                     {
                         auto controlData = td->GetController();
-                	    auto controlData2 = td->GetController2();
+                	auto controlData2 = td->GetController2();
                         auto target = td->GetTarget();
-                	    auto secondaryTarget = td->GetSecondTarget();
+                	auto secondaryTarget = td->GetSecondTarget();
                         auto type = struc.type;
                         IState* thisState = nullptr;
                         switch (type)
@@ -105,6 +106,11 @@ void StateMgr::Init
                                                             target, 
                                                             secondaryTarget);
                         	    break;
+                        	    
+                    	    case StateType::BALLTRANSER:
+                        	thisState = new BallTransferState(controlData, controlData2, target, secondaryTarget );
+                        	break;
+                    
 
                     	    case StateType::SHOOTER:
                        		    thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
