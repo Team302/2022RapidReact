@@ -39,7 +39,11 @@ void Robot::RobotInit()
   m_chassis = factory->GetIChassis();
   if (m_chassis != nullptr)
   {
-    
+      m_swerve = new SwerveDrive();
+  }
+  else
+  {
+      m_swerve = nullptr;
   }
   auto mechFactory = MechanismFactory::GetMechanismFactory();
   m_intake = mechFactory->GetIntake();
@@ -96,6 +100,10 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
+    if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
+    {
+       m_swerve->Init();
+    }
     if (m_intakeStateMgr != nullptr)
     {
         m_intakeStateMgr->SetCurrentState(IntakeStateMgr::INTAKE_STATE::INTAKE, false);
@@ -104,16 +112,9 @@ void Robot::TeleopInit()
 
 void Robot::TeleopPeriodic() 
 {
-  if (m_chassis != nullptr && m_controller != nullptr)
+  if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
   {
-    auto throttle = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::ARCADE_THROTTLE);
-    auto steer = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::ARCADE_STEER);
-
-    frc::ChassisSpeeds speeds;
-    speeds.vx = throttle * m_chassis->GetMaxSpeed();
-    speeds.vy = 0_mps; //units::velocity::meters_per_second_t(0)
-    speeds.omega = steer * m_chassis->GetMaxAngularSpeed();
-    m_chassis->Drive(speeds);
+    m_swerve->Run();
   }
 
   if (m_intake != nullptr && m_intakeStateMgr != nullptr)
