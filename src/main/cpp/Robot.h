@@ -17,7 +17,7 @@
 #include <states/ShooterStateMgr.h>
 #include <subsys/Shooter.h>
 #include <states/chassis/SwerveDrive.h>
-#include <subsys/Shooter.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
 
 
 
