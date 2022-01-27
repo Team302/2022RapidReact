@@ -58,23 +58,17 @@ void StateMgr::Init
     auto stateXML = make_unique<StateDataDefn>();
     vector<MechanismTargetData*> targetData = stateXML.get()->ParseXML(mech->GetType());
 
-    Logger::GetLogger()->ToNtTable(string("StateMgr"), string("vector size"), to_string(targetData.size()));
-    Logger::GetLogger()->ToNtTable(string("StateMgr"), string("map size"), to_string(stateMap.size()));
     // initialize the xml string to state map
     m_stateVector.resize(stateMap.size());
     // create the states passing the configuration data
     for ( auto td: targetData )
     {
         auto stateString = td->GetStateString();
-
-        Logger::GetLogger()->ToNtTable(string("StateMgr"), string("state string"), stateString);
-
         auto stateStringToStrucItr = stateMap.find( stateString );
         if ( stateStringToStrucItr != stateMap.end() )
         {
             auto struc = stateStringToStrucItr->second;
             auto slot = struc.id;
-            Logger::GetLogger()->ToNtTable(string("StateMgr"), string("slot"), to_string(slot));
             if ( m_stateVector[slot] == nullptr )
             {
                 auto controlData = td->GetController();
