@@ -12,3 +12,246 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
+
+// C++ Includes
+#include <map>
+#include <memory>
+#include <vector>
+
+// FRC includes
+#include <networktables/NetworkTableInstance.h>
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableEntry.h>
+
+// Team 302 includes
+#include <states/IState.h>
+#include <states/climber/ClimberStateMgr.h>
+#include <states/climber/ClimberState.h>
+#include <xmlmechdata/StateDataDefn.h>
+#include <controllers/MechanismTargetData.h>
+#include <utils/Logger.h>
+#include <gamepad/TeleopControl.h>
+#include <subsys/MechanismFactory.h>
+#include <subsys/MechanismTypes.h>
+
+
+// Third Party Includes
+
+using namespace std;
+
+ClimberStateMgr* ClimberStateMgr::m_instance = nullptr;
+ClimberStateMgr* ClimberStateMgr::GetInstance()
+{
+	if ( ClimberStateMgr::m_instance == nullptr )
+	{
+        // Create the shooter state manager, ball transfer state manager, turret state manager and hopper state manager
+		ClimberStateMgr::m_instance = new ClimberStateMgr();
+    }
+	return ClimberStateMgr::m_instance;
+}
+
+/// @brief    initialize the state manager, parse the configuration file and create the states.
+ClimberStateMgr::ClimberStateMgr() : m_states(),
+                                     m_currentState(),
+                                     m_prevStateEnum(ClimberStateMgr::CLIMBER_STATE::OFF),
+                                     m_nt(nt::NetworkTableInstance::GetDefault().GetTable(string("Shooter State Manager")))    
+{
+    auto climber = MechanismFactory::GetMechanismFactory()->GetClimber();
+    if ( climber != nullptr)
+    {
+        m_nt = nt::NetworkTableInstance::GetDefault().GetTable("fred"); //What is this?
+    }
+
+    // Parse the configuration file 
+    auto stateXML = make_unique<StateDataDefn>();
+    vector<MechanismTargetData*> targetData = stateXML.get()->ParseXML( MechanismTypes::MECHANISM_TYPE::CLIMBER );
+
+    // initialize the xml string to state map
+    map<string, CLIMBER_STATE> stateStringToEnumMap;
+    stateStringToEnumMap["CLIMBEROFF"] = CLIMBER_STATE::OFF;
+    stateStringToEnumMap["CLIMBERINITIALREACH"] = CLIMBER_STATE::INITIAL_REACH;
+    stateStringToEnumMap["CLIMBERRETRACT"] = CLIMBER_STATE::RETRACT;
+    stateStringToEnumMap["CLIMBERRELEASE"] = CLIMBER_STATE::RELEASE;
+    stateStringToEnumMap["CLIMBERREACHTOBAR"] = CLIMBER_STATE::REACH_TO_BAR;
+    stateStringToEnumMap["CLIMBERROTATEOUT"] = CLIMBER_STATE::ROTATE_OUT;
+    stateStringToEnumMap["CLIMBERROTATEIN"] = CLIMBER_STATE::ROTATE_IN;
+    stateStringToEnumMap["CLIMBERHOLD"] = CLIMBER_STATE::HOLD;
+
+    Logger::GetLogger()->ToNtTable(m_nt, string("CLIMBEROFF"), string("not created"));
+    Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERINITIALREACH", "not created");
+    Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERRETRACT", "not created");
+    Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERRELEASE", "not created");
+    Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERREACHTOBAR", "not created");
+    Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERROTATEOUT", "not created");
+    Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERROTATEIN", "not created");
+    Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERHOLD", "not created");
+
+    for (auto inx=0; inx<MAX_CLIMBER_STATES; ++inx)
+    {
+       m_states[inx] = nullptr;
+    }
+
+    // create the states passing the configuration data
+    for ( auto td: targetData )
+    {
+        auto stateString = td->GetStateString();
+        auto stateStringToEnumMapItr = stateStringToEnumMap.find( stateString );
+        if ( stateStringToEnumMapItr != stateStringToEnumMap.end() )
+        {
+            auto stateEnum = stateStringToEnumMapItr->second;
+            if ( m_states[stateEnum] == nullptr )
+            {
+                auto controlData = td->GetController();
+                auto controlData2 = td->GetController2();
+                auto target1 = td->GetTarget();
+                auto target2 = td->GetSecondTarget();
+
+                switch ( stateEnum )
+                {
+                    case CLIMBER_STATE::OFF:
+                    {   
+                        m_states[stateEnum] = new ClimberState( controlData, controlData2, target1, target2 );
+                        m_currentState = m_states[CLIMBER_STATE::OFF];
+                        m_currentStateEnum = stateEnum;
+                        m_currentState->Init();
+                        Logger::GetLogger()->ToNtTable(m_nt, "CLIMBEROFF", "created");
+                    }
+                    break;
+
+                    case CLIMBER_STATE::INITIAL_REACH:
+                    {   
+                        m_states[stateEnum] = new ClimberState( controlData, controlData2, target1, target2 );
+                        Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERINITIALREACH", "created");
+                    }
+                    break;
+
+                    case CLIMBER_STATE::RETRACT:
+                    {   
+                        m_states[stateEnum] = new ClimberState( controlData, controlData2, target1, target2 );
+                        Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERRETRACT", "created");
+                    }
+                    break;
+
+                    case CLIMBER_STATE::RELEASE:
+                    {   
+                        m_states[stateEnum] = new ClimberState( controlData, controlData2, target1, target2 );
+                        Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERRELEASE", "created");
+                    }
+                    break;
+
+                    case CLIMBER_STATE::REACH_TO_BAR:
+                    {   
+                        m_states[stateEnum] = new ClimberState( controlData, controlData2, target1, target2 );
+                        Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERREACHTOBAR", "created");
+                    }
+                    break;
+                    
+                    case CLIMBER_STATE::ROTATE_OUT:
+                    {   
+                        m_states[stateEnum] = new ClimberState( controlData, controlData2, target1, target2 );
+                        Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERROTATEOUT", "created");
+                    }
+                    break;
+
+                    case CLIMBER_STATE::ROTATE_IN:
+                    {   
+                        m_states[stateEnum] = new ClimberState( controlData, controlData2, target1, target2 );
+                        Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERROTATEIN", "created");
+                    }
+                    break;
+
+                    case CLIMBER_STATE::HOLD:
+                    {   
+                        m_states[stateEnum] = new ClimberState( controlData, controlData2, target1, target2 );
+                        Logger::GetLogger()->ToNtTable(m_nt, "CLIMBERHOLD", "created");
+                    }
+                    break;
+
+                    default:
+                    {
+                        Logger::GetLogger()->LogError( string("ClimberStateMgr::ClimberStateMgr"), string("unknown state"));
+                    }
+                    break;
+                }
+            }
+            else
+            {
+                Logger::GetLogger()->LogError( string("ClimberStateMgr::ClimberStateMgr"), string("multiple mechanism state info for state"));
+            }
+        }
+        else
+        {
+            Logger::GetLogger()->LogError( string("ClimberStateMgr::ClimberStateMgr"), string("state not found"));
+        }
+    }
+}
+
+/// @brief  run the current state
+/// @return void
+void ClimberStateMgr::RunCurrentState()
+{
+    auto controller = TeleopControl::GetInstance();
+    if (controller != nullptr)
+    {
+        
+        if ( controller->IsButtonPressed( TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_SHOOT ))
+        {
+            Logger::GetLogger()->ToNtTable(m_nt, "Current State", "Shoot");
+        }
+        else if ( m_currentStateEnum==ClimberStateMgr::CLIMBER_STATE::OFF)
+        {
+                // keep everything the same
+        }
+        else    // revert to holding the ball
+        {
+            Logger::GetLogger()->ToNtTable(m_nt, "Current State", "Shoot");
+        }
+
+        if ( controller->IsButtonPressed( TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_PREPARE_TO_SHOOT_GREEN ))
+        {
+            Logger::GetLogger()->ToNtTable(m_nt, "Current State", "Shoot Green");
+            SetCurrentState( CLIMBER_STATE::GET_READY_SHOOTGREEN, false );
+        }
+//        else
+//        {
+//            SetCurrentState( m_prevStateEnum, false);
+//        }
+    }
+
+    // run the current state
+    if ( m_currentState != nullptr )
+    {
+        m_currentState->Run();
+    }
+}
+
+/// @brief  set the current state, initialize it and run it
+/// @return void
+void ClimberStateMgr::SetCurrentState
+(
+    CLIMBER_STATE   stateEnum,
+    bool            run
+)
+{
+    auto state = m_states[stateEnum];
+    if ( state != nullptr )
+    {
+        Logger::GetLogger()->ToNtTable(m_nt, "Current State", "none");
+        
+        m_prevStateEnum = (m_currentStateEnum == stateEnum) ? m_prevStateEnum : m_currentStateEnum;
+
+        m_currentState = state;
+        m_currentStateEnum = stateEnum;
+        m_currentState->Init();
+        
+        if ( run )
+        {
+            m_currentState->Run();
+        }
+    }
+    else
+    {
+        Logger::GetLogger()->ToNtTable(m_nt, "state", "nullptr" );
+    }
+    
+}
