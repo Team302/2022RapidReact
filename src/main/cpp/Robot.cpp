@@ -19,6 +19,7 @@
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/MechanismFactory.h>
 #include <auton/CyclePrimitives.h>
+#include <states/StateMgr.h>
 
 void Robot::RobotInit() 
 {
@@ -44,6 +45,9 @@ void Robot::RobotInit()
   m_swerve = new SwerveDrive();
   
   auto mechFactory = MechanismFactory::GetMechanismFactory();
+  m_ballTransfer = mechFactory->GetBallTransfer();
+
+   m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
 
   m_cyclePrims = new CyclePrimitives();
 

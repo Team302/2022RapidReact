@@ -12,6 +12,7 @@
 #include <subsys/interfaces/IChassis.h>
 #include <auton/CyclePrimitives.h>
 #include <states/chassis/SwerveDrive.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
 
 
 class Robot : public frc::TimedRobot {
