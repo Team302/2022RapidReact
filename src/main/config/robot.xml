@@ -247,7 +247,9 @@
 
     </chassis>  
 
-
+<!-- ====================================================
+     Intake
+     ====================================================  -->
     <!--
     <mechanism type="INTAKE"
                networkTable="IntakeNT"
@@ -255,29 +257,6 @@
        <motor usage="INTAKE"
               canId="0"
               pdpID="0"
-              type="TALONSRX"
-              inverted="true"
-              sensorInverted="false"
-              feedbackDevice="NONE"
-              countsPerRev="0"
-              gearRatio="1.0"
-              brakeMode="false"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="false"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="false"
-              reverselimitswitchopen="true"/>
-    </mechanism>
-
-    <mechanism type="BALLTRANSFER"
-               networkTable="BallTransferNT"
-               controlFile="balltransfer.xml">
-       <motor usage="BALLTRANSFER"
-              canId="14"
-              pdpID="14"
               type="TALONSRX"
               inverted="true"
               sensorInverted="false"
