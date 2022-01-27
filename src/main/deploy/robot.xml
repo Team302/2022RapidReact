@@ -2,12 +2,21 @@
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot> 
 
+<<<<<<< Updated upstream
        <pdp canId="0"
             type="CTRE"/>
 
 	<pigeon canId="50"
                rotation="0.0" />
 <!--
+=======
+<!--
+    <pdp canId="0"
+        type="CTRE"/>
+
+    <pigeon canId="50"
+            rotation="0.0" />
+>>>>>>> Stashed changes
        <limelight tablename="limelight"
                      mountingheight="31.5"
                      horizontaloffset="0.0"
@@ -23,8 +32,13 @@
                      crosshairy="0.5"
                      secondcrosshairx="0.25"
                      secondcrosshairy="0.25" />
+<<<<<<< Updated upstream
 -->
 <!-- ====================================================
+=======
+    -->
+ <!-- ====================================================
+>>>>>>> Stashed changes
      Chassis
      ====================================================  -->
     <chassis  type="SWERVE"
@@ -246,6 +260,45 @@
         </swervemodule>
 
     </chassis>  
+<<<<<<< Updated upstream
+=======
+
+
+    <!-- chassis type="TANK"
+             wheelDiameter="4.0"
+             wheelBase="13.75"
+             track="15.0"
+             maxVelocity="28.0"
+             maxAngularVelocity="60.0"
+             maxAcceleration="12.0"
+             maxAngularAcceleration="6.0"
+             networkTable="ChassisNT"
+             controlFile="chassis.xml">
+
+        <motor usage="DIFFERENTIAL_LEFT_MAIN"
+               canId="1"
+               pdpID="1"
+               type="TALONSRX"
+               inverted="false"
+               sensorInverted="false"
+               feedbackDevice="QUADENCODER"
+               countsPerRev="4096"
+               gearRatio="1.0"
+               brakeMode="true"/>
+
+        <motor usage="DIFFERENTIAL_RIGHT_MAIN"
+               canId="13"
+               pdpID="13"
+               type="TALONSRX"
+               inverted="true"
+               sensorInverted="false"
+               feedbackDevice="QUADENCODER"
+               countsPerRev="4096"
+               gearRatio="1.0"
+               brakeMode="true"/>
+    </chassis>
+-->
+>>>>>>> Stashed changes
 
 <!-- ====================================================
      Intake
@@ -253,7 +306,8 @@
     <!--
     <mechanism type="INTAKE"
                networkTable="IntakeNT"
-               controlFile="intake.xml">
+               controlFile="intake.xml"
+>
        <motor usage="INTAKE"
               canId="0"
               pdpID="0"
@@ -273,5 +327,63 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
+<<<<<<< Updated upstream
               -->
 </robot>
+=======
+    <!--
+    <mechanism type="BALLTRANSFER"
+               networkTable="BallTransferNT"
+               controlFile="balltransfer.xml">
+       <motor usage="BALLTRANSFER"
+              canId="14"
+              pdpID="14"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="false"
+              reverselimitswitchopen="true"/>
+    </mechanism>
+    <mechanism type="ARM"
+               networkTable="ArmNT"
+               controlFile="arm.xml">
+       <motor usage="ARM"
+              canId="15"
+              pdpID="15"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="true"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="true"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="true"
+              reverselimitswitchopen="true"/>
+    </mechanism>    
+    <mechanism type="BALLRELEASE"
+               networkTable="BallReleaseNT"
+               controlFile="ballrelease.xml">
+       <servo usage="BALLRELEASE"
+              pwmId="0"
+              minAngle="0.0"
+              maxAngle="360.0" />
+    </mechanism>  
+              -->
+</robot>
+>>>>>>> Stashed changes
