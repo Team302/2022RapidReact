@@ -3,11 +3,12 @@
 enum StateType
 {
     INTAKE,
-   /* BALLTRANSER,
-    ARM,
-    BALLRELEASE,
+    INTAKE2,
+    BALLTRANSFER,
+    SHOOTER,
+    SHOOTER_HOOD,
+    CLIMBER,
     MAX_STATE_TYPES
-    */
 };
 
 
