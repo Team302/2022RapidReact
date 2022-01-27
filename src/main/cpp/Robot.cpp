@@ -96,7 +96,10 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
-    m_intakeStateMgr->SetCurrentState(IntakeStateMgr::INTAKE_STATE::INTAKE, false);
+    if (m_intakeStateMgr != nullptr)
+    {
+        m_intakeStateMgr->SetCurrentState(IntakeStateMgr::INTAKE_STATE::INTAKE, false);
+    }
 }
 
 void Robot::TeleopPeriodic() 
