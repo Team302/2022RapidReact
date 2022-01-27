@@ -14,6 +14,8 @@
 #include <states/intake/IntakeStateMgr.h>
 #include <subsys/Intake.h>
 #include <auton/CyclePrimitives.h>
+#include <states/chassis/SwerveDrive.h>
+
 
 
 class Robot : public frc::TimedRobot 
@@ -35,6 +37,7 @@ class Robot : public frc::TimedRobot
   IChassis*             m_chassis;
   CyclePrimitives*      m_cyclePrims;
   frc::Timer*           m_timer;
+  SwerveDrive*          m_swerve;
 
   IntakeStateMgr*       m_intakeStateMgr;
 
