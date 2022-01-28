@@ -50,7 +50,7 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
     double target = 0.0;
     MechanismTargetData::SOLENOID solenoid = MechanismTargetData::SOLENOID::NONE; 
     string controllerIdentifier2;
-    double failoverTarget = 0.0;
+    double secondTarget = 0.0;
 
     // parse/validate xml
     for (xml_attribute attr = MechanismDataNode.first_attribute(); attr; attr = attr.next_attribute())
@@ -74,9 +74,9 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
             {
                 solenoid = MechanismTargetData::SOLENOID::ON;
             }
-            else if ( strcmp(val, "OFF") == 0)
+            else if ( strcmp(val, "REVERSE") == 0)
             {
-                solenoid = MechanismTargetData::SOLENOID::OFF;
+                solenoid = MechanismTargetData::SOLENOID::REVERSE;
             }
             else if( strcmp(val, "NONE") == 0)
             {
@@ -87,13 +87,13 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
                 Logger::GetLogger()->LogError( string("MechanismTargetDefn::ParseXML"), string("solenoid enum"));
             }
         }
-        else if ( strcmp( attr.name(), "failoverControlDataIdentifier") == 0 )
+        else if ( strcmp( attr.name(), "controlDataIdentifier2") == 0 )
         {
             controllerIdentifier2 = string( attr.value() );
         }
-        else if ( strcmp( attr.name(), "failoverValue") == 0 )
+        else if ( strcmp( attr.name(), "secondValue") == 0 )
         {
-            failoverTarget = attr.as_double();
+            secondTarget = attr.as_double();
         }
         else
         {
@@ -106,7 +106,7 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
 
     if ( !hasError && !stateName.empty() && !controllerIdentifier.empty() )
     {
-        mechData = new MechanismTargetData( stateName, controllerIdentifier, controllerIdentifier2, target, solenoid, failoverTarget );
+        mechData = new MechanismTargetData( stateName, controllerIdentifier, controllerIdentifier2, target, secondTarget, solenoid );
     }
     else
     {
