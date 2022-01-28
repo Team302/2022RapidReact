@@ -54,7 +54,6 @@ class MotorControllerUsage
             MAX_MOTOR_CONTROLLER_USAGES
         };
 
-
         static MotorControllerUsage* GetInstance();
 
         MOTOR_CONTROLLER_USAGE GetUsage
