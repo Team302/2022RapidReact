@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE statedata SYSTEM "stateData.dtd">
+<statedata>
+	<controlData identifier="openloop" 
+	             mode="PERCENT_OUTPUT"/>
+				 
+	<controlData identifier="closedloop"
+				 mode="VELOCITY_RPS"
+				 proportional="0.155"
+				 feedforward="0.045"/>
+	<!--mechanismTarget stateIdentifier="SHOOTERON"
+	                 controlDataIdentifier="openloop"
+					 value="1.0"/--> 
+	<mechanismTarget stateIdentifier="SHOOTEROFF"
+	                 controlDataIdentifier="openloop"
+					 value="0.0"/>
+
+ <mechanismTarget stateIdentifier="SHOOTERON"
+	                 controlDataIdentifier="closedloop"
+					 value="45.0"/> 
+
+					  <!-- 8ft from hub <mechanismTarget stateIdentifier="SHOOTERON"
+	                 controlDataIdentifier="closedloop"
+					 value="55.0"/> -->
+
+
+					 <!--changed the angle-->
+				<!--12.5ft from hub- <mechanismTarget stateIdentifier="SHOOTERON"
+	                 controlDataIdentifier="closedloop"
+					 value="70.0"/>	  -->
+
+
+					 
+</statedata>

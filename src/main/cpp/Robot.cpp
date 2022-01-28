@@ -21,6 +21,9 @@
 #include <subsys/MechanismFactory.h>
 #include <auton/CyclePrimitives.h>
 #include <states/Intake/IntakeStateMgr.h>
+#include <states/ShooterStateMgr.h>
+
+#include <subsys/Shooter.h>
 
 void Robot::RobotInit() 
 {
@@ -44,6 +47,9 @@ void Robot::RobotInit()
   m_intake = mechFactory->GetIntake();
   m_intakeStateMgr = IntakeStateMgr::GetInstance();
 
+  m_shooter = mechFactory->GetShooter();
+  m_shooterStateMgr = ShooterStateMgr::GetInstance();
+  
   m_cyclePrims = new CyclePrimitives();
 }
 
@@ -92,6 +98,7 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
+
     if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
     {
        m_swerve->Init();
@@ -100,18 +107,29 @@ void Robot::TeleopInit()
     {
         m_intakeStateMgr->SetCurrentState(IntakeStateMgr::INTAKE_STATE::INTAKE, false);
     }
+    if (m_shooterStateMgr != nullptr && m_shooter != nullptr)
+    {
+        m_shooterStateMgr->SetCurrentState(m_shooterStateMgr->ON,true);
+    }
 }
 
 void Robot::TeleopPeriodic() 
 {
+ 
   if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
   {
+
     m_swerve->Run();
   }
 
   if (m_intake != nullptr && m_intakeStateMgr != nullptr)
   {
     m_intakeStateMgr->RunCurrentState();
+  }
+  
+  if (m_shooter != nullptr && m_shooterStateMgr != nullptr)
+  {
+       m_shooterStateMgr->RunCurrentState();
   }
 
 }
