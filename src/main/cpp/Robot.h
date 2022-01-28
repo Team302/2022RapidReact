@@ -13,6 +13,7 @@
 #include <auton/CyclePrimitives.h>
 #include <states/ShooterStateMgr.h>
 #include <states/chassis/SwerveDrive.h>
+#include <subsys/Shooter.h>
 
 
 
@@ -34,6 +35,7 @@ class Robot : public frc::TimedRobot {
   IChassis*             m_chassis;
   CyclePrimitives*      m_cyclePrims;
   ShooterStateMgr* m_shooterStateMgr;
+  Shooter*         m_shooter;
   SwerveDrive*          m_swerve;
   
 };

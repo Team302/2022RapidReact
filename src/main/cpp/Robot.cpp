@@ -22,6 +22,8 @@
 
 #include <states/ShooterStateMgr.h>
 
+#include <subsys/Shooter.h>
+
 void Robot::RobotInit() 
 {
   // Read the XML file to build the robot 
@@ -38,6 +40,7 @@ void Robot::RobotInit()
   m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
   auto factory = ChassisFactory::GetChassisFactory();
   m_chassis = factory->GetIChassis();
+
   if (m_chassis != nullptr)
   {
     
@@ -49,6 +52,8 @@ void Robot::RobotInit()
 
   m_cyclePrims = new CyclePrimitives();
 
+  m_shooter = mechFactory->GetShooter();
+  m_shooterStateMgr = ShooterStateMgr::GetInstance();
 }
 
 /**
@@ -103,9 +108,8 @@ void Robot::TeleopInit()
  
   }
 
-  if(m_shooterStateMgr != nullptr)
+  if(m_shooterStateMgr != nullptr && m_shooter != nullptr)
   {
-    m_shooterStateMgr = ShooterStateMgr::GetInstance();
     m_shooterStateMgr->SetCurrentState(m_shooterStateMgr->ON,true);
 
   }
@@ -119,7 +123,7 @@ void Robot::TeleopPeriodic()
 
     m_swerve->Run();
   }
-  if(m_shooterStateMgr != nullptr)
+  if(m_shooterStateMgr != nullptr && m_shooter != nullptr)
   {
       m_shooterStateMgr->RunCurrentState();
 

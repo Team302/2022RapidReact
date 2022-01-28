@@ -4,18 +4,18 @@
 	<controlData identifier="openloop" 
 	             mode="PERCENT_OUTPUT"/>
 				 
-	<controlData identifier="closedloop"
+	<!-- <controlData identifier="closedloop"
 				 mode="VELOCITY_RPS"
 				 proportional="0.155"
-				 feedforward="0.045"/>
-	<!--mechanismTarget stateIdentifier="SHOOTERON"
+				 feedforward="0.045"/> -->
+	<mechanismTarget stateIdentifier="SHOOTERON"
 	                 controlDataIdentifier="openloop"
-					 value="1.0"/--> 
+					 value="0.50"/> 
 	<mechanismTarget stateIdentifier="SHOOTEROFF"
 	                 controlDataIdentifier="openloop"
 					 value="0.0"/>
 
-<mechanismTarget stateIdentifier="SHOOTERON"
+<!-- <mechanismTarget stateIdentifier="SHOOTERON"
 	                 controlDataIdentifier="closedloop"
-					 value="30.0"/>
+					 value="30.0"/> -->
 </statedata>
