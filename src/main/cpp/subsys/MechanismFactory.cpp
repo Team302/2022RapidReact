@@ -101,21 +101,21 @@ void MechanismFactory::CreateIMechanism
 		
 		case MechanismTypes::MECHANISM_TYPE::INTAKE:
 		{
-			if (m_intake == nullptr)
+			if (m_shooter == nullptr)
 			{
-				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE );
+				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER);
 				if ( motor.get() != nullptr )
 				{
 					m_intake = new Intake(controlFileName, networkTableName, motor);
 				}
 				else
 				{
-					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No intake motor exists in XML"));
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No Shooter motor exists in XML"));
 				}
 			}
 			else
 			{
-				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Intake already exists") );
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Shooter already exists") );
 			}
 		}
 		break;
