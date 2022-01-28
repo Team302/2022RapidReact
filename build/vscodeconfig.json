@@ -37,8 +37,8 @@
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\b08b9f937e430cdef8c06ff4f3c7060e\\transformed\\cameraserver-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\2a5a8c7196d96ca8c3653526d1ab3dd8\\transformed\\cscore-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-      "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\0f3db1c3623f43d63ba3d08c4213d4d2\\transformed\\wpilibNewCommands-cpp-2022.1.1-sources\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\e5ed294e2796233ce348092d86c3d615\\transformed\\wpilibc-cpp-2022.1.1-sources\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\c0deeec90f8e6eb3e8a25ccff43421d2\\transformed\\ntcore-cpp-2022.1.1-sources\\",
@@ -84,8 +84,8 @@
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\b08b9f937e430cdef8c06ff4f3c7060e\\transformed\\cameraserver-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\2a5a8c7196d96ca8c3653526d1ab3dd8\\transformed\\cscore-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-      "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
     ],
     "binaries": [
       {
@@ -94,8 +94,8 @@
           {
             "source": {
               "srcDirs": [
-                "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-                "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
               ],
               "includes": [
                 "**/*.cpp",
@@ -107,8 +107,8 @@
             },
             "exportedHeaders": {
               "srcDirs": [
-                "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-                "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
               ],
               "includes": [
                 "**/*.hpp",
@@ -160,8 +160,8 @@
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\b08b9f937e430cdef8c06ff4f3c7060e\\transformed\\cameraserver-cpp-2022.1.1-headers\\",
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\2a5a8c7196d96ca8c3653526d1ab3dd8\\transformed\\cscore-cpp-2022.1.1-headers\\",
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-          "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-          "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
         ],
         "sharedLibrary": false,
         "executable": true
@@ -171,8 +171,8 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-            "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
           ],
           "includes": [
             "**/*.cpp",
@@ -206,8 +206,8 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-            "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
           ],
           "includes": [
             "**/*.hpp",
@@ -280,8 +280,8 @@
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\b08b9f937e430cdef8c06ff4f3c7060e\\transformed\\cameraserver-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\2a5a8c7196d96ca8c3653526d1ab3dd8\\transformed\\cscore-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-      "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\0f3db1c3623f43d63ba3d08c4213d4d2\\transformed\\wpilibNewCommands-cpp-2022.1.1-sources\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\e5ed294e2796233ce348092d86c3d615\\transformed\\wpilibc-cpp-2022.1.1-sources\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\c0deeec90f8e6eb3e8a25ccff43421d2\\transformed\\ntcore-cpp-2022.1.1-sources\\",
@@ -327,8 +327,8 @@
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\b08b9f937e430cdef8c06ff4f3c7060e\\transformed\\cameraserver-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\2a5a8c7196d96ca8c3653526d1ab3dd8\\transformed\\cscore-cpp-2022.1.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-      "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
     ],
     "binaries": [
       {
@@ -337,8 +337,8 @@
           {
             "source": {
               "srcDirs": [
-                "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-                "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
               ],
               "includes": [
                 "**/*.cpp",
@@ -350,8 +350,8 @@
             },
             "exportedHeaders": {
               "srcDirs": [
-                "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-                "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
               ],
               "includes": [
                 "**/*.hpp",
@@ -402,8 +402,8 @@
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\b08b9f937e430cdef8c06ff4f3c7060e\\transformed\\cameraserver-cpp-2022.1.1-headers\\",
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\2a5a8c7196d96ca8c3653526d1ab3dd8\\transformed\\cscore-cpp-2022.1.1-headers\\",
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-          "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-          "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
         ],
         "sharedLibrary": false,
         "executable": true
@@ -413,8 +413,8 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-            "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
           ],
           "includes": [
             "**/*.cpp",
@@ -447,8 +447,8 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
-            "C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
           ],
           "includes": [
             "**/*.hpp",

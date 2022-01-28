@@ -15,9 +15,9 @@ c++
 -O2
 -nostdinc
 -I
-C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp
+C:\\GitRepos\\2022RapidReact\\src\\main\\cpp
 -I
-C:\\Users\\joewi\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty
+C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty
 -I
 C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers
 -I
