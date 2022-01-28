@@ -251,7 +251,7 @@
                controlFile="shooter.xml"
 >
        <motor usage="SHOOTER"
-              canId="0"
+              canId="1"
               pdpID="0"
               type="TALONSRX"
               inverted="true"

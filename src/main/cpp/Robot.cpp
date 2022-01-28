@@ -23,6 +23,8 @@
 #include <states/Intake/IntakeStateMgr.h>
 #include <states/ShooterStateMgr.h>
 
+#include <subsys/Shooter.h>
+
 void Robot::RobotInit() 
 {
   // Read the XML file to build the robot 
