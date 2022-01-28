@@ -1,39 +1,19 @@
 See file:///C:/Users/user/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
-compiling CyclePrimitives.cpp successful.
-
 compiling DriveDistance.cpp successful.
 
 compiling DriveToWall.cpp successful.
+
+compiling BallTransferStateMgr.cpp failed.
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\states\BallTransfer\BallTransferStateMgr.cpp: In member function 'virtual void BallTransferStateMgr::CheckForStateTransition()':
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\states\BallTransfer\BallTransferStateMgr.cpp:64:96: error: 'LIFT' is not a member of 'TeleopControl::FUNCTION_IDENTIFIER'
+             auto liftPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::LIFT);
+                                                                                                ^~~~
 
 compiling PrimitiveFactory.cpp successful.
 
 compiling DragonVision.cpp successful.
 
-compiling MotorControllerUsage.cpp successful.
-
-compiling BallTransferState.cpp successful.
-
-compiling BallTransferStateMgr.cpp successful.
-
-compiling StateMgr.cpp successful.
-
-compiling BallTransfer.cpp successful.
-
-compiling MechanismFactory.cpp successful.
-
-compiling MechanismDefn.cpp successful.
-
-compiling StateDataDefn.cpp successful.
-
-compiling DriveTime.cpp successful.
-
 compiling Robot.cpp successful.
-C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\Robot.cpp: In member function 'virtual void Robot::RobotInit()':
-C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\Robot.cpp:46:8: warning: unused variable 'mechFactory' [-Wunused-variable]
-   auto mechFactory = MechanismFactory::GetMechanismFactory();
-        ^~~~~~~~~~~
-
-compiling DriveToTarget.cpp successful.
 
 compiling ResetPosition.cpp successful.
 

@@ -19,7 +19,7 @@ class BallTransferStateMgr : public StateMgr
         {
             OFF,
             INTAKE,
-            EXPEL,
+            LIFT,
             MAX_BALL_TRANSFER_STATES
         };
 
@@ -38,5 +38,5 @@ class BallTransferStateMgr : public StateMgr
 
         const StateStruc  m_offState = {BALL_TRANSFER_STATE::OFF, StateType::BALLTRANSER, true};
         const StateStruc  m_intakeState = {BALL_TRANSFER_STATE::INTAKE, StateType::BALLTRANSER, false};
-        const StateStruc  m_expelState = {BALL_TRANSFER_STATE::EXPEL, StateType::BALLTRANSER, false};
+        const StateStruc  m_liftState = {BALL_TRANSFER_STATE::LIFT, StateType::BALLTRANSER, false};
 };

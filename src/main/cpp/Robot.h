@@ -13,6 +13,8 @@
 #include <auton/CyclePrimitives.h>
 #include <states/chassis/SwerveDrive.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
+#include <subsys/BallTransfer.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
 
 
 class Robot : public frc::TimedRobot {
@@ -33,4 +35,6 @@ class Robot : public frc::TimedRobot {
   IChassis*             m_chassis;
   CyclePrimitives*      m_cyclePrims;
   SwerveDrive*          m_swerve;
+  BallTransfer*         m_ballTransfer;
+  BallTransferStateMgr* m_ballTransferStateMgr;
 };

@@ -20,6 +20,7 @@
 #include <subsys/MechanismFactory.h>
 #include <auton/CyclePrimitives.h>
 #include <states/StateMgr.h>
+#include <Robot.h>
 
 void Robot::RobotInit() 
 {
@@ -109,6 +110,10 @@ void Robot::TeleopPeriodic()
   if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
   {
     m_swerve->Run();
+  }
+    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
+  {
+    m_ballTransferStateMgr->RunCurrentState();
   }
 }
 
