@@ -65,6 +65,8 @@ class ChassisFactory
 				std::shared_ptr<SwerveModule>                               frontRight,
 				std::shared_ptr<SwerveModule>                               backLeft, 
 				std::shared_ptr<SwerveModule>                               backRight, 
+    			ChassisSpeedCalcEnum 									    speedCalcOption,
+    			PoseEstimatorEnum 										poseEstOption,
 				double                                                      odometryComplianceCoefficient
 			);
 

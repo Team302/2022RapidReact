@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE robot SYSTEM "robot.dtd">
-<robot> 
+<robot>
 
 <!--
     <pdp canId="0"
@@ -23,13 +23,8 @@
                      crosshairy="0.5"
                      secondcrosshairx="0.25"
                      secondcrosshairy="0.25" />
-<<<<<<< Updated upstream
 -->
 <!-- ====================================================
-=======
-    -->
- <!-- ====================================================
->>>>>>> Stashed changes
      Chassis
      ====================================================  -->
     <chassis  type="SWERVE"
@@ -251,8 +246,7 @@
         </swervemodule>
 
     </chassis>  
-<<<<<<< Updated upstream
-=======
+
 
 
     <!-- chassis type="TANK"
@@ -289,8 +283,6 @@
                brakeMode="true"/>
     </chassis>
 -->
->>>>>>> Stashed changes
-
 <!-- ====================================================
      Intake
      ====================================================  -->
@@ -317,11 +309,6 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
-<<<<<<< Updated upstream
-              -->
-</robot>
-=======
-    <!--
     <mechanism type="BALLTRANSFER"
                networkTable="BallTransferNT"
                controlFile="balltransfer.xml">
@@ -376,4 +363,3 @@
     </mechanism>  
               -->
 </robot>
->>>>>>> Stashed changes

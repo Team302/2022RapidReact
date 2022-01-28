@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE robot SYSTEM "robot.dtd">
-<robot> 
+<robot>
 
-<<<<<<< Updated upstream
-       <pdp canId="0"
-            type="CTRE"/>
-
-	<pigeon canId="50"
-               rotation="0.0" />
-<!--
-=======
 <!--
     <pdp canId="0"
         type="CTRE"/>
 
     <pigeon canId="50"
             rotation="0.0" />
->>>>>>> Stashed changes
        <limelight tablename="limelight"
                      mountingheight="31.5"
                      horizontaloffset="0.0"
@@ -32,13 +23,8 @@
                      crosshairy="0.5"
                      secondcrosshairx="0.25"
                      secondcrosshairy="0.25" />
-<<<<<<< Updated upstream
 -->
 <!-- ====================================================
-=======
-    -->
- <!-- ====================================================
->>>>>>> Stashed changes
      Chassis
      ====================================================  -->
     <chassis  type="SWERVE"
@@ -260,8 +246,7 @@
         </swervemodule>
 
     </chassis>  
-<<<<<<< Updated upstream
-=======
+
 
 
     <!-- chassis type="TANK"
@@ -298,16 +283,13 @@
                brakeMode="true"/>
     </chassis>
 -->
->>>>>>> Stashed changes
-
 <!-- ====================================================
      Intake
      ====================================================  -->
     <!--
     <mechanism type="INTAKE"
                networkTable="IntakeNT"
-               controlFile="intake.xml"
->
+               controlFile="intake.xml">
        <motor usage="INTAKE"
               canId="0"
               pdpID="0"
@@ -327,11 +309,6 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
-<<<<<<< Updated upstream
-              -->
-</robot>
-=======
-    <!--
     <mechanism type="BALLTRANSFER"
                networkTable="BallTransferNT"
                controlFile="balltransfer.xml">
@@ -386,4 +363,3 @@
     </mechanism>  
               -->
 </robot>
->>>>>>> Stashed changes

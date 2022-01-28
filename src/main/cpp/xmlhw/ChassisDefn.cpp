@@ -38,6 +38,8 @@
 #include <hw/interfaces/IDragonMotorController.h>
 #include <subsys/ChassisFactory.h>
 #include <subsys/interfaces/IChassis.h>
+#include <subsys/ChassisSpeedCalcEnum.h>
+#include <subsys/PoseEstimatorEnum.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
 
 #include <xmlhw/ChassisDefn.h>
@@ -78,6 +80,9 @@ IChassis* ChassisDefn::ParseXML
     units::angular_acceleration::radians_per_second_squared_t maxAngularAcceleration(0.0);
     string networkTableName;
     string controlFileName;
+
+    ChassisSpeedCalcEnum speedCalcOption = ChassisSpeedCalcEnum::ETHER;
+    PoseEstimatorEnum poseEstOption   = PoseEstimatorEnum::EULER_AT_CHASSIS;
 
     bool hasError = false;
 
@@ -141,13 +146,67 @@ IChassis* ChassisDefn::ParseXML
         {
             odometryComplianceCoefficient = attr.as_double();
         }
-        else if ( attrName.compare("networkTable") == 0 )
+        else if (attrName.compare("networkTable") == 0)
         {
             networkTableName = attr.as_string();
         }
-        else if ( attrName.compare("controlFile") == 0 )
+        else if (attrName.compare("controlFile") == 0)
         {
             controlFileName = attr.as_string();
+        }
+        else if (attrName.compare("wheelSpeedCalcOption") ==0)
+        {
+            auto val = string( attr.value() );
+            if (val.compare( "WPI") == 0)
+            {
+                speedCalcOption = ChassisSpeedCalcEnum::WPI_METHOD;
+            }
+            else if (val.compare("ETHER") == 0)
+            {
+                speedCalcOption = ChassisSpeedCalcEnum::ETHER;
+            }
+            else if (val.compare("ETHER") == 0)
+            {
+                speedCalcOption = ChassisSpeedCalcEnum::ETHER;
+            }
+            else
+            {
+                string msg = "unknown Chassis Speed Calc Option ";
+                msg += val;
+                Logger::GetLogger()->LogError( string("ChassisDefn::ParseXML"), msg );
+                hasError = true;
+            }
+        }
+        else if (attrName.compare("poseEstimationOption") ==0)
+        {
+            auto val = string( attr.value() );
+            if (val.compare( "WPI") == 0)
+            {
+                poseEstOption = PoseEstimatorEnum::WPI;
+            }
+            else if (val.compare("EULERCHASSIS") == 0)
+            {
+                poseEstOption = PoseEstimatorEnum::EULER_AT_CHASSIS;
+            }
+            else if (val.compare("EULERWHEEL") == 0)
+            {
+                poseEstOption = PoseEstimatorEnum::EULER_USING_MODULES;
+            }
+            else if (val.compare("POSECHASSIS") == 0)
+            {
+                poseEstOption = PoseEstimatorEnum::POSE_EST_AT_CHASSIS;
+            }
+            else if (val.compare("POSEWHEEL") == 0)
+            {
+                poseEstOption = PoseEstimatorEnum::POSE_EST_USING_MODULES;
+            }
+            else
+            {
+                string msg = "unknown Chassis Pose Estimation Option ";
+                msg += val;
+                Logger::GetLogger()->LogError( string("ChassisDefn::ParseXML"), msg );
+                hasError = true;
+            }
         }
         else   // log errors
         {
@@ -237,6 +296,8 @@ IChassis* ChassisDefn::ParseXML
                                               rfront,
                                               lback,
                                               rback,
+                                              speedCalcOption,
+                                              poseEstOption, 
                                               odometryComplianceCoefficient );
         }
         else  // log errors

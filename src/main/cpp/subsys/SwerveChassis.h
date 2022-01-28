@@ -39,9 +39,16 @@
 
 #include <hw/factories/PigeonFactory.h>
 #include <hw/DragonPigeon.h>
+#include <subsys/ChassisSpeedCalcEnum.h>
+#include <subsys/PoseEstimatorEnum.h>
 #include <subsys/SwerveModule.h>
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/interfaces/IChassis.h>
+#include <subsys/interfaces/ISwerveChassisModuleStates.h>
+#include <subsys/SwerveHelpers/EtherDirtySwerve.h>
+#include <subsys/SwerveHelpers/EtherFieldSwerve.h>
+#include <subsys/SwerveHelpers/WPIDirtySwerve.h>
+#include <subsys/SwerveHelpers/WPIFieldSwerve.h>
 
 
 class SwerveChassis : public IChassis
@@ -73,13 +80,16 @@ class SwerveChassis : public IChassis
 			units::radians_per_second_t                                 maxAngularSpeed,
 			units::acceleration::meters_per_second_squared_t            maxAcceleration,
 			units::angular_acceleration::radians_per_second_squared_t   maxAngularAcceleration,
+        	ChassisSpeedCalcEnum 									    speedCalcOption,
+    		PoseEstimatorEnum 										    poseEstOption,
             std::string                                                 ntName,
             std::string                                                 controlFileName
         );
 
         /// @brief Align all of the swerve modules to point forward
-        void ZeroAlignSwerveModules();
+        void Initialize() override;
         void SetFieldRelative(bool isFieldRelative);
+        void SetMode(ChassisMode mode) override;
 
         /// @brief      return the chassis type
         /// @returns    CHASSIS_TYPE
@@ -167,25 +177,14 @@ class SwerveChassis : public IChassis
         void SetDriveScaleFactor( double scale );
         void SetBoost( double boost );
         void SetBrake( double brake );
-        void RunWPIAlgorithm(bool runWPI ) { m_runWPI = runWPI; }
-        void SetPoseEstOption(PoseEstimationMethod opt ) { m_poseOpt = opt; }
+        void RunWPIAlgorithm(bool runWPI ) { m_speedCalcOption = ChassisSpeedCalcEnum::WPI_METHOD; }
+        void SetPoseEstOption(PoseEstimatorEnum opt ) { m_poseOpt = opt; }
         double GetScaleFactor() const {return m_scale;}
         bool IsMoving() const { return m_isMoving;}
         double GetodometryComplianceCoefficient() const { return m_odometryComplianceCoefficient; }
 
     private:
-        frc::ChassisSpeeds GetFieldRelativeSpeeds
-        (
-            units::meters_per_second_t xSpeed,
-            units::meters_per_second_t ySpeed,
-            units::radians_per_second_t rot        
-        );
-
-        void CalcSwerveModuleStates
-        (
-            frc::ChassisSpeeds 
-        );
-
+       
         std::shared_ptr<SwerveModule>                               m_frontLeft;
         std::shared_ptr<SwerveModule>                               m_frontRight;
         std::shared_ptr<SwerveModule>                               m_backLeft;
@@ -212,7 +211,7 @@ class SwerveChassis : public IChassis
         double                                                      m_boost;
         double                                                      m_brake;
         bool                                                        m_runWPI;
-        PoseEstimationMethod                                        m_poseOpt;
+        PoseEstimatorEnum                                           m_poseOpt;
         frc::Pose2d                                                 m_pose;
         units::angle::degree_t                                      m_offsetPoseAngle;
         frc::Timer                                                  m_timer;
@@ -222,8 +221,15 @@ class SwerveChassis : public IChassis
 
         frc::Vector2d                                               m_rotateOffset;
         bool                                                        m_isFieldOriented;
+        ChassisSpeedCalcEnum 									    m_speedCalcOption;
+        PoseEstimatorEnum 										    m_poseEstOption;
         std::string                                                 m_ntName;
         std::string                                                 m_controlFileName;
+        EtherDirtySwerve*                                           m_etherDirty;
+        EtherFieldSwerve*                                           m_etherField;
+        WPIDirtySwerve*                                             m_wpiDirty;
+        WPIFieldSwerve*                                             m_wpiField;
+        ISwerveChassisModuleStates*                                 m_currentHelper;
 
         const double                                                m_deadband = 0.1;
         

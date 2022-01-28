@@ -16,11 +16,12 @@
 // C++ Includes
 #include <map>
 #include <memory>
-#include <string>
 #include <vector>
 
 // FRC includes
-
+#include <networktables/NetworkTableInstance.h>
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
 #include <controllers/MechanismTargetData.h>

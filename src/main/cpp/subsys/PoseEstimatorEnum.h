@@ -16,7 +16,7 @@
 
 #pragma once
 
-enum PoseEstimationMethod
+enum PoseEstimatorEnum
 {
     WPI,
     EULER_AT_CHASSIS,
