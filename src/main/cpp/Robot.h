@@ -18,6 +18,8 @@
 #include <subsys/Shooter.h>
 #include <states/chassis/SwerveDrive.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
+#include <subsys/BallTransfer.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
 
 
 
@@ -49,4 +51,6 @@ class Robot : public frc::TimedRobot
   Intake*               m_rightIntake;
   ShooterStateMgr*      m_shooterStateMgr;
   Shooter*              m_shooter;
+  BallTransfer*         m_ballTransfer;
+  BallTransferStateMgr* m_ballTransferStateMgr;
 };

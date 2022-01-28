@@ -43,7 +43,7 @@ BallTransferStateMgr::BallTransferStateMgr()
     map<string, StateStruc> stateMap;
     stateMap["BALLTRANSFEROFF"] = m_offState;
     stateMap["BALLTRANSFERINTAKE"] = m_intakeState;
-    stateMap["BALLTRANSFEREXPEL"] = m_expelState;
+    stateMap["BALLTRANSFERLIFT"] = m_liftState;
 
     Init(MechanismFactory::GetMechanismFactory()->GetBallTransfer(), stateMap);
 }
@@ -61,16 +61,16 @@ void BallTransferStateMgr::CheckForStateTransition()
         if ( controller != nullptr )
         {
             auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE);
-            auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL);
+            auto liftPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::LIFT);
             if (intakePressed  &&  currentState != BALL_TRANSFER_STATE::INTAKE )
             {
                 SetCurrentState( BALL_TRANSFER_STATE::INTAKE, false );
             }
-            else if (expelPressed && currentState != BALL_TRANSFER_STATE::EXPEL )
+            else if (liftPressed && currentState != BALL_TRANSFER_STATE::LIFT )
             {
-                SetCurrentState( BALL_TRANSFER_STATE::EXPEL, false );
+                SetCurrentState( BALL_TRANSFER_STATE::LIFT, false );
             }           
-            else if ((!intakePressed && !expelPressed) && currentState != BALL_TRANSFER_STATE::OFF )
+            else if ((!intakePressed && !liftPressed) && currentState != BALL_TRANSFER_STATE::OFF )
             {
                 SetCurrentState( BALL_TRANSFER_STATE::OFF, false );
             }

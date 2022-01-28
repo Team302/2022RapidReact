@@ -3,6 +3,7 @@ See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExe
 =======
 See file:///C:/Users/user/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
 <<<<<<< main
+<<<<<<< main
 >>>>>>> began working on ball transfer
 compiling AutonSelector.cpp successful.
 
@@ -10,6 +11,8 @@ compiling AutonSelector.cpp successful.
 >>>>>>> edited the states
 compiling CyclePrimitives.cpp successful.
 
+=======
+>>>>>>> finished adding ball transfer to robot, and started adding the lift state
 compiling PrimitiveFactory.cpp successful.
 In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
                  from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:31,
@@ -33,6 +36,7 @@ C:\Users\darth\.gradle\caches\transforms-3\13e16f6d00fe299fb36dcbe82772049b\tran
   ^~~~~~~
 C:\Users\darth\.gradle\caches\transforms-3\13e16f6d00fe299fb36dcbe82772049b\transformed\wpiutil-cpp-2022.2.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
 
+<<<<<<< main
 compiling DriveDistance.cpp successful.
 In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
                  from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:31,
@@ -549,23 +553,23 @@ compiling StateMgr.cpp successful.
 
 compiling BallTransfer.cpp successful.
 
+=======
+>>>>>>> finished adding ball transfer to robot, and started adding the lift state
 compiling DragonVision.cpp successful.
 
-compiling MechanismFactory.cpp successful.
+compiling DriveDistance.cpp successful.
 
-compiling MechanismDefn.cpp successful.
-
-compiling StateDataDefn.cpp successful.
-
-compiling BallTransferState.cpp successful.
+compiling BallTransferStateMgr.cpp failed.
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\states\BallTransfer\BallTransferStateMgr.cpp: In member function 'virtual void BallTransferStateMgr::CheckForStateTransition()':
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\states\BallTransfer\BallTransferStateMgr.cpp:64:96: error: 'LIFT' is not a member of 'TeleopControl::FUNCTION_IDENTIFIER'
+             auto liftPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::LIFT);
+                                                                                                ^~~~
 
 compiling Robot.cpp successful.
-C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\Robot.cpp: In member function 'virtual void Robot::RobotInit()':
-C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\Robot.cpp:46:8: warning: unused variable 'mechFactory' [-Wunused-variable]
-   auto mechFactory = MechanismFactory::GetMechanismFactory();
-        ^~~~~~~~~~~
 
 compiling ResetPosition.cpp successful.
+
+compiling DriveToWall.cpp successful.
 
 Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/Users/user/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
 >>>>>>> began working on ball transfer

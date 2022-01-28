@@ -53,9 +53,9 @@ void Robot::RobotInit()
 
     m_shooter = mechFactory->GetShooter();
     m_shooterStateMgr = ShooterStateMgr::GetInstance();
-  m_ballTransfer = mechFactory->GetBallTransfer();
+    m_ballTransfer = mechFactory->GetBallTransfer();
 
-   m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
+    m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
     
     m_cyclePrims = new CyclePrimitives();
 }
@@ -129,6 +129,10 @@ void Robot::TeleopPeriodic()
     if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
     {
         m_swerve->Run();
+    }
+    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
+    {
+        m_ballTransferStateMgr->RunCurrentState();
     }
 
     if (m_leftIntake != nullptr && m_leftIntakeStateMgr != nullptr)
