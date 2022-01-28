@@ -38,23 +38,13 @@ void Robot::RobotInit()
   m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
   auto factory = ChassisFactory::GetChassisFactory();
   m_chassis = factory->GetIChassis();
-  if (m_chassis != nullptr)
-  {
-      m_swerve = new SwerveDrive();
-  }
-
-  else
-  {
-      m_swerve = nullptr;
-  }
+  m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
+    
   auto mechFactory = MechanismFactory::GetMechanismFactory();
   m_intake = mechFactory->GetIntake();
-
-  m_cyclePrims = new CyclePrimitives();
-
   m_intakeStateMgr = IntakeStateMgr::GetInstance();
 
-
+  m_cyclePrims = new CyclePrimitives();
 }
 
 /**

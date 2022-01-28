@@ -96,14 +96,6 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
                 Logger::GetLogger()->LogError( string("MechanismTargetDefn::ParseXML"), string("solenoid enum"));
             }
         }
-        else if ( strcmp( attr.name(), "controlDataIdentifier2") == 0 )
-        {
-            controllerIdentifier2 = string( attr.value() );
-        }
-        else if ( strcmp( attr.name(), "secondValue") == 0 )
-        {
-            secondTarget = attr.as_double();
-        }
         else
         {
             string msg = "unknown attribute ";
