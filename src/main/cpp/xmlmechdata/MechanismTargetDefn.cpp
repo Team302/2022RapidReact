@@ -51,8 +51,6 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
     double target = 0.0;
     double secondTarget = 0.0;
     MechanismTargetData::SOLENOID solenoid = MechanismTargetData::SOLENOID::NONE; 
-    string controllerIdentifier2;
-    double secondTarget = 0.0;
 
     // parse/validate xml
     for (xml_attribute attr = MechanismDataNode.first_attribute(); attr; attr = attr.next_attribute())
@@ -104,6 +102,7 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
         else if ( strcmp( attr.name(), "secondValue") == 0 )
         {
             secondTarget = attr.as_double();
+        }
         else
         {
             string msg = "unknown attribute ";
