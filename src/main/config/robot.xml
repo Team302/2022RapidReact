@@ -246,10 +246,10 @@
 
     </chassis>  
 
+<!-- 
  <mechanism type="SHOOTER"
                networkTable="shooterNT"
-               controlFile="shooter.xml"
->
+               controlFile="shooter.xml">
        <motor usage="SHOOTER"
               canId="1"
               pdpID="0"
@@ -269,7 +269,7 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
-
+-->
 
 
     <!-- chassis type="TANK"
