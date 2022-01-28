@@ -11,6 +11,7 @@
 
 #include <units/velocity.h>
 #include <units/angular_velocity.h>
+#include <Robot.h>
 
 #include <states/chassis/SwerveDrive.h>
 #include <xmlhw/RobotDefn.h>
@@ -19,6 +20,7 @@
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/MechanismFactory.h>
 #include <auton/CyclePrimitives.h>
+#include <states/Intake/IntakeStateMgr.h>
 
 void Robot::RobotInit() 
 {
@@ -36,17 +38,13 @@ void Robot::RobotInit()
   m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
   auto factory = ChassisFactory::GetChassisFactory();
   m_chassis = factory->GetIChassis();
-  if (m_chassis != nullptr)
-  {
+  m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
     
-  }
-
-  m_swerve = new SwerveDrive();
-  
   auto mechFactory = MechanismFactory::GetMechanismFactory();
+  m_intake = mechFactory->GetIntake();
+  m_intakeStateMgr = IntakeStateMgr::GetInstance();
 
   m_cyclePrims = new CyclePrimitives();
-
 }
 
 /**
@@ -94,10 +92,14 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
-  if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
-  {
-    m_swerve->Init();
-  }
+    if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
+    {
+       m_swerve->Init();
+    }
+    if (m_intakeStateMgr != nullptr)
+    {
+        m_intakeStateMgr->SetCurrentState(IntakeStateMgr::INTAKE_STATE::INTAKE, false);
+    }
 }
 
 void Robot::TeleopPeriodic() 
@@ -106,6 +108,12 @@ void Robot::TeleopPeriodic()
   {
     m_swerve->Run();
   }
+
+  if (m_intake != nullptr && m_intakeStateMgr != nullptr)
+  {
+    m_intakeStateMgr->RunCurrentState();
+  }
+
 }
 
 void Robot::DisabledInit() 

@@ -289,12 +289,14 @@
                gearRatio="1.0"
                brakeMode="true"/>
     </chassis>
-
-
+-->
+<!-- ====================================================
+     Intake
+     ====================================================  -->
+    <!--
     <mechanism type="INTAKE"
                networkTable="IntakeNT"
-               controlFile="intake.xml"
->
+               controlFile="intake.xml">
        <motor usage="INTAKE"
               canId="0"
               pdpID="0"
@@ -365,5 +367,6 @@
               pwmId="0"
               minAngle="0.0"
               maxAngle="360.0" />
-    </mechanism -->    
+    </mechanism>  
+              -->
 </robot>

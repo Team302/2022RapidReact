@@ -69,7 +69,7 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 	return MechanismFactory::m_mechanismFactory;
 }
 
-MechanismFactory::MechanismFactory()
+MechanismFactory::MechanismFactory() : m_intake(nullptr)
 {
 }
 
@@ -96,7 +96,7 @@ void MechanismFactory::CreateIMechanism
 	// Create the mechanism
 	switch ( type )
 	{
-		/**
+		
 		case MechanismTypes::MECHANISM_TYPE::INTAKE:
 		{
 			if (m_intake == nullptr)
@@ -104,7 +104,7 @@ void MechanismFactory::CreateIMechanism
 				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE );
 				if ( motor.get() != nullptr )
 				{
-					m_intake = new Intake(networkTableName, controlFileName, motor);
+					m_intake = new Intake(controlFileName, networkTableName, motor);
 				}
 				else
 				{
@@ -117,7 +117,7 @@ void MechanismFactory::CreateIMechanism
 			}
 		}
 		break;
-		**/
+		
 		default:
 		{
 			string msg = "unknown Mechanism type ";
@@ -132,6 +132,7 @@ shared_ptr<IDragonMotorController> MechanismFactory::GetMotorController
 (
 	const IDragonMotorControllerMap&				motorControllers,
 	MotorControllerUsage::MOTOR_CONTROLLER_USAGE	usage
+	
 )
 {
 	shared_ptr<IDragonMotorController> motor;
@@ -162,12 +163,10 @@ IMech* MechanismFactory::GetMechanism
 	MechanismTypes::MECHANISM_TYPE	type
 ) const
 {
-	/**
-	if (type == MechanismTypes::MECHANISM_TYPE::ARM)
+	if (type == MechanismTypes::MECHANISM_TYPE::INTAKE)
 	{
-		return GetArm();
+		return GetIntake();
 	}
-	**/
 	return nullptr;
 }
 

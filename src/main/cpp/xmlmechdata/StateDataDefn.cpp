@@ -65,7 +65,6 @@ vector<MechanismTargetData*> StateDataDefn::ParseXML
 )
 {
     bool hasError = false;
-
     vector<MechanismTargetData*> targetDataVector;
 
     // set the file to parse
@@ -74,7 +73,7 @@ vector<MechanismTargetData*> StateDataDefn::ParseXML
     auto mech = MechanismFactory::GetMechanismFactory()->GetMechanism(mechanism);
     if (mech == nullptr)
     {
-        Logger::GetLogger()->LogError( "StateDataDefn::ParseXML", "invalid mechanism" );
+        Logger::GetLogger()->LogError( string("StateDataDefn::ParseXML"), string("invalid mechanism") );
         hasError = true;
     }
 
@@ -83,7 +82,7 @@ vector<MechanismTargetData*> StateDataDefn::ParseXML
         auto mechFile = mech->GetControlFileName();
         if (mechFile.empty())
         {
-            Logger::GetLogger()->LogError( "StateDataDefn::ParseXML", "mechanism without control file" );
+            Logger::GetLogger()->LogError( string("StateDataDefn::ParseXML"), string("mechanism without control file") );
             hasError = true;
         }
 
