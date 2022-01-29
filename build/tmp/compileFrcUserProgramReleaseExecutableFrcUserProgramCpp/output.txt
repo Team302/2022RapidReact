@@ -1,10 +1,374 @@
-See file:///C:/Users/joewi/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+compiling AutonSelector.cpp successful.
+
+compiling CyclePrimitives.cpp successful.
+
+compiling FieldDefn.cpp successful.
+
+compiling FieldMeasurement.cpp successful.
+
+compiling PrimitiveFactory.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:16,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/auton/primitives/DrivePath.h:39,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\auton\PrimitiveFactory.cpp:31:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling PrimitiveParams.cpp successful.
+
+compiling PrimitiveParser.cpp successful.
+
+compiling DoNothing.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:16,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DoNothing.cpp:30:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling DriveDistance.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:16,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DriveDistance.cpp:28:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling DrivePath.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:16,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/auton/primitives/DrivePath.h:39,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DrivePath.cpp:28:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling DriveTime.cpp successful.
+
+compiling DriveToTarget.cpp successful.
+
+compiling DriveToWall.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:16,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DriveToWall.cpp:44:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling MechanismTargetData.cpp successful.
+
+compiling AnalogAxis.cpp successful.
+
+compiling CubedProfile.cpp successful.
+
+compiling DeadbandValue.cpp successful.
+
+compiling FlippedAxis.cpp successful.
+
+compiling LinearProfile.cpp successful.
+
+compiling NoDeadbandValue.cpp successful.
+
+compiling PiecewiseLinearProfile.cpp successful.
+
+compiling ScaledAxis.cpp successful.
+
+compiling ScaledDeadbandValue.cpp successful.
+
+compiling SquaredProfile.cpp successful.
+
+compiling SuperDrive.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:16,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\SuperDrive.cpp:32:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\SuperDrive.cpp: In member function 'virtual void SuperDrive::Init(PrimitiveParams*)':
+C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\SuperDrive.cpp:127:24: warning: variable 'chassisSpeeds' set but not used [-Wunused-but-set-variable]
+     frc::ChassisSpeeds chassisSpeeds = m_kinematics->ToChassisSpeeds(wheelSpeeds);
+                        ^~~~~~~~~~~~~
+C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\SuperDrive.cpp: In member function 'virtual void SuperDrive::Run()':
+C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\SuperDrive.cpp:214:24: warning: variable 'chassisSpeeds' set but not used [-Wunused-but-set-variable]
+     frc::ChassisSpeeds chassisSpeeds = m_kinematics->ToChassisSpeeds(wheelSpeeds);
+                        ^~~~~~~~~~~~~
+
+compiling ButtonDecorator.cpp successful.
+
+compiling DebouncedButton.cpp successful.
+
+compiling POVButton.cpp successful.
+
+compiling ToggleButton.cpp successful.
+
+compiling AnalogButton.cpp successful.
+
+compiling DigitalButton.cpp successful.
+
+compiling TurnAngle.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:16,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\TurnAngle.cpp:31:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling DragonXBox.cpp successful.
+
+compiling DragonDigitalInput.cpp successful.
+
+compiling DragonGamepad.cpp successful.
+
+compiling FunctionMap.cpp successful.
+
+compiling DragonPDP.cpp successful.
+
+compiling TeleopControl.cpp successful.
+
+compiling HoldPosition.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:16,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\HoldPosition.cpp:29:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling DragonPigeon.cpp successful.
+
+compiling DragonServo.cpp successful.
+
+compiling DragonLimelight.cpp successful.
+
+compiling DragonFalcon.cpp successful.
+
+compiling DigitalInputFactory.cpp successful.
+
+compiling DragonSolenoid.cpp successful.
+
 compiling DragonVision.cpp successful.
+
+compiling DragonTalon.cpp successful.
+
+compiling PDPFactory.cpp successful.
+
+compiling DragonServoFactory.cpp successful.
+
+compiling DigitalInputUsage.cpp successful.
+
+compiling PigeonFactory.cpp successful.
+
+compiling LimelightFactory.cpp successful.
+
+compiling MotorControllerUsage.cpp successful.
+
+compiling DragonMotorControllerFactory.cpp successful.
+
+compiling ServoUsage.cpp successful.
+
+compiling SolenoidUsage.cpp successful.
+
+compiling DragonTargetFinder.cpp successful.
+C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\DragonTargetFinder.cpp: In member function 'double DragonTargetFinder::GetAngle2Target(frc::Pose2d)':
+C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\DragonTargetFinder.cpp:77:13: warning: variable 'iQuadrantsLoc' set but not used [-Wunused-but-set-variable]
+         int iQuadrantsLoc = 0;   // Quadrants I,II,III,IV.  Standard radians rotation counter clockwise
+             ^~~~~~~~~~~~~
+
+compiling Mech1MotorState.cpp successful.
+
+compiling Mech1IndMotorSolenoidState.cpp successful.
+
+compiling Mech2MotorState.cpp successful.
+
+compiling StateMgr.cpp successful.
+C:\GitRepos\2022RapidReact\src\main\cpp\states\StateMgr.cpp: In member function 'void StateMgr::Init(IMech*, const std::map<std::__cxx11::basic_string<char>, StateStruc>&)':
+C:\GitRepos\2022RapidReact\src\main\cpp\states\StateMgr.cpp:74:22: warning: unused variable 'controlData' [-Wunused-variable]
+                 auto controlData = td->GetController();
+                      ^~~~~~~~~~~
+C:\GitRepos\2022RapidReact\src\main\cpp\states\StateMgr.cpp:75:22: warning: unused variable 'target' [-Wunused-variable]
+                 auto target = td->GetTarget();
+                      ^~~~~~
+
+compiling Mech.cpp successful.
+
+compiling Mech1IndMotor.cpp successful.
+
+compiling Mech1IndMotorSolenoid.cpp successful.
+
+compiling Mech1Servo.cpp successful.
+
+compiling Mech1Solenoid.cpp successful.
+
+compiling ControlData.cpp successful.
+
+compiling Mech2IndMotors.cpp successful.
+
+compiling MechanismFactory.cpp successful.
+
+compiling Robot.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveChassis.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/states/chassis/SwerveDrive.h:22,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\Robot.h:14,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\Robot.cpp:5:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+C:\GitRepos\2022RapidReact\src\main\cpp\Robot.cpp: In member function 'virtual void Robot::RobotInit()':
+C:\GitRepos\2022RapidReact\src\main\cpp\Robot.cpp:46:8: warning: unused variable 'mechFactory' [-Wunused-variable]
+   auto mechFactory = MechanismFactory::GetMechanismFactory();
+        ^~~~~~~~~~~
+
+compiling SwerveDrive.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveChassis.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/states/chassis/SwerveDrive.h:22,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\SwerveDrive.cpp:25:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling ChassisFactory.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:16,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\subsys\ChassisFactory.cpp:11:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling ResetPosition.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:16,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\ResetPosition.cpp:26:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling AngleUtils.cpp successful.
+
+compiling HardwareIDValidation.cpp successful.
+
+compiling Logger.cpp successful.
+
+compiling UsageValidation.cpp successful.
+
+compiling EtherDirtySwerve.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveChassis.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveHelpers\EtherDirtySwerve.cpp:30:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
 
 compiling CameraDefn.cpp successful.
 
-compiling PrimitiveFactory.cpp successful.
+compiling EtherFieldSwerve.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveChassis.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveHelpers\EtherFieldSwerve.cpp:30:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
 
-compiling ResetPosition.cpp successful.
+compiling CanCoderDefn.cpp successful.
 
-Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/Users/joewi/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
+compiling DigitalInputDefn.cpp successful.
+
+compiling LimelightDefn.cpp successful.
+
+compiling WPIDirtySwerve.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveChassis.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveHelpers\WPIDirtySwerve.cpp:29:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling MechanismDefn.cpp successful.
+
+compiling MotorDefn.cpp successful.
+C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\MotorDefn.cpp: In member function 'std::shared_ptr<IDragonMotorController> MotorDefn::ParseXML(pugi::xml_node)':
+C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\MotorDefn.cpp:68:9: warning: variable 'continuousCurrentLimit' set but not used [-Wunused-but-set-variable]
+     int continuousCurrentLimit = 0;
+         ^~~~~~~~~~~~~~~~~~~~~~
+
+compiling PCMDefn.cpp successful.
+
+compiling PigeonDefn.cpp successful.
+
+compiling PDPDefn.cpp successful.
+
+compiling ServoDefn.cpp successful.
+
+compiling RobotDefn.cpp successful.
+
+compiling SolenoidDefn.cpp successful.
+
+compiling ThroughBoreEncoderDefn.cpp successful.
+
+compiling ControlDataDefn.cpp successful.
+
+compiling SwerveModule.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveModule.cpp:30:0:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling WPIFieldSwerve.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveChassis.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveHelpers\WPIFieldSwerve.cpp:29:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling MechanismTargetDefn.cpp successful.
+
+compiling MechSolenoidState.cpp successful.
+
+compiling StateDataDefn.cpp successful.
+
+compiling ChassisDefn.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/ChassisFactory.h:16,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\ChassisDefn.cpp:39:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\ChassisDefn.cpp: In member function 'IChassis* ChassisDefn::ParseXML(pugi::xml_node)':
+C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\ChassisDefn.cpp:84:26: warning: variable 'speedCalcOption' set but not used [-Wunused-but-set-variable]
+     ChassisSpeedCalcEnum speedCalcOption = ChassisSpeedCalcEnum::ETHER;
+                          ^~~~~~~~~~~~~~~
+
+compiling pugixml.cpp successful.
+
+compiling SwerveModuleDefn.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveModule.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\SwerveModuleDefn.cpp:34:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+compiling SwerveChassis.cpp successful.
+In file included from C:\GitRepos\2022RapidReact\src\main\cpp/subsys/SwerveChassis.h:37:0,
+                 from C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveChassis.cpp:30:
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning is a GCC extension
+ #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers"
+  ^~~~~~~
+C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\transformed\wpiutil-cpp-2022.1.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
+
+Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.

@@ -36,18 +36,19 @@ using namespace std;
 
 /// @brief initialize the object and validate the necessary items are not nullptrs
 SwerveDrive::SwerveDrive() : IState(),
-                             m_chassis( dynamic_cast<SwerveChassis*>(ChassisFactory::GetChassisFactory()->GetIChassis())),
+                             m_chassis( ChassisFactory::GetChassisFactory()->GetSwerveChassis() ),
                              m_controller( TeleopControl::GetInstance() ),
                              m_usePWLinearProfile(false),
                              m_lastUp(false),
                              m_lastDown(false)
+                             //m_shooterLevel(new DriveToShooterLevel())
 {
     if ( m_controller == nullptr )
     {
         Logger::GetLogger()->LogError( string("SwerveDrive::SwerveDrive"), string("TeleopControl is nullptr"));
     }
 
-    if ( m_chassis == nullptr )
+    if ( m_chassis.get() == nullptr )
     {
         Logger::GetLogger()->LogError( string("SwerveDrive::SwerveDrive"), string("Chassis is nullptr"));
     }
@@ -64,19 +65,22 @@ void SwerveDrive::Init()
         controller->SetAxisProfile( TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, profile );
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
         controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, -2.0);
+        //controller->SetSlewRateLimiter(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, 3.0);
 
         controller->SetAxisProfile( TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, profile );
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
         controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, -2.0);
+        //controller->SetSlewRateLimiter(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, 3.0);
 
         controller->SetAxisProfile( TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, profile );
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
         controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 2.0);
+        //controller->SetSlewRateLimiter(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 3.0);
         
         controller->SetAxisProfile( TeleopControl::FUNCTION_IDENTIFIER::DRIVE_TURBO, IDragonGamePad::AXIS_PROFILE::LINEAR );
         controller->SetAxisProfile( TeleopControl::FUNCTION_IDENTIFIER::DRIVE_BRAKE, IDragonGamePad::AXIS_PROFILE::LINEAR );
 
-        m_chassis->RunWPIAlgorithm(false);
+        m_chassis.get()->RunWPIAlgorithm(false);
    }
 }
 
@@ -97,13 +101,14 @@ void SwerveDrive::Run( )
             auto factory = PigeonFactory::GetFactory();
             auto m_pigeon = factory->GetPigeon();
             m_pigeon->ReZeroPigeon( 0, 0);
-            m_chassis->Initialize();
+            m_chassis.get()->ZeroAlignSwerveModules();
             m_lastUp   = false;
             m_lastDown = false;
         }
         else if (controller->IsButtonPressed( TeleopControl::DRIVE_FULL))
         {
-            m_chassis->SetDriveScaleFactor(1.0);
+            //m_chassis->SetDriveScaleFactor(1.0);
+            m_chassis->SetDriveScaleFactor(0.1);
             m_lastUp   = false;
             m_lastDown = false;
         }
@@ -121,7 +126,8 @@ void SwerveDrive::Run( )
         }
         else if (controller->IsButtonPressed(TeleopControl::DRIVE_25PERCENT))
         {
-            m_chassis->SetDriveScaleFactor(0.25);
+            //m_chassis->SetDriveScaleFactor(0.25);
+            m_chassis->SetDriveScaleFactor(0.35);
             m_lastUp   = false;
             m_lastDown = false;
         }
@@ -147,33 +153,10 @@ void SwerveDrive::Run( )
             }
             m_lastDown = true;
         }
-        else if (controller->IsButtonPressed(TeleopControl::TURN_AROUND_FRONT_RIGHT))
-        {
-            //Offset L and W values in swerve module position calculations to turn around front right wheel
-            //Each wheel is half of wheelbase and half of track away
-            //FL = (L + Wheelbase W - Track)                  FR = (L + Wheelbase W + Track)
-            //                                      Center = (L W)
-            //BL = (L - Wheelbase W - Track)                  BR = (L - 5Wheelbase W + Track)
-            double xOffset = 1;     //percent of wheel base to offset rotate point by
-            double yOffset = 1;     //percent of track to offset rotate point by
-
-            double xOffsetInches = xOffset * m_chassis->GetWheelBase().to<double>();
-            double yOffsetInches = yOffset * m_chassis->GetTrack().to<double>();
-
-            frc::Vector2d offset = frc::Vector2d(xOffsetInches, yOffsetInches);
-
-            m_offset = offset;
-
-            Logger::GetLogger()->ToNtTable("ATurnAbout", "Is A Pressed?", "True");
-
-        }
         else
         {
             m_lastUp   = false;
             m_lastDown = false;
-
-            //Debugging for TurnAboutPoint
-            Logger::GetLogger()->ToNtTable("ATurnAbout", "Is A Pressed?", "False");
         }
         
         drive  = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE) ;
@@ -191,8 +174,14 @@ void SwerveDrive::Run( )
         brake = clamp(brake, 0.0, 0.25);
         m_chassis->SetBrake(brake);
     }
-  
-    m_chassis->Drive(drive, steer, rotate, true, m_offset);
+
+    /**
+    Logger::GetLogger()->ToNtTable("Swerve Drive", "drive", drive);
+    Logger::GetLogger()->ToNtTable("Swerve Drive", "steer", steer);
+    Logger::GetLogger()->ToNtTable("Swerve Drive", "rotate", rotate);
+    **/
+   
+    m_chassis.get()->Drive(drive, steer, rotate, true);
 }
 
 /// @brief indicates that we are not at our target
@@ -201,4 +190,3 @@ bool SwerveDrive::AtTarget() const
 {
     return false;
 }
-

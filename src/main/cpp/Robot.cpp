@@ -61,7 +61,7 @@ void Robot::RobotPeriodic()
 {
   if (m_chassis != nullptr)
   {
-    m_chassis->UpdatePose();
+    m_chassis->UpdateOdometry();
   }
 }
 

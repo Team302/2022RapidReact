@@ -57,7 +57,6 @@ IChassis* ChassisFactory::CreateChassis
     std::shared_ptr<SwerveModule>                               frontRight,
     std::shared_ptr<SwerveModule>                               backLeft, 
     std::shared_ptr<SwerveModule>                               backRight, 
-	ChassisSpeedCalcEnum 									    speedCalcOption,
 	PoseEstimatorEnum 										    poseEstOption,
     double                                                      odometryComplianceCoefficient
 )
@@ -101,11 +100,11 @@ IChassis* ChassisFactory::CreateChassis
                                            maxVelocity, 
                                            maxAngularSpeed, 
                                            maxAcceleration,
-                                           maxAngularAcceleration,
-                                           speedCalcOption,
-                                           poseEstOption, 
-                                           networkTableName,
-                                           controlFileName);
+                                           maxAngularAcceleration
+                                           //poseEstOption, 
+                                           //networkTableName,
+                                           //controlFileName
+                                           );
         }
         break;
 

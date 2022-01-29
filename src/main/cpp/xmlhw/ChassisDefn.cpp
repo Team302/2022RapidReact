@@ -296,7 +296,7 @@ IChassis* ChassisDefn::ParseXML
                                               rfront,
                                               lback,
                                               rback,
-                                              speedCalcOption,
+                                              //speedCalcOption,
                                               poseEstOption, 
                                               odometryComplianceCoefficient );
         }
