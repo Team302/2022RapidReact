@@ -72,7 +72,7 @@ void DoNothing::Run()
 		speeds.vx = 0_mps;
 		speeds.vy = 0_mps;
 		speeds.omega = units::degrees_per_second_t(0.0);
-		m_chassis->Drive(speeds);
+		m_chassis->Drive(speeds, false);
 		//m_chassis->SetOutput( ControlModes::CONTROL_TYPE::PERCENT_OUTPUT, 0.0, 0.0 );  
 	}
 	else

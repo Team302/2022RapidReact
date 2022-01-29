@@ -96,8 +96,6 @@ class MechanismFactory
 			MechanismTypes::MECHANISM_TYPE	type
 		) const;
 
-		inline Climber* GetClimber() const {return m_climber;}
-
 	private:
 		std::shared_ptr<IDragonMotorController> GetMotorController
 		(
@@ -119,7 +117,6 @@ class MechanismFactory
 			const DigitalInputMap&							digitaInputs,
 			DigitalInputUsage::DIGITAL_SENSOR_USAGE			usage
 		);
-		
 		/**
 		std::shared_ptr<DragonAnalogInput> GetAnalogInput
 		(
@@ -132,7 +129,6 @@ class MechanismFactory
 		virtual ~MechanismFactory() = default;
 
 		static MechanismFactory*	m_mechanismFactory;
-		Climber*	m_climber;
 
 		Intake* m_intake;
 		
