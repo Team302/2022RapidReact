@@ -9,7 +9,7 @@
 	<mechanismTarget stateIdentifier="BALLTRANSFERINTAKE"
 	                 controlDataIdentifier="openloop"
 					 value="1.0"/>
-	<mechanismTarget stateIdentifier="BALLTRANSFEREXPEL"
+	<mechanismTarget stateIdentifier="BALLTRANSFERLIFT"
 	                 controlDataIdentifier="openloop"
 					 value="-1.0"/>
 

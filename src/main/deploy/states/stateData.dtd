@@ -18,11 +18,12 @@
 <!ELEMENT mechanismTarget EMPTY>
 <!ATTLIST mechanismTarget 
           stateIdentifier               ( INTAKEOFF | INTAKEON | INTAKEEXPEL |
-                                          BALLTRANSFEROFF | BALLTRANSFERINTAKE | BALLTRANSFEREXPEL |
+                                          BALLTRANSFEROFF | BALLTRANSFERINTAKE | BALLTRANSFERLIFT |
                                           ARMUP | ARMDOWN | ARMHOLDUP | ARMHOLDDOWN | ARMHOLDPOSITION |
                                           BALLRELEASEHOLD | BALLRELEASEOPEN |
                                           UNKNOWN ) "UNKNOWN"
           controlDataIdentifier         CDATA #REQUIRED
+          controlDataIdentifier         CDATA #IMPLAFIED
           value                         CDATA #REQUIRED
           solenoid                      ( NONE | ON | OFF ) "NONE"
           failoverControlDataIdentifier CDATA #IMPLIED

@@ -32,6 +32,7 @@
 #include <utils/Logger.h>
 #include <xmlmechdata/StateDataDefn.h>
 #include <states/BallTransfer/BallTransferState.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
 
 
 
@@ -83,7 +84,7 @@ void StateMgr::Init
                     //    thisState = new IntakeState(controlData, target);
                     //    break;
                     case StateType::BALLTRANSER:
-                        thisState = new BallTransferState(controlData, target);
+                        thisState = new BallTransferState(control, control2, primaryTarget, secondaryTarget);
                         break;
                     
                     default:

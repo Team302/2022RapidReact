@@ -55,6 +55,7 @@ class TeleopControl
             ARCADE_STEER,
             INTAKE,
             EXPEL,
+            LIFT,
             ROTATE_ARM_UP,
             ROTATE_ARM_DOWN,
             RELEASE,
