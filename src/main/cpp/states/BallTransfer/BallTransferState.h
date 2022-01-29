@@ -1,11 +1,11 @@
 #pragma once
 
-#include <states/Mech1MotorState.h>
+#include <states/Mech2MotorState.h>
 #include <states/StateStruc.h>
 
 class ControlData;
 
-class BallTransferState : public Mech1MotorState
+class BallTransferState : public Mech2MotorState
 {
     public:
 
@@ -13,7 +13,9 @@ class BallTransferState : public Mech1MotorState
         BallTransferState
         (
             ControlData*                    control,
-            double                          target
+            ControlData*                    control2,
+            double                          primaryTarget,
+            double                          secondaryTarget
         );
         ~BallTransferState() = default;
 };

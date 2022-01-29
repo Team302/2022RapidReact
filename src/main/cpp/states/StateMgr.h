@@ -26,6 +26,7 @@
 #include <states/IState.h>
 #include <states/StateStruc.h>
 #include <subsys/interfaces/IMech.h>
+#include <states/Mech2MotorState.h>
 
 
 // Third Party Includes

@@ -36,6 +36,7 @@
 #include <states/BallTransfer/BallTransferState.h>
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
 
 
 // Third Party Includes
