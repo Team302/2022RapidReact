@@ -49,8 +49,10 @@ void Robot::RobotInit()
   m_intake = nullptr;
   m_intakeStateMgr = nullptr;
 
-  m_shooter = mechFactory->GetShooter();
-  m_shooterStateMgr = ShooterStateMgr::GetInstance();
+  //m_shooter = mechFactory->GetShooter();
+  //m_shooterStateMgr = ShooterStateMgr::GetInstance();
+  m_shooter = nullptr;
+  m_shooterStateMgr = nullptr;
   
   m_cyclePrims = new CyclePrimitives();
 }
