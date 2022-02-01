@@ -21,7 +21,7 @@
 // Team 302 includes
 #include <controllers/ControlData.h>
 #include <states/ShooterState.h>
-#include <states/Mech1MotorState.h>
+#include <states/Mech2MotorState.h>
 #include <subsys/MechanismFactory.h>
 
 // Third Party Includes
@@ -29,8 +29,10 @@
 
 ShooterState::ShooterState
 (
-    ControlData*                    control,
-    double                          target
-) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetShooter(), control, target )
+    ControlData*                    control, 
+    ControlData*                    control2,
+    double                          primaryTarget,
+    double                          secondaryTarget
+) : Mech2MotorState( MechanismFactory::GetMechanismFactory()->GetShooter(), control, control2, primaryTarget, secondaryTarget)
 {
 }

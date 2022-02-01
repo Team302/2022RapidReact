@@ -21,7 +21,7 @@
 
 // Team 302 includes
 #include <subsys/Shooter.h>
-#include <subsys/Mech1IndMotor.h>
+#include <subsys/Mech2IndMotors.h>
 #include <hw/interfaces/IDragonMotorController.h>
 
 // Third Party Includes
@@ -29,9 +29,10 @@ using namespace std;
 
 Shooter::Shooter
 (
-    string                             networkTableName,
-	string                             controlFileName,
-    shared_ptr<IDragonMotorController> shooterMotor
-) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::SHOOTER,  controlFileName, networkTableName, shooterMotor)
+  std::string                                 controlFileName,
+  std::string                                 networkTableName,
+  std::shared_ptr<IDragonMotorController>          primaryMotor,
+  std::shared_ptr<IDragonMotorController>          secondaryMotor
+) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::SHOOTER,  controlFileName, networkTableName, primaryMotor, secondaryMotor)
 {
 }

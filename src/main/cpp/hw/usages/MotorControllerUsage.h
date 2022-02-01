@@ -50,6 +50,7 @@ class MotorControllerUsage
             BALL_TRANSFER_SPIN,
             BALL_TRANSFER_LIFT,
             SHOOTER,
+            SHOOTER_HOOD,
             CLIMBER,
             MAX_MOTOR_CONTROLLER_USAGES
         };

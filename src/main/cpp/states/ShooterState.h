@@ -14,11 +14,11 @@
 //====================================================================================================================================================
 #pragma once
 
-#include <states/Mech1MotorState.h>
+#include <states/Mech2MotorState.h>
 
 class ControlData;
 
-class ShooterState : public Mech1MotorState
+class ShooterState : public Mech2MotorState
 {
     public:
 
@@ -26,7 +26,9 @@ class ShooterState : public Mech1MotorState
         ShooterState
         (
             ControlData*                    control,
-            double                          target
+            ControlData*                    control2,
+            double                          primaryTarget,
+            double                          secondaryTarget
         );
         ~ShooterState() = default;
 };
