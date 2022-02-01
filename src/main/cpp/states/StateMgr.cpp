@@ -74,7 +74,9 @@ void StateMgr::Init
             if ( m_stateVector[slot] == nullptr )
             {
                 auto controlData = td->GetController();
+                auto controlData2 = td->GetController2();
                 auto target = td->GetTarget();
+                auto secondaryTarget = td->GetSecondTarget();
                 auto type = struc.type;
                 IState* thisState = nullptr;
                 switch (type)
@@ -83,7 +85,7 @@ void StateMgr::Init
                         thisState = new IntakeState(controlData, target);
                         break;
                     case StateType::SHOOTER:
-                       thisState = new ShooterState(controlData, target);
+                       thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
                        break;
                     default:
                     {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
-       <pdp canId="1"
+       <!-- <pdp canId="1"
             type="REV"/>
 
     <pigeon canId="50"
-            rotation="0.0" />
+            rotation="0.0" /> -->
 <!--
        <limelight tablename="limelight"
                      mountingheight="31.5"
@@ -244,7 +244,7 @@
                             offset="-47.021"/>
         </swervemodule>
 
-    </chassis>  
+    </chassis>   
 
 <!-- 
  <mechanism type="SHOOTER"
@@ -268,8 +268,27 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
+       <motor usage="SHOOTER_HOOD"
+              canId="0"
+              pdpID="0"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="false"
+              reverselimitswitchopen="true"/>       
     </mechanism>
 -->
+
 
 
 

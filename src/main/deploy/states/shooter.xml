@@ -16,8 +16,11 @@
 					 value="0.0"/>
 
  <mechanismTarget stateIdentifier="SHOOTERON"
-	                 controlDataIdentifier="closedloop"
-					 value="45.0"/> 
+	                 controlDataIdentifier="openloop"
+					 value="0.50"
+					 controlDataIdentifier2="openloop"
+					 secondValue="0.50"/>
+
 
 					  <!-- 8ft from hub <mechanismTarget stateIdentifier="SHOOTERON"
 	                 controlDataIdentifier="closedloop"
