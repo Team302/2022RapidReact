@@ -4,7 +4,8 @@
        <pdp canId="1"
             type="REV"/>
 
-    <!-- <pigeon canId="50"
+    <!-- 
+       <pigeon canId="50"
             rotation="0.0" 
 
        <limelight tablename="limelight"
@@ -22,10 +23,10 @@
                      crosshairy="0.5"
                      secondcrosshairx="0.25"
                      secondcrosshairy="0.25" />
-                    
- ====================================================
+                    -->
+ <!-- ====================================================
      Chassis
-     ====================================================  
+     ====================================================  -->
     <chassis  type="SWERVE"
               wheelDiameter="4.13"
               wheelBase="21.0"  
@@ -244,9 +245,9 @@
                             offset="-47.021"/>
         </swervemodule>
 
-    </chassis>   -->
+    </chassis>  
     
-
+<!--
 
  <mechanism type="SHOOTER"
                networkTable="shooterNT"
@@ -289,44 +290,9 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
+   -->
 
 
-
-
-    <!-- chassis type="TANK"
-             wheelDiameter="4.0"
-             wheelBase="13.75"
-             track="15.0"
-             maxVelocity="28.0"
-             maxAngularVelocity="60.0"
-             maxAcceleration="12.0"
-             maxAngularAcceleration="6.0"
-             networkTable="ChassisNT"
-             controlFile="chassis.xml">
-
-        <motor usage="DIFFERENTIAL_LEFT_MAIN"
-               canId="1"
-               pdpID="1"
-               type="TALONSRX"
-               inverted="false"
-               sensorInverted="false"
-               feedbackDevice="QUADENCODER"
-               countsPerRev="4096"
-               gearRatio="1.0"
-               brakeMode="true"/>
-
-        <motor usage="DIFFERENTIAL_RIGHT_MAIN"
-               canId="13"
-               pdpID="13"
-               type="TALONSRX"
-               inverted="true"
-               sensorInverted="false"
-               feedbackDevice="QUADENCODER"
-               countsPerRev="4096"
-               gearRatio="1.0"
-               brakeMode="true"/>
-    </chassis>
--->
 <!-- ====================================================
      Intake
      ====================================================  -->
