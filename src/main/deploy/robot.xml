@@ -26,7 +26,7 @@
 <!-- ====================================================
      Chassis
      ====================================================  -->
-    <!-- <chassis  type="SWERVE"
+    <chassis  type="SWERVE"
               wheelDiameter="4.13"
               wheelBase="21.0"  
               track="21.0"
@@ -244,9 +244,9 @@
                             offset="-47.021"/>
         </swervemodule>
 
-    </chassis>   -->
+    </chassis>   
 
-
+<!-- 
  <mechanism type="SHOOTER"
                networkTable="shooterNT"
                controlFile="shooter.xml">
@@ -287,6 +287,7 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>       
     </mechanism>
+-->
 
 
 
