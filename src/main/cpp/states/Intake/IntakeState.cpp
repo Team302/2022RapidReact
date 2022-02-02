@@ -18,9 +18,12 @@
 #include <states/Mech1MotorState.h>
 #include <subsys/MechanismFactory.h>
 #include <controllers/ControlData.h>
+#include <subsys/interfaces/IMech1IndMotor.h>
 
 IntakeState::IntakeState
 (
     ControlData* control,
-    double target
-) : Mech1MotorState (MechanismFactory::GetMechanismFactory()->GetIntake(), control, target ) {}
+    double       target
+) : Mech1MotorState (MechanismFactory::GetMechanismFactory()->GetIntake(), control, target ) 
+{
+}

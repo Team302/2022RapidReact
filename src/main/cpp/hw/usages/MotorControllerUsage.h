@@ -45,13 +45,14 @@ class MotorControllerUsage
             DIFFERENTIAL_LEFT_FOLLOWER, 
             DIFFERENTIAL_RIGHT_MAIN, 
             DIFFERENTIAL_RIGHT_FOLLOWER, 
-            INTAKE,
-            INTAKE2,
+            INTAKE_SPIN,
+            INTAKE_EXTEND,
             BALL_TRANSFER_SPIN,
             BALL_TRANSFER_LIFT,
             SHOOTER,
             SHOOTER_HOOD,
-            CLIMBER,
+            CLIMBER_LIFT,
+            CLIMBER_ROTATE,
             MAX_MOTOR_CONTROLLER_USAGES
         };
 

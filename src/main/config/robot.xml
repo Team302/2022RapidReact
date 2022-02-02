@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
+
        <pdp canId="1"
             type="REV"/>
 
-    <!-- 
        <pigeon canId="50"
-            rotation="0.0" 
-
+            rotation="0.0"/>
+<!--
        <limelight tablename="limelight"
                      mountingheight="31.5"
                      horizontaloffset="0.0"
@@ -246,9 +246,7 @@
         </swervemodule>
 
     </chassis>  
-    
-<!--
-
+    <!--
  <mechanism type="SHOOTER"
                networkTable="shooterNT"
                controlFile="shooter.xml">
@@ -290,17 +288,15 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
-   -->
-
-
+-->
 <!-- ====================================================
      Intake
      ====================================================  -->
-    <!--
+     <!--
     <mechanism type="INTAKE"
                networkTable="IntakeNT"
                controlFile="intake.xml">
-       <motor usage="INTAKE"
+       <motor usage="INTAKE_SPIN"
               canId="0"
               pdpID="0"
               type="TALONSRX"
@@ -319,6 +315,8 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
+    -->
+    <!--
     <mechanism type="BALLTRANSFER"
                networkTable="BallTransferNT"
                controlFile="balltransfer.xml">
