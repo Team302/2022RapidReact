@@ -37,7 +37,7 @@
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
-
+#include <subsys/BallTransfer.h>
 
 // Third Party Includes
 
@@ -109,7 +109,7 @@ void StateMgr::Init
                         	    break;
                         	    
                     	    case StateType::BALLTRANSER:
-                        	thisState = new BallTransferState(controlData, controlData2, target, secondaryTarget );
+                        	thisState = new BallTransferState(controlData, controlData2, target, secondaryTarget);
                         	break;
                     
 

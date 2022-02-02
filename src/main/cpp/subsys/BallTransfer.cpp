@@ -21,8 +21,11 @@
 
 // Team 302 includes
 #include <subsys/BallTransfer.h>
-#include <subsys/Mech1IndMotor.h>
+#include <subsys/Mech2IndMotors.h>
 #include <hw/interfaces/IDragonMotorController.h>
+#include <subsys/MechanismFactory.h>
+
+
 
 // Third Party Includes
 
@@ -30,8 +33,11 @@ using namespace std;
 
 BallTransfer::BallTransfer
 (
-    shared_ptr<IDragonMotorController> motor1 //Motor controller passed in in from mech factory
-) : Mech1IndMotor(MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER,  string("balltransfer.xml"),  string("BallTransferNT"), motor1)
+    string networkTableName,
+    string controlFileName,
+    shared_ptr<IDragonMotorController> liftMotor, //Motor controller passed in from mech factory
+    shared_ptr<IDragonMotorController> spinMotor //Second motor controller passed in from mech factory
+) : Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER, string("balltransfer.xml"),  string("BallTransferNT"), networkTableName, controlFileName, liftMotor, spinMotor)
 //  ^ Creates a 1 motor mechanism of type "Ball Transfer", states control data and network table name, also pass in motor controller
 {
 }
