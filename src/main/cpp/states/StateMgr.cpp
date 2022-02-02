@@ -33,6 +33,7 @@
 #include <xmlmechdata/StateDataDefn.h>
 #include <states/Intake/IntakeState.h>
 #include <states/ShooterState.h>
+#include <subsys/MechanismFactory.h>
 
 
 // Third Party Includes
@@ -55,63 +56,72 @@ void StateMgr::Init
 ) 
 {
     m_mech = mech;
-    
-    // Parse the configuration file 
-    auto stateXML = make_unique<StateDataDefn>();
-    vector<MechanismTargetData*> targetData = stateXML.get()->ParseXML(mech->GetType());
-
-    // initialize the xml string to state map
-    m_stateVector.resize(stateMap.size());
-    // create the states passing the configuration data
-    for ( auto td: targetData )
+    if (mech != nullptr)
     {
-        auto stateString = td->GetStateString();
-        auto stateStringToStrucItr = stateMap.find( stateString );
-        if ( stateStringToStrucItr != stateMap.end() )
+        // Parse the configuration file 
+        auto stateXML = make_unique<StateDataDefn>();
+        vector<MechanismTargetData*> targetData = stateXML.get()->ParseXML(mech->GetType());
+
+        if (targetData.empty())
         {
-            auto struc = stateStringToStrucItr->second;
-            auto slot = struc.id;
-            if ( m_stateVector[slot] == nullptr )
-            {
-                auto controlData = td->GetController();
-                auto controlData2 = td->GetController2();
-                auto target = td->GetTarget();
-                auto secondaryTarget = td->GetSecondTarget();
-                auto type = struc.type;
-                IState* thisState = nullptr;
-                switch (type)
-                {
-                    case StateType::INTAKE:
-                        thisState = new IntakeState(controlData, target);
-                        break;
-                    case StateType::SHOOTER:
-                       thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
-                       break;
-                    default:
-                    {
-                        Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));
-                    }
-                    break;
-                }
-                if (thisState != nullptr)
-                {
-                    m_stateVector[slot] = thisState;
-                    if (struc.isDefault)
-                    {
-                        m_currentState = thisState;
-                        m_currentStateID = slot;
-                        m_currentState->Init();
-                    }
-                }
-            }
-            else
-            {
-                Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("multiple mechanism state info for state"));
-            }
+            Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::ERROR, mech->GetControlFileName(), string("No states"));
         }
         else
         {
-            Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("state not found"));
+            // initialize the xml string to state map
+            m_stateVector.resize(stateMap.size());
+            // create the states passing the configuration data
+            for ( auto td: targetData )
+            {
+                auto stateString = td->GetStateString();
+                auto stateStringToStrucItr = stateMap.find( stateString );
+                if ( stateStringToStrucItr != stateMap.end() )
+                {
+                    auto struc = stateStringToStrucItr->second;
+                    auto slot = struc.id;
+                    if ( m_stateVector[slot] == nullptr )
+                    {
+                        auto controlData = td->GetController();
+                	auto controlData2 = td->GetController2();
+                        auto target = td->GetTarget();
+                	auto secondaryTarget = td->GetSecondTarget();
+                        auto type = struc.type;
+                        IState* thisState = nullptr;
+                        switch (type)
+                        {
+                            case StateType::INTAKE:
+                        	thisState = new IntakeState(controlData, target);
+                        	break;
+                    	    case StateType::SHOOTER:
+                       		thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
+                       		break;
+                    	    default:
+                    	    {
+                        	Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));
+                    	    }
+                    	    break;
+                	}
+                	if (thisState != nullptr)
+                	{
+                    	    m_stateVector[slot] = thisState;
+                            if (struc.isDefault)
+                            {
+                        	m_currentState = thisState;
+                        	m_currentStateID = slot;
+                        	m_currentState->Init();
+                    	    }
+                	}
+            	    }
+            	    else
+            	    {
+                	Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("multiple mechanism state info for state"));
+            	    }
+        	}
+        	else
+        	{
+            	    Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("state not found"));
+                }
+            }
         }
     }
 }

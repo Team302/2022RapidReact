@@ -44,15 +44,11 @@ void Robot::RobotInit()
   m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
     
   auto mechFactory = MechanismFactory::GetMechanismFactory();
-  // m_intake = mechFactory->GetIntake();
-  // m_intakeStateMgr = IntakeStateMgr::GetInstance();
-  m_intake = nullptr;
-  m_intakeStateMgr = nullptr;
+  m_intake = mechFactory->GetIntake();
+  m_intakeStateMgr = IntakeStateMgr::GetInstance();
 
-  //m_shooter = mechFactory->GetShooter();
-  //m_shooterStateMgr = ShooterStateMgr::GetInstance();
-  m_shooter = nullptr;
-  m_shooterStateMgr = nullptr;
+  m_shooter = mechFactory->GetShooter();
+  m_shooterStateMgr = ShooterStateMgr::GetInstance();
   
   m_cyclePrims = new CyclePrimitives();
 }

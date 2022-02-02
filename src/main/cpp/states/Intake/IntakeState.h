@@ -26,8 +26,8 @@ class IntakeState : public Mech1MotorState
         IntakeState() = delete;
         IntakeState
         (
-            ControlData* control,
-            double target
+            ControlData*        control,
+            double              target
         );
         ~IntakeState() = default;
 };

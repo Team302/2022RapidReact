@@ -40,7 +40,16 @@ DigitalInputUsage* DigitalInputUsage::GetInstance()
 
 DigitalInputUsage::DigitalInputUsage()
 {
-//    m_usageMap["TURRET_ANGLE_MIN"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::TURRET_ANGLE_MIN;
+    m_usageMap["INTAKE_OUT"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::INTAKE_OUT;
+    m_usageMap["INTAKE_IN"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::INTAKE_IN;
+    m_usageMap["BALL_PRESENT"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_PRESENT;
+    m_usageMap["BALL_TRANSER_UP"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_TRANSER_UP;
+    m_usageMap["BALL_TRANSER_DOWN"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_TRANSER_DOWN;
+    m_usageMap["SHOOTER_HOOD_MIN"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::SHOOTER_HOOD_MIN;
+    m_usageMap["SHOOTER_HOOD_MAX"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::SHOOTER_HOOD_MAX;
+    m_usageMap["CLIMBER_BACK"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::CLIMBER_BACK;
+    m_usageMap["CLIMBER_FORWARD"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::CLIMBER_FORWARD;
+;
 }
 
 DigitalInputUsage::~DigitalInputUsage()

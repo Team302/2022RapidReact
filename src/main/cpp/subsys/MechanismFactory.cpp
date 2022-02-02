@@ -103,7 +103,7 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_intake == nullptr)
 			{
-				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE);
+				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_SPIN);
 				if ( motor.get() != nullptr )
 				{
 					m_intake = new Intake(controlFileName, networkTableName, motor);
@@ -248,10 +248,6 @@ DragonServo* MechanismFactory::GetServo
 	}
 	return servo;
 
-}
-Shooter* MechanismFactory::GetShooter () const
-{
-	return m_shooter;
 }
 shared_ptr<DragonDigitalInput> MechanismFactory::GetDigitalInput
 (

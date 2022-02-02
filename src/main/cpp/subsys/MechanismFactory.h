@@ -87,17 +87,14 @@ class MechanismFactory
 			std::shared_ptr<ctre::phoenix::sensors::CANCoder>		canCoder
 		);
 		
-			inline Intake* GetIntake() const { return m_intake;};
+		inline Intake* GetIntake() const { return m_intake;};
+		inline Shooter* GetShooter() const { return m_shooter;};
 
 		IMech* GetMechanism
 		(
 			MechanismTypes::MECHANISM_TYPE	type
 		) const;
 		
-	Shooter* GetShooter
-		(
-			
-		)const;
 	private:
 		std::shared_ptr<IDragonMotorController> GetMotorController
 		(
