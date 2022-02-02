@@ -1,4 +1,7 @@
 import argparse
+from cmath import pi
+from math import atan, atan2
+from tkinter import Frame
 
 import cv2
 import numpy as np
@@ -138,12 +141,16 @@ class Tester:
         #Color var for network tables
         self.color = ""
 
+        #Middle point of image
+        self.middlePoint = (0, 0)
+
     def run(self):
         print("Starting mainloop")
         while True:
             start = time()
             # Acquire frame and resize to expected shape [1xHxWx3]
             ret, frame_cv2 = self.cvSink.grabFrame(self.img)
+            self.middlePoint = (160,120)
             if not ret:
                 print("Image failed")
                 continue
@@ -196,17 +203,40 @@ class Tester:
 
                     if self.isWithinTolerance(red, averages, redtolerance):
                         class_ids[i] = 0
-                        self.color = "red"
+                        #self.color = "red"
                         cv2.rectangle(frame_cv2, (xmin, ymin), (xmax, ymax), red, 2)
                     elif self.isWithinTolerance(blue, averages, bluetolerance):
                         class_ids[i] = 1
-                        self.color = "blue"
+                        #self.color = "blue"
                         cv2.rectangle(frame_cv2, (xmin, ymin), (xmax, ymax), blue, 2)
                     else:
                         class_ids[i] = 2
-                        self.color = "invalid"
+                        #self.color = "invalid"
                         print("Invalid object's averages: ", averages)
                         cv2.rectangle(frame_cv2, (xmin, ymin), (xmax, ymax), (0, 255, 0), 2)
+
+                    #Angle calcultions
+                    centerOfObjectX = (xmax - xmin) / 2
+                    centerOfObjectY = (ymax - ymin) / 2
+                    deltaX = centerOfObjectX - self.middlePoint[0]
+                    deltaY = centerOfObjectY - self.middlePoint[1]
+                    horizontalAngle = 0.0
+                    verticalAngle = 0.0
+
+                    #protect for zero and divide and if both values are at the middle, then the angle is 0.0
+                    if (abs(deltaY) > 0.0):
+                        horizontalAngle = atan(deltaX / deltaY) * 180.0 / pi
+                        verticalAngle = 90.0 - horizontalAngle
+                    elif (abs(deltaX) > 0.0):
+                        verticalAngle = atan(deltaY / deltaX) * 180.0 / pi
+                        horizontalAngle = 90.0 - verticalAngle
+
+                    focalLength = 5.0 #value used from chris's code
+                    
+                    #distance calculation, inches
+                    ballDistance = (9.5 * focalLength) / ((xmax - xmin))
+        #size of the cargo times focal length ^         ^ dividing by perceived size in camera (this was radius in chris's code and here it is width)
+
 
             for i in range(len(boxes)):
                 if scores[i] > .5:
@@ -230,7 +260,7 @@ class Tester:
                 self.fps_entry.setNumber((1 / (time() - start)))
             self.frames += 1
 
-    def label_frame(self, frame, object_name, box, score, x_scale, y_scale):
+    def label_frame(self, frame, object_name, object_distance, object_angle, box, score, x_scale, y_scale):
         ymin, xmin, ymax, xmax = box
         score = float(score)
         bbox = BBox(xmin=xmin,
@@ -244,14 +274,15 @@ class Tester:
             return frame
 
         ymin, xmin, ymax, xmax = int(bbox.ymin), int(bbox.xmin), int(bbox.ymax), int(bbox.xmax)
-        self.temp_entry.append({"label": object_name, "color": self.color, "box": {"ymin": ymin, "xmin": xmin, "ymax": ymax, "xmax": xmax},
+        self.temp_entry.append({"label": object_name, "distance": object_distance, "angle": object_angle, "box": {"ymin": ymin, "xmin": xmin, "ymax": ymax, "xmax": xmax},
                                 "confidence": score})
 
         cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (10, 255, 0), 4)
 
         # Draw label
         # Look up object name from "labels" array using class index
-        label = '%s: %d%%' % (object_name, score * 100)  # Example: 'person: 72%'
+        #Added distance and angle to label that is displayed on the frame
+        label = '%s: %d%% Dist: %s Angle: %s' % (object_name, score * 100, object_distance, object_angle)  # Example: 'person: 72%'
         label_size, base = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)  # Get font size
         label_ymin = max(ymin, label_size[1] + 10)  # Make sure not to draw label too close to top of window
         cv2.rectangle(frame, (xmin, label_ymin - label_size[1] - 10), (xmin + label_size[0], label_ymin + base - 10),
