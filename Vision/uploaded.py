@@ -249,7 +249,7 @@ class Tester:
                     if class_id not in range(len(self.labels)):
                         continue
 
-                    frame_cv2 = self.label_frame(frame_cv2, self.labels[class_id], boxes[i], scores[i], x_scale,
+                    frame_cv2 = self.label_frame(frame_cv2, self.labels[class_id], ballDistance, verticalAngle, horizontalAngle, boxes[i], scores[i], x_scale,
                                                  y_scale)
             self.output.putFrame(frame_cv2)
             self.entry.setString(json.dumps(self.temp_entry))
@@ -260,7 +260,7 @@ class Tester:
                 self.fps_entry.setNumber((1 / (time() - start)))
             self.frames += 1
 
-    def label_frame(self, frame, object_name, object_distance, object_angle, box, score, x_scale, y_scale):
+    def label_frame(self, frame, object_name, object_distance, object_vert_angle, object_hor_angle, box, score, x_scale, y_scale):
         ymin, xmin, ymax, xmax = box
         score = float(score)
         bbox = BBox(xmin=xmin,
@@ -274,7 +274,7 @@ class Tester:
             return frame
 
         ymin, xmin, ymax, xmax = int(bbox.ymin), int(bbox.xmin), int(bbox.ymax), int(bbox.xmax)
-        self.temp_entry.append({"label": object_name, "distance": object_distance, "angle": object_angle, "box": {"ymin": ymin, "xmin": xmin, "ymax": ymax, "xmax": xmax},
+        self.temp_entry.append({"label": object_name, "distance": object_distance, "vert angle": object_vert_angle, "horizontal angle": object_hor_angle, "box": {"ymin": ymin, "xmin": xmin, "ymax": ymax, "xmax": xmax},
                                 "confidence": score})
 
         cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (10, 255, 0), 4)
@@ -282,7 +282,7 @@ class Tester:
         # Draw label
         # Look up object name from "labels" array using class index
         #Added distance and angle to label that is displayed on the frame
-        label = '%s: %d%% Dist: %s Angle: %s' % (object_name, score * 100, object_distance, object_angle)  # Example: 'person: 72%'
+        label = '%s: %d%% Dist: %s Vert Angle: %s Hor Angle: %s' % (object_name, score * 100, object_distance, object_vert_angle, object_hor_angle)  # Example: 'person: 72%'
         label_size, base = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)  # Get font size
         label_ymin = max(ymin, label_size[1] + 10)  # Make sure not to draw label too close to top of window
         cv2.rectangle(frame, (xmin, label_ymin - label_size[1] - 10), (xmin + label_size[0], label_ymin + base - 10),
