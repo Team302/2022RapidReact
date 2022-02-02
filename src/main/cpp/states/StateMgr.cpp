@@ -33,7 +33,7 @@
 #include <xmlmechdata/StateDataDefn.h>
 #include <states/BallTransfer/BallTransferState.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
-
+#include <subsys/BallTransfer.h>
 
 
 // Third Party Includes
@@ -76,6 +76,8 @@ void StateMgr::Init
             {
                 auto controlData = td->GetController();
                 auto target = td->GetTarget();
+                auto controlData2 = td->GetController2();
+                auto target2 = td->GetSecondTarget();
                 auto type = struc.type;
                 IState* thisState = nullptr;
                 switch (type)
@@ -84,7 +86,7 @@ void StateMgr::Init
                     //    thisState = new IntakeState(controlData, target);
                     //    break;
                     case StateType::BALLTRANSER:
-                        thisState = new BallTransferState(control, control2, primaryTarget, secondaryTarget);
+                        thisState = new BallTransferState(controlData, controlData2, target, target2);
                         break;
                     
                     default:

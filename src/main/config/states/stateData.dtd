@@ -23,7 +23,9 @@
                                           BALLRELEASEHOLD | BALLRELEASEOPEN |
                                           UNKNOWN ) "UNKNOWN"
           controlDataIdentifier         CDATA #REQUIRED
+          controlDataIdentifier2        CDATA #REQUIRED
           value                         CDATA #REQUIRED
+          secondValue                   CDATA #REQUIRED
           solenoid                      ( NONE | ON | OFF ) "NONE"
           failoverControlDataIdentifier CDATA #IMPLIED
           failoverValue                 CDATA #IMPLIED

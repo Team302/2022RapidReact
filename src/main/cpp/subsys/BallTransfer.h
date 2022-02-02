@@ -20,19 +20,21 @@
 // FRC includes
 
 // Team 302 includes
-#include <subsys/Mech1IndMotor.h>
+#include <subsys/Mech2IndMotors.h>
+
 
 // Third Party Includes
 
 class IDragonMotorController;
 
-class BallTransfer : public Mech1IndMotor
+class BallTransfer : public Mech2IndMotors
 {
     public:
 
         BallTransfer
         (
-            std::shared_ptr<IDragonMotorController> motor1
+            std::shared_ptr<IDragonMotorController> m_spin,
+            std::shared_ptr<IDragonMotorController> m_lift
         );
 
         BallTransfer() = delete;

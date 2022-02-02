@@ -313,7 +313,7 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
-    </mechanism>
+    </mechanism> -->
     <mechanism type="BALLTRANSFER"
                networkTable="BallTransferNT"
                controlFile="balltransfer.xml">
@@ -335,7 +335,8 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
-    </mechanism>
+    </mechanism> 
+ <!--
     <mechanism type="ARM"
                networkTable="ArmNT"
                controlFile="arm.xml">
@@ -365,5 +366,6 @@
               pwmId="0"
               minAngle="0.0"
               maxAngle="360.0" />
-    </mechanism -->    
+    </mechanism   
+    -->  
 </robot>
