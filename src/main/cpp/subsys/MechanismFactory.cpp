@@ -208,9 +208,11 @@ IMech* MechanismFactory::GetMechanism
 {
 	
 	if (type == MechanismTypes::MECHANISM_TYPE::CLIMBER)
-	if (type == MechanismTypes::MECHANISM_TYPE::INTAKE)
 	{
 		return GetClimber();
+	}
+	else if (type == MechanismTypes::MECHANISM_TYPE::INTAKE)
+	{
 		return GetIntake();
 	}
 	
