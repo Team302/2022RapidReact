@@ -27,7 +27,6 @@
 #include <frc/kinematics/SwerveDriveOdometry.h>
 
 #include <frc/Timer.h>
-#include <frc/drive/Vector2d.h>
 
 #include <units/acceleration.h>
 #include <units/angular_acceleration.h>
@@ -35,20 +34,13 @@
 #include <units/length.h>
 #include <units/velocity.h>
 
-//#include <wpi/numbers>
+#include <wpi/math>
 
 #include <hw/factories/PigeonFactory.h>
 #include <hw/DragonPigeon.h>
-#include <subsys/ChassisSpeedCalcEnum.h>
-#include <subsys/PoseEstimatorEnum.h>
 #include <subsys/SwerveModule.h>
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/interfaces/IChassis.h>
-#include <subsys/interfaces/ISwerveChassisModuleStates.h>
-#include <subsys/SwerveHelpers/EtherDirtySwerve.h>
-#include <subsys/SwerveHelpers/EtherFieldSwerve.h>
-#include <subsys/SwerveHelpers/WPIDirtySwerve.h>
-#include <subsys/SwerveHelpers/WPIFieldSwerve.h>
 
 
 class SwerveChassis : public IChassis
@@ -79,21 +71,11 @@ class SwerveChassis : public IChassis
 			units::velocity::meters_per_second_t                        maxSpeed,
 			units::radians_per_second_t                                 maxAngularSpeed,
 			units::acceleration::meters_per_second_squared_t            maxAcceleration,
-			units::angular_acceleration::radians_per_second_squared_t   maxAngularAcceleration,
-        	ChassisSpeedCalcEnum 									    speedCalcOption,
-    		PoseEstimatorEnum 										    poseEstOption,
-            std::string                                                 ntName,
-            std::string                                                 controlFileName
+			units::angular_acceleration::radians_per_second_squared_t   maxAngularAcceleration
         );
 
         /// @brief Align all of the swerve modules to point forward
-        void Initialize() override;
-        void SetFieldRelative(bool isFieldRelative);
-        void SetMode(ChassisMode mode) override;
-
-        /// @brief      return the chassis type
-        /// @returns    CHASSIS_TYPE
-        IChassis::CHASSIS_TYPE GetType() const override {return IChassis::CHASSIS_TYPE::SWERVE;}
+        void ZeroAlignSwerveModules();
 
         /// @brief Drive the chassis
         /// @param [in] units::velocity::meters_per_second_t            xSpeed:         forward/reverse speed (positive is forward)
@@ -115,22 +97,13 @@ class SwerveChassis : public IChassis
         void Drive(double drivePercent, double steerPercent, double rotatePercent, bool fieldRelative );
 
         /// @brief Drive the chassis
-        /// @param [in] double  drivePercent:   forward/reverse percent output (positive is forward)
-        /// @param [in] double  steerPercent:   left/right percent output (positive is left)
-        /// @param [in] double  rotatePercent:  Rotation percent output around the vertical (Z) axis; (positive is counter clockwise)
-        /// @param [in] bool    fieldRelative:  true: movement is based on the field (e.g., push it goes away from the driver regardless of the robot orientation),
-        ///                                     false: direction is based on robot front/back
-        /// @param [in] frc::Vector2d   rotateOffset:   the offset of the rotation point (value is a percent of chassis wheelbase or track)
-        void Drive(double drivePercent, double steerPercent, double rotatePercent, bool fieldRelative, frc::Vector2d rotateOffset );
-
-        /// @brief Drive the chassis
         /// @param [in] frc::ChassisSpeeds  speeds:         kinematics for how to move the chassis
         /// @param [in] bool                fieldRelative:  true: movement is based on the field (e.g., push it goes away from the driver regardless of the robot orientation),
         ///                                                 false: direction is based on robot front/back
-        void Drive(frc::ChassisSpeeds speeds) override;
+        void Drive(frc::ChassisSpeeds speeds, bool fieldRelative) override;
 
         /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
-        void UpdatePose() override;
+        void UpdateOdometry();
 
         /// @brief Provide the current chassis speed information
         frc::ChassisSpeeds GetChassisSpeeds() const;
@@ -152,19 +125,19 @@ class SwerveChassis : public IChassis
 
         /// @brief Reset the current chassis pose based on the provided pose (the rotation comes from the Pigeon)
         /// @param [in] const Pose2d&       pose        Current XY position
-        void ResetPose
+        void ResetPosition
         ( 
             const frc::Pose2d&       pose
         ) override;
 
         //static constexpr auto MaxSpeed = 3.0_mps; 
-        //static constexpr units::angular_velocity::radians_per_second_t MaxAngularSpeed{wpi::numbers::pi};
+        //static constexpr units::angular_velocity::radians_per_second_t MaxAngularSpeed{wpi::math::pi};
 
-        units::length::inch_t GetWheelDiameter() const override{return m_wheelDiameter; }  
+        units::length::inch_t GetWheelDiameter() const {return m_wheelDiameter; }  
         units::length::inch_t GetWheelBase() const {return m_wheelBase; }  
-        units::length::inch_t GetTrack() const override{return m_track;}
-        units::velocity::meters_per_second_t GetMaxSpeed() const override {return m_maxSpeed;}
-        units::radians_per_second_t GetMaxAngularSpeed() const override {return m_maxAngularSpeed;}
+        units::length::inch_t GetTrack() const {return m_track;}
+        units::velocity::meters_per_second_t GetMaxSpeed() const {return m_maxSpeed;}
+        units::radians_per_second_t GetMaxAngularSpeed() const {return m_maxAngularSpeed;}
         units::acceleration::meters_per_second_squared_t GetMaxAcceleration() const { return m_maxAcceleration; }
         units::angular_acceleration::radians_per_second_squared_t GetMaxAngularAcceleration() const { return m_maxAngularAcceleration; }
         std::shared_ptr<SwerveModule> GetFrontLeft() const { return m_frontLeft;}
@@ -174,17 +147,33 @@ class SwerveChassis : public IChassis
         frc::SwerveDrivePoseEstimator<4> GetPoseEst() const { return m_poseEstimator; }  
         frc::Pose2d GetPose() const;
 
+        //Dummy functions for IChassis Implementation
+        inline IChassis::CHASSIS_TYPE GetType() const override {return IChassis::CHASSIS_TYPE::SWERVE;};
+        inline void Initialize() override {};
+        inline void SetMode(ChassisMode mode) override {};
+
         void SetDriveScaleFactor( double scale );
         void SetBoost( double boost );
         void SetBrake( double brake );
-        void RunWPIAlgorithm(bool runWPI ) { m_speedCalcOption = ChassisSpeedCalcEnum::WPI_METHOD; }
+        void RunWPIAlgorithm(bool runWPI ) { m_runWPI = runWPI; }
         void SetPoseEstOption(PoseEstimatorEnum opt ) { m_poseOpt = opt; }
         double GetScaleFactor() const {return m_scale;}
         bool IsMoving() const { return m_isMoving;}
         double GetodometryComplianceCoefficient() const { return m_odometryComplianceCoefficient; }
 
     private:
-       
+        frc::ChassisSpeeds GetFieldRelativeSpeeds
+        (
+            units::meters_per_second_t xSpeed,
+            units::meters_per_second_t ySpeed,
+            units::radians_per_second_t rot        
+        );
+
+        void CalcSwerveModuleStates
+        (
+            frc::ChassisSpeeds 
+        );
+
         std::shared_ptr<SwerveModule>                               m_frontLeft;
         std::shared_ptr<SwerveModule>                               m_frontRight;
         std::shared_ptr<SwerveModule>                               m_backLeft;
@@ -211,25 +200,13 @@ class SwerveChassis : public IChassis
         double                                                      m_boost;
         double                                                      m_brake;
         bool                                                        m_runWPI;
-        PoseEstimatorEnum                                           m_poseOpt;
+        PoseEstimatorEnum                                        m_poseOpt;
         frc::Pose2d                                                 m_pose;
         units::angle::degree_t                                      m_offsetPoseAngle;
-        frc::Timer                                                  m_timer;
+        frc::Timer                                                 m_timer;
         units::velocity::meters_per_second_t                        m_drive;
         units::velocity::meters_per_second_t                        m_steer;
         units::angular_velocity::radians_per_second_t               m_rotate;
-
-        frc::Vector2d                                               m_rotateOffset;
-        bool                                                        m_isFieldOriented;
-        ChassisSpeedCalcEnum 									    m_speedCalcOption;
-        PoseEstimatorEnum 										    m_poseEstOption;
-        std::string                                                 m_ntName;
-        std::string                                                 m_controlFileName;
-        EtherDirtySwerve*                                           m_etherDirty;
-        EtherFieldSwerve*                                           m_etherField;
-        WPIDirtySwerve*                                             m_wpiDirty;
-        WPIFieldSwerve*                                             m_wpiField;
-        ISwerveChassisModuleStates*                                 m_currentHelper;
 
         const double                                                m_deadband = 0.1;
         

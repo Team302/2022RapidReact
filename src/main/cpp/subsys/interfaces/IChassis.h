@@ -63,19 +63,20 @@ class IChassis
         /// @returns    void
         virtual void Drive
         (
-            frc::ChassisSpeeds chassisSpeeds
+            frc::ChassisSpeeds chassisSpeeds,
+            bool                fieldRelative
         ) = 0;
 
         virtual void Initialize() = 0;
 
         virtual frc::Pose2d GetPose() const = 0;
-        virtual void ResetPose
+        virtual void ResetPosition
         (
             const frc::Pose2d&      pose
         ) = 0;
         virtual void SetMode(ChassisMode mode) = 0;
 
-        virtual void UpdatePose() = 0;
+        virtual void UpdateOdometry() = 0;
         virtual units::length::inch_t GetWheelDiameter() const = 0;
         virtual units::length::inch_t GetTrack() const = 0;
         virtual units::velocity::meters_per_second_t GetMaxSpeed() const = 0;

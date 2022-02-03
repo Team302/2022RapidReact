@@ -53,7 +53,7 @@ void ResetPosition::Init(PrimitiveParams* params)
         frc::Rotation2d StartAngle;
         StartAngle.Degrees() = (m_trajectory.InitialPose().Rotation().Degrees() + units::degree_t(180));
 
-        m_chassis->ResetPose(m_trajectory.InitialPose());
+        m_chassis->ResetPosition(m_trajectory.InitialPose());
 
         Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::PRINT, "ResetPosX", to_string(m_chassis.get()->GetPose().X().to<double>()));
         Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::PRINT, "ResetPosY", to_string(m_chassis.get()->GetPose().Y().to<double>()));
