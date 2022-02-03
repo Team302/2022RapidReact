@@ -174,14 +174,8 @@ void SwerveDrive::Run( )
         brake = clamp(brake, 0.0, 0.25);
         m_chassis->SetBrake(brake);
     }
-
-    /**
-    Logger::GetLogger()->ToNtTable("Swerve Drive", "drive", drive);
-    Logger::GetLogger()->ToNtTable("Swerve Drive", "steer", steer);
-    Logger::GetLogger()->ToNtTable("Swerve Drive", "rotate", rotate);
-    **/
-   
-    m_chassis.get()->Drive(drive, steer, rotate, true);
+  
+    m_chassis->Drive(drive, steer, rotate, true);
 }
 
 /// @brief indicates that we are not at our target

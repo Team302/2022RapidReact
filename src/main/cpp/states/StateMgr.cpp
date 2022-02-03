@@ -34,6 +34,7 @@
 #include <states/Intake/IntakeState.h>
 #include <states/ShooterState.h>
 #include <subsys/MechanismFactory.h>
+#include <states/climber/ClimberState.h>
 
 
 // Third Party Includes
@@ -95,6 +96,9 @@ void StateMgr::Init
                     	    case StateType::SHOOTER:
                        		thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
                        		break;
+                            case StateType::CLIMBER:
+                            thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
+                            break;
                     	    default:
                     	    {
                         	Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));

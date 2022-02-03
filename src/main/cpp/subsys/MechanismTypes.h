@@ -35,7 +35,7 @@ class MechanismTypes
             INTAKE2,
             BALL_TRANSFER,
             SHOOTER,
-            CLIMBER,           
+            CLIMBER,                 
             MAX_MECHANISM_TYPES
         };
 };
