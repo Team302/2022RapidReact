@@ -83,9 +83,9 @@ void StateMgr::Init
                     if ( m_stateVector[slot] == nullptr )
                     {
                         auto controlData = td->GetController();
-                	auto controlData2 = td->GetController2();
+                	    auto controlData2 = td->GetController2();
                         auto target = td->GetTarget();
-                	auto secondaryTarget = td->GetSecondTarget();
+                	    auto secondaryTarget = td->GetSecondTarget();
                         auto type = struc.type;
                         IState* thisState = nullptr;
                         switch (type)

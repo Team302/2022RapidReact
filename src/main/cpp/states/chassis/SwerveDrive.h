@@ -16,9 +16,7 @@
 #pragma once
 
 //C++ Libraries
-
-//First includes
-#include <frc/drive/Vector2d.h>
+#include <memory>
 
 //Team 302 includes
 #include <subsys/SwerveChassis.h>
@@ -41,10 +39,9 @@ class SwerveDrive : public IState
 
     private:
         inline TeleopControl* GetController() const { return m_controller; }
-        SwerveChassis*                      m_chassis;
+        std::shared_ptr<SwerveChassis>      m_chassis;
         TeleopControl*                      m_controller;
         bool                                m_usePWLinearProfile;
         bool                                m_lastUp;
         bool                                m_lastDown;
-        frc::Vector2d                       m_offset;
 };

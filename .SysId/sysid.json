@@ -1,0 +1,11 @@
+{
+  "SysId": {
+    "Analysis Type": "Drivetrain",
+    "AnalyzerJSONLocation": "C:\\GitRepos\\2022RapidReact\\SysID\\sysid_data20220129-152920.json",
+    "NetworkTables Settings": {
+      "serverTeam": "2"
+    },
+    "mode": "Client",
+    "serverTeam": "2"
+  }
+}
