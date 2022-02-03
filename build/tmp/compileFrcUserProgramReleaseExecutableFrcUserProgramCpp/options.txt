@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
 =======
@@ -130,6 +131,8 @@ C:\\Users\\Public\\wpilib\\2022\\roborio\\arm-frc2022-linux-gnueabi\\usr\\includ
 C:\\Users\\Public\\wpilib\\2022\\roborio\\arm-frc2022-linux-gnueabi\\usr\\include
 <<<<<<< main
 =======
+=======
+>>>>>>> ClimberMechanism
 -x
 c++
 -c
@@ -208,6 +211,9 @@ c++
 /home/fishy/wpilib/2022/roborio/arm-frc2022-linux-gnueabi/usr/include/c++/7.3.0/backward
 -isystem
 /home/fishy/wpilib/2022/roborio/arm-frc2022-linux-gnueabi/usr/include
+<<<<<<< HEAD
 >>>>>>> WIP Adding Climber mechanism
 =======
 >>>>>>> DO NOT USE
+=======
+>>>>>>> ClimberMechanism

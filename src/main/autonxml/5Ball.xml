@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE robot SYSTEM "robot.dtd">
+<auton>
+    <primitive id="RESET_POSITION"
+			   pathname="5Ball1.wpilib.json"/>
+    <primitive id="DRIVE_PATH"
+                pathname="5Ball1.wpilib.json"/>
+    <primitive id="DRIVE_PATH"
+                pathname="5Ball2.wpilib.json"/>
+    <primitive id="DRIVE_PATH"
+                pathname="5Ball3.wpilib.json"/>
+    <primitive id="DRIVE_PATH"
+                pathname="5Ball4.wpilib.json"/>
+    <primitive id="DRIVE_PATH"
+                pathname="5Ball5.wpilib.json"/>
+<auton/>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
 =======
@@ -373,6 +374,8 @@ compiling SwerveChassis.cpp successful.
 
 Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
 =======
+=======
+>>>>>>> ClimberMechanism
 See file:///home/fishy/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
 compiling Robot.cpp failed.
 In file included from /home/fishy/GitRepos/2022RapidReact/src/main/cpp/Robot.h:11:0,
@@ -640,6 +643,7 @@ compilation terminated.
 compiling StateMgr.cpp successful.
 /home/fishy/GitRepos/2022RapidReact/src/main/cpp/states/StateMgr.cpp: In member function 'void StateMgr::Init(IMech*, const std::map<std::__cxx11::basic_string<char>, StateStruc>&)':
 /home/fishy/GitRepos/2022RapidReact/src/main/cpp/states/StateMgr.cpp:74:22: warning: unused variable 'controlData' [-Wunused-variable]
+<<<<<<< HEAD
 =======
 compiling Mech1MotorState.cpp successful.
 
@@ -656,6 +660,12 @@ C:\GitRepos\2022RapidReact\src\main\cpp\states\StateMgr.cpp:74:22: warning: unus
 C:\GitRepos\2022RapidReact\src\main\cpp\states\StateMgr.cpp:75:22: warning: unused variable 'target' [-Wunused-variable]
                  auto target = td->GetTarget();
 <<<<<<< main
+=======
+                 auto controlData = td->GetController();
+                      ^~~~~~~~~~~
+/home/fishy/GitRepos/2022RapidReact/src/main/cpp/states/StateMgr.cpp:75:22: warning: unused variable 'target' [-Wunused-variable]
+                 auto target = td->GetTarget();
+>>>>>>> ClimberMechanism
                       ^~~~~~
 
 compiling Mech1Servo.cpp successful.
@@ -820,6 +830,7 @@ compiling StateDataDefn.cpp successful.
 compiling pugixml.cpp successful.
 
 Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///home/fishy/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
+<<<<<<< HEAD
 >>>>>>> WIP Adding Climber mechanism
 =======
                       ^~~~~~
@@ -999,3 +1010,5 @@ C:\Users\darth\.gradle\caches\transforms-3\fea46de20e2869b0be986ea81684d897\tran
 
 Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
 >>>>>>> DO NOT USE
+=======
+>>>>>>> ClimberMechanism

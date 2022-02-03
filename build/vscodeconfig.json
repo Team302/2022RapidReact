@@ -14,6 +14,7 @@
     "systemCMacros": [],
     "systemCArgs": [],
     "allLibFiles": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
 <<<<<<< main
@@ -88,6 +89,8 @@
       "/home/fishy/.gradle/caches/transforms-3/912147b57e9c88d116ffd65a595d969d/transformed/opencv-cpp-4.5.2-1-sources/"
 >>>>>>> WIP Adding Climber mechanism
 =======
+=======
+>>>>>>> ClimberMechanism
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -122,6 +125,7 @@
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\03d9f07deeea5f783c94ae257db3f9a7\\transformed\\cameraserver-cpp-2022.2.1-sources\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\24bf98810d48d6ea08706c29d22dd470\\transformed\\cscore-cpp-2022.2.1-sources\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\cf5140d6c7ac5d89a714ad04d846a876\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+<<<<<<< HEAD
 >>>>>>> Added basic auton paths and began work on climber
 =======
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
@@ -228,6 +232,21 @@
       "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
 =======
+=======
+    ],
+    "allLibSources": [
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0a27a68bcbb7c9281dd5a01498c3f317\\transformed\\wpilibNewCommands-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0b781392b5b8d10a2a56754cdc004eb1\\transformed\\wpilibc-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\28d44d754e49431fb64bad516fcd76fa\\transformed\\ntcore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42d0400f07d9343b24c604fd68e37875\\transformed\\hal-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\73227c56dd5c939320d92487c745b2b3\\transformed\\wpimath-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\e8211e872d18d42263f024482bae2c42\\transformed\\wpiutil-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\03d9f07deeea5f783c94ae257db3f9a7\\transformed\\cameraserver-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\24bf98810d48d6ea08706c29d22dd470\\transformed\\cscore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\cf5140d6c7ac5d89a714ad04d846a876\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+    ],
+    "allLibHeaders": [
+>>>>>>> ClimberMechanism
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -251,6 +270,7 @@
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\da1e2e6b3efb158ea28a08175494a922\\transformed\\cameraserver-cpp-2022.2.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\962abf8e3deb6af7a3526af2e23a02ab\\transformed\\cscore-cpp-2022.2.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0010e3dd4a581fe91f56df7d2c1bbbd0\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+<<<<<<< HEAD
 =======
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\188e6a287669bd1603e1b4d492b74db8\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
@@ -279,6 +299,10 @@
       "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
       "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
     ],
     "binaries": [
       {
@@ -287,6 +311,7 @@
           {
             "source": {
               "srcDirs": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
@@ -299,6 +324,10 @@
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
               ],
               "includes": [
                 "**/*.cpp",
@@ -310,6 +339,7 @@
             },
             "exportedHeaders": {
               "srcDirs": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
@@ -322,6 +352,10 @@
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
               ],
               "includes": [
                 "**/*.hpp",
@@ -350,6 +384,7 @@
           }
         ],
         "libHeaders": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
 <<<<<<< main
@@ -406,6 +441,8 @@
           "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
 =======
+=======
+>>>>>>> ClimberMechanism
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -429,6 +466,7 @@
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\da1e2e6b3efb158ea28a08175494a922\\transformed\\cameraserver-cpp-2022.2.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\962abf8e3deb6af7a3526af2e23a02ab\\transformed\\cscore-cpp-2022.2.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0010e3dd4a581fe91f56df7d2c1bbbd0\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+<<<<<<< HEAD
 =======
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\188e6a287669bd1603e1b4d492b74db8\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
@@ -457,6 +495,10 @@
           "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
           "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
         ],
         "sharedLibrary": false,
         "executable": true
@@ -466,6 +508,7 @@
       {
         "source": {
           "srcDirs": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
@@ -478,6 +521,10 @@
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
           ],
           "includes": [
             "**/*.cpp",
@@ -511,6 +558,7 @@
       {
         "source": {
           "srcDirs": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
@@ -523,6 +571,10 @@
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
           ],
           "includes": [
             "**/*.hpp",
@@ -572,6 +624,7 @@
     "systemCMacros": [],
     "systemCArgs": [],
     "allLibFiles": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
 <<<<<<< main
@@ -646,6 +699,8 @@
       "/home/fishy/.gradle/caches/transforms-3/912147b57e9c88d116ffd65a595d969d/transformed/opencv-cpp-4.5.2-1-sources/"
 >>>>>>> WIP Adding Climber mechanism
 =======
+=======
+>>>>>>> ClimberMechanism
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -680,6 +735,7 @@
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\03d9f07deeea5f783c94ae257db3f9a7\\transformed\\cameraserver-cpp-2022.2.1-sources\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\24bf98810d48d6ea08706c29d22dd470\\transformed\\cscore-cpp-2022.2.1-sources\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\cf5140d6c7ac5d89a714ad04d846a876\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+<<<<<<< HEAD
 >>>>>>> Added basic auton paths and began work on climber
 =======
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
@@ -786,6 +842,21 @@
       "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
 =======
+=======
+    ],
+    "allLibSources": [
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0a27a68bcbb7c9281dd5a01498c3f317\\transformed\\wpilibNewCommands-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0b781392b5b8d10a2a56754cdc004eb1\\transformed\\wpilibc-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\28d44d754e49431fb64bad516fcd76fa\\transformed\\ntcore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42d0400f07d9343b24c604fd68e37875\\transformed\\hal-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\73227c56dd5c939320d92487c745b2b3\\transformed\\wpimath-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\e8211e872d18d42263f024482bae2c42\\transformed\\wpiutil-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\03d9f07deeea5f783c94ae257db3f9a7\\transformed\\cameraserver-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\24bf98810d48d6ea08706c29d22dd470\\transformed\\cscore-cpp-2022.2.1-sources\\",
+      "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\cf5140d6c7ac5d89a714ad04d846a876\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+    ],
+    "allLibHeaders": [
+>>>>>>> ClimberMechanism
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -809,6 +880,7 @@
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\da1e2e6b3efb158ea28a08175494a922\\transformed\\cameraserver-cpp-2022.2.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\962abf8e3deb6af7a3526af2e23a02ab\\transformed\\cscore-cpp-2022.2.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0010e3dd4a581fe91f56df7d2c1bbbd0\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+<<<<<<< HEAD
 =======
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\188e6a287669bd1603e1b4d492b74db8\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
@@ -837,6 +909,10 @@
       "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
       "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+      "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
     ],
     "binaries": [
       {
@@ -845,6 +921,7 @@
           {
             "source": {
               "srcDirs": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
@@ -857,6 +934,10 @@
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
               ],
               "includes": [
                 "**/*.cpp",
@@ -868,6 +949,7 @@
             },
             "exportedHeaders": {
               "srcDirs": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
@@ -880,6 +962,10 @@
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
               ],
               "includes": [
                 "**/*.hpp",
@@ -907,6 +993,7 @@
           }
         ],
         "libHeaders": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
 <<<<<<< main
@@ -963,6 +1050,8 @@
           "/home/fishy/GitRepos/2022RapidReact/src/main/thirdparty/"
 >>>>>>> WIP Adding Climber mechanism
 =======
+=======
+>>>>>>> ClimberMechanism
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -986,6 +1075,7 @@
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\da1e2e6b3efb158ea28a08175494a922\\transformed\\cameraserver-cpp-2022.2.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\962abf8e3deb6af7a3526af2e23a02ab\\transformed\\cscore-cpp-2022.2.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0010e3dd4a581fe91f56df7d2c1bbbd0\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+<<<<<<< HEAD
 =======
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\188e6a287669bd1603e1b4d492b74db8\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
@@ -1014,6 +1104,10 @@
           "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
           "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+          "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
         ],
         "sharedLibrary": false,
         "executable": true
@@ -1023,6 +1117,7 @@
       {
         "source": {
           "srcDirs": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
@@ -1035,6 +1130,10 @@
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
           ],
           "includes": [
             "**/*.cpp",
@@ -1067,6 +1166,7 @@
       {
         "source": {
           "srcDirs": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
@@ -1079,6 +1179,10 @@
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added basic auton paths and began work on climber
+=======
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
+            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> ClimberMechanism
           ],
           "includes": [
             "**/*.hpp",
