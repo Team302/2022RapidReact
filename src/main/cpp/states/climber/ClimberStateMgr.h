@@ -27,10 +27,12 @@
 
 // Team 302 includes
 #include <states/IState.h>
+#include <states/StateMgr.h>
+#include <states/StateStruc.h>
 
 // Third Party Includes
 
-class ClimberStateMgr 
+class ClimberStateMgr : public StateMgr
 {
     public:
         /// @enum the various states of the impeller
@@ -52,34 +54,20 @@ class ClimberStateMgr
 		/// @return ClimberStateMgr* pointer to the state manager
 		static ClimberStateMgr* GetInstance();
 
-
-
-        /// @brief  run the current state
-        /// @return void
-        void RunCurrentState();
-
-        /// @brief  set the current state, initialize it and run it
-        /// @param [in]     CLIMBER_STATE - state to set
-        /// @param [in]     run - true means run, false just initialize it
-        /// @return void
-        void SetCurrentState
-        (
-            CLIMBER_STATE  state,
-            bool            run
-        );
-
-        /// @brief  return the current state
-        /// @return CLIMBER_STATE - the current state
-        inline CLIMBER_STATE GetCurrentState() const { return m_currentStateEnum; };
+        void CheckForStateTransition() override;
 
     private:
-        std::array<IState*,MAX_CLIMBER_STATES> m_states;
-        IState* m_currentState;
-        CLIMBER_STATE m_currentStateEnum;
-        CLIMBER_STATE m_prevStateEnum;
-        std::shared_ptr<nt::NetworkTable> m_nt;
 
 		static ClimberStateMgr*	m_instance;
+
+        const StateStruc    m_offState = {CLIMBER_STATE::OFF, StateType::CLIMBER, true};
+        const StateStruc    m_initialReachState = {CLIMBER_STATE::INITIAL_REACH, StateType::CLIMBER, false};
+        const StateStruc    m_retractState = {CLIMBER_STATE::RETRACT, StateType::CLIMBER, false};
+        const StateStruc    m_releaseState = {CLIMBER_STATE::RELEASE, StateType::CLIMBER, false};
+        const StateStruc    m_reachToBarState = {CLIMBER_STATE::REACH_TO_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_rotateOutState = {CLIMBER_STATE::ROTATE_OUT, StateType::CLIMBER, false};
+        const StateStruc    m_rotateInState = {CLIMBER_STATE::ROTATE_IN, StateType::CLIMBER, false};
+        const StateStruc    m_holdState = {CLIMBER_STATE::HOLD, StateType::CLIMBER, false};
 
         ClimberStateMgr();
         ~ClimberStateMgr() = default;

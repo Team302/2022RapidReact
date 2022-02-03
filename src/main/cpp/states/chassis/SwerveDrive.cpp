@@ -192,7 +192,7 @@ void SwerveDrive::Run( )
         m_chassis->SetBrake(brake);
     }
   
-    m_chassis->Drive(drive, steer, rotate, true, m_offset);
+    m_chassis->Drive(drive, steer, rotate, true);
 }
 
 /// @brief indicates that we are not at our target

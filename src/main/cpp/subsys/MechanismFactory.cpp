@@ -119,14 +119,13 @@ void MechanismFactory::CreateIMechanism
 			}
 		}
 		break;
-		**/
 
 		
 		case MechanismTypes::MECHANISM_TYPE::CLIMBER :
 		{
 			if (m_climber == nullptr)
 			{
-				auto motor1 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_CLIMB );
+				auto motor1 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_LIFT );
 				auto motor2 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_ROTATE);
 				if ( motor1.get() != nullptr && motor2.get() != nullptr )
 				{

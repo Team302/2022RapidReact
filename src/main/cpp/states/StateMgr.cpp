@@ -96,6 +96,9 @@ void StateMgr::Init
                     	    case StateType::SHOOTER:
                        		thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
                        		break;
+                            case StateType::CLIMBER:
+                            thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
+                            break;
                     	    default:
                     	    {
                         	Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));
