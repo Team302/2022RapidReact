@@ -153,11 +153,57 @@ void SwerveDrive::Run( )
             }
             m_lastDown = true;
         }
+
+       else if (controller->IsButtonPressed(TeleopControl::FINDTARGET))
+        {
+            frc::Pose2d MyPose = m_chassis->GetPose();
+            // Get target angle relative to center of robot and center of target (field pos)
+            frc::Rotation2d R2DTargetAtAngle =  m_ClsTargetFinder.GetTargetAngleR2d(MyPose);
+
+
+            frc::Rotation2d xCurRot2d = m_ClsTargetFinder.GetCurrentRotaion(MyPose);
+            //not used but here if needed
+            int iFieldQuadrant = m_ClsTargetFinder.GetFieldQuadrant(MyPose);
+  
+        // numbers to use not sure what we need at this time...
+            double dCurDist2Zero_deg = units::angle::degree_t(xCurRot2d.Degrees()).to<double>();//.to<double>();
+            double dDeg2Target = m_ClsTargetFinder.GetAngle2Target(MyPose);
+            double dDist2TargetHYP = m_ClsTargetFinder.GetDistance2TargetHyp(MyPose);
+            double dDistX2Target = m_ClsTargetFinder.GetDistance2TargetXYR(MyPose).X().to<double>();
+            double dDistY2Target = m_ClsTargetFinder.GetDistance2TargetXYR(MyPose).Y().to<double>();
+            double dTargetAngle = m_ClsTargetFinder.GetTargetAngleD(MyPose);
+
+
+            
+        }
+
+
+        else if (controller->IsButtonPressed(TeleopControl::TURN_AROUND_FRONT_RIGHT))
+        {
+            //Offset L and W values in swerve module position calculations to turn around front right wheel
+            //Each wheel is half of wheelbase and half of track away
+            //FL = (L + Wheelbase W - Track)                  FR = (L + Wheelbase W + Track)
+            //                                      Center = (L W)
+            //BL = (L - Wheelbase W - Track)                  BR = (L - 5Wheelbase W + Track)
+            double xOffset = 1;     //percent of wheel base to offset rotate point by
+            double yOffset = 1;     //percent of track to offset rotate point by
+
+            double xOffsetInches = xOffset * m_chassis->GetWheelBase().to<double>();
+            double yOffsetInches = yOffset * m_chassis->GetTrack().to<double>();
+
+            frc::Vector2d offset = frc::Vector2d(xOffsetInches, yOffsetInches);
+
+            m_offset = offset;
+
+            Logger::GetLogger()->ToNtTable("ATurnAbout", "Is A Pressed?", "True");
+
+        }
         else
         {
             m_lastUp   = false;
             m_lastDown = false;
         }
+        
         
         drive  = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE) ;
         steer  = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER);
