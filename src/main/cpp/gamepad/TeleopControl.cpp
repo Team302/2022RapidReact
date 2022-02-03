@@ -98,8 +98,6 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_axisIDs[ SWERVE_DRIVE_ROTATE]					= IDragonGamePad::RIGHT_JOYSTICK_X;
 		m_controllerIndex[ REZERO_PIGEON ]				= ctrlNo;
 		m_buttonIDs[ REZERO_PIGEON ]					= IDragonGamePad::X_BUTTON;
-		m_controllerIndex[ TURN_AROUND_FRONT_RIGHT ] 	= ctrlNo;
-		m_buttonIDs[ TURN_AROUND_FRONT_RIGHT ] 			= IDragonGamePad::A_BUTTON;
 		m_controllerIndex[DRIVE_FULL] 		= ctrlNo;
 		m_buttonIDs[DRIVE_FULL] 			= IDragonGamePad::POV_0;	
 		m_controllerIndex[DRIVE_75PERCENT] 	= ctrlNo;
@@ -117,23 +115,6 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_controllerIndex[DRIVE_BRAKE] 		= ctrlNo;
 		m_axisIDs[ DRIVE_BRAKE]	     		= IDragonGamePad::LEFT_TRIGGER;
 
-		m_controllerIndex[ARCADE_THROTTLE]  = ctrlNo;
-		m_axisIDs[ ARCADE_THROTTLE]         = IDragonGamePad::LEFT_JOYSTICK_Y;
-		m_controllerIndex[ARCADE_STEER]     = ctrlNo;
-		m_axisIDs[ARCADE_STEER]             = IDragonGamePad::RIGHT_JOYSTICK_X;
-
-		m_controllerIndex[INTAKE]           = ctrlNo;
-		m_buttonIDs[INTAKE]                 = IDragonGamePad::RIGHT_BUMPER;
-		m_controllerIndex[EXPEL]            = ctrlNo;
-		m_buttonIDs[EXPEL]                  = IDragonGamePad::LEFT_BUMPER;
-
-		m_controllerIndex[ROTATE_ARM_UP]    = ctrlNo;
-		m_buttonIDs[ROTATE_ARM_UP]          = IDragonGamePad::Y_BUTTON;
-		m_controllerIndex[ROTATE_ARM_DOWN]  = ctrlNo;
-		m_buttonIDs[ROTATE_ARM_DOWN]        = IDragonGamePad::A_BUTTON;
-
-		m_controllerIndex[RELEASE]          = ctrlNo;
-		m_buttonIDs[RELEASE]                = IDragonGamePad::B_BUTTON;
     }
     else
     {
