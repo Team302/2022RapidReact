@@ -25,6 +25,8 @@
 #include <units/length.h>
 #include <units/velocity.h>
 
+#include <wpi/numbers>
+
 // Team 302 includes
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/SwerveChassis.h>
@@ -277,6 +279,12 @@ Pose2d SwerveChassis::GetPose() const
     return m_pose;
 }
 
+units::angle::degree_t SwerveChassis::GetYaw() const
+{
+    units::degree_t yaw{m_pigeon->GetYaw()};
+    return yaw;
+}
+
 /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
 void SwerveChassis::UpdateOdometry() 
 {
@@ -442,7 +450,7 @@ ChassisSpeeds SwerveChassis::GetFieldRelativeSpeeds
     Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "ySpeed (mps)", ySpeed.to<double>());
     Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "rot (radians per sec)", rot.to<double>());
 
-    units::angle::radian_t yaw{m_pigeon->GetYaw()*wpi::math::pi/180.0};
+    units::angle::radian_t yaw{m_pigeon->GetYaw()*wpi::numbers::pi/180.0};
     auto temp = xSpeed*cos(yaw.to<double>()) + ySpeed*sin(yaw.to<double>());
     auto strafe = -1.0*xSpeed*sin(yaw.to<double>()) + ySpeed*cos(yaw.to<double>());
     auto forward = temp;

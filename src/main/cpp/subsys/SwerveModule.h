@@ -34,8 +34,6 @@
 #include <units/velocity.h>
 #include <units/voltage.h>
 
-#include <wpi/math>
-
 // Team 302 Includes
 #include <hw/DragonFalcon.h>
 #include <hw/interfaces/IDragonMotorController.h>
