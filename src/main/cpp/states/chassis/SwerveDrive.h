@@ -23,6 +23,7 @@
 #include <gamepad/TeleopControl.h>
 #include <states/IState.h>
 #include <hw/DragonPigeon.h>
+#include <states/chassis/DragonTargetFinder.h> //target finder point to target centet
 
 class SwerveDrive : public IState
 {
@@ -44,4 +45,7 @@ class SwerveDrive : public IState
         bool                                m_usePWLinearProfile;
         bool                                m_lastUp;
         bool                                m_lastDown;
+        frc::Vector2d                       m_offset;
+
+        DragonTargetFinder m_ClsTargetFinder;
 };
