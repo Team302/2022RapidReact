@@ -42,11 +42,6 @@ units::angle::degree_t AngleUtils::GetDeltaAngle
     auto normTarget = GetEquivAngle(targetAngle);
     auto normStart  = GetEquivAngle(startingAngle);
 
-    Logger::GetLogger()->ToNtTable("AngleUtils", "target angle", targetAngle.to<double>());
-    Logger::GetLogger()->ToNtTable("AngleUtils", "target angle - normalized", normTarget.to<double>());
-    Logger::GetLogger()->ToNtTable("AngleUtils", "starting angle", startingAngle.to<double>());
-    Logger::GetLogger()->ToNtTable("AngleUtils", "starting angle - normalized", normStart.to<double>());
-
     // compute delta which is between 0 and 360 degrees
     auto delta = units::angle::degree_t(normTarget - normStart);
 

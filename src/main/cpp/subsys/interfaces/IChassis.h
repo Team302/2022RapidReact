@@ -28,7 +28,9 @@
 #include <controllers/ControlModes.h>
 #include <controllers/ControlData.h>
 // Third Party Includes
+#include <units/angle.h>
 #include <units/length.h>
+
 
 namespace frc
 {
@@ -82,6 +84,7 @@ class IChassis
         virtual units::velocity::meters_per_second_t GetMaxSpeed() const = 0;
         virtual units::angular_velocity::radians_per_second_t GetMaxAngularSpeed() const = 0;
         virtual bool IsMoving() const = 0;
+        virtual units::angle::degree_t GetYaw() const = 0;
 
 	IChassis() = default;
 	virtual ~IChassis() = default;

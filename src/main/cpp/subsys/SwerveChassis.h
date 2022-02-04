@@ -34,8 +34,6 @@
 #include <units/length.h>
 #include <units/velocity.h>
 
-#include <wpi/math>
-
 #include <hw/factories/PigeonFactory.h>
 #include <hw/DragonPigeon.h>
 #include <subsys/SwerveModule.h>
@@ -146,6 +144,7 @@ class SwerveChassis : public IChassis
         std::shared_ptr<SwerveModule> GetBackRight() const { return m_backRight;}
         frc::SwerveDrivePoseEstimator<4> GetPoseEst() const { return m_poseEstimator; }  
         frc::Pose2d GetPose() const;
+        units::angle::degree_t GetYaw() const override;
 
         //Dummy functions for IChassis Implementation
         inline IChassis::CHASSIS_TYPE GetType() const override {return IChassis::CHASSIS_TYPE::SWERVE;};

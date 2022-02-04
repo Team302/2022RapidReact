@@ -27,7 +27,7 @@
 #include <networktables/NetworkTableEntry.h>
 #include <units/angle.h>
 #include <units/velocity.h>
-#include <wpi/math>
+#include <wpi/numbers>
 
 // Team 302 includes
 #include <controllers/ControlData.h>
@@ -50,7 +50,7 @@ using namespace frc;
 using namespace ctre::phoenix;
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::sensors;
-using namespace wpi::math;
+//using namespace wpi::math;
 
 /// @brief Constructs a Swerve Module.  This is assuming 2 TalonFX (Falcons) with a CanCoder for the turn angle
 /// @param [in] ModuleID                                                type:           Which Swerve Module is it
@@ -235,7 +235,7 @@ void SwerveModule::ZeroAlignModule()
 SwerveModuleState SwerveModule::GetState() const 
 {
     // Get the Module Drive Motor Speed
-    auto mpr = units::length::meter_t(GetWheelDiameter() * pi );               
+    auto mpr = units::length::meter_t(GetWheelDiameter() * wpi::numbers::pi );               
     auto mps = units::velocity::meters_per_second_t(mpr.to<double>() * m_driveMotor.get()->GetRPS());
 
     // Get the Module Current Rotation Angle
@@ -354,7 +354,7 @@ void SwerveModule::SetDriveSpeed( units::velocity::meters_per_second_t speed )
     if (m_runClosedLoopDrive)
     {
         // convert mps to unitless rps by taking the speed and dividing by the circumference of the wheel
-        auto driveTarget = m_activeState.speed.to<double>() / (units::length::meter_t(m_wheelDiameter).to<double>() * wpi::math::pi);  
+        auto driveTarget = m_activeState.speed.to<double>() / (units::length::meter_t(m_wheelDiameter).to<double>() * wpi::numbers::pi);  
         driveTarget /= m_driveMotor.get()->GetGearRatio();
         driveTarget *= clamp((m_scale + m_boost - m_brake), 0.0, 1.0);
         
@@ -460,7 +460,7 @@ frc::Pose2d SwerveModule::GetCurrentPose(PoseEstimatorEnum opt)
         // Thetak+1 = Thetagyro,k+1
 
         auto delta  = currentRotations - startRotations;
-        auto circum = wpi::math::pi * m_wheelDiameter;
+        auto circum = wpi::numbers::pi * m_wheelDiameter;
 
         currentX = startX + cos(startAngle.to<double>()) * circum;
         currentY = startY + sin(startAngle.to<double>()) * circum;
