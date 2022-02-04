@@ -18,6 +18,8 @@
 //C++ Libraries
 #include <memory>
 
+#include <frc/drive/Vector2d.h>
+
 //Team 302 includes
 #include <subsys/SwerveChassis.h>
 #include <gamepad/TeleopControl.h>
