@@ -112,9 +112,11 @@ TeleopControl::TeleopControl() : m_axisIDs(),
         //////////////////////////////
 		// for now left bubper point to target
 		//m_controllerIndex[DRIVE_SHIFT_DOWN] = ctrlNo;
-		//m_buttonIDs[DRIVE_SHIFT_DOWN] 		= IDragonGamePad::LEFT_BUMPER;	
+		//m_buttonIDs[DRIVE_SHIFT_DOWN] 		= IDragonGamePad::LEFT_BUMPER;
+			
 		m_controllerIndex[FINDTARGET] = ctrlNo;
 		m_buttonIDs[FINDTARGET]	 		= IDragonGamePad::LEFT_BUMPER;	
+
         /////////////////////////////////////////////////////////////////////  
 		
 		m_controllerIndex[DRIVE_TURBO] 		= ctrlNo;
