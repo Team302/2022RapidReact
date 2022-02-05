@@ -15,15 +15,21 @@
 //====================================================================================================================================================
 
 #include <states/Intake/IntakeState.h>
-#include <states/Mech1MotorState.h>
+#include <states/Mech2MotorState.h>
 #include <subsys/MechanismFactory.h>
 #include <controllers/ControlData.h>
-#include <subsys/interfaces/IMech1IndMotor.h>
+#include <subsys/interfaces/IMech2IndMotors.h>
 
 IntakeState::IntakeState
 (
-    ControlData* control,
-    double       target
-) : Mech1MotorState (MechanismFactory::GetMechanismFactory()->GetIntake(), control, target ) 
+    ControlData* controlSpin,
+    ControlData* controlExtend, 
+    double       spinTarget,
+    double       extendTarget
+) : Mech2MotorState (MechanismFactory::GetMechanismFactory()->GetIntake(), 
+                     controlSpin, 
+                     controlExtend, 
+                     spinTarget,
+                     extendTarget) 
 {
 }
