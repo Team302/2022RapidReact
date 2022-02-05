@@ -1,7 +1,7 @@
 import argparse
 from cmath import pi
+import cmath
 from math import atan, atan2
-from tkinter import Frame
 
 import cv2
 import numpy as np
@@ -128,15 +128,15 @@ class Tester:
         cs = CameraServer.getInstance()
         camera = cs.startAutomaticCapture()
         camera_config = config_parser.cameras[0]
-        WIDTH, HEIGHT = camera_config["width"], camera_config["height"]
-        camera.setResolution(WIDTH, HEIGHT)
+        self.WIDTH, self.HEIGHT = camera_config["width"], camera_config["height"]
+        camera.setResolution(self.WIDTH, self.HEIGHT)
         self.cvSink = cs.getVideo()
-        self.img = np.zeros(shape=(HEIGHT, WIDTH, 3), dtype=np.uint8)
-        self.output = cs.putVideo("Axon", WIDTH, HEIGHT)
+        self.img = np.zeros(shape=(self.HEIGHT, self.WIDTH, 3), dtype=np.uint8)
+        self.output = cs.putVideo("Axon", self.WIDTH, self.HEIGHT)
         self.frames = 0
 
         self.coral_entry.setString(self.hardware_type)
-        self.resolution_entry.setString(str(WIDTH) + ", " + str(HEIGHT))
+        self.resolution_entry.setString(str(self.WIDTH) + ", " + str(self.HEIGHT))
 
         #Color var for network tables
         self.color = ""
@@ -144,13 +144,17 @@ class Tester:
         #Middle point of image
         self.middlePoint = (0, 0)
 
+        #Focal Length Debugging
+        self.fLBeforeAvg = 0
+        self.avgCounter = 0
+
     def run(self):
         print("Starting mainloop")
         while True:
             start = time()
             # Acquire frame and resize to expected shape [1xHxWx3]
             ret, frame_cv2 = self.cvSink.grabFrame(self.img)
-            self.middlePoint = (160,120)
+            self.middlePoint = ((self.WIDTH/2),(self.HEIGHT/2))
             if not ret:
                 print("Image failed")
                 continue
@@ -216,12 +220,14 @@ class Tester:
                         cv2.rectangle(frame_cv2, (xmin, ymin), (xmax, ymax), (0, 255, 0), 2)
 
                     #Angle calcultions
-                    centerOfObjectX = (xmax - xmin) / 2
-                    centerOfObjectY = (ymax - ymin) / 2
+                    centerOfObjectX = (xmax + xmin) / 2
+                    centerOfObjectY = (ymax + ymin) / 2
                     deltaX = centerOfObjectX - self.middlePoint[0]
                     deltaY = centerOfObjectY - self.middlePoint[1]
                     horizontalAngle = 0.0
                     verticalAngle = 0.0
+
+
 
                     #protect for zero and divide and if both values are at the middle, then the angle is 0.0
                     if (abs(deltaY) > 0.0):
@@ -231,12 +237,26 @@ class Tester:
                         verticalAngle = atan(deltaY / deltaX) * 180.0 / pi
                         horizontalAngle = 90.0 - verticalAngle
 
-                    focalLength = 5.0 #value used from chris's code
-                    
-                    #distance calculation, inches
-                    ballDistance = (9.5 * focalLength) / ((xmax - xmin))
-        #size of the cargo times focal length ^         ^ dividing by perceived size in camera (this was radius in chris's code and here it is width)
+                    #Rounding
+                    verticalAngle = round(verticalAngle,2)
+                    horizontalAngle = round(horizontalAngle,2)
 
+                    #Calculated focalength
+                    focalLength = 315.5 #This was found at 48 inches from cam
+
+                    debugHorDist = (9.5 * focalLength) / (deltaX)
+
+                    print(debugHorDist)
+
+                    #distance calculation, inches
+                    #This is before we correct for angles
+                    #D = (9.5 * focalLength) / (xmax - xmin)
+                    
+                    #Debugging
+                    ballDistance = (9.5 * focalLength) / (xmax - xmin)
+                    ballDistance = round(ballDistance,2)
+        #size of the cargo times focal length ^         ^ dividing by perceived size in camera (this was radius in chris's code and here it is width)
+                    
 
             for i in range(len(boxes)):
                 if scores[i] > .5:
@@ -251,6 +271,11 @@ class Tester:
 
                     frame_cv2 = self.label_frame(frame_cv2, self.labels[class_id], ballDistance, verticalAngle, horizontalAngle, boxes[i], scores[i], x_scale,
                                                  y_scale)
+
+            #Draw middle point on screen
+            #frame_cv2 = cv2.circle(frame_cv2, (self.WIDTH,self.HEIGHT), 5, (0, 0, 255), cv2.FILLED, cv2.LINE_8, 0)
+            frame_cv2 = cv2.circle(frame_cv2, (int(self.WIDTH/2),int(self.HEIGHT/2)), radius=3, color=(0, 0, 255), thickness=-1)
+
             self.output.putFrame(frame_cv2)
             self.entry.setString(json.dumps(self.temp_entry))
             self.temp_entry = []
@@ -288,7 +313,7 @@ class Tester:
         cv2.rectangle(frame, (xmin, label_ymin - label_size[1] - 10), (xmin + label_size[0], label_ymin + base - 10),
                       (255, 255, 255), cv2.FILLED)
         # Draw label text
-        cv2.putText(frame, label, (xmin, label_ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)
+        cv2.putText(frame, label, (xmin, label_ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 0, 0), 2)
         return frame
 
     def input_size(self):
