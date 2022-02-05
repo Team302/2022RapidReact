@@ -56,6 +56,7 @@ class TeleopControl
             INTAKE,
             EXPEL,
             LIFT,
+            SPIN,
             ROTATE_ARM_UP,
             ROTATE_ARM_DOWN,
             RELEASE,

@@ -27,6 +27,7 @@
 <!-- ====================================================
      Chassis
      ====================================================  -->
+     <!--
     <chassis  type="SWERVE"
               wheelDiameter="4.13"
               wheelBase="21.0"  
@@ -69,7 +70,7 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
-              <!-- gearRatio="8.4" -->
+                    gearRatio="8.4"
              <motor  usage="SWERVE_TURN"
                     canId="2"
                     pdpID="2"
@@ -91,9 +92,10 @@
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="2"
                             offset="-106.787"/>
-        </swervemodule>
-
+        </swervemodule>     
+-->
        <!-- .25 -->
+       <!--
         <swervemodule type="LEFT_BACK"
                       turn_p="0.07"
                       turn_i="0.00075"
@@ -121,9 +123,9 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>                  
+                    reverselimitswitchopen="true"/>    -->              
               <!-- gearRatio="8.4" -->
-             <motor usage="SWERVE_TURN"
+    <!--         <motor usage="SWERVE_TURN"
                     canId="0"
                     pdpID="0"
                     type="FALCON"
@@ -144,10 +146,10 @@
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="0"
                             offset="67.06055"/>
-        </swervemodule>
+        </swervemodule>     -->
 
        <!-- .25 -->
-        <swervemodule type="RIGHT_FRONT"
+<!--        <swervemodule type="RIGHT_FRONT"
                       turn_p="0.07"
                       turn_i="0.00075"
                       turn_d="0.0"
@@ -174,9 +176,9 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>                  
+                    reverselimitswitchopen="true"/>         -->         
               <!-- gearRatio="8.4" -->
-             <motor  usage="SWERVE_TURN"
+   <!--          <motor  usage="SWERVE_TURN"
                     canId="12"
                     pdpID="12"
                     type="FALCON"
@@ -198,9 +200,9 @@
 		    <cancoder canId="12"
                             offset="60.81"/>
         </swervemodule>
-
+-->
        <!-- 0.25 -->
-        <swervemodule type="LEFT_FRONT"
+ <!--       <swervemodule type="LEFT_FRONT"
                       turn_p="0.07"
                       turn_i="0.00075"
                       turn_d="0.0"
@@ -227,9 +229,9 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>                  
+                    reverselimitswitchopen="true"/>          -->        
               <!-- gearRatio="8.4" -->
-             <motor usage="SWERVE_TURN"
+  <!--           <motor usage="SWERVE_TURN"
                     canId="14"
                     pdpID="14"
                     type="FALCON"
@@ -253,8 +255,7 @@
         </swervemodule>
 
     </chassis>  
-
-
+-->
 
     <!-- chassis type="TANK"
              wheelDiameter="4.0"
@@ -294,7 +295,7 @@
     <mechanism type="INTAKE"
                networkTable="IntakeNT"
                controlFile="intake.xml"
->
+
        <motor usage="INTAKE"
               canId="0"
               pdpID="0"
@@ -314,11 +315,31 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism> -->
+
     <mechanism type="BALLTRANSFER"
                networkTable="BallTransferNT"
                controlFile="balltransfer.xml">
-       <motor usage="BALLTRANSFER"
-              canId="14"
+       <motor usage="BALLTRANSFERSPIN"
+              canId="0"
+              pdpID="14"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="false"
+              reverselimitswitchopen="true"/>
+
+              <motor usage="BALLTRANSFERLIFT"
+              canId="1"
               pdpID="14"
               type="TALONSRX"
               inverted="true"

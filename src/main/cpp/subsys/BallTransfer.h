@@ -33,6 +33,8 @@ class BallTransfer : public Mech2IndMotors
 
         BallTransfer
         (
+            std::string GetNetworkTableName,
+            std::string GetControlFileName,
             std::shared_ptr<IDragonMotorController> m_spin,
             std::shared_ptr<IDragonMotorController> m_lift
         );

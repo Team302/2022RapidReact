@@ -6,9 +6,11 @@
 	<mechanismTarget stateIdentifier="BALLTRANSFEROFF"
 	                 controlDataIdentifier="openloop"
 					 value="0.0"/>
-	<mechanismTarget stateIdentifier="BALLTRANSFERINTAKE"
+	<mechanismTarget stateIdentifier="BALLTRANSFERSPIN"
 	                 controlDataIdentifier="openloop"
 					 value="1.0"/>
+					 controlDataIdentifier2="openloop"
+					 secondValue="0.5"/>
 	<mechanismTarget stateIdentifier="BALLTRANSFERLIFT"
 	                 controlDataIdentifier="openloop"
 					 value="-1.0"/>

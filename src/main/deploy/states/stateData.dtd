@@ -18,7 +18,7 @@
 <!ELEMENT mechanismTarget EMPTY>
 <!ATTLIST mechanismTarget 
           stateIdentifier               ( INTAKEOFF | INTAKEON | INTAKEEXPEL |
-                                          BALLTRANSFEROFF | BALLTRANSFERINTAKE | BALLTRANSFERLIFT |
+                                          BALLTRANSFEROFF | BALLTRANSFERSPIN | BALLTRANSFERLIFT |
                                           ARMUP | ARMDOWN | ARMHOLDUP | ARMHOLDDOWN | ARMHOLDPOSITION |
                                           BALLRELEASEHOLD | BALLRELEASEOPEN |
                                           UNKNOWN ) "UNKNOWN"

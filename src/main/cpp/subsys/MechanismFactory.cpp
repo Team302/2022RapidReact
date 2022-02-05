@@ -125,11 +125,11 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_ballTransfer == nullptr)
 			{
-				auto m_lift = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
-				auto m_spin = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_SPIN);
+				auto m_spin = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
+				auto m_lift = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_SPIN);
 				if ((m_lift.get() != nullptr) && m_spin.get() != nullptr)
 				{
-					m_ballTransfer = new BallTransfer(m_lift, m_spin);
+					m_ballTransfer = new BallTransfer(networkTableName, controlFileName, m_spin, m_lift);
 				}
 			}
 		}
