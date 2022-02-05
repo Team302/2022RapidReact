@@ -219,44 +219,57 @@ class Tester:
                         print("Invalid object's averages: ", averages)
                         cv2.rectangle(frame_cv2, (xmin, ymin), (xmax, ymax), (0, 255, 0), 2)
 
+
+        #Chris's angle code
+        
                     #Angle calcultions
                     centerOfObjectX = (xmax + xmin) / 2
                     centerOfObjectY = (ymax + ymin) / 2
                     deltaX = centerOfObjectX - self.middlePoint[0]
                     deltaY = centerOfObjectY - self.middlePoint[1]
-                    horizontalAngle = 0.0
-                    verticalAngle = 0.0
+            #        horizontalAngle = 0.0
+            #        #verticalAngle = 0.0
+#
+#
+#
+            #        #protect for zero and divide and if both values are at the middle, then the angle is 0.0
+            #        if (abs(deltaY) > 0.0):
+            #            horizontalAngle = atan(deltaX / deltaY) * 180.0 / pi
+            #            #verticalAngle = 90.0 - horizontalAngle
+            #        elif (abs(deltaX) > 0.0):
+            #            #verticalAngle = atan(deltaY / deltaX) * 180.0 / pi
+            #            horizontalAngle = 90.0 - verticalAngle
+#
+            #        #Rounding
+            #        #verticalAngle = round(verticalAngle,2)
+            #        horizontalAngle = round(horizontalAngle,2)
+                    
+            
 
 
+        #Nick angle code
+                    cam_angle = 55 #This was measured, probably the same as FOV
+                    angle_per_pixel = cam_angle/self.WIDTH
+                    horizontalAngle=(centerOfObjectX-(self.WIDTH/2))*angle_per_pixel
+                    round(horizontalAngle,2)
 
-                    #protect for zero and divide and if both values are at the middle, then the angle is 0.0
-                    if (abs(deltaY) > 0.0):
-                        horizontalAngle = atan(deltaX / deltaY) * 180.0 / pi
-                        verticalAngle = 90.0 - horizontalAngle
-                    elif (abs(deltaX) > 0.0):
-                        verticalAngle = atan(deltaY / deltaX) * 180.0 / pi
-                        horizontalAngle = 90.0 - verticalAngle
-
-                    #Rounding
-                    verticalAngle = round(verticalAngle,2)
-                    horizontalAngle = round(horizontalAngle,2)
-
-                    #Calculated focalength
-                    focalLength = 315.5 #This was found at 48 inches from cam
-
-                    debugHorDist = (9.5 * focalLength) / (deltaX)
-
-                    print(debugHorDist)
+                    #Calculated focalelngth at 320, 240
+                    focalLength = 158 #48 inches  focalLength was 90 at 96 inches but 158 is accurate enough, might change
 
                     #distance calculation, inches
-                    #This is before we correct for angles
-                    #D = (9.5 * focalLength) / (xmax - xmin)
-                    
-                    #Debugging
                     ballDistance = (9.5 * focalLength) / (xmax - xmin)
                     ballDistance = round(ballDistance,2)
         #size of the cargo times focal length ^         ^ dividing by perceived size in camera (this was radius in chris's code and here it is width)
                     
+                    #Focal length finding
+                    #pixels = xmax-xmin
+                    #fl = (pixels * 48) / 9.5
+                    #self.avgCounter = self.avgCounter + 1
+                    #self.fLBeforeAvg = self.fLBeforeAvg + fl
+                    #avg = self.fLBeforeAvg / self.avgCounter
+                    #print("Focal length avg: ", avg)
+
+
 
             for i in range(len(boxes)):
                 if scores[i] > .5:
@@ -269,7 +282,7 @@ class Tester:
                     if class_id not in range(len(self.labels)):
                         continue
 
-                    frame_cv2 = self.label_frame(frame_cv2, self.labels[class_id], ballDistance, verticalAngle, horizontalAngle, boxes[i], scores[i], x_scale,
+                    frame_cv2 = self.label_frame(frame_cv2, self.labels[class_id], ballDistance, horizontalAngle, boxes[i], scores[i], x_scale,
                                                  y_scale)
 
             #Draw middle point on screen
@@ -285,7 +298,7 @@ class Tester:
                 self.fps_entry.setNumber((1 / (time() - start)))
             self.frames += 1
 
-    def label_frame(self, frame, object_name, object_distance, object_vert_angle, object_hor_angle, box, score, x_scale, y_scale):
+    def label_frame(self, frame, object_name, object_distance, object_hor_angle, box, score, x_scale, y_scale):
         ymin, xmin, ymax, xmax = box
         score = float(score)
         bbox = BBox(xmin=xmin,
@@ -299,7 +312,7 @@ class Tester:
             return frame
 
         ymin, xmin, ymax, xmax = int(bbox.ymin), int(bbox.xmin), int(bbox.ymax), int(bbox.xmax)
-        self.temp_entry.append({"label": object_name, "distance": object_distance, "vert angle": object_vert_angle, "horizontal angle": object_hor_angle, "box": {"ymin": ymin, "xmin": xmin, "ymax": ymax, "xmax": xmax},
+        self.temp_entry.append({"label": object_name, "distance": object_distance, "horizontal angle": object_hor_angle, "box": {"ymin": ymin, "xmin": xmin, "ymax": ymax, "xmax": xmax},
                                 "confidence": score})
 
         cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (10, 255, 0), 4)
@@ -307,13 +320,13 @@ class Tester:
         # Draw label
         # Look up object name from "labels" array using class index
         #Added distance and angle to label that is displayed on the frame
-        label = '%s: %d%% Dist: %s Vert Angle: %s Hor Angle: %s' % (object_name, score * 100, object_distance, object_vert_angle, object_hor_angle)  # Example: 'person: 72%'
+        label = '%s: %d%% Dist: %s Hor Angle: %s' % (object_name, score * 100, object_distance, object_hor_angle)  # Example: 'person: 72%'
         label_size, base = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)  # Get font size
         label_ymin = max(ymin, label_size[1] + 10)  # Make sure not to draw label too close to top of window
         cv2.rectangle(frame, (xmin, label_ymin - label_size[1] - 10), (xmin + label_size[0], label_ymin + base - 10),
                       (255, 255, 255), cv2.FILLED)
         # Draw label text
-        cv2.putText(frame, label, (xmin, label_ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 0, 0), 2)
+        cv2.putText(frame, label, (xmin, label_ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)
         return frame
 
     def input_size(self):
