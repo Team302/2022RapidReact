@@ -12,14 +12,33 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
+#pragma once 
 
-#pragma once
-
-#include <map>
+// C++ Includes
 #include <memory>
 
-#include <hw/interfaces/IDragonMotorController.h>
-#include <hw/usages/MotorControllerUsage.h>
+// FRC includes
 
-typedef std::map <MotorControllerUsage::MOTOR_CONTROLLER_USAGE, 
-                  std::shared_ptr<IDragonMotorController>> IDragonMotorControllerMap;
+// Team 302 includes
+#include <subsys/Mech2IndMotors.h>
+
+
+// Third Party Includes
+
+class IDragonMotorController;
+
+class BallTransfer : public Mech2IndMotors
+{
+    public:
+
+        BallTransfer
+        (
+            std::string GetNetworkTableName,
+            std::string GetControlFileName,
+            std::shared_ptr<IDragonMotorController> m_spin,
+            std::shared_ptr<IDragonMotorController> m_lift
+        );
+
+        BallTransfer() = delete;
+        virtual ~BallTransfer() = default;
+};

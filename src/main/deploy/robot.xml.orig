@@ -30,7 +30,11 @@
  <!-- ====================================================
      Chassis
      ====================================================  -->
+<<<<<<< HEAD
 <!-- -->
+=======
+     <!--
+>>>>>>> BallTransfer
     <chassis  type="SWERVE"
               wheelDiameter="4.13"
               wheelBase="21.0"  
@@ -73,6 +77,10 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
+<<<<<<< HEAD
+=======
+                    gearRatio="8.4"
+>>>>>>> BallTransfer
              <motor  usage="SWERVE_TURN"
                     canId="2"
                     pdpID="2"
@@ -94,9 +102,15 @@
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="2"
                             offset="-106.787"/>
+<<<<<<< HEAD
+        </swervemodule>
+
+=======
         </swervemodule>     
 -->
+       <!-- .25 -->
        <!--
+>>>>>>> BallTransfer
         <swervemodule type="LEFT_BACK"
                       turn_p="0.07"
                       turn_i="0.00075"
@@ -124,8 +138,14 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
+<<<<<<< HEAD
+                    reverselimitswitchopen="true"/>                  
+             <motor usage="SWERVE_TURN"
+=======
                     reverselimitswitchopen="true"/>    -->              
+              <!-- gearRatio="8.4" -->
     <!--         <motor usage="SWERVE_TURN"
+>>>>>>> BallTransfer
                     canId="0"
                     pdpID="0"
                     type="FALCON"
@@ -148,7 +168,12 @@
                             offset="67.06055"/>
         </swervemodule>     -->
 
+<<<<<<< HEAD
+        <swervemodule type="RIGHT_FRONT"
+=======
+       <!-- .25 -->
 <!--        <swervemodule type="RIGHT_FRONT"
+>>>>>>> BallTransfer
                       turn_p="0.07"
                       turn_i="0.00075"
                       turn_d="0.0"
@@ -175,8 +200,14 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
+<<<<<<< HEAD
+                    reverselimitswitchopen="true"/>                  
+             <motor  usage="SWERVE_TURN"
+=======
                     reverselimitswitchopen="true"/>         -->         
+              <!-- gearRatio="8.4" -->
    <!--          <motor  usage="SWERVE_TURN"
+>>>>>>> BallTransfer
                     canId="12"
                     pdpID="12"
                     type="FALCON"
@@ -198,8 +229,14 @@
 		    <cancoder canId="12"
                             offset="60.81"/>
         </swervemodule>
+<<<<<<< HEAD
+
+        <swervemodule type="LEFT_FRONT"
+=======
 -->
+       <!-- 0.25 -->
  <!--       <swervemodule type="LEFT_FRONT"
+>>>>>>> BallTransfer
                       turn_p="0.07"
                       turn_i="0.00075"
                       turn_d="0.0"
@@ -226,8 +263,14 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
+<<<<<<< HEAD
+                    reverselimitswitchopen="true"/>                  
+             <motor usage="SWERVE_TURN"
+=======
                     reverselimitswitchopen="true"/>          -->        
+              <!-- gearRatio="8.4" -->
   <!--           <motor usage="SWERVE_TURN"
+>>>>>>> BallTransfer
                     canId="14"
                     pdpID="14"
                     type="FALCON"
@@ -251,6 +294,7 @@
         </swervemodule>
 
     </chassis>  
+<<<<<<< HEAD
       <!-- -->
     <!--
  <mechanism type="SHOOTER"
@@ -303,6 +347,50 @@
                networkTable="IntakeNT"
                controlFile="intake.xml">
        <motor usage="INTAKE_SPIN"
+=======
+-->
+
+    <!-- chassis type="TANK"
+             wheelDiameter="4.0"
+             wheelBase="13.75"
+             track="15.0"
+             maxVelocity="28.0"
+             maxAngularVelocity="60.0"
+             maxAcceleration="12.0"
+             maxAngularAcceleration="6.0"
+             networkTable="ChassisNT"
+             controlFile="chassis.xml">
+
+        <motor usage="DIFFERENTIAL_LEFT_MAIN"
+               canId="1"
+               pdpID="1"
+               type="TALONSRX"
+               inverted="false"
+               sensorInverted="false"
+               feedbackDevice="QUADENCODER"
+               countsPerRev="4096"
+               gearRatio="1.0"
+               brakeMode="true"/>
+
+        <motor usage="DIFFERENTIAL_RIGHT_MAIN"
+               canId="13"
+               pdpID="13"
+               type="TALONSRX"
+               inverted="true"
+               sensorInverted="false"
+               feedbackDevice="QUADENCODER"
+               countsPerRev="4096"
+               gearRatio="1.0"
+               brakeMode="true"/>
+    </chassis>
+
+
+    <mechanism type="INTAKE"
+               networkTable="IntakeNT"
+               controlFile="intake.xml"
+
+       <motor usage="INTAKE"
+>>>>>>> BallTransfer
               canId="0"
               pdpID="0"
               type="TALONSRX"
@@ -320,6 +408,7 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
+<<<<<<< HEAD
        <motor usage="INTAKE_EXTEND"
               canId="1"
               pdpID="1"
@@ -338,8 +427,13 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
+    </mechanism>
     -->
     <!--
+=======
+    </mechanism> -->
+
+>>>>>>> BallTransfer
     <mechanism type="BALLTRANSFER"
                networkTable="BallTransferNT"
                controlFile="balltransfer.xml">
@@ -411,6 +505,12 @@
               pwmId="0"
               minAngle="0.0"
               maxAngle="360.0" />
+<<<<<<< HEAD
     </mechanism>  
               -->
 </robot>
+=======
+    </mechanism   
+    -->  
+</robot>
+>>>>>>> BallTransfer

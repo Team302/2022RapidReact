@@ -12,14 +12,36 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
-
-#pragma once
-
-#include <map>
+// C++ Includes
 #include <memory>
+#include <string>
 
+
+// FRC includes
+
+// Team 302 includes
+#include <subsys/BallTransfer.h>
+#include <subsys/Mech2IndMotors.h>
 #include <hw/interfaces/IDragonMotorController.h>
-#include <hw/usages/MotorControllerUsage.h>
+#include <subsys/MechanismFactory.h>
 
-typedef std::map <MotorControllerUsage::MOTOR_CONTROLLER_USAGE, 
-                  std::shared_ptr<IDragonMotorController>> IDragonMotorControllerMap;
+
+
+// Third Party Includes
+
+using namespace std;
+
+BallTransfer::BallTransfer
+(
+    string networkTableName,
+    string controlFileName,
+    shared_ptr<IDragonMotorController> spinMotor, //Motor controller passed in from mech factory
+    shared_ptr<IDragonMotorController> liftMotor //Second motor controller passed in from mech factory
+) : Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER, 
+                   networkTableName, 
+                   controlFileName, 
+                   spinMotor, 
+                   liftMotor)
+//  ^ Creates a 1 motor mechanism of type "Ball Transfer", states control data and network table name, also pass in motor controller
+{
+}

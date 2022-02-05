@@ -42,6 +42,7 @@
 #include <subsys/Intake.h>
 #include <subsys/Shooter.h>
 #include <subsys/Climber.h>
+#include <subsys/BallTransfer.h>
 
 // Third Party Includes
 
@@ -87,6 +88,7 @@ class MechanismFactory
 			const DigitalInputMap&									digitalInputs,
 			std::shared_ptr<ctre::phoenix::sensors::CANCoder>		canCoder
 		);
+		inline BallTransfer* GetBallTransfer() const { return m_ballTransfer;};
 		
 		inline Intake* GetIntake() const { return m_intake;};
 		inline Shooter* GetShooter() const { return m_shooter;};
@@ -134,10 +136,14 @@ class MechanismFactory
 
 		static MechanismFactory*	m_mechanismFactory;
 		Climber*	m_climber;
+		BallTransfer* 				m_ballTransfer;
+		
 
 		Intake* m_intake;
 		
 
 		Shooter* m_shooter;
+
+		
 
 };

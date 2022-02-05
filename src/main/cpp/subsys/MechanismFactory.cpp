@@ -70,8 +70,10 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 
 }
 
-MechanismFactory::MechanismFactory() : m_intake(nullptr),
- 				       m_shooter(nullptr)
+MechanismFactory::MechanismFactory() :// m_intake(nullptr),
+                                       m_ballTransfer(nullptr)
+									  // m_arm(nullptr),
+									 //  m_ballRelease(nullptr)
 {
 }
 
@@ -120,48 +122,21 @@ void MechanismFactory::CreateIMechanism
 			}
 		}
 		break;
-
-		
-		case MechanismTypes::MECHANISM_TYPE::CLIMBER :
+		**/
+			case MechanismTypes::BALL_TRANSFER:
 		{
-			if (m_climber == nullptr)
+			if (m_ballTransfer == nullptr)
 			{
-				auto motor1 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_LIFT );
-				auto motor2 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_ROTATE);
-				if ( motor1.get() != nullptr && motor2.get() != nullptr )
+				auto m_spin = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
+				auto m_lift = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_SPIN);
+				if ((m_lift.get() != nullptr) && m_spin.get() != nullptr)
 				{
-					m_climber = new Climber(motor1, motor2);
-					//m_climber = make_shared<Climber>(motor1, motor2);
+					m_ballTransfer = new BallTransfer(networkTableName, controlFileName, m_spin, m_lift);
 				}
-				else
-				{
-					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No climber motors exist in XML"));
-				}
-			}
-			else
-			{
-				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Climber already exists") );
 			}
 		}
 		break;
 
-		case MechanismTypes::MECHANISM_TYPE::SHOOTER:
-		{
-			if (m_shooter == nullptr)
-			{
-				auto shooterMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER);
-				auto shooterHoodMotor = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER_HOOD);
-				if ( shooterMotor.get() != nullptr && shooterHoodMotor.get() != nullptr)
-				{
-					m_shooter = new Shooter(controlFileName, networkTableName, shooterMotor, shooterHoodMotor);
-				}
-				else
-				{
-					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No Shooter motor exists in XML"));
-				}
-			}
-		}
-		break;		
 		default:
 		{
 			string msg = "unknown Mechanism type ";

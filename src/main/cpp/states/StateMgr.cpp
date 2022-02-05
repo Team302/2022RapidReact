@@ -35,6 +35,9 @@
 #include <states/ShooterState.h>
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
+#include <states/BallTransfer/BallTransferState.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
+#include <subsys/BallTransfer.h>
 
 
 // Third Party Includes
@@ -74,13 +77,22 @@ void StateMgr::Init
             // create the states passing the configuration data
             for ( auto td: targetData )
             {
-                auto stateString = td->GetStateString();
-                auto stateStringToStrucItr = stateMap.find( stateString );
-                if ( stateStringToStrucItr != stateMap.end() )
+                auto controlData = td->GetController();
+                auto target = td->GetTarget();
+                auto controlData2 = td->GetController2();
+                auto target2 = td->GetSecondTarget();
+                auto type = struc.type;
+                IState* thisState = nullptr;
+                switch (type)
                 {
-                    auto struc = stateStringToStrucItr->second;
-                    auto slot = struc.id;
-                    if ( m_stateVector[slot] == nullptr )
+                    //case StateType::INTAKE:
+                    //    thisState = new IntakeState(controlData, target);
+                    //    break;
+                    case StateType::BALLTRANSER:
+                        thisState = new BallTransferState(controlData, controlData2, target, target2);
+                        break;
+                    
+                    default:
                     {
                         auto controlData = td->GetController();
                 	    auto controlData2 = td->GetController2();

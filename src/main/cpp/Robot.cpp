@@ -22,6 +22,8 @@
 #include <auton/CyclePrimitives.h>
 #include <states/Intake/IntakeStateMgr.h>
 #include <states/ShooterStateMgr.h>
+#include <states/StateMgr.h>
+#include <Robot.h>
 
 #include <subsys/Shooter.h>
 
@@ -50,6 +52,11 @@ void Robot::RobotInit()
   m_shooter = mechFactory->GetShooter();
   m_shooterStateMgr = ShooterStateMgr::GetInstance();
   
+  auto mechFactory = MechanismFactory::GetMechanismFactory();
+  m_ballTransfer = mechFactory->GetBallTransfer();
+
+   m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
+
   m_cyclePrims = new CyclePrimitives();
 }
 
@@ -132,6 +139,10 @@ void Robot::TeleopPeriodic()
        m_shooterStateMgr->RunCurrentState();
   }
 
+    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
+  {
+    m_ballTransferStateMgr->RunCurrentState();
+  }
 }
 
 void Robot::DisabledInit() 

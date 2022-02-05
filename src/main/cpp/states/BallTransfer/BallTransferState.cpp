@@ -13,13 +13,26 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
+// C++ Includes
 
-#include <map>
-#include <memory>
+// FRC includes
 
-#include <hw/interfaces/IDragonMotorController.h>
-#include <hw/usages/MotorControllerUsage.h>
+// Team 302 includes
+#include <controllers/ControlData.h>
+#include <states/balltransfer/BallTransferState.h>
+#include <states/Mech2MotorState.h>
+#include <subsys/Mech2IndMotors.h>
+#include <subsys/MechanismFactory.h>
 
-typedef std::map <MotorControllerUsage::MOTOR_CONTROLLER_USAGE, 
-                  std::shared_ptr<IDragonMotorController>> IDragonMotorControllerMap;
+// Third Party Includes
+
+
+BallTransferState::BallTransferState
+(
+    ControlData*                    control,
+    ControlData*                    control2,
+    double                          primaryTarget,
+    double                          secondaryTarget
+) : Mech2MotorState( MechanismFactory::GetMechanismFactory()->GetBallTransfer(), control, control2, primaryTarget, secondaryTarget )
+{
+}

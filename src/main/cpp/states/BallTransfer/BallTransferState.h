@@ -15,11 +15,22 @@
 
 #pragma once
 
-#include <map>
-#include <memory>
+#include <states/Mech2MotorState.h>
+#include <states/StateStruc.h>
 
-#include <hw/interfaces/IDragonMotorController.h>
-#include <hw/usages/MotorControllerUsage.h>
+class ControlData;
 
-typedef std::map <MotorControllerUsage::MOTOR_CONTROLLER_USAGE, 
-                  std::shared_ptr<IDragonMotorController>> IDragonMotorControllerMap;
+class BallTransferState : public Mech2MotorState
+{
+    public:
+
+        BallTransferState() = delete;
+        BallTransferState
+        (
+            ControlData*                    control,
+            ControlData*                    control2,
+            double                          primaryTarget,
+            double                          secondaryTarget
+        );
+        ~BallTransferState() = default;
+};
