@@ -181,6 +181,10 @@ void SwerveDrive::Run()
             if (m_clsTurnToAngle->AtTarget() == false)
             {
                 m_clsTurnToAngle->Run();
+            }else
+            {
+                 delete m_clsTurnToAngle;
+                 m_clsTurnToAngle = nullptr;
             }
         }
 
@@ -211,9 +215,9 @@ void SwerveDrive::Run()
             m_chassis->SetBrake(brake);
         }
 
-       
-    }
         m_chassis->Drive(drive, steer, rotate, true);
+    }
+       
      
 }
 
