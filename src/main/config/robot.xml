@@ -2,12 +2,15 @@
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
 
+       <!-- -->
        <pdp canId="1"
             type="REV"/>
-
+       <!-- -->
+       <!-- -->
        <pigeon canId="50"
             rotation="0.0"/>
-<!--
+       <!-- -->
+       <!--
        <limelight tablename="limelight"
                      mountingheight="31.5"
                      horizontaloffset="0.0"
@@ -23,10 +26,11 @@
                      crosshairy="0.5"
                      secondcrosshairx="0.25"
                      secondcrosshairy="0.25" />
-                    -->
+       -->
  <!-- ====================================================
      Chassis
      ====================================================  -->
+<!-- -->
     <chassis  type="SWERVE"
               wheelDiameter="4.13"
               wheelBase="21.0"  
@@ -246,6 +250,7 @@
         </swervemodule>
 
     </chassis>  
+      <!-- -->
     <!--
  <mechanism type="SHOOTER"
                networkTable="shooterNT"
@@ -292,13 +297,31 @@
 <!-- ====================================================
      Intake
      ====================================================  -->
-     <!--
+     <!-- 
     <mechanism type="INTAKE"
                networkTable="IntakeNT"
                controlFile="intake.xml">
        <motor usage="INTAKE_SPIN"
               canId="0"
               pdpID="0"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="false"
+              reverselimitswitchopen="true"/>
+       <motor usage="INTAKE_EXTEND"
+              canId="1"
+              pdpID="1"
               type="TALONSRX"
               inverted="true"
               sensorInverted="false"

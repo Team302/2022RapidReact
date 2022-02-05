@@ -103,14 +103,15 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_intake == nullptr)
 			{
-				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_SPIN);
-				if ( motor.get() != nullptr )
+				auto intakeMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_SPIN);
+				auto extendMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_EXTEND);
+				if (intakeMotor.get() != nullptr && extendMotor.get() != nullptr)
 				{
-					m_intake = new Intake(controlFileName, networkTableName, motor);
+					m_intake = new Intake(controlFileName, networkTableName, intakeMotor, extendMotor);
 				}
 				else
 				{
-					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No Intake motor exists in XML"));
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Intake motor missing in XML"));
 				}
 			}
 			else

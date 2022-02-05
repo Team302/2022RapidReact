@@ -91,7 +91,7 @@ void StateMgr::Init
                         switch (type)
                         {
                             case StateType::INTAKE:
-                        	thisState = new IntakeState(controlData, target);
+                        	thisState = new IntakeState(controlData, controlData2, target, secondaryTarget);
                         	break;
                     	    case StateType::SHOOTER:
                        		thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
