@@ -26,7 +26,7 @@ IntakeState::IntakeState
     ControlData* controlExtend, 
     double       spinTarget,
     double       extendTarget
-) : Mech2MotorState (MechanismFactory::GetMechanismFactory()->GetIntake(), 
+) : Mech2MotorState (MechanismFactory::GetMechanismFactory()->GetLeftIntake(), 
                      controlSpin, 
                      controlExtend, 
                      spinTarget,

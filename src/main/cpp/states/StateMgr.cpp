@@ -90,18 +90,25 @@ void StateMgr::Init
                         IState* thisState = nullptr;
                         switch (type)
                         {
-                            case StateType::INTAKE:
-                        	thisState = new IntakeState(controlData, controlData2, target, secondaryTarget);
-                        	break;
+                            case StateType::LEFT_INTAKE:
+                        	    thisState = new IntakeState(controlData, controlData2, target, secondaryTarget);
+                        	    break;
+
+                            case StateType::RIGHT_INTAKE:
+                        	    thisState = new IntakeState(controlData, controlData2, target, secondaryTarget);
+                        	    break;
+
                     	    case StateType::SHOOTER:
-                       		thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
-                       		break;
+                       		    thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
+                       		    break;
+
                             case StateType::CLIMBER:
-                            thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
-                            break;
+                                thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
+                                break;
+
                     	    default:
                     	    {
-                        	Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));
+                        	    Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));
                     	    }
                     	    break;
                 	}
