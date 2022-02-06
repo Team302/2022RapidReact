@@ -95,6 +95,7 @@ void CyclePrimitives::Run()
 			{
 				GetNextPrim();
 			}
+			Logger::GetLogger()->LogError(string("CyclePrimitives"), string("Running current primitive"));
 		}
 		else
 		{
