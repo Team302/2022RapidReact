@@ -75,8 +75,8 @@ void BallTransferStateMgr::CheckForStateTransition()
         auto controller = TeleopControl::GetInstance();
         if ( controller != nullptr )
         {
-            auto spinPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SPIN);
-            auto liftPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::LIFT);
+            auto spinPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::BALL_TRANSFER_SPIN);
+            auto liftPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::BALL_TRANSFER_LIFT);
             if (spinPressed  &&  currentState != BALL_TRANSFER_STATE::SPIN )
             {
                 SetCurrentState( BALL_TRANSFER_STATE::SPIN, false );
