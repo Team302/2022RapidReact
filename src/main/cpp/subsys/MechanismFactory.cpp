@@ -71,6 +71,7 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 }
 
 MechanismFactory::MechanismFactory() : m_leftIntake(nullptr),
+									   m_rightIntake(nullptr),
  				                       m_shooter(nullptr)
 {
 }
@@ -107,7 +108,11 @@ void MechanismFactory::CreateIMechanism
 				auto extendMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_EXTEND);
 				if (intakeMotor.get() != nullptr && extendMotor.get() != nullptr)
 				{
-					m_leftIntake = new Intake(controlFileName, networkTableName, intakeMotor, extendMotor);
+					m_leftIntake = new Intake(MechanismTypes::MECHANISM_TYPE::LEFT_INTAKE,
+											  controlFileName, 
+											  networkTableName, 
+											  intakeMotor, 
+											  extendMotor);
 				}
 				else
 				{
@@ -129,7 +134,11 @@ void MechanismFactory::CreateIMechanism
 				auto extendMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_EXTEND);
 				if (intakeMotor.get() != nullptr && extendMotor.get() != nullptr)
 				{
-					m_rightIntake = new Intake(controlFileName, networkTableName, intakeMotor, extendMotor);
+					m_rightIntake = new Intake(MechanismTypes::MECHANISM_TYPE::RIGHT_INTAKE,
+											   controlFileName, 
+											   networkTableName, 
+											   intakeMotor, 
+											   extendMotor);
 				}
 				else
 				{

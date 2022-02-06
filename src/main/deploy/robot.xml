@@ -2,14 +2,14 @@
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
 
-       <!-- 
+       <!-- -->
        <pdp canId="1"
             type="REV"/>
-        -->
-       <!--
+       <!-- -->
+       <!-- -->
        <pigeon canId="50"
             rotation="0.0"/>
-       -->
+       <!-- -->
        <!--
        <limelight tablename="limelight"
                      mountingheight="31.5"
@@ -30,7 +30,7 @@
  <!-- ====================================================
      Chassis
      ====================================================  -->
-<!-- 
+<!-- -->
     <chassis  type="SWERVE"
               wheelDiameter="4.13"
               wheelBase="21.0"  
@@ -250,7 +250,7 @@
         </swervemodule>
 
     </chassis>  
-       -->
+    <!--   -->
     <!--
  <mechanism type="SHOOTER"
                networkTable="shooterNT"
@@ -297,7 +297,7 @@
 <!-- ====================================================
      Intake
      ====================================================  -->
-     <!-- -->
+     <!-- 
     <mechanism type="LEFT_INTAKE"
                networkTable="LeftIntakeNT"
                controlFile="intake.xml">
@@ -342,8 +342,8 @@
                networkTable="RightIntakeNT"
                controlFile="intake.xml">
        <motor usage="INTAKE_SPIN"
-              canId="0"
-              pdpID="0"
+              canId="2"
+              pdpID="2"
               type="TALONSRX"
               inverted="true"
               sensorInverted="false"
@@ -360,8 +360,8 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
        <motor usage="INTAKE_EXTEND"
-              canId="1"
-              pdpID="1"
+              canId="3"
+              pdpID="3"
               type="TALONSRX"
               inverted="true"
               sensorInverted="false"
@@ -378,7 +378,7 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
-    <!-- -->
+     -->
     <!--
     <mechanism type="BALLTRANSFER"
                networkTable="BallTransferNT"

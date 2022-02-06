@@ -91,11 +91,19 @@ void StateMgr::Init
                         switch (type)
                         {
                             case StateType::LEFT_INTAKE:
-                        	    thisState = new IntakeState(controlData, controlData2, target, secondaryTarget);
+                        	    thisState = new IntakeState(MechanismFactory::GetMechanismFactory()->GetLeftIntake(),
+                                                            controlData,
+                                                            controlData2, 
+                                                            target, 
+                                                            secondaryTarget);
                         	    break;
 
                             case StateType::RIGHT_INTAKE:
-                        	    thisState = new IntakeState(controlData, controlData2, target, secondaryTarget);
+                        	    thisState = new IntakeState(MechanismFactory::GetMechanismFactory()->GetRightIntake(),
+                                                            controlData,
+                                                            controlData2, 
+                                                            target, 
+                                                            secondaryTarget);
                         	    break;
 
                     	    case StateType::SHOOTER:

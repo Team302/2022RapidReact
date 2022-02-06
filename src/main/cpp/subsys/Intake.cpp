@@ -30,6 +30,7 @@ using namespace std;
 
 Intake::Intake
 (
+    MechanismTypes::MECHANISM_TYPE      type,
     string                              controlFileName,
     string                              ntName,                        
     shared_ptr<IDragonMotorController> intakeMotor,
