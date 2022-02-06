@@ -57,6 +57,8 @@ class TeleopControl
             INTAKE_RIGHT,
             EXPEL_LEFT,
             EXPEL_RIGHT,
+            BALL_TRANSFER_SPIN,
+            BALL_TRANSFER_LIFT,
             AUTO_SHOOT_HIGH,
             AUTO_SHOOT_LOW,
             CLIMBER_REACH,
