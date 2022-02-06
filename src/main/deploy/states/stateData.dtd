@@ -20,7 +20,7 @@
           stateIdentifier               ( INTAKEOFF | INTAKEON | INTAKEEXPEL |
                                           BALLTRANSFEROFF | BALLTRANSFERSPIN | BALLTRANSFERLIFT |
                                           ARMUP | ARMDOWN | ARMHOLDUP | ARMHOLDDOWN | ARMHOLDPOSITION |
-                                          BALLRELEASEHOLD | BALLRELEASEOPEN |
+                                          BALLRELEASEHOLD | BALLRELEASEOPEN | SHOOTERON | SHOOTEROFF |
                                           UNKNOWN ) "UNKNOWN"
           controlDataIdentifier         CDATA #REQUIRED
           controlDataIdentifier2        CDATA #IMPLAFIED

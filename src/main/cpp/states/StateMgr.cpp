@@ -31,6 +31,10 @@
 #include <subsys/interfaces/IMech.h>
 #include <utils/Logger.h>
 #include <xmlmechdata/StateDataDefn.h>
+#include <states/Intake/IntakeState.h>
+#include <states/ShooterState.h>
+#include <subsys/MechanismFactory.h>
+#include <states/climber/ClimberState.h>
 #include <states/BallTransfer/BallTransferState.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
 #include <subsys/BallTransfer.h>
@@ -56,23 +60,22 @@ void StateMgr::Init
 ) 
 {
     m_mech = mech;
-    
-    // Parse the configuration file 
-    auto stateXML = make_unique<StateDataDefn>();
-    vector<MechanismTargetData*> targetData = stateXML.get()->ParseXML(mech->GetType());
-
-    // initialize the xml string to state map
-    m_stateVector.resize(stateMap.size());
-    // create the states passing the configuration data
-    for ( auto td: targetData )
+    if (mech != nullptr)
     {
-        auto stateString = td->GetStateString();
-        auto stateStringToStrucItr = stateMap.find( stateString );
-        if ( stateStringToStrucItr != stateMap.end() )
+        // Parse the configuration file 
+        auto stateXML = make_unique<StateDataDefn>();
+        vector<MechanismTargetData*> targetData = stateXML.get()->ParseXML(mech->GetType());
+
+        if (targetData.empty())
         {
-            auto struc = stateStringToStrucItr->second;
-            auto slot = struc.id;
-            if ( m_stateVector[slot] == nullptr )
+            Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::ERROR, mech->GetControlFileName(), string("No states"));
+        }
+        else
+        {
+            // initialize the xml string to state map
+            m_stateVector.resize(stateMap.size());
+            // create the states passing the configuration data
+            for ( auto td: targetData )
             {
                 auto controlData = td->GetController();
                 auto target = td->GetTarget();
@@ -91,29 +94,50 @@ void StateMgr::Init
                     
                     default:
                     {
-                        Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));
-                    }
-                    break;
-                }
-                if (thisState != nullptr)
-                {
-                    m_stateVector[slot] = thisState;
-                    if (struc.isDefault)
-                    {
-                        m_currentState = thisState;
-                        m_currentStateID = slot;
-                        m_currentState->Init();
-                    }
+                        auto controlData = td->GetController();
+                	    auto controlData2 = td->GetController2();
+                        auto target = td->GetTarget();
+                	    auto secondaryTarget = td->GetSecondTarget();
+                        auto type = struc.type;
+                        IState* thisState = nullptr;
+                        switch (type)
+                        {
+                            case StateType::INTAKE:
+                        	thisState = new IntakeState(controlData, controlData2, target, secondaryTarget);
+                        	break;
+                    	    case StateType::SHOOTER:
+                       		thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
+                       		break;
+                            case StateType::CLIMBER:
+                            thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
+                            break;
+                    	    default:
+                    	    {
+                        	Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));
+                    	    }
+                    	    break;
+                	}
+                	if (thisState != nullptr)
+                	{
+                    	    m_stateVector[slot] = thisState;
+                            if (struc.isDefault)
+                            {
+                        	m_currentState = thisState;
+                        	m_currentStateID = slot;
+                        	m_currentState->Init();
+                    	    }
+                	}
+            	    }
+            	    else
+            	    {
+                	Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("multiple mechanism state info for state"));
+            	    }
+        	}
+        	else
+        	{
+            	    Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("state not found"));
                 }
             }
-            else
-            {
-                Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("multiple mechanism state info for state"));
-            }
-        }
-        else
-        {
-            Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("state not found"));
         }
     }
 }

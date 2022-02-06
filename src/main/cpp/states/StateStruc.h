@@ -1,3 +1,4 @@
+
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
@@ -12,14 +13,17 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
+
 #pragma once
        
 enum StateType
 {
     INTAKE,
-    BALLTRANSER,
-    ARM,
-    BALLRELEASE,
+    INTAKE2,
+    BALLTRANSFER,
+    SHOOTER,
+    SHOOTER_HOOD,
+    CLIMBER,
     MAX_STATE_TYPES
 };
 

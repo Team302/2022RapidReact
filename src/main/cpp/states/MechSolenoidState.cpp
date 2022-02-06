@@ -58,7 +58,7 @@ void MechSolenoidState::Run()
     {
         switch ( m_solenoidState )
         {
-            case MechanismTargetData::SOLENOID::OFF:
+            case MechanismTargetData::SOLENOID::REVERSE:
                 m_mechanism->ActivateSolenoid( false );
                 break;
             

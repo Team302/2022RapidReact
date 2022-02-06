@@ -11,6 +11,7 @@
 
 #include <units/velocity.h>
 #include <units/angular_velocity.h>
+#include <Robot.h>
 
 #include <states/chassis/SwerveDrive.h>
 #include <xmlhw/RobotDefn.h>
@@ -19,8 +20,12 @@
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/MechanismFactory.h>
 #include <auton/CyclePrimitives.h>
+#include <states/Intake/IntakeStateMgr.h>
+#include <states/ShooterStateMgr.h>
 #include <states/StateMgr.h>
 #include <Robot.h>
+
+#include <subsys/Shooter.h>
 
 void Robot::RobotInit() 
 {
@@ -38,12 +43,14 @@ void Robot::RobotInit()
   m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
   auto factory = ChassisFactory::GetChassisFactory();
   m_chassis = factory->GetIChassis();
-  if (m_chassis != nullptr)
-  {
+  m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
     
-  }
+  auto mechFactory = MechanismFactory::GetMechanismFactory();
+  m_intake = mechFactory->GetIntake();
+  m_intakeStateMgr = IntakeStateMgr::GetInstance();
 
-  m_swerve = new SwerveDrive();
+  m_shooter = mechFactory->GetShooter();
+  m_shooterStateMgr = ShooterStateMgr::GetInstance();
   
   auto mechFactory = MechanismFactory::GetMechanismFactory();
   m_ballTransfer = mechFactory->GetBallTransfer();
@@ -51,7 +58,6 @@ void Robot::RobotInit()
    m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
 
   m_cyclePrims = new CyclePrimitives();
-
 }
 
 /**
@@ -66,7 +72,7 @@ void Robot::RobotPeriodic()
 {
   if (m_chassis != nullptr)
   {
-    m_chassis->UpdatePose();
+    m_chassis->UpdateOdometry();
   }
 }
 
@@ -99,18 +105,40 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
-  if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
-  {
-    m_swerve->Init();
-  }
+
+    if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
+    {
+       m_swerve->Init();
+    }
+    if (m_intakeStateMgr != nullptr)
+    {
+        m_intakeStateMgr->SetCurrentState(IntakeStateMgr::INTAKE_STATE::INTAKE, false);
+    }
+    if (m_shooterStateMgr != nullptr && m_shooter != nullptr)
+    {
+        m_shooterStateMgr->SetCurrentState(ShooterStateMgr::ON , true);
+    }
 }
 
 void Robot::TeleopPeriodic() 
 {
+ 
   if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
   {
+
     m_swerve->Run();
   }
+
+  if (m_intake != nullptr && m_intakeStateMgr != nullptr)
+  {
+    m_intakeStateMgr->RunCurrentState();
+  }
+  
+  if (m_shooter != nullptr && m_shooterStateMgr != nullptr)
+  {
+       m_shooterStateMgr->RunCurrentState();
+  }
+
     if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
   {
     m_ballTransferStateMgr->RunCurrentState();

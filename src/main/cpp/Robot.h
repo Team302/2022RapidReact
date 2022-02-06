@@ -7,17 +7,25 @@
 #include <string>
 
 #include <frc/TimedRobot.h>
+#include <frc/Timer.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <gamepad/TeleopControl.h>
 #include <subsys/interfaces/IChassis.h>
+#include <states/intake/IntakeStateMgr.h>
+#include <subsys/Intake.h>
 #include <auton/CyclePrimitives.h>
+#include <states/ShooterStateMgr.h>
+#include <subsys/Shooter.h>
 #include <states/chassis/SwerveDrive.h>
+#include <subsys/Shooter.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
 #include <subsys/BallTransfer.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
 
 
-class Robot : public frc::TimedRobot {
+
+class Robot : public frc::TimedRobot 
+{
  public:
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -34,7 +42,14 @@ class Robot : public frc::TimedRobot {
   TeleopControl*        m_controller;
   IChassis*             m_chassis;
   CyclePrimitives*      m_cyclePrims;
+  frc::Timer*           m_timer;
   SwerveDrive*          m_swerve;
   BallTransfer*         m_ballTransfer;
   BallTransferStateMgr* m_ballTransferStateMgr;
+
+  IntakeStateMgr*       m_intakeStateMgr;
+
+  Intake*               m_intake;
+  ShooterStateMgr*      m_shooterStateMgr;
+  Shooter*              m_shooter;
 };

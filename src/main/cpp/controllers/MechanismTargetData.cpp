@@ -27,8 +27,8 @@ MechanismTargetData::MechanismTargetData
     string                                      controller,
     string                                      controller2,
     double                                      target,
-    SOLENOID                                    solenoid,
-    double                                      secondTarget
+    double                                      secondTarget,
+    SOLENOID                                    solenoid
 ) : m_state( state ),
     m_controller( controller ),
     m_controller2( controller2 ),

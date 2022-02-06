@@ -67,6 +67,7 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 		MechanismFactory::m_mechanismFactory = new MechanismFactory();
 	}
 	return MechanismFactory::m_mechanismFactory;
+
 }
 
 MechanismFactory::MechanismFactory() :// m_intake(nullptr),
@@ -99,19 +100,20 @@ void MechanismFactory::CreateIMechanism
 	// Create the mechanism
 	switch ( type )
 	{
-		/**
+		
 		case MechanismTypes::MECHANISM_TYPE::INTAKE:
 		{
 			if (m_intake == nullptr)
 			{
-				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE );
-				if ( motor.get() != nullptr )
+				auto intakeMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_SPIN);
+				auto extendMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_EXTEND);
+				if (intakeMotor.get() != nullptr && extendMotor.get() != nullptr)
 				{
-					m_intake = new Intake(networkTableName, controlFileName, motor);
+					m_intake = new Intake(controlFileName, networkTableName, intakeMotor, extendMotor);
 				}
 				else
 				{
-					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No intake motor exists in XML"));
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Intake motor missing in XML"));
 				}
 			}
 			else
@@ -149,6 +151,7 @@ shared_ptr<IDragonMotorController> MechanismFactory::GetMotorController
 (
 	const IDragonMotorControllerMap&				motorControllers,
 	MotorControllerUsage::MOTOR_CONTROLLER_USAGE	usage
+	
 )
 {
 	shared_ptr<IDragonMotorController> motor;
@@ -179,14 +182,23 @@ IMech* MechanismFactory::GetMechanism
 	MechanismTypes::MECHANISM_TYPE	type
 ) const
 {
-	/**
-	if (type == MechanismTypes::MECHANISM_TYPE::ARM)
+	
+	if (type == MechanismTypes::MECHANISM_TYPE::CLIMBER)
 	{
-		return GetArm();
+		return GetClimber();
 	}
-	**/
+	else if (type == MechanismTypes::MECHANISM_TYPE::INTAKE)
+	{
+		return GetIntake();
+	}
+	
+	else if (type == MechanismTypes::MECHANISM_TYPE::SHOOTER)
+	{
+		return GetShooter();
+	}
 	return nullptr;
 }
+
 
 
 shared_ptr<DragonSolenoid> MechanismFactory::GetSolenoid
@@ -271,6 +283,7 @@ shared_ptr<DragonDigitalInput> MechanismFactory::GetDigitalInput
 	}
 	return dio;
 }
+	
 /**
 shared_ptr<DragonAnalogInput> MechanismFactory::GetAnalogInput
 (
