@@ -40,20 +40,8 @@ class IntakeStateMgr : public StateMgr
             MAX_INTAKE_STATES
         };
 
-        
-		/// @brief  Find or create the state manmanager
-		/// @return IntakeStateMgr* pointer to the state manager
-		static IntakeStateMgr* GetInstance();
-        void CheckForStateTransition() override;
+    protected:
 
-    private:
-
-        IntakeStateMgr();
+        IntakeStateMgr() = default;
         ~IntakeStateMgr() = default;
-
-		static IntakeStateMgr*	m_instance;
-
-        const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::INTAKE, true};
-        const StateStruc  m_intakeState = {INTAKE_STATE::INTAKE, StateType::INTAKE, false};
-        const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::INTAKE, false};
 };

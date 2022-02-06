@@ -15,22 +15,38 @@
 //====================================================================================================================================================
 
 #pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    RIGHT_INTAKE,
-    BALLTRANSFER,
-    SHOOTER,
-    SHOOTER_HOOD,
-    CLIMBER,
-    MAX_STATE_TYPES
-};
+
+// C++ Includes
+
+// FRC includes
+
+// Team 302 includes
+#include <states/Intake/IntakeStateMgr.h>
+#include <states/StateStruc.h>
 
 
-struct StateStruc
+
+// Third Party Includes
+
+class RightIntakeStateMgr : public IntakeStateMgr
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
+    public:
+        
+		/// @brief  Find or create the state manmanager
+		/// @return RightIntakeStateMgr* pointer to the state manager
+		static RightIntakeStateMgr* GetInstance();
+        void CheckForStateTransition() override;
+
+    protected:
+        const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::RIGHT_INTAKE, true};
+        const StateStruc  m_intakeState = {INTAKE_STATE::INTAKE, StateType::RIGHT_INTAKE, false};
+        const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::RIGHT_INTAKE, false};
+
+
+    private:
+
+        RightIntakeStateMgr();
+        ~RightIntakeStateMgr() = default;
+
+		static RightIntakeStateMgr*	m_instance;
 };

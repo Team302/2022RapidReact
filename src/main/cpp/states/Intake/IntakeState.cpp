@@ -19,14 +19,16 @@
 #include <subsys/MechanismFactory.h>
 #include <controllers/ControlData.h>
 #include <subsys/interfaces/IMech2IndMotors.h>
+#include <subsys/Intake.h>
 
 IntakeState::IntakeState
 (
+    Intake*      intake,
     ControlData* controlSpin,
     ControlData* controlExtend, 
     double       spinTarget,
     double       extendTarget
-) : Mech2MotorState (MechanismFactory::GetMechanismFactory()->GetIntake(), 
+) : Mech2MotorState (intake, 
                      controlSpin, 
                      controlExtend, 
                      spinTarget,

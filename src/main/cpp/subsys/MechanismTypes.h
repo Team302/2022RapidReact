@@ -31,8 +31,8 @@ class MechanismTypes
         enum MECHANISM_TYPE
         {
             UNKNOWN_MECHANISM = -1,
-            INTAKE,
-            INTAKE2,
+            LEFT_INTAKE,
+            RIGHT_INTAKE,
             BALL_TRANSFER,
             SHOOTER,
             CLIMBER,                 

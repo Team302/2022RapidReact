@@ -35,6 +35,7 @@ class Intake : public Mech2IndMotors
 
         Intake
         (
+            MechanismTypes::MECHANISM_TYPE          type,
             std::string                             controlFileName,
             std::string                             ntName,
             std::shared_ptr<IDragonMotorController> intakeMotor,

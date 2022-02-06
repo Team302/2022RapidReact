@@ -42,9 +42,11 @@ class Robot : public frc::TimedRobot
   frc::Timer*           m_timer;
   SwerveDrive*          m_swerve;
 
-  IntakeStateMgr*       m_intakeStateMgr;
+  IntakeStateMgr*       m_leftIntakeStateMgr;
+  IntakeStateMgr*       m_rightIntakeStateMgr;
 
-  Intake*               m_intake;
+  Intake*               m_leftIntake;
+  Intake*               m_rightIntake;
   ShooterStateMgr*      m_shooterStateMgr;
   Shooter*              m_shooter;
 };

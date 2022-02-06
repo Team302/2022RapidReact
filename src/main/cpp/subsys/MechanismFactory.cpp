@@ -70,8 +70,9 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 
 }
 
-MechanismFactory::MechanismFactory() : m_intake(nullptr),
- 				       m_shooter(nullptr)
+MechanismFactory::MechanismFactory() : m_leftIntake(nullptr),
+									   m_rightIntake(nullptr),
+ 				                       m_shooter(nullptr)
 {
 }
 
@@ -99,28 +100,57 @@ void MechanismFactory::CreateIMechanism
 	switch ( type )
 	{
 		
-		case MechanismTypes::MECHANISM_TYPE::INTAKE:
+		case MechanismTypes::MECHANISM_TYPE::LEFT_INTAKE:
 		{
-			if (m_intake == nullptr)
+			if (m_leftIntake == nullptr)
 			{
 				auto intakeMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_SPIN);
 				auto extendMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_EXTEND);
 				if (intakeMotor.get() != nullptr && extendMotor.get() != nullptr)
 				{
-					m_intake = new Intake(controlFileName, networkTableName, intakeMotor, extendMotor);
+					m_leftIntake = new Intake(MechanismTypes::MECHANISM_TYPE::LEFT_INTAKE,
+											  controlFileName, 
+											  networkTableName, 
+											  intakeMotor, 
+											  extendMotor);
 				}
 				else
 				{
-					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Intake motor missing in XML"));
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Left Intake motor missing in XML"));
 				}
 			}
 			else
 			{
-				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Intake already exists") );
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Left Intake already exists") );
 			}
 		}
 		break;
 
+		case MechanismTypes::MECHANISM_TYPE::RIGHT_INTAKE:
+		{
+			if (m_rightIntake == nullptr)
+			{
+				auto intakeMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_SPIN);
+				auto extendMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INTAKE_EXTEND);
+				if (intakeMotor.get() != nullptr && extendMotor.get() != nullptr)
+				{
+					m_rightIntake = new Intake(MechanismTypes::MECHANISM_TYPE::RIGHT_INTAKE,
+											   controlFileName, 
+											   networkTableName, 
+											   intakeMotor, 
+											   extendMotor);
+				}
+				else
+				{
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Right Intake motor missing in XML"));
+				}
+			}
+			else
+			{
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Right Intake already exists") );
+			}
+		}
+		break;
 		
 		case MechanismTypes::MECHANISM_TYPE::CLIMBER :
 		{
@@ -207,19 +237,27 @@ IMech* MechanismFactory::GetMechanism
 	MechanismTypes::MECHANISM_TYPE	type
 ) const
 {
+	switch (type)
+	{
+		case MechanismTypes::MECHANISM_TYPE::CLIMBER:
+			return GetClimber();
+			break;
+			
+		case MechanismTypes::MECHANISM_TYPE::LEFT_INTAKE:
+			return GetLeftIntake();
+			break;
+
+		case MechanismTypes::MECHANISM_TYPE::RIGHT_INTAKE:
+			return GetRightIntake();
+			break;
 	
-	if (type == MechanismTypes::MECHANISM_TYPE::CLIMBER)
-	{
-		return GetClimber();
-	}
-	else if (type == MechanismTypes::MECHANISM_TYPE::INTAKE)
-	{
-		return GetIntake();
-	}
-	
-	else if (type == MechanismTypes::MECHANISM_TYPE::SHOOTER)
-	{
-		return GetShooter();
+		case MechanismTypes::MECHANISM_TYPE::SHOOTER:
+			return GetShooter();
+			break;
+
+		default:
+			return nullptr;
+			break;
 	}
 	return nullptr;
 }
