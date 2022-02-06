@@ -60,11 +60,14 @@ void CyclePrimitives::Init()
 {
 	m_currentPrimSlot = 0; //Reset current prim
 	m_primParams.clear();
+	Logger::GetLogger()->LogError(string("CyclePrimitivesInit"), string("Initialized"));
 
 	m_primParams = PrimitiveParser::ParseXML( m_autonSelector->GetSelectedAutoFile() );
+	Logger::GetLogger()->LogError(string("CyclePrimitivesInit"), to_string(m_primParams.size()));
 	if (!m_primParams.empty())
 	{
 		GetNextPrim();
+		Logger::GetLogger()->LogError(string("CyclePrimitivesInit"), string("Getting next prim"));
 	}
 }
 
