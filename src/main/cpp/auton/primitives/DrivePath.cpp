@@ -40,7 +40,7 @@ DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChas
                          m_timer(make_unique<Timer>()),
                          m_currentChassisPosition(m_chassis.get()->GetPose()),
                          m_trajectory(),
-                         m_runHoloController(false),
+                         m_runHoloController(true),
                          m_ramseteController(),
                          m_holoController(frc2::PIDController{1, 0, 0},
                                           frc2::PIDController{1, 0, 0},
@@ -63,6 +63,8 @@ void DrivePath::Init(PrimitiveParams *params)
 {
     auto m_pathname = params->GetPathName(); //Grabs path name from auton xml
 
+    Logger::GetLogger()->LogError(string("DrivePathInit"), string(m_pathname));
+
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Initialized", "False");
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Running", "False");
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Done", "False");
@@ -78,6 +80,8 @@ void DrivePath::Init(PrimitiveParams *params)
     GetTrajectory(params->GetPathName());  //Parses path from json file based on path name given in xml
     
     Logger::GetLogger()->ToNtTable(m_pathname + "Trajectory", "Time", m_trajectory.TotalTime().to<double>());// Debugging
+
+    Logger::GetLogger()->LogError(string("DrivePathInit"), to_string(m_trajectoryStates.size()));
     
     if (!m_trajectoryStates.empty()) // only go if path name found
     {
@@ -149,6 +153,9 @@ void DrivePath::Run()
 
         // Run the chassis
         m_chassis->Drive(refChassisSpeeds, false);
+        Logger::GetLogger()->LogError(string("DrivePathXSpeed"), to_string(refChassisSpeeds.vx.to<double>()));
+        Logger::GetLogger()->LogError(string("DrivePathYSpeed"), to_string(refChassisSpeeds.vy.to<double>()));
+
     }
     else //If we don't have states to run, don't move the robot
     {
@@ -157,6 +164,7 @@ void DrivePath::Run()
         speeds.vy = 0_mps;
         speeds.omega = units::angular_velocity::radians_per_second_t(0);
         m_chassis->Drive(speeds, false);
+        Logger::GetLogger()->LogError(string("DrivePath"), string("No more states to run"));
     }
 
 }
@@ -281,12 +289,13 @@ void DrivePath::GetTrajectory //Parses pathweaver json to create a series of poi
 
         Logger::GetLogger()->LogError(string("Deploy path is "), deployDir.c_str()); //Debugging
         
-        m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);  //Creates a trajectory or path that can be used in the code, parsed from pathweaver json
+        m_trajectory = frc::TrajectoryUtil::FromPathweaverJson("/home/lvuser/deploy/paths/Calibration.wpilib.json");  //Creates a trajectory or path that can be used in the code, parsed from pathweaver json
         m_trajectoryStates = m_trajectory.States();  //Creates a vector of all the states or "waypoints" the robot needs to get to
         
         Logger::GetLogger()->LogError(string("DrivePath - Loaded = "), path);
         Logger::GetLogger()->ToNtTable("DrivePathValues", "TrajectoryTotalTime", m_trajectory.TotalTime().to<double>());
     }
+
 }
 
 void DrivePath::CalcCurrentAndDesiredStates()
