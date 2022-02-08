@@ -84,7 +84,7 @@ SwerveChassis::SwerveChassis
     m_boost(0.0),
     m_brake(0.0),
     m_runWPI(false),
-    m_poseOpt(PoseEstimatorEnum::EULER_AT_CHASSIS),
+    m_poseOpt(PoseEstimatorEnum::WPI),
     m_pose(),
     m_offsetPoseAngle(0_deg),
     m_timer(),

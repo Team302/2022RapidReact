@@ -76,6 +76,11 @@ class IChassis
         (
             const frc::Pose2d&      pose
         ) = 0;
+        virtual void ResetPosition
+        (
+            const frc::Pose2d&      pose,
+            const frc::Rotation2d&  angle
+        ) = 0;
         virtual void SetMode(ChassisMode mode) = 0;
 
         virtual void UpdateOdometry() = 0;
@@ -85,6 +90,7 @@ class IChassis
         virtual units::angular_velocity::radians_per_second_t GetMaxAngularSpeed() const = 0;
         virtual bool IsMoving() const = 0;
         virtual units::angle::degree_t GetYaw() const = 0;
+        virtual void SetEncodersToZero() = 0;
 
 	IChassis() = default;
 	virtual ~IChassis() = default;

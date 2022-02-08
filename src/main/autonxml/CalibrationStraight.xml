@@ -2,7 +2,7 @@
 <!DOCTYPE auton SYSTEM "auton.dtd">
 <auton>
     <primitive id="RESET_POSITION"
-			   pathname="Calibration.wpilib.json"/>
+			   pathname="CalibrationStraight.wpilib.json"/>
     <primitive id="DRIVE_PATH"
-               pathname="Calibration.wpilib.json"/>
+               pathname="CalibrationStraight.wpilib.json"/>
 </auton>
