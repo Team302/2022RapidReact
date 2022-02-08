@@ -1,4 +1,18 @@
 See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+<<<<<<< refs/remotes/origin/PracticeXML
+=======
+<<<<<<< main
+compiling HoldPosition.cpp successful.
+
+compiling DoNothing.cpp successful.
+
+compiling DriveDistance.cpp successful.
+
+compiling DriveToWall.cpp successful.
+
+compiling TurnAngle.cpp successful.
+
+>>>>>>> Path Testing
 compiling DragonVision.cpp successful.
 
 compiling PrimitiveFactory.cpp successful.
@@ -6,10 +20,46 @@ compiling PrimitiveFactory.cpp successful.
 compiling ResetPosition.cpp successful.
 
 compiling DrivePath.cpp successful.
+<<<<<<< refs/remotes/origin/PracticeXML
 C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DrivePath.cpp: In member function 'virtual void DrivePath::Init(PrimitiveParams*)':
 C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DrivePath.cpp:70:10: warning: unused variable 'm_heading' [-Wunused-variable]
      auto m_heading = params->GetHeading();
           ^~~~~~~~~
+=======
+
+compiling Robot.cpp successful.
+
+compiling SwerveDrive.cpp successful.
+
+compiling TurnToAngle.cpp successful.
+
+compiling ChassisFactory.cpp successful.
+
+compiling EtherDirtySwerve.cpp successful.
+
+compiling EtherFieldSwerve.cpp successful.
+
+compiling WPIDirtySwerve.cpp successful.
+
+compiling ChassisDefn.cpp successful.
+
+compiling SwerveModule.cpp successful.
+
+compiling SwerveModuleDefn.cpp successful.
+
+compiling WPIFieldSwerve.cpp successful.
+
+compiling SuperDrive.cpp successful.
+=======
+compiling DragonVision.cpp successful.
+
+compiling PrimitiveFactory.cpp successful.
+
+compiling ResetPosition.cpp successful.
+
+compiling DrivePath.cpp successful.
+>>>>>>> Path Testing
+>>>>>>> Path Testing
 
 compiling SwerveChassis.cpp successful.
 

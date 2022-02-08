@@ -4,7 +4,7 @@
 "curvature": 0.0,
 "pose": {
 "rotation": {
-"radians": 0.0
+"radians": -0.7853981633974483
 },
 "translation": {
 "x": 0.0,
@@ -739,7 +739,7 @@
 "curvature": 0.0,
 "pose": {
 "rotation": {
-"radians": 0.0
+"radians": -0.7866889381368195
 },
 "translation": {
 "x": 2.0688630233119327,
@@ -754,7 +754,7 @@
 "curvature": 0.0,
 "pose": {
 "rotation": {
-"radians": 0.0
+"radians": -0.7865679326779011
 },
 "translation": {
 "x": 2.1332296056446247,
@@ -769,7 +769,7 @@
 "curvature": 0.0,
 "pose": {
 "rotation": {
-"radians": 0.0
+"radians": -0.7862675491160215
 },
 "translation": {
 "x": 2.198853054178132,
@@ -784,7 +784,7 @@
 "curvature": 0.0,
 "pose": {
 "rotation": {
-"radians": 0.0
+"radians": -0.7859064838286072
 },
 "translation": {
 "x": 2.265717045974782,
@@ -799,7 +799,7 @@
 "curvature": 0.0,
 "pose": {
 "rotation": {
-"radians": 0.0
+"radians": -0.7855605954333015
 },
 "translation": {
 "x": 2.333648557895242,
@@ -814,7 +814,7 @@
 "curvature": 0.0,
 "pose": {
 "rotation": {
-"radians": 0.0
+"radians": -0.7853981633974394
 },
 "translation": {
 "x": 2.4023570416489335,
