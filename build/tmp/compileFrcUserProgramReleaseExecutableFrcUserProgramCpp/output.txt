@@ -1,0 +1,12 @@
+See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+compiling DragonVision.cpp successful.
+
+compiling PrimitiveFactory.cpp successful.
+
+compiling ResetPosition.cpp successful.
+
+compiling DrivePath.cpp successful.
+
+compiling SwerveChassis.cpp successful.
+
+Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.

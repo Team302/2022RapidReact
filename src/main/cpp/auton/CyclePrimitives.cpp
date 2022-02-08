@@ -108,6 +108,7 @@ void CyclePrimitives::Run()
 
 bool CyclePrimitives::AtTarget() const
 {
+	Logger::GetLogger()->LogError(string("CyclePrimitives-AtTarget"), string("Done"));
 	return m_isDone;
 }
 

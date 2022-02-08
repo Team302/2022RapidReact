@@ -288,9 +288,13 @@ void DrivePath::GetTrajectory //Parses pathweaver json to create a series of poi
     	auto deployDir = frc::filesystem::GetDeployDirectory();
         deployDir += "/paths/" + path;
 
+        m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);
+
         Logger::GetLogger()->LogError(string("Deploy path is "), deployDir.c_str()); //Debugging
         
-        m_trajectory = frc::TrajectoryUtil::FromPathweaverJson("/home/lvuser/deploy/paths/Calibration.wpilib.json");  //Creates a trajectory or path that can be used in the code, parsed from pathweaver json
+        //This doesn't work, gives parsing error
+        m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);  //Creates a trajectory or path that can be used in the code, parsed from pathweaver json
+        //m_trajectory = frc::TrajectoryUtil::FromPathweaverJson("/home/lvuser/deploy/paths/5Ball1.wpilib.json"); //This is a temporary fix
         m_trajectoryStates = m_trajectory.States();  //Creates a vector of all the states or "waypoints" the robot needs to get to
         
         Logger::GetLogger()->LogError(string("DrivePath - Loaded = "), path);
@@ -313,7 +317,7 @@ void DrivePath::CalcCurrentAndDesiredStates()
     Logger::GetLogger()->ToNtTable("DrivePathValues", "DesiredPoseOmega", m_desiredState.pose.Rotation().Degrees().to<double>());
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosX", m_currentChassisPosition.X().to<double>());
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosY", m_currentChassisPosition.Y().to<double>());
-    Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosOmega", m_desiredState.pose.Rotation().Degrees().to<double>());
+    Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosOmega", m_currentChassisPosition.Rotation().Degrees().to<double>());
     Logger::GetLogger()->ToNtTable("DeltaValues", "DeltaX", m_desiredState.pose.X().to<double>() - m_currentChassisPosition.X().to<double>());
     Logger::GetLogger()->ToNtTable("DeltaValues", "DeltaY", m_desiredState.pose.Y().to<double>() - m_currentChassisPosition.Y().to<double>());
 
