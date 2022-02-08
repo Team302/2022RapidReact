@@ -80,6 +80,11 @@ void CyclePrimitives::Run()
 				GetNextPrim();
 			}
 			Logger::GetLogger()->LogError(string("CyclePrimitives"), string("Running current primitive"));
+
+			if (m_currentPrim->IsDone())
+			{
+				GetNextPrim();
+			}
 		}
 		else
 		{
@@ -94,6 +99,7 @@ void CyclePrimitives::Run()
 
 bool CyclePrimitives::AtTarget() const
 {
+	Logger::GetLogger()->LogError(string("CyclePrimitives-AtTarget"), string("Done"));
 	return m_isDone;
 }
 

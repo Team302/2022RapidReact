@@ -92,6 +92,7 @@ class IChassis
         virtual units::angular_velocity::radians_per_second_t GetMaxAngularSpeed() const = 0;
         virtual bool IsMoving() const = 0;
         virtual units::angle::degree_t GetYaw() const = 0;
+        virtual void SetEncodersToZero() = 0;
 
 	IChassis() = default;
 	virtual ~IChassis() = default;

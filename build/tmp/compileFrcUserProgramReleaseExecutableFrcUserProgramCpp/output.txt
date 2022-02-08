@@ -1,4 +1,5 @@
 See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+<<<<<<< main
 compiling HoldPosition.cpp successful.
 
 compiling DoNothing.cpp successful.
@@ -40,6 +41,15 @@ compiling SwerveModuleDefn.cpp successful.
 compiling WPIFieldSwerve.cpp successful.
 
 compiling SuperDrive.cpp successful.
+=======
+compiling DragonVision.cpp successful.
+
+compiling PrimitiveFactory.cpp successful.
+
+compiling ResetPosition.cpp successful.
+
+compiling DrivePath.cpp successful.
+>>>>>>> Path Testing
 
 compiling SwerveChassis.cpp successful.
 
