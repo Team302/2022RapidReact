@@ -135,14 +135,10 @@ class MechanismFactory
 		virtual ~MechanismFactory() = default;
 
 		static MechanismFactory*	m_mechanismFactory;
-		Climber*	m_climber;
-		BallTransfer* 				m_ballTransfer;
-		
-
-		Intake* m_intake;
-		
-
-		Shooter* m_shooter;
+		Climber*		m_climber;
+		Intake* 		m_intake;
+		BallTransfer* 	m_ballTransfer;
+		Shooter* 		m_shooter;
 
 		
 
