@@ -58,8 +58,18 @@ compiling PrimitiveFactory.cpp successful.
 compiling ResetPosition.cpp successful.
 
 compiling DrivePath.cpp successful.
+<<<<<<< main
 >>>>>>> Path Testing
+<<<<<<< refs/remotes/origin/PracticeXML
 >>>>>>> Path Testing
+=======
+=======
+C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DrivePath.cpp: In member function 'virtual void DrivePath::Init(PrimitiveParams*)':
+C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DrivePath.cpp:70:10: warning: unused variable 'm_heading' [-Wunused-variable]
+     auto m_heading = params->GetHeading();
+          ^~~~~~~~~
+>>>>>>> Auton Testing
+>>>>>>> Auton Testing
 
 compiling SwerveChassis.cpp successful.
 
