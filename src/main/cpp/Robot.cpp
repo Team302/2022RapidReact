@@ -117,7 +117,7 @@ void Robot::TeleopInit()
     }
     if (m_shooterStateMgr != nullptr && m_shooter != nullptr)
     {
-        m_shooterStateMgr->SetCurrentState(ShooterStateMgr::ON , true);
+        m_shooterStateMgr->SetCurrentState(ShooterStateMgr::SHOOT_FAR , true);
     }
 }
 

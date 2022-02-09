@@ -56,8 +56,8 @@ ShooterStateMgr::ShooterStateMgr()
 {
     map<string, StateStruc> stateMap;
     stateMap["SHOOTEROFF"] = m_offState;
-    stateMap["SHOOTERON"] = m_onState;
-    
+    stateMap["SHOOTERCLOSE"] = m_shootFarState;
+    stateMap["SHOOTERFAR"] = m_shootCloseState;
 
     Init(MechanismFactory::GetMechanismFactory()->GetShooter(), stateMap);
 }   

@@ -5,9 +5,15 @@
 	             mode="PERCENT_OUTPUT"/>
 				 
 	<controlData identifier="closedloop"
+				 mode="POSITION_DEGREES"
+				 proportional="0.155"
+				 />
+
+	<controlData identifier="closedloop2"
 				 mode="VELOCITY_RPS"
 				 proportional="0.155"
 				 feedforward="0.045"/>
+				 
 	<!--mechanismTarget stateIdentifier="SHOOTERON"
 	                 controlDataIdentifier="openloop"
 					 value="1.0"/--> 
@@ -15,13 +21,18 @@
 	                 controlDataIdentifier="openloop"
 					 value="0.0"/>
 
- <mechanismTarget stateIdentifier="SHOOTERON"
-	                 controlDataIdentifier="openloop"
-					 value="0.50"
-					 controlDataIdentifier2="openloop"
-					 secondValue="0.50"/>
+ <mechanismTarget stateIdentifier="SHOOTERCLOSE"
+	                 controlDataIdentifier="closedloop2"
+					 value="40"
+					 controlDataIdentifier2="closedloop"
+					 secondValue="30"/>
 
 
+ <mechanismTarget stateIdentifier="SHOOTERFAR"
+	                 controlDataIdentifier="closedloop2"
+					 value="40"
+					 controlDataIdentifier2="closedloop"
+					 secondValue="30"/>
 					  <!-- 8ft from hub <mechanismTarget stateIdentifier="SHOOTERON"
 	                 controlDataIdentifier="closedloop"
 					 value="55.0"/> -->
