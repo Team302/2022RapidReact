@@ -67,6 +67,8 @@ void DrivePath::Init(PrimitiveParams *params)
 {
     auto m_pathname = params->GetPathName(); //Grabs path name from auton xml
 
+    auto m_heading = params->GetHeading();
+
     Logger::GetLogger()->LogError(string("DrivePathInit"), string(m_pathname));
 
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Initialized", "False");
@@ -208,8 +210,8 @@ bool DrivePath::IsDone() //Default primitive function to determine if the primit
                 // or because we went past the target (in this case, we are done)
                 // Assume that once we get within a tenth of a meter (just under 4 inches), if we get
                 // farther away we are passing the target, so we should stop.  Otherwise, keep trying.
-                isDone = ((abs(m_deltaX) < 0.1 && abs(m_deltaY) < 0.1));
-                if ((abs(m_deltaX) < 0.1 && abs(m_deltaY) < 0.1))
+                isDone = ((abs(m_deltaX) < 0.2 && abs(m_deltaY) < 0.2));  //These values were updated to .2 from .1
+                if ((abs(m_deltaX) < 0.2 && abs(m_deltaY) < 0.2))
                 {
                     whyDone = "Within 4 inches of target or getting farther away from target";
                 }
