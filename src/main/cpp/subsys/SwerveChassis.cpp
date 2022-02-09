@@ -571,6 +571,7 @@ void SwerveChassis::ResetPosition
 )
 {
     m_poseEstimator.ResetPosition(pose, angle);
+    SetEncodersToZero();
     auto trans = pose - m_pose;
     m_pose = m_pose + trans;
 
