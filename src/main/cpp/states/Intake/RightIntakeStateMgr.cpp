@@ -20,6 +20,7 @@
 // FRC includes
 
 // Team 302 includes
+#include <gamepad/TeleopControl.h>
 #include <states/intake/RightIntakeStateMgr.h>
 #include <states/StateStruc.h>
 #include <subsys/MechanismFactory.h>
@@ -58,33 +59,27 @@ RightIntakeStateMgr::RightIntakeStateMgr() : IntakeStateMgr()
 /// @return void
 void RightIntakeStateMgr::CheckForStateTransition()
 {
-    /**
     if ( MechanismFactory::GetMechanismFactory()->GetRightIntake() != nullptr )
     {
         // process teleop/manual interrupts
         auto currentState = static_cast<INTAKE_STATE>(GetCurrentState());
-    
         auto controller = TeleopControl::GetInstance();
         if ( controller != nullptr )
         {
-            auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE);
-            //auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL);
+            auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT);
+            auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL_RIGHT);
             if (intakePressed  &&  currentState != INTAKE_STATE::INTAKE )
             {
                 SetCurrentState( INTAKE_STATE::INTAKE, false );
             }
-            //else if (expelPressed && currentState != INTAKE_STATE::EXPEL )
-            //{
-            //    SetCurrentState( INTAKE_STATE::EXPEL, false );
-            //}           
-            //else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF )
-            //{
-            //    SetCurrentState( INTAKE_STATE::OFF, false );
-            //}
-            
+            else if (expelPressed && currentState != INTAKE_STATE::EXPEL )
+            {
+                SetCurrentState( INTAKE_STATE::EXPEL, false );
+            }           
+            else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF )
+            {
+                SetCurrentState( INTAKE_STATE::OFF, false );
+            }
         }
-        
-    }
-    **/
-    
+    }    
 }
