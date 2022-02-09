@@ -50,8 +50,8 @@ double ScaledDeadbandValue::ApplyDeadband
 {
     DeadbandValue* deadband = DeadbandValue::GetInstance();
     double val = deadband->ApplyDeadband( inputVal );
-    double range = 1.0 - M_DEADBAND_VALUE;
-    double diffFromDeadband = std::abs(val) - M_DEADBAND_VALUE;
+    double range = 1.0 - M_LOWER_DEADBAND_VALUE;
+    double diffFromDeadband = std::abs(val) - M_LOWER_DEADBAND_VALUE;
     double multiplier = (val < 0.0) ? -1.0 : 1.0;
 
     return (multiplier * diffFromDeadband / range );

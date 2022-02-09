@@ -20,10 +20,17 @@
 
 // FRC includes
 #include <units/acceleration.h>
+#include <units/angle.h>
 #include <units/angular_acceleration.h>
 #include <units/angular_velocity.h>
 #include <units/length.h>
 #include <units/velocity.h>
+
+#include <frc/drive/Vector2d.h>
+#include <frc/geometry/Pose2d.h>
+#include <frc/geometry/Rotation2d.h>
+#include <frc/geometry/Transform2d.h>
+#include <frc/geometry/Translation2d.h>
 
 #include <wpi/numbers>
 
@@ -94,7 +101,9 @@ SwerveChassis::SwerveChassis
     m_frontLeftLocation(wheelBase/2.0, track/2.0),
     m_frontRightLocation(wheelBase/2.0, -1.0*track/2.0),
     m_backLeftLocation(-1.0*wheelBase/2.0, track/2.0),
-    m_backRightLocation(-1.0*wheelBase/2.0, -1.0*track/2.0)
+    m_backRightLocation(-1.0*wheelBase/2.0, -1.0*track/2.0),
+    m_storedYaw(m_pigeon->GetYaw()),
+    m_yawCorrection(units::angular_velocity::degrees_per_second_t(0.0))
 {
     m_timer.Reset();
     m_timer.Start();
@@ -142,17 +151,45 @@ void SwerveChassis::SetBrake( double brake )
     m_backRight.get()->SetBrake(m_brake);
 }
 
-/// @brief Drive the chassis
-/// @param [in] units::velocity::meters_per_second_t            xSpeed:         forward/reverse speed (positive is forward)
-/// @param [in] units::velocity::meters_per_second_t            ySpeed:         left/right speed (positive is left)
-/// @param [in] units::angular_velocity::radians_per_second_t   rot:            Rotation speed around the vertical (Z) axis; (positive is counter clockwise)
-/// @param [in] bool                                            fieldRelative:  true: movement is based on the field (e.g., push it goes away from the driver regardless of the robot orientation),
-///                                                                             false: direction is based on robot front/back
-void SwerveChassis::Drive( units::meters_per_second_t xSpeed,
-                           units::meters_per_second_t ySpeed,
-                           units::radians_per_second_t rot, 
-                           bool fieldRelative) 
+void SwerveChassis::CalcHeadingCorrection
+(
+    units::angle::degree_t  targetAngle
+) 
 {
+    auto currentAngle = GetYaw();
+    auto errorAngle = remainder((targetAngle.to<double>() - currentAngle.to<double>()), 360.);
+    m_yawCorrection = units::angular_velocity::degrees_per_second_t(errorAngle*kPHeadingControl);
+}
+
+/// @brief Drive the chassis
+/// @param [in] frc::ChassisSpeeds  speeds:         kinematics for how to move the chassis
+/// @param [in] CHASSIS_DRIVE_MODE  mode:           How the input chassis speeds are interpreted
+/// @param [in] HEADING_OPTION      headingOption:  How the robot top should be facing
+void SwerveChassis::Drive
+( 
+    ChassisSpeeds               speeds, 
+    CHASSIS_DRIVE_MODE          mode,
+    HEADING_OPTION              headingOption
+)
+{
+    auto xSpeed = (abs(speeds.vx.to<double>()) < m_deadband) ? units::meters_per_second_t(0.0) : speeds.vx; 
+    auto ySpeed = (abs(speeds.vy.to<double>()) < m_deadband) ? units::meters_per_second_t(0.0) : speeds.vy; 
+    auto rot = speeds.omega;
+    switch (headingOption)
+    {
+        case HEADING_OPTION::MAINTAIN:
+             [[fallthrough]]; // intentional fallthrough 
+        case HEADING_OPTION::POLAR_HEADING:
+           AdjustRotToMaintainHeading(xSpeed, ySpeed, rot);
+            break;
+
+        case HEADING_OPTION::TOWARD_GOAL:
+            AdjustRotToPointTowardGoal(rot);
+            break;
+
+        default:
+            break;
+    }
 
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "XSpeed", xSpeed.to<double>() );
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "YSpeed", ySpeed.to<double>() );
@@ -183,9 +220,10 @@ void SwerveChassis::Drive( units::meters_per_second_t xSpeed,
         {
             units::degree_t yaw{m_pigeon->GetYaw()};
             Rotation2d currentOrientation {yaw};
-            auto states = m_kinematics.ToSwerveModuleStates
-                                    (fieldRelative ?  ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rot, currentOrientation) : 
-                                                      ChassisSpeeds{xSpeed, ySpeed, rot} );
+            ChassisSpeeds chassisSpeeds = mode==IChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED ? 
+                                            ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rot, currentOrientation) : 
+                                            ChassisSpeeds{xSpeed, ySpeed, rot};
+            auto states = m_kinematics.ToSwerveModuleStates(chassisSpeeds);
 
             m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
 
@@ -203,14 +241,25 @@ void SwerveChassis::Drive( units::meters_per_second_t xSpeed,
         }
         else
         {
-            ChassisSpeeds speeds = fieldRelative ? GetFieldRelativeSpeeds(xSpeed,ySpeed, rot) : 
-                                                   ChassisSpeeds{xSpeed, ySpeed, rot};
-            // TODO: need to spin our own kinematics module, but in the mean time do the following to get
-            // approximate updates
-            auto states = m_kinematics.ToSwerveModuleStates(speeds);
+            ChassisSpeeds chassisSpeeds = mode==IChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED ?
+                                                    GetFieldRelativeSpeeds(xSpeed,ySpeed, rot) : 
+                                                    ChassisSpeeds{xSpeed, ySpeed, rot};
+            auto states = m_kinematics.ToSwerveModuleStates(chassisSpeeds);
             m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
 
-            CalcSwerveModuleStates(speeds);
+            CalcSwerveModuleStates(chassisSpeeds);
+
+            // adjust wheel angles
+            if (mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE)
+            {
+                auto currentPose = GetPose();
+                auto goalPose = m_targetFinder.GetPosCenterTarget();
+
+                m_flState.angle = UpdateForPolarDrive(currentPose, goalPose, m_frontLeftLocation, chassisSpeeds);
+                m_frState.angle = UpdateForPolarDrive(currentPose, goalPose, m_frontRightLocation, chassisSpeeds);
+                m_blState.angle = UpdateForPolarDrive(currentPose, goalPose, m_backLeftLocation, chassisSpeeds);
+                m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, m_backRightLocation, chassisSpeeds);
+           }
 
             m_frontLeft.get()->SetDesiredState(m_flState);
             m_frontRight.get()->SetDesiredState(m_frState);
@@ -223,16 +272,46 @@ void SwerveChassis::Drive( units::meters_per_second_t xSpeed,
 
             m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
         }
-    }
+    }    
 }
 
-/// @brief Drive the chassis
-/// @param [in] frc::ChassisSpeeds  speeds:         kinematics for how to move the chassis
-/// @param [in] bool                fieldRelative:  true: movement is based on the field (e.g., push it goes away from the driver regardless of the robot orientation),
-///                                                 false: direction is based on robot front/back
-void SwerveChassis::Drive( ChassisSpeeds speeds, bool fieldRelative) 
+
+units::angle::degree_t SwerveChassis::UpdateForPolarDrive
+(
+    Pose2d              robotPose,
+    Pose2d              goalPose,
+    Translation2d       wheelLoc,
+    ChassisSpeeds       speeds
+)
 {
-    Drive( speeds.vx, speeds.vy, speeds.omega, fieldRelative); 
+    Rotation2d ninety {units::angle::degree_t(90.0)};
+    Transform2d relativeWheelPosition(wheelLoc, Rotation2d());
+    auto WheelPose = robotPose + relativeWheelPosition;
+    auto wheelToGoalTrans = WheelPose - goalPose;
+    auto radialAngle = wheelToGoalTrans.Rotation().Degrees();
+    auto orbitAngle = wheelToGoalTrans.Rotation().Degrees() + ninety.Degrees();
+
+    auto hasRadialComp = (abs(speeds.vx.to<double>()) > 0.1);
+    auto hasOrbitComp = (abs(speeds.vy.to<double>()) > 0.1);
+
+    if (hasRadialComp && !hasOrbitComp)
+    {
+        return radialAngle;
+    }
+    else if (!hasRadialComp && hasOrbitComp)
+    {
+        return orbitAngle;
+    }
+    else if (hasRadialComp && hasOrbitComp)
+    {
+        auto radialPercent = (speeds.vx / speeds.vy);
+        auto orbitPercent  = (speeds.vy / speeds.vx);
+        return ((radialPercent * radialAngle) + (orbitPercent * orbitAngle));
+    }
+    else
+    {
+        return 0_deg;
+    }
 }
 
 /// @brief Drive the chassis
@@ -241,7 +320,16 @@ void SwerveChassis::Drive( ChassisSpeeds speeds, bool fieldRelative)
 /// @param [in] double  rotatePercent:  Rotation percent output around the vertical (Z) axis; (positive is counter clockwise)
 /// @param [in] bool    fieldRelative:  true: movement is based on the field (e.g., push it goes away from the driver regardless of the robot orientation),
 ///                                     false: direction is based on robot front/back
-void SwerveChassis::Drive( double drive, double steer, double rotate, bool fieldRelative )
+/// @param [in] bool    useTargetHeading: true: constrain the heading based on the stored target heading,
+///                                     false: don't contrain the heading
+void SwerveChassis::Drive
+( 
+    double                      drive, 
+    double                      steer, 
+    double                      rotate, 
+    CHASSIS_DRIVE_MODE          mode,
+    HEADING_OPTION              headingOption
+)
 {
     if ( abs(drive)  < m_deadband && 
          abs(steer)  < m_deadband && 
@@ -262,13 +350,66 @@ void SwerveChassis::Drive( double drive, double steer, double rotate, bool field
         Logger::GetLogger()->ToNtTable("Swerve Chassis", "MaxSpeed", maxSpeed.to<double>() );
         Logger::GetLogger()->ToNtTable("Swerve Chassis", "maxRotation", maxRotation.to<double>() );
 
-        units::velocity::meters_per_second_t            driveSpeed = drive * maxSpeed;
-        units::velocity::meters_per_second_t            steerSpeed = steer * maxSpeed;
-        units::angular_velocity::radians_per_second_t   rotateSpeed = rotate * maxRotation;
+        ChassisSpeeds speeds;
+        speeds.vx = drive*maxSpeed;
+        speeds.vy = steer*maxSpeed;
+        speeds.omega = rotate*maxRotation;
+        Drive(speeds, mode, headingOption);
+        // units::velocity::meters_per_second_t            driveSpeed = drive * maxSpeed;
+        // units::velocity::meters_per_second_t            steerSpeed = steer * maxSpeed;
+        // units::angular_velocity::radians_per_second_t   rotateSpeed = rotate * maxRotation;
 
-        Drive( driveSpeed, steerSpeed, rotateSpeed, fieldRelative );
+        // Drive( driveSpeed, steerSpeed, rotateSpeed, mode, headingOption);
     }
 }
+
+void SwerveChassis::AdjustRotToMaintainHeading
+(
+    units::meters_per_second_t&  xspeed,
+    units::meters_per_second_t&  yspeed,
+    units::radians_per_second_t& rot 
+)
+{
+    if (abs(rot.to<double>()) < m_deadband) 
+    {
+        rot = units::radians_per_second_t(0.0);
+        if (abs(xspeed.to<double>()) > 0.0 || abs(yspeed.to<double>() > 0.0))
+        {
+            CalcHeadingCorrection(m_storedYaw);
+        }
+    }
+    else
+    {
+        m_storedYaw = units::angle::degree_t(m_pigeon->GetYaw());
+    }
+    rot += m_yawCorrection;
+}
+
+void SwerveChassis::AdjustRotToPointTowardGoal
+(
+    units::radians_per_second_t& rot 
+)
+{
+    auto myPose = GetPose();
+
+    // Get target angle relative to center of robot and center of target (field pos)
+    //auto r2DTargetAtAngle = m_targetFinder.GetTargetAngleR2d(myPose);
+    //auto xCurRot2d = m_targetFinder.GetCurrentRotaion(myPose);
+    // not used but here if needed
+    //int iFieldQuadrant = m_targetFinder.GetFieldQuadrant(myPose);
+
+    // numbers to use not sure what we need at this time...
+    // double dCurDist2Zero_deg = units::angle::degree_t(xCurRot2d.Degrees()).to<double>();//.to<double>();
+    // double dDeg2Target = m_targetFinder.GetAngle2Target(myPose);
+    // double dDist2TargetHYP = m_targetFinder.GetDistance2TargetHyp(myPose);
+    // double dDistX2Target = m_targetFinder.GetDistance2TargetXYR(myPose).X().to<double>();
+    // double dDistY2Target = m_targetFinder.GetDistance2TargetXYR(myPose).Y().to<double>();
+    auto dTargetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
+    CalcHeadingCorrection(dTargetAngle);
+    rot += m_yawCorrection;
+}
+
+
 
 Pose2d SwerveChassis::GetPose() const
 {
@@ -566,3 +707,4 @@ void SwerveChassis::CalcSwerveModuleStates
     Logger::GetLogger()->ToNtTable("Swerve Calcs", "Back Left Speed - normalized", m_blState.speed.to<double>());
     Logger::GetLogger()->ToNtTable("Swerve Calcs", "Back Right Speed - normalized", m_brState.speed.to<double>());
 }
+

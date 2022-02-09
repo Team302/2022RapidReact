@@ -125,7 +125,7 @@ void SuperDrive::Init(PrimitiveParams* params)
 	//wheelSpeeds.left = m_leftSpeed * m_chassis->GetMaxSpeed();;
 	//wheelSpeeds.right = m_rightSpeed * m_chassis->GetMaxSpeed();;
     //frc::ChassisSpeeds chassisSpeeds = m_kinematics->ToChassisSpeeds(wheelSpeeds);
-    //m_chassis->Drive(chassisSpeeds);
+    //m_chassis->Drive(chassisSpeeds,IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,IChassis::HEADING_OPTION::DEFAULT);
 
     //m_chassis->SetVelocityParams(PROPORTIONAL_COEFF, INTREGRAL_COEFF, DERIVATIVE_COEFF, FEET_FORWARD_COEFF,
     //		m_leftSpeed, m_rightSpeed);
@@ -212,7 +212,8 @@ void SuperDrive::Run()
 	//wheelSpeeds.left = m_leftSpeed * m_chassis->GetMaxSpeed();;
 	//wheelSpeeds.right = m_rightSpeed * m_chassis->GetMaxSpeed();;
     //frc::ChassisSpeeds chassisSpeeds = m_kinematics->ToChassisSpeeds(wheelSpeeds);
-    //m_chassis->Drive(chassisSpeeds);
+    //m_chassis->Drive(chassisSpeeds, IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED, IChassis::HEADING_OPTION::DEFAULT);
+
 	//cout << "DriveDistance LeftSpeed: " << to_string(m_leftSpeed) << endl;
 	//cout << "DriveDistance RightSpeed: " << to_string(m_rightSpeed) << endl;
 

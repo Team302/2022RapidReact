@@ -49,12 +49,19 @@ class IChassis
             SWERVE
         };
 
-        enum ChassisMode
+        enum CHASSIS_DRIVE_MODE
         {
-            ETHER_DIRTY,
-            ETHER_FIELD,
-            WPI_DIRTY,
-            WPI_FIELD
+            ROBOT_ORIENTED,
+            FIELD_ORIENTED,
+            POLAR_DRIVE
+        };
+
+        enum HEADING_OPTION
+        {
+            DEFAULT,
+            MAINTAIN,
+            POLAR_HEADING,
+            TOWARD_GOAL
         };
 
         /// @brief      return the chassis type
@@ -65,10 +72,11 @@ class IChassis
         /// @returns    void
         virtual void Drive
         (
-            frc::ChassisSpeeds chassisSpeeds,
-            bool                fieldRelative
+            frc::ChassisSpeeds  chassisSpeeds,
+            CHASSIS_DRIVE_MODE  mode,
+            HEADING_OPTION      headingOption
         ) = 0;
-
+        
         virtual void Initialize() = 0;
 
         virtual frc::Pose2d GetPose() const = 0;
@@ -76,7 +84,6 @@ class IChassis
         (
             const frc::Pose2d&      pose
         ) = 0;
-        virtual void SetMode(ChassisMode mode) = 0;
 
         virtual void UpdateOdometry() = 0;
         virtual units::length::inch_t GetWheelDiameter() const = 0;

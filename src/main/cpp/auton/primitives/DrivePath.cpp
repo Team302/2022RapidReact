@@ -148,7 +148,10 @@ void DrivePath::Run()
         Logger::GetLogger()->ToNtTable("DrivePathValues", "ChassisSpeedsZ", units::degrees_per_second_t(refChassisSpeeds.omega()).to<double>());
 
         // Run the chassis
-        m_chassis->Drive(refChassisSpeeds, false);
+        m_chassis->Drive(refChassisSpeeds,
+                         IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
+						 IChassis::HEADING_OPTION::DEFAULT);
+
     }
     else //If we don't have states to run, don't move the robot
     {
@@ -156,7 +159,9 @@ void DrivePath::Run()
         speeds.vx = 0_mps;
         speeds.vy = 0_mps;
         speeds.omega = units::angular_velocity::radians_per_second_t(0);
-        m_chassis->Drive(speeds, false);
+        m_chassis->Drive(speeds,
+                         IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
+						 IChassis::HEADING_OPTION::DEFAULT);
     }
 
 }

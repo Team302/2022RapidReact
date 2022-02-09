@@ -40,9 +40,8 @@ SwerveDrive::SwerveDrive() : IState(),
                              m_chassis(ChassisFactory::GetChassisFactory()->GetSwerveChassis()),
                              m_controller(TeleopControl::GetInstance()),
                              m_usePWLinearProfile(false),
-                             m_lastUp(false), m_clsTurnToAngle(nullptr),
+                             m_lastUp(false),
                              m_lastDown(false)
-// m_shooterLevel(new DriveToShooterLevel())
 {
     if (m_controller == nullptr)
     {
@@ -65,17 +64,17 @@ void SwerveDrive::Init()
         auto profile = (m_usePWLinearProfile) ? IDragonGamePad::AXIS_PROFILE::PIECEWISE_LINEAR : IDragonGamePad::AXIS_PROFILE::CUBED;
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, profile);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
-        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, -2.0);
+        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, -1.0);
         // controller->SetSlewRateLimiter(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, 3.0);
 
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, profile);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
-        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, -2.0);
+        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, -1.0);
         // controller->SetSlewRateLimiter(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, 3.0);
 
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, profile);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
-        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 2.0);
+        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 0.5);
         // controller->SetSlewRateLimiter(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 3.0);
 
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::DRIVE_TURBO, IDragonGamePad::AXIS_PROFILE::LINEAR);
@@ -92,10 +91,16 @@ void SwerveDrive::Run()
     double drive = 0.0;
     double steer = 0.0;
     double rotate = 0.0;
-    bool IsRotate = false;
     auto controller = GetController();
     if (controller != nullptr)
     {
+        IChassis::CHASSIS_DRIVE_MODE mode = controller->IsButtonPressed(TeleopControl::DRIVE_POLAR) ? 
+                                                    IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE : 
+                                                    IChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED;
+        IChassis::HEADING_OPTION headingOpt = controller->IsButtonPressed(TeleopControl::FINDTARGET) ? 
+                                                    IChassis::HEADING_OPTION::TOWARD_GOAL : 
+                                                    IChassis::HEADING_OPTION::MAINTAIN;
+        
         if (controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::REZERO_PIGEON))
         {
             auto factory = PigeonFactory::GetFactory();
@@ -153,69 +158,29 @@ void SwerveDrive::Run()
             }
             m_lastDown = true;
         }
-        else if (controller->IsButtonPressed(TeleopControl::FINDTARGET))
-        {
-            frc::Pose2d MyPose = m_chassis->GetPose();
-            // Get target angle relative to center of robot and center of target (field pos)
-            frc::Rotation2d R2DTargetAtAngle = m_ClsTargetFinder.GetTargetAngleR2d(MyPose);
-
-            frc::Rotation2d xCurRot2d = m_ClsTargetFinder.GetCurrentRotaion(MyPose);
-            // not used but here if needed
-            int iFieldQuadrant = m_ClsTargetFinder.GetFieldQuadrant(MyPose);
-
-            // numbers to use not sure what we need at this time...
-            // double dCurDist2Zero_deg = units::angle::degree_t(xCurRot2d.Degrees()).to<double>();//.to<double>();
-            // double dDeg2Target = m_ClsTargetFinder.GetAngle2Target(MyPose);
-            // double dDist2TargetHYP = m_ClsTargetFinder.GetDistance2TargetHyp(MyPose);
-            // double dDistX2Target = m_ClsTargetFinder.GetDistance2TargetXYR(MyPose).X().to<double>();
-            // double dDistY2Target = m_ClsTargetFinder.GetDistance2TargetXYR(MyPose).Y().to<double>();
-            double dTargetAngle = m_ClsTargetFinder.GetTargetAngleD(MyPose);
-
-            IsRotate = true;
-            if (m_clsTurnToAngle == nullptr)
-            {
-
-                m_clsTurnToAngle = new TurnToAngle(units::angle::degree_t(dTargetAngle));
-            }
-
-            if (m_clsTurnToAngle->AtTarget() == false)
-            {
-                m_clsTurnToAngle->Run();
-            }else
-            {
-                 delete m_clsTurnToAngle;
-                 m_clsTurnToAngle = nullptr;
-            }
-        }
-
         else
         {
             m_lastUp = false;
             m_lastDown = false;
         }
 
-        ///////////////////////////
+        drive = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE);
+        steer = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER);
+        rotate = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE);
+        rotate = abs(rotate) < 0.1 ? 0.0 : rotate;
 
-        ///////////////////////////////
-        if (!IsRotate)
-        {
-            drive = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE);
-            steer = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER);
-            rotate = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE);
-            rotate = abs(rotate) < 0.3 ? 0.0 : rotate;
+        auto boost = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::DRIVE_TURBO);
+        boost *= 0.50;
+        boost = clamp(boost, 0.0, 0.50);
+        m_chassis->SetBoost(boost);
 
-            auto boost = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::DRIVE_TURBO);
-            boost *= 0.50;
-            boost = clamp(boost, 0.0, 0.50);
-            m_chassis->SetBoost(boost);
+        auto brake = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::DRIVE_BRAKE);
+        brake *= 0.25;
+        brake = clamp(brake, 0.0, 0.25);
+        m_chassis->SetBrake(brake);
 
-            auto brake = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::DRIVE_BRAKE);
-            brake *= 0.25;
-            brake = clamp(brake, 0.0, 0.25);
-            m_chassis->SetBrake(brake);
-        }
+        m_chassis->Drive(drive, steer, rotate, mode, headingOpt);
 
-        m_chassis->Drive(drive, steer, rotate, true);
     }
        
      

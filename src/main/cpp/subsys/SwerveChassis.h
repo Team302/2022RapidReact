@@ -29,6 +29,7 @@
 #include <frc/Timer.h>
 
 #include <units/acceleration.h>
+#include <units/angle.h>
 #include <units/angular_acceleration.h>
 #include <units/angular_velocity.h>
 #include <units/length.h>
@@ -39,6 +40,7 @@
 #include <subsys/SwerveModule.h>
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/interfaces/IChassis.h>
+#include <states/chassis/DragonTargetFinder.h>
 
 
 class SwerveChassis : public IChassis
@@ -76,29 +78,34 @@ class SwerveChassis : public IChassis
         void ZeroAlignSwerveModules();
 
         /// @brief Drive the chassis
-        /// @param [in] units::velocity::meters_per_second_t            xSpeed:         forward/reverse speed (positive is forward)
-        /// @param [in] units::velocity::meters_per_second_t            ySpeed:         left/right speed (positive is left)
-        /// @param [in] units::angular_velocity::radians_per_second_t   rot:            Rotation speed around the vertical (Z) axis; (positive is counter clockwise)
-        /// @param [in] bool                                            fieldRelative:  true: movement is based on the field (e.g., push it goes away from the driver regardless of the robot orientation),
-        ///                                                                             false: direction is based on robot front/back
-        void Drive(units::velocity::meters_per_second_t xSpeed, 
-                   units::velocity::meters_per_second_t ySpeed, 
-                   units::angular_velocity::radians_per_second_t rot, 
-                   bool fieldRelative);
-
-        /// @brief Drive the chassis
         /// @param [in] double  drivePercent:   forward/reverse percent output (positive is forward)
         /// @param [in] double  steerPercent:   left/right percent output (positive is left)
         /// @param [in] double  rotatePercent:  Rotation percent output around the vertical (Z) axis; (positive is counter clockwise)
         /// @param [in] bool    fieldRelative:  true: movement is based on the field (e.g., push it goes away from the driver regardless of the robot orientation),
         ///                                     false: direction is based on robot front/back
-        void Drive(double drivePercent, double steerPercent, double rotatePercent, bool fieldRelative );
+        /// @param [in] bool    useTargetHeading:  true: constrain the heading based on the stored target heading,
+        ///                                     false: don't contrain the heading
+        void Drive
+        (
+            double drivePercent, 
+            double steerPercent, 
+            double rotatePercent, 
+            CHASSIS_DRIVE_MODE  mode,
+            HEADING_OPTION      headingOption
+        );
 
         /// @brief Drive the chassis
         /// @param [in] frc::ChassisSpeeds  speeds:         kinematics for how to move the chassis
         /// @param [in] bool                fieldRelative:  true: movement is based on the field (e.g., push it goes away from the driver regardless of the robot orientation),
         ///                                                 false: direction is based on robot front/back
-        void Drive(frc::ChassisSpeeds speeds, bool fieldRelative) override;
+        /// @param [in] bool                useTargetHeading:  true: constrain the heading based on the stored target heading,
+        ///                                                 false: don't contrain the heading
+        void Drive
+        (
+            frc::ChassisSpeeds speeds, 
+            CHASSIS_DRIVE_MODE  mode,
+            HEADING_OPTION      headingOption
+        ) override;
 
         /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
         void UpdateOdometry();
@@ -149,7 +156,6 @@ class SwerveChassis : public IChassis
         //Dummy functions for IChassis Implementation
         inline IChassis::CHASSIS_TYPE GetType() const override {return IChassis::CHASSIS_TYPE::SWERVE;};
         inline void Initialize() override {};
-        inline void SetMode(ChassisMode mode) override {};
 
         void SetDriveScaleFactor( double scale );
         void SetBoost( double boost );
@@ -160,6 +166,7 @@ class SwerveChassis : public IChassis
         bool IsMoving() const { return m_isMoving;}
         double GetodometryComplianceCoefficient() const { return m_odometryComplianceCoefficient; }
 
+
     private:
         frc::ChassisSpeeds GetFieldRelativeSpeeds
         (
@@ -168,9 +175,33 @@ class SwerveChassis : public IChassis
             units::radians_per_second_t rot        
         );
 
+        void CalcHeadingCorrection
+        (
+            units::angle::degree_t  targetAngle
+        );
+
         void CalcSwerveModuleStates
         (
             frc::ChassisSpeeds 
+        );
+
+        void AdjustRotToMaintainHeading
+        (
+            units::meters_per_second_t&  xspeed,
+            units::meters_per_second_t&  yspeed,
+            units::radians_per_second_t& rot 
+        );        
+
+        void AdjustRotToPointTowardGoal
+        (
+            units::radians_per_second_t& rot
+        );
+        static units::angle::degree_t UpdateForPolarDrive
+        (
+            frc::Pose2d              robotPose,
+            frc::Pose2d              goalPose,
+            frc::Translation2d       wheelLoc,
+            frc::ChassisSpeeds       speeds
         );
 
         std::shared_ptr<SwerveModule>                               m_frontLeft;
@@ -206,6 +237,7 @@ class SwerveChassis : public IChassis
         units::velocity::meters_per_second_t                        m_drive;
         units::velocity::meters_per_second_t                        m_steer;
         units::angular_velocity::radians_per_second_t               m_rotate;
+        units::angle::degree_t                                      m_targetHeading;
 
         const double                                                m_deadband = 0.1;
         
@@ -227,4 +259,14 @@ class SwerveChassis : public IChassis
                                                            {0.1, 0.1, 0.1},   // state standard deviations
                                                            {0.05},            // local measurement standard deviations
                                                            {0.1, 0.1, 0.1} }; // vision measurement standard deviations
+        const double kPHeadingControl = 0.004;
+        const double kIHeadingControl = 0.0;
+        const double kDHeadingControl = 0.0;
+        const double kFHeadingControl = 0.0;
+        units::angle::degree_t m_storedYaw;
+        units::angular_velocity::degrees_per_second_t m_yawCorrection;
+
+        DragonTargetFinder m_targetFinder;
+
+
 };
