@@ -15,19 +15,23 @@
 //====================================================================================================================================================
 
 #pragma once
-#include <states/Mech1MotorState.h>
+#include <states/Mech2MotorState.h>
 
 class ControlData;
+class Intake;
 
-class IntakeState : public Mech1MotorState
+class IntakeState : public Mech2MotorState
 {
     public:
 
         IntakeState() = delete;
         IntakeState
         (
-            ControlData* control,
-            double target
+            Intake*      intake,
+            ControlData* controlSpin,
+            ControlData* controlExtend, 
+            double       spinTarget,
+            double       extendTarget
         );
         ~IntakeState() = default;
 };

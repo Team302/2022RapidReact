@@ -23,21 +23,23 @@
 // FRC includes
 
 // Team 302 includes
-#include <subsys/Mech1IndMotor.h>
+#include <subsys/Mech2IndMotors.h>
 
 // Third Party Includes
 
 class IDragonMotorController;
 
-class Intake : public Mech1IndMotor
+class Intake : public Mech2IndMotors
 {
     public:
 
         Intake
         (
+            MechanismTypes::MECHANISM_TYPE          type,
             std::string                             controlFileName,
             std::string                             ntName,
-            std::shared_ptr<IDragonMotorController> motor1
+            std::shared_ptr<IDragonMotorController> intakeMotor,
+            std::shared_ptr<IDragonMotorController> extendMotor
         );
 
         Intake() = delete;

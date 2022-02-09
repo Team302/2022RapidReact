@@ -22,7 +22,7 @@
 
 // Team 302 includes
 #include <subsys/Intake.h>
-#include <subsys/Mech1IndMotor.h>
+#include <subsys/Mech2IndMotors.h>
 #include <hw/interfaces/IDragonMotorController.h>
 
 // Third Party Includes
@@ -30,10 +30,16 @@ using namespace std;
 
 Intake::Intake
 (
+    MechanismTypes::MECHANISM_TYPE      type,
     string                              controlFileName,
     string                              ntName,                        
-    shared_ptr<IDragonMotorController> m_motor
-) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::INTAKE, controlFileName, ntName, m_motor)
+    shared_ptr<IDragonMotorController> intakeMotor,
+    shared_ptr<IDragonMotorController> extendMotor   
+) : Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::LEFT_INTAKE, 
+                   controlFileName, 
+                   ntName, 
+                   intakeMotor, 
+                   extendMotor)
 {
 }
 

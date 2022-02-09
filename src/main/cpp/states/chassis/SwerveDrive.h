@@ -16,8 +16,8 @@
 #pragma once
 
 //C++ Libraries
+#include <memory>
 
-//First includes
 #include <frc/drive/Vector2d.h>
 
 //Team 302 includes
@@ -25,6 +25,8 @@
 #include <gamepad/TeleopControl.h>
 #include <states/IState.h>
 #include <hw/DragonPigeon.h>
+#include <states/chassis/DragonTargetFinder.h> //target finder point to target centet
+#include <states/chassis/TurnToAngle.h>
 
 class SwerveDrive : public IState
 {
@@ -41,10 +43,16 @@ class SwerveDrive : public IState
 
     private:
         inline TeleopControl* GetController() const { return m_controller; }
-        SwerveChassis*                      m_chassis;
+        std::shared_ptr<SwerveChassis>      m_chassis;
         TeleopControl*                      m_controller;
         bool                                m_usePWLinearProfile;
         bool                                m_lastUp;
         bool                                m_lastDown;
         frc::Vector2d                       m_offset;
+
+        DragonTargetFinder m_ClsTargetFinder;
+
+        TurnToAngle* m_clsTurnToAngle;
+        
+
 };

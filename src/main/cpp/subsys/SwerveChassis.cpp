@@ -24,16 +24,12 @@
 #include <units/angular_velocity.h>
 #include <units/length.h>
 #include <units/velocity.h>
+
 #include <wpi/numbers>
 
 // Team 302 includes
-#include <subsys/ChassisSpeedCalcEnum.h>
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/SwerveChassis.h>
-#include <subsys/SwerveHelpers/EtherDirtySwerve.h>
-#include <subsys/SwerveHelpers/EtherFieldSwerve.h>
-#include <subsys/SwerveHelpers/WPIDirtySwerve.h>
-#include <subsys/SwerveHelpers/WPIFieldSwerve.h>
 
 // Third Party Includes
 #include <ctre/phoenix/sensors/CANCoder.h>
@@ -64,11 +60,7 @@ SwerveChassis::SwerveChassis
     units::velocity::meters_per_second_t                        maxSpeed,
     units::radians_per_second_t                                 maxAngularSpeed,
     units::acceleration::meters_per_second_squared_t            maxAcceleration,
-    units::angular_acceleration::radians_per_second_squared_t   maxAngularAcceleration,
-    ChassisSpeedCalcEnum 									    speedCalcOption,
-    PoseEstimatorEnum    										poseEstOption,
-    string                                                      networkTableName,
-    string                                                      controlFileName
+    units::angular_acceleration::radians_per_second_squared_t   maxAngularAcceleration
 ) : m_frontLeft(frontLeft), 
     m_frontRight(frontRight), 
     m_backLeft(backLeft), 
@@ -91,6 +83,7 @@ SwerveChassis::SwerveChassis
     m_scale(1.0),
     m_boost(0.0),
     m_brake(0.0),
+    m_runWPI(false),
     m_poseOpt(PoseEstimatorEnum::EULER_AT_CHASSIS),
     m_pose(),
     m_offsetPoseAngle(0_deg),
@@ -98,16 +91,6 @@ SwerveChassis::SwerveChassis
     m_drive(units::velocity::meters_per_second_t(0.0)),
     m_steer(units::velocity::meters_per_second_t(0.0)),
     m_rotate(units::angular_velocity::radians_per_second_t(0.0)),
-    m_isFieldOriented(true),
-    m_speedCalcOption(speedCalcOption),
-    m_poseEstOption(poseEstOption),
-    m_ntName(networkTableName),
-    m_controlFileName(controlFileName),
-    m_etherDirty(new EtherDirtySwerve(wheelBase, track, maxSpeed)),
-    m_etherField(new EtherFieldSwerve(PigeonFactory::GetFactory()->GetPigeon(), wheelBase, track, maxSpeed)),
-    m_wpiDirty(new WPIDirtySwerve(wheelBase, track, maxSpeed)),
-    m_wpiField(new WPIFieldSwerve(PigeonFactory::GetFactory()->GetPigeon(), wheelBase, track, maxSpeed)),
-    m_currentHelper(m_etherField),
     m_frontLeftLocation(wheelBase/2.0, track/2.0),
     m_frontRightLocation(wheelBase/2.0, -1.0*track/2.0),
     m_backLeftLocation(-1.0*wheelBase/2.0, track/2.0),
@@ -121,38 +104,15 @@ SwerveChassis::SwerveChassis
     backLeft.get()->Init( wheelDiameter, maxSpeed, maxAngularSpeed, maxAcceleration, maxAngularAcceleration, m_backLeftLocation );
     backRight.get()->Init( wheelDiameter, maxSpeed, maxAngularSpeed, maxAcceleration, maxAngularAcceleration, m_backRightLocation );
 
-    
-    Initialize();
+    ZeroAlignSwerveModules();
 }
 /// @brief Align all of the swerve modules to point forward
-void SwerveChassis::Initialize()
+void SwerveChassis::ZeroAlignSwerveModules()
 {
     m_frontLeft.get()->ZeroAlignModule();
     m_frontRight.get()->ZeroAlignModule();
     m_backLeft.get()->ZeroAlignModule();
     m_backRight.get()->ZeroAlignModule();
-}
-
-void SwerveChassis::SetMode(ChassisMode mode)
-{
-    switch (mode)
-    {
-        case ChassisMode::ETHER_DIRTY:
-            m_currentHelper = m_etherDirty;
-            break;
-        case ChassisMode::ETHER_FIELD:
-            m_currentHelper = m_etherField;
-            break;
-        case ChassisMode::WPI_DIRTY:
-            m_currentHelper = m_wpiDirty;
-            break;
-        case ChassisMode::WPI_FIELD:
-            m_currentHelper = m_wpiField;
-            break;
-        default:
-            Logger::GetLogger()->LogError(string("SwerveChassis::SetMode"), string("invalid option"));
-            break;
-    }
 }
 
 void SwerveChassis::SetDriveScaleFactor( double scale )
@@ -194,11 +154,11 @@ void SwerveChassis::Drive( units::meters_per_second_t xSpeed,
                            bool fieldRelative) 
 {
 
-    Logger::GetLogger()->ToNtTable(m_ntName, "XSpeed", xSpeed.to<double>() );
-    Logger::GetLogger()->ToNtTable(m_ntName, "YSpeed", ySpeed.to<double>() );
-    Logger::GetLogger()->ToNtTable(m_ntName, "ZSpeed", rot.to<double>() );
-    Logger::GetLogger()->ToNtTable(m_ntName, "yaw", m_pigeon->GetYaw() );
-    Logger::GetLogger()->ToNtTable(m_ntName, "scale", m_scale );
+    Logger::GetLogger()->ToNtTable("Swerve Chassis", "XSpeed", xSpeed.to<double>() );
+    Logger::GetLogger()->ToNtTable("Swerve Chassis", "YSpeed", ySpeed.to<double>() );
+    Logger::GetLogger()->ToNtTable("Swerve Chassis", "ZSpeed", rot.to<double>() );
+    Logger::GetLogger()->ToNtTable("Swerve Chassis", "yaw", m_pigeon->GetYaw() );
+    Logger::GetLogger()->ToNtTable("Swerve Chassis", "scale", m_scale );
     
     if ( (abs(xSpeed.to<double>()) < m_deadband) && 
          (abs(ySpeed.to<double>()) < m_deadband) && 
@@ -218,35 +178,61 @@ void SwerveChassis::Drive( units::meters_per_second_t xSpeed,
         m_drive = units::velocity::meters_per_second_t(xSpeed*(m_scale+m_boost));
         m_steer = units::velocity::meters_per_second_t(ySpeed*(m_scale+m_boost));
         m_rotate = units::angular_velocity::radians_per_second_t(rot*(m_scale+m_boost));
-        ChassisSpeeds speeds{xSpeed, ySpeed, rot};
-        auto states = m_currentHelper->CalcModuleStates(speeds);
-        m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
-        auto [fl, fr, bl, br] = states;
-    
-        m_frontLeft.get()->SetDesiredState(fl);
-        m_frontRight.get()->SetDesiredState(fr);
-        m_backLeft.get()->SetDesiredState(bl);
-        m_backRight.get()->SetDesiredState(br); 
-        auto ax = m_accel.GetX();
-        auto ay = m_accel.GetY();
-        auto az = m_accel.GetZ();
 
-        m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
+        if ( m_runWPI )
+        {
+            units::degree_t yaw{m_pigeon->GetYaw()};
+            Rotation2d currentOrientation {yaw};
+            auto states = m_kinematics.ToSwerveModuleStates
+                                    (fieldRelative ?  ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rot, currentOrientation) : 
+                                                      ChassisSpeeds{xSpeed, ySpeed, rot} );
+
+            m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
+
+            auto [fl, fr, bl, br] = states;
+        
+            m_frontLeft.get()->SetDesiredState(fl);
+            m_frontRight.get()->SetDesiredState(fr);
+            m_backLeft.get()->SetDesiredState(bl);
+            m_backRight.get()->SetDesiredState(br); 
+            auto ax = m_accel.GetX();
+            auto ay = m_accel.GetY();
+            auto az = m_accel.GetZ();
+
+            m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
+        }
+        else
+        {
+            ChassisSpeeds speeds = fieldRelative ? GetFieldRelativeSpeeds(xSpeed,ySpeed, rot) : 
+                                                   ChassisSpeeds{xSpeed, ySpeed, rot};
+            // TODO: need to spin our own kinematics module, but in the mean time do the following to get
+            // approximate updates
+            auto states = m_kinematics.ToSwerveModuleStates(speeds);
+            m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
+
+            CalcSwerveModuleStates(speeds);
+
+            m_frontLeft.get()->SetDesiredState(m_flState);
+            m_frontRight.get()->SetDesiredState(m_frState);
+            m_backLeft.get()->SetDesiredState(m_blState);
+            m_backRight.get()->SetDesiredState(m_brState);
+
+            auto ax = m_accel.GetX();
+            auto ay = m_accel.GetY();
+            auto az = m_accel.GetZ();
+
+            m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
+        }
     }
-}
-
-void SwerveChassis::SetFieldRelative(bool isFieldRelative)
-{
-    m_isFieldOriented = isFieldRelative;
 }
 
 /// @brief Drive the chassis
 /// @param [in] frc::ChassisSpeeds  speeds:         kinematics for how to move the chassis
 /// @param [in] bool                fieldRelative:  true: movement is based on the field (e.g., push it goes away from the driver regardless of the robot orientation),
 ///                                                 false: direction is based on robot front/back
-void SwerveChassis::Drive( ChassisSpeeds speeds) 
+void SwerveChassis::Drive( ChassisSpeeds speeds, bool fieldRelative) 
 {
-    Drive( speeds.vx, speeds.vy, speeds.omega, m_isFieldOriented); 
+    Drive( speeds.vx, speeds.vy, speeds.omega, fieldRelative); 
 }
 
 /// @brief Drive the chassis
@@ -273,40 +259,8 @@ void SwerveChassis::Drive( double drive, double steer, double rotate, bool field
         auto maxSpeed = GetMaxSpeed();
         auto maxRotation = GetMaxAngularSpeed();
 
-        Logger::GetLogger()->ToNtTable(m_ntName, "MaxSpeed", maxSpeed.to<double>() );
-        Logger::GetLogger()->ToNtTable(m_ntName, "maxRotation", maxRotation.to<double>() );
-
-        units::velocity::meters_per_second_t            driveSpeed = drive * maxSpeed;
-        units::velocity::meters_per_second_t            steerSpeed = steer * maxSpeed;
-        units::angular_velocity::radians_per_second_t   rotateSpeed = rotate * maxRotation;
-
-        Drive( driveSpeed, steerSpeed, rotateSpeed, fieldRelative );
-    }
-}
-
-void SwerveChassis::Drive(double drive, double steer, double rotate, bool fieldRelative, frc::Vector2d rotateOffset )
-{
-
-    m_rotateOffset = rotateOffset;
-
-    if ( abs(drive)  < m_deadband && 
-         abs(steer)  < m_deadband && 
-         abs(rotate) < m_deadband )
-    {
-        // feed the motors
-        m_frontLeft.get()->StopMotors();
-        m_frontRight.get()->StopMotors();
-        m_backLeft.get()->StopMotors();
-        m_backRight.get()->StopMotors();       
-    }
-    else
-    {    
-        // scale joystick values to velocities using max chassis values
-        auto maxSpeed = GetMaxSpeed();
-        auto maxRotation = GetMaxAngularSpeed();
-
-        Logger::GetLogger()->ToNtTable(m_ntName, "MaxSpeed", maxSpeed.to<double>() );
-        Logger::GetLogger()->ToNtTable(m_ntName, "maxRotation", maxRotation.to<double>() );
+        Logger::GetLogger()->ToNtTable("Swerve Chassis", "MaxSpeed", maxSpeed.to<double>() );
+        Logger::GetLogger()->ToNtTable("Swerve Chassis", "maxRotation", maxRotation.to<double>() );
 
         units::velocity::meters_per_second_t            driveSpeed = drive * maxSpeed;
         units::velocity::meters_per_second_t            steerSpeed = steer * maxSpeed;
@@ -325,8 +279,14 @@ Pose2d SwerveChassis::GetPose() const
     return m_pose;
 }
 
+units::angle::degree_t SwerveChassis::GetYaw() const
+{
+    units::degree_t yaw{m_pigeon->GetYaw()};
+    return yaw;
+}
+
 /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
-void SwerveChassis::UpdatePose() 
+void SwerveChassis::UpdateOdometry() 
 {
    // if ( !IsMoving() )  // not moving, so odometry isn't changing
    // {
@@ -376,7 +336,7 @@ void SwerveChassis::UpdatePose()
 
         Pose2d currPose{currentX, currentY, rot2d};
         auto trans = currPose - m_pose;
-        m_pose = m_pose.TransformBy(trans);
+        m_pose = m_pose + trans;
     }
     else if (m_poseOpt==PoseEstimatorEnum::EULER_USING_MODULES ||
              m_poseOpt==PoseEstimatorEnum::POSE_EST_USING_MODULES)
@@ -390,7 +350,24 @@ void SwerveChassis::UpdatePose()
         auto chassisY = (flPose.Y() + frPose.Y() + blPose.Y() + brPose.Y()) / 4.0;
         Pose2d currPose{chassisX, chassisY, rot2d};
         auto trans = currPose - m_pose;
-        m_pose = m_pose.TransformBy(trans);
+        m_pose = m_pose + trans;
+
+
+        // Get the swerve modules the correct position from the resolved pose
+        /**
+        Transform2d t_fl {m_frontLeftLocation,realAngle};
+        flPose = m_pose + t_fl;
+        m_frontLeft.get()->UpdateCurrPose(flPose.X(), flPose.Y());
+        Transform2d t_fr {m_frontRightLocation,realAngle};
+        frPose = m_pose + t_fr;
+        m_frontRight.get()->UpdateCurrPose(frPose.X(), frPose.Y());
+        Transform2d t_bl {m_backLeftLocation,realAngle};
+        blPose = m_pose + t_bl;
+        m_backLeft.get()->UpdateCurrPose(blPose.X(), blPose.Y());
+        Transform2d t_br {m_backRightLocation,realAngle};
+        brPose = m_pose + t_br;
+        m_backRight.get()->UpdateCurrPose(brPose.X(), brPose.Y());
+        **/
     }
     
 }
@@ -430,7 +407,7 @@ void SwerveChassis::ResetPosition
 {
     m_poseEstimator.ResetPosition(pose, angle);
     auto trans = pose - m_pose;
-    m_pose = m_pose.TransformBy(trans);
+    m_pose = m_pose + trans;
 
     m_offsetPoseAngle = units::angle::degree_t(m_pigeon->GetYaw()) - angle.Degrees();
 
@@ -452,7 +429,7 @@ void SwerveChassis::ResetPosition
 }
 
 
-void SwerveChassis::ResetPose
+void SwerveChassis::ResetPosition
 ( 
     const Pose2d&       pose
 )
@@ -460,4 +437,132 @@ void SwerveChassis::ResetPose
     units::degree_t yaw{m_pigeon->GetYaw()};
     Rotation2d angle {yaw};
     ResetPosition(pose, angle);
+}
+
+ChassisSpeeds SwerveChassis::GetFieldRelativeSpeeds
+(
+    units::meters_per_second_t xSpeed,
+    units::meters_per_second_t ySpeed,
+    units::radians_per_second_t rot        
+)
+{
+    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "xSpeed (mps)", xSpeed.to<double>());
+    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "ySpeed (mps)", ySpeed.to<double>());
+    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "rot (radians per sec)", rot.to<double>());
+
+    units::angle::radian_t yaw{m_pigeon->GetYaw()*wpi::numbers::pi/180.0};
+    auto temp = xSpeed*cos(yaw.to<double>()) + ySpeed*sin(yaw.to<double>());
+    auto strafe = -1.0*xSpeed*sin(yaw.to<double>()) + ySpeed*cos(yaw.to<double>());
+    auto forward = temp;
+
+    ChassisSpeeds output{forward, strafe, rot};
+
+    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "yaw (radians)", yaw.to<double>());
+    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "forward (mps)", forward.to<double>());
+    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "stafe (mps)", strafe.to<double>());
+
+    return output;
+}
+
+void SwerveChassis::CalcSwerveModuleStates
+(
+    frc::ChassisSpeeds speeds
+)
+{
+    // These calculations are based on Ether's Chief Delphi derivation
+    // The only changes are that that derivation is based on positive angles being clockwise
+    // and our codes/sensors are based on positive angles being counter clockwise.
+
+    // A = Vx - omega * L/2
+    // B = Vx + omega * L/2
+    // C = Vy - omega * W/2
+    // D = Vy + omega * W/2
+    //
+    // Where:
+    // Vx is the sideways (strafe) vector
+    // Vy is the forward vector
+    // omega is the rotation about Z vector
+    // L is the wheelbase (front to back)
+    // W is the wheeltrack (side to side)
+    //
+    // Since our Vx is forward and Vy is strafe we need to rotate the vectors
+    // We will use these variable names in the code to help tie back to the document.
+    // Variable names, though, will follow C++ standards and start with a lower case letter.
+
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Drive", speeds.vx.to<double>());
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Strafe", speeds.vy.to<double>());
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Rotate", speeds.omega.to<double>());
+
+    auto l = GetWheelBase();
+    auto w = GetTrack();
+
+    auto vy = 1.0 * speeds.vx;
+    auto vx = -1.0 * speeds.vy;
+    auto omega = speeds.omega;
+
+    units::velocity::meters_per_second_t omegaL = omega.to<double>() * l / 2.0 / 1_s ;
+    units::velocity::meters_per_second_t omegaW = omega.to<double>() * w / 2.0 / 1_s;
+    
+    auto a = vx - omegaL;
+    auto b = vx + omegaL;
+    auto c = vy - omegaW;
+    auto d = vy + omegaW;
+
+    // here we'll negate the angle to conform to the positive CCW convention
+    m_flState.angle = units::angle::radian_t(atan2(b.to<double>(), d.to<double>()));
+    m_flState.angle = -1.0 * m_flState.angle.Degrees();
+    m_flState.speed = units::velocity::meters_per_second_t(sqrt( pow(b.to<double>(),2) + pow(d.to<double>(),2) ));
+    auto maxCalcSpeed = abs(m_flState.speed.to<double>());
+
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Front Left Angle", m_flState.angle.Degrees().to<double>());
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Front Left Speed", m_flState.speed.to<double>());
+
+    m_frState.angle = units::angle::radian_t(atan2(b.to<double>(), c.to<double>()));
+    m_frState.angle = -1.0 * m_frState.angle.Degrees();
+    m_frState.speed = units::velocity::meters_per_second_t(sqrt( pow(b.to<double>(),2) + pow(c.to<double>(),2) ));
+    if (abs(m_frState.speed.to<double>())>maxCalcSpeed)
+    {
+        maxCalcSpeed = abs(m_frState.speed.to<double>());
+    }
+
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Front Right Angle", m_frState.angle.Degrees().to<double>());
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Front Right Speed - raw", m_frState.speed.to<double>());
+
+    m_blState.angle = units::angle::radian_t(atan2(a.to<double>(), d.to<double>()));
+    m_blState.angle = -1.0 * m_blState.angle.Degrees();
+    m_blState.speed = units::velocity::meters_per_second_t(sqrt( pow(a.to<double>(),2) + pow(d.to<double>(),2) ));
+    if (abs(m_blState.speed.to<double>())>maxCalcSpeed)
+    {
+        maxCalcSpeed = abs(m_blState.speed.to<double>());
+    }
+
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Back Left Angle", m_blState.angle.Degrees().to<double>());
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Back Left Speed - raw", m_blState.speed.to<double>());
+
+    m_brState.angle = units::angle::radian_t(atan2(a.to<double>(), c.to<double>()));
+    m_brState.angle = -1.0 * m_brState.angle.Degrees();
+    m_brState.speed = units::velocity::meters_per_second_t(sqrt( pow(a.to<double>(),2) + pow(c.to<double>(),2) ));
+    if (abs(m_brState.speed.to<double>())>maxCalcSpeed)
+    {
+        maxCalcSpeed = abs(m_brState.speed.to<double>());
+    }
+
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Back Right Angle", m_brState.angle.Degrees().to<double>());
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Back Right Speed - raw", m_brState.speed.to<double>());
+
+
+    // normalize speeds if necessary (maxCalcSpeed > max attainable speed)
+    if ( maxCalcSpeed > m_maxSpeed.to<double>() )
+    {
+        auto ratio = m_maxSpeed.to<double>() / maxCalcSpeed;
+        m_flState.speed *= ratio;
+        m_frState.speed *= ratio;
+        m_blState.speed *= ratio;
+        m_brState.speed *= ratio;
+    }
+
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Front Left Speed - normalized", m_flState.speed.to<double>());
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Front Right Speed - normalized", m_frState.speed.to<double>());
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Back Left Speed - normalized", m_blState.speed.to<double>());
+    Logger::GetLogger()->ToNtTable("Swerve Calcs", "Back Right Speed - normalized", m_brState.speed.to<double>());
 }

@@ -50,14 +50,24 @@ class TeleopControl
             DRIVE_TURBO,
             DRIVE_BRAKE,
             REZERO_PIGEON,
-            TURN_AROUND_FRONT_RIGHT,
-            ARCADE_THROTTLE,
-            ARCADE_STEER,
-            INTAKE,
-            EXPEL,
-            ROTATE_ARM_UP,
-            ROTATE_ARM_DOWN,
-            RELEASE,
+            ROTATE_TO_GOAL,
+            DRIVE_POLAR,
+            DRIVE_POLAR_INTAKE,
+            INTAKE_LEFT,
+            INTAKE_RIGHT,
+            EXPEL_LEFT,
+            EXPEL_RIGHT,
+            AUTO_SHOOT_HIGH,
+            AUTO_SHOOT_LOW,
+            CLIMBER_REACH,
+            CLIMBER_ROTATE,
+            AUTO_CLIMB_TRAVERSE,
+            LIMELIGHT_FEED_TO_DASH,
+            STOP_LIMELIGHT_FEED_TO_DASH,
+            CAMERA_FEED_TO_DASH,
+            STOP_CAMERA_FEED_TO_DASH,
+            
+            FINDTARGET,    //Rotate to point to target center
             MAX_FUNCTIONS
         };
 

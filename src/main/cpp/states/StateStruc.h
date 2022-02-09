@@ -18,8 +18,8 @@
        
 enum StateType
 {
-    INTAKE,
-    INTAKE2,
+    LEFT_INTAKE,
+    RIGHT_INTAKE,
     BALLTRANSFER,
     SHOOTER,
     SHOOTER_HOOD,

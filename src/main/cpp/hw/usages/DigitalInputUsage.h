@@ -38,6 +38,15 @@ class DigitalInputUsage
         enum DIGITAL_SENSOR_USAGE
         {
             UNKNOWN_DIGITAL_TYPE = -1,
+            INTAKE_OUT,
+            INTAKE_IN,
+            BALL_PRESENT,
+            BALL_TRANSER_UP,
+            BALL_TRANSER_DOWN,
+            SHOOTER_HOOD_MIN,
+            SHOOTER_HOOD_MAX,
+            CLIMBER_BACK,
+            CLIMBER_FORWARD,
             MAX_DIGITAL_TYPES
         };
 

@@ -20,7 +20,8 @@
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/MechanismFactory.h>
 #include <auton/CyclePrimitives.h>
-#include <states/Intake/IntakeStateMgr.h>
+#include <states/Intake/LeftIntakeStateMgr.h>
+#include <states/Intake/RightIntakeStateMgr.h>
 #include <states/ShooterStateMgr.h>
 
 #include <subsys/Shooter.h>
@@ -44,10 +45,11 @@ void Robot::RobotInit()
   m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
     
   auto mechFactory = MechanismFactory::GetMechanismFactory();
-  // m_intake = mechFactory->GetIntake();
-  // m_intakeStateMgr = IntakeStateMgr::GetInstance();
-  m_intake = nullptr;
-  m_intakeStateMgr = nullptr;
+  m_leftIntake = mechFactory->GetLeftIntake();
+  m_leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
+
+  m_rightIntake = mechFactory->GetRightIntake();
+  m_rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
 
   m_shooter = mechFactory->GetShooter();
   m_shooterStateMgr = ShooterStateMgr::GetInstance();
@@ -67,7 +69,7 @@ void Robot::RobotPeriodic()
 {
   if (m_chassis != nullptr)
   {
-    m_chassis->UpdatePose();
+    m_chassis->UpdateOdometry();
   }
 }
 
@@ -105,9 +107,13 @@ void Robot::TeleopInit()
     {
        m_swerve->Init();
     }
-    if (m_intakeStateMgr != nullptr)
+    if (m_leftIntake != nullptr && m_leftIntakeStateMgr != nullptr)
     {
-        m_intakeStateMgr->SetCurrentState(IntakeStateMgr::INTAKE_STATE::INTAKE, false);
+        m_leftIntakeStateMgr->SetCurrentState(IntakeStateMgr::INTAKE_STATE::INTAKE, false);
+    }
+    if (m_rightIntake != nullptr && m_rightIntakeStateMgr != nullptr)
+    {
+        m_rightIntakeStateMgr->SetCurrentState(IntakeStateMgr::INTAKE_STATE::INTAKE, false);
     }
     if (m_shooterStateMgr != nullptr && m_shooter != nullptr)
     {
@@ -124,9 +130,13 @@ void Robot::TeleopPeriodic()
     m_swerve->Run();
   }
 
-  if (m_intake != nullptr && m_intakeStateMgr != nullptr)
+  if (m_leftIntake != nullptr && m_leftIntakeStateMgr != nullptr)
   {
-    m_intakeStateMgr->RunCurrentState();
+    m_leftIntakeStateMgr->RunCurrentState();
+  }
+  if (m_rightIntake != nullptr && m_rightIntakeStateMgr != nullptr)
+  {
+    m_rightIntakeStateMgr->RunCurrentState();
   }
   
   if (m_shooter != nullptr && m_shooterStateMgr != nullptr)

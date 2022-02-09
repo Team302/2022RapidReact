@@ -15,14 +15,8 @@
 //====================================================================================================================================================
 
 // C++ Includes
-#include <map>
-#include <memory>
-#include <vector>
 
 // FRC includes
-#include <networktables/NetworkTableInstance.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
 #include <states/IState.h>
@@ -40,30 +34,6 @@
 
 // Third Party Includes
 
-using namespace std;
-
-
-IntakeStateMgr* IntakeStateMgr::m_instance = nullptr;
-IntakeStateMgr* IntakeStateMgr::GetInstance()
-{
-	if ( IntakeStateMgr::m_instance == nullptr )
-	{
-		IntakeStateMgr::m_instance = new IntakeStateMgr();
-	}
-	return IntakeStateMgr::m_instance;
-}
-
-
-/// @brief    initialize the state manager, parse the configuration file and create the states.
-IntakeStateMgr::IntakeStateMgr()
-{
-    map<string, StateStruc> stateMap;
-    stateMap["INTAKEOFF"] = m_offState;
-    stateMap["INTAKEON"]  = m_intakeState;
-    stateMap["INTAKEEXPEL"] = m_expelState;
-
-    Init(MechanismFactory::GetMechanismFactory()->GetIntake(), stateMap);
-}   
 
 
 /// @brief  run the current state
@@ -71,7 +41,7 @@ IntakeStateMgr::IntakeStateMgr()
 void IntakeStateMgr::CheckForStateTransition()
 {
     /**
-    if ( MechanismFactory::GetMechanismFactory()->GetIntake() != nullptr )
+    if ( MechanismFactory::GetMechanismFactory()->GetLeftIntake() != nullptr )
     {
         // process teleop/manual interrupts
         auto currentState = static_cast<INTAKE_STATE>(GetCurrentState());

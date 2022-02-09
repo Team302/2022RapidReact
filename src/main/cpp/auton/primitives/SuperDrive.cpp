@@ -121,11 +121,11 @@ void SuperDrive::Init(PrimitiveParams* params)
 	//m_rightSpeed = m_targetSpeed > 0.0 ? 0.2 : -0.2;
 	//m_chassis->SetOutput( ControlModes::CONTROL_TYPE::PERCENT_OUTPUT, m_leftSpeed, m_rightSpeed );
 
-	DifferentialDriveWheelSpeeds wheelSpeeds;
-	wheelSpeeds.left = m_leftSpeed * m_chassis->GetMaxSpeed();;
-	wheelSpeeds.right = m_rightSpeed * m_chassis->GetMaxSpeed();;
-    frc::ChassisSpeeds chassisSpeeds = m_kinematics->ToChassisSpeeds(wheelSpeeds);
-    m_chassis->Drive(chassisSpeeds);
+	//DifferentialDriveWheelSpeeds wheelSpeeds;
+	//wheelSpeeds.left = m_leftSpeed * m_chassis->GetMaxSpeed();;
+	//wheelSpeeds.right = m_rightSpeed * m_chassis->GetMaxSpeed();;
+    //frc::ChassisSpeeds chassisSpeeds = m_kinematics->ToChassisSpeeds(wheelSpeeds);
+    //m_chassis->Drive(chassisSpeeds);
 
     //m_chassis->SetVelocityParams(PROPORTIONAL_COEFF, INTREGRAL_COEFF, DERIVATIVE_COEFF, FEET_FORWARD_COEFF,
     //		m_leftSpeed, m_rightSpeed);
@@ -208,11 +208,11 @@ void SuperDrive::Run()
 	//m_rightSpeed += m_currentHeading * GYRO_CORRECTION_CONSTANT;
 
 	//m_chassis->SetOutput( ControlModes::CONTROL_TYPE::PERCENT_OUTPUT, m_leftSpeed, m_rightSpeed );
-	DifferentialDriveWheelSpeeds wheelSpeeds;
-	wheelSpeeds.left = m_leftSpeed * m_chassis->GetMaxSpeed();;
-	wheelSpeeds.right = m_rightSpeed * m_chassis->GetMaxSpeed();;
-    frc::ChassisSpeeds chassisSpeeds = m_kinematics->ToChassisSpeeds(wheelSpeeds);
-    m_chassis->Drive(chassisSpeeds);
+	//DifferentialDriveWheelSpeeds wheelSpeeds;
+	//wheelSpeeds.left = m_leftSpeed * m_chassis->GetMaxSpeed();;
+	//wheelSpeeds.right = m_rightSpeed * m_chassis->GetMaxSpeed();;
+    //frc::ChassisSpeeds chassisSpeeds = m_kinematics->ToChassisSpeeds(wheelSpeeds);
+    //m_chassis->Drive(chassisSpeeds);
 	//cout << "DriveDistance LeftSpeed: " << to_string(m_leftSpeed) << endl;
 	//cout << "DriveDistance RightSpeed: " << to_string(m_rightSpeed) << endl;
 

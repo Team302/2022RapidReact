@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
-       <!-- <pdp canId="1"
-            type="REV"/>
 
-    <pigeon canId="50"
-            rotation="0.0" /> -->
-<!--
+       <!-- -->
+       <pdp canId="1"
+            type="REV"/>
+       <!-- -->
+       <!-- -->
+       <pigeon canId="50"
+            rotation="0.0"/>
+       <!-- -->
+       <!--
        <limelight tablename="limelight"
                      mountingheight="31.5"
                      horizontaloffset="0.0"
@@ -22,11 +26,12 @@
                      crosshairy="0.5"
                      secondcrosshairx="0.25"
                      secondcrosshairy="0.25" />
-                     -->
-<!-- ====================================================
+       -->
+ <!-- ====================================================
      Chassis
      ====================================================  -->
-    <!-- <chassis  type="SWERVE"
+<!-- -->
+    <chassis  type="SWERVE"
               wheelDiameter="4.13"
               wheelBase="21.0"  
               track="21.0"
@@ -244,9 +249,9 @@
                             offset="-47.021"/>
         </swervemodule>
 
-    </chassis>   -->
-
-
+    </chassis>  
+    <!--   -->
+    <!--
  <mechanism type="SHOOTER"
                networkTable="shooterNT"
                controlFile="shooter.xml">
@@ -268,71 +273,8 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
+
        <motor usage="SHOOTER_HOOD"
-              canId="0"
-              pdpID="0"
-              type="TALONSRX"
-              inverted="true"
-              sensorInverted="false"
-              feedbackDevice="NONE"
-              countsPerRev="0"
-              gearRatio="1.0"
-              brakeMode="false"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="false"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="false"
-              reverselimitswitchopen="true"/>       
-    </mechanism>
-
-
-
-
-    <!-- chassis type="TANK"
-             wheelDiameter="4.0"
-             wheelBase="13.75"
-             track="15.0"
-             maxVelocity="28.0"
-             maxAngularVelocity="60.0"
-             maxAcceleration="12.0"
-             maxAngularAcceleration="6.0"
-             networkTable="ChassisNT"
-             controlFile="chassis.xml">
-
-        <motor usage="DIFFERENTIAL_LEFT_MAIN"
-               canId="1"
-               pdpID="1"
-               type="TALONSRX"
-               inverted="false"
-               sensorInverted="false"
-               feedbackDevice="QUADENCODER"
-               countsPerRev="4096"
-               gearRatio="1.0"
-               brakeMode="true"/>
-
-        <motor usage="DIFFERENTIAL_RIGHT_MAIN"
-               canId="13"
-               pdpID="13"
-               type="TALONSRX"
-               inverted="true"
-               sensorInverted="false"
-               feedbackDevice="QUADENCODER"
-               countsPerRev="4096"
-               gearRatio="1.0"
-               brakeMode="true"/>
-    </chassis>
--->
-<!-- ====================================================
-     Intake
-     ====================================================  -->
-    <!--
-    <mechanism type="INTAKE"
-               networkTable="IntakeNT"
-               controlFile="intake.xml">
-       <motor usage="INTAKE"
               canId="0"
               pdpID="0"
               type="TALONSRX"
@@ -351,6 +293,93 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
+-->
+<!-- ====================================================
+     Intake
+     ====================================================  -->
+     <!-- 
+    <mechanism type="LEFT_INTAKE"
+               networkTable="LeftIntakeNT"
+               controlFile="intake.xml">
+       <motor usage="INTAKE_SPIN"
+              canId="0"
+              pdpID="0"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="false"
+              reverselimitswitchopen="true"/>
+       <motor usage="INTAKE_EXTEND"
+              canId="1"
+              pdpID="1"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="false"
+              reverselimitswitchopen="true"/>
+    </mechanism>
+    <mechanism type="RIGHT_INTAKE"
+               networkTable="RightIntakeNT"
+               controlFile="intake.xml">
+       <motor usage="INTAKE_SPIN"
+              canId="2"
+              pdpID="2"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="false"
+              reverselimitswitchopen="true"/>
+       <motor usage="INTAKE_EXTEND"
+              canId="3"
+              pdpID="3"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="false"
+              reverselimitswitchopen="true"/>
+    </mechanism>
+     -->
+    <!--
     <mechanism type="BALLTRANSFER"
                networkTable="BallTransferNT"
                controlFile="balltransfer.xml">
