@@ -116,6 +116,9 @@ C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgr
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\vewfp6kxd89kj36bcyttj85h\\FieldMeasurement.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\ym035y2kfxqvej50nan61s2e\\Shooter.o
 <<<<<<< main
+<<<<<<< main
+=======
+>>>>>>> Auton Testing
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\48f17b3efc5282a89bd5fa44483506f1\\transformed\\wpilibNewCommands-cpp-2022.3.1-linuxathena\\linux\\athena\\shared\\libwpilibNewCommands.so
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\182b675e5182ac08c5970e5646822487\\transformed\\wpiapi-cpp-5.20.0-beta-2-linuxathena\\linux\\athena\\shared\\libCTRE_Phoenix_WPI.so
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fe26f43d18741629300bed67e79f0724\\transformed\\api-cpp-5.20.0-beta-2-linuxathena\\linux\\athena\\shared\\libCTRE_Phoenix.so
@@ -146,6 +149,7 @@ C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6b35d4060e0bd3fd9d3ead070df18e7
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6b35d4060e0bd3fd9d3ead070df18e78\\transformed\\opencv-cpp-4.5.2-1-linuxathena\\linux\\athena\\shared\\libopencv_stitching.so.4.5
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6b35d4060e0bd3fd9d3ead070df18e78\\transformed\\opencv-cpp-4.5.2-1-linuxathena\\linux\\athena\\shared\\libopencv_video.so.4.5
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6b35d4060e0bd3fd9d3ead070df18e78\\transformed\\opencv-cpp-4.5.2-1-linuxathena\\linux\\athena\\shared\\libopencv_videoio.so.4.5
+<<<<<<< main
 =======
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\d61fb8d96f82dc5d55095d66bf27de26\\transformed\\wpilibNewCommands-cpp-2022.2.1-linuxathena\\linux\\athena\\shared\\libwpilibNewCommands.so
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\5aeab4c3a3e6f8c026b4f16ecd89a1d5\\transformed\\wpiapi-cpp-5.20.0-beta-2-linuxathena\\linux\\athena\\shared\\libCTRE_Phoenix_WPI.so
@@ -178,6 +182,8 @@ C:\\Users\\darth\\.gradle\\caches\\transforms-3\\cd33fdbf6e72025f03f4009b3907ad7
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\cd33fdbf6e72025f03f4009b3907ad7e\\transformed\\opencv-cpp-4.5.2-1-linuxathena\\linux\\athena\\shared\\libopencv_video.so.4.5
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\cd33fdbf6e72025f03f4009b3907ad7e\\transformed\\opencv-cpp-4.5.2-1-linuxathena\\linux\\athena\\shared\\libopencv_videoio.so.4.5
 >>>>>>> Path Testing
+=======
+>>>>>>> Auton Testing
 -rdynamic
 -pthread
 -ldl

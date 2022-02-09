@@ -7,4 +7,8 @@
                 pathname="5Ball1.wpilib.json"/>
     <primitive id="DRIVE_PATH"
                 pathname="5Ball2.wpilib.json"/>
+    <primitive id="DRIVE_PATH"
+                pathname="5Ball3.wpilib.json"/>
+    <primitive id="DRIVE_PATH"
+                pathname="5Ball4.wpilib.json"/>
 </auton>
