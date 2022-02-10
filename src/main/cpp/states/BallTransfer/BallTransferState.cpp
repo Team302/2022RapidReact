@@ -33,6 +33,6 @@ BallTransferState::BallTransferState
     ControlData*                    control2,
     double                          primaryTarget,
     double                          secondaryTarget
-) : Mech2MotorState( MechanismFactory::GetMechanismFactory()->GetBallTransfer(), control, control2, primaryTarget, secondaryTarget )
+) : Mech2MotorState( MechanismFactory::GetMechanismFactory()->GetBallTransfer(), control, control2, primaryTarget, secondaryTarget)
 {
 }

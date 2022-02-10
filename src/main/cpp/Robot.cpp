@@ -52,10 +52,11 @@ void Robot::RobotInit()
   m_shooter = mechFactory->GetShooter();
   m_shooterStateMgr = ShooterStateMgr::GetInstance();
   
-  auto mechFactory = MechanismFactory::GetMechanismFactory();
-  m_ballTransfer = mechFactory->GetBallTransfer();
 
-   m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
+  m_ballTransfer = mechFactory->GetBallTransfer();
+  m_ballTransferStateMgr = BallTransferStateMgr::GetInstance();
+
+  m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
 
   m_cyclePrims = new CyclePrimitives();
 }
