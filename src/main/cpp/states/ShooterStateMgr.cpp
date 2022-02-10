@@ -33,6 +33,8 @@
 #include <states/StateStruc.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
+#include <hw/DragonLimelight.h>
+#include <hw/factories/LimelightFactory.h>
 
 
 // Third Party Includes
@@ -58,6 +60,8 @@ ShooterStateMgr::ShooterStateMgr()
     stateMap["SHOOTEROFF"] = m_offState;
     stateMap["SHOOTERCLOSE"] = m_shootFarState;
     stateMap["SHOOTERFAR"] = m_shootCloseState;
+    m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
+    
 
     Init(MechanismFactory::GetMechanismFactory()->GetShooter(), stateMap);
 }   
@@ -65,10 +69,26 @@ ShooterStateMgr::ShooterStateMgr()
 
 /// @brief  run the current state
 /// @return void
+
+bool ShooterStateMgr::AtTarget() {return GetCurrentStatePtr()->AtTarget();}
+
 void ShooterStateMgr::CheckForStateTransition()
 {
-    if ( MechanismFactory::GetMechanismFactory()->GetShooter() != nullptr )
+    if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 10.0_deg)
     {
+        if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET))
+        {
+        SetCurrentState(SHOOT_FAR, true);
+        }
+        else
+        {
+        SetCurrentState(SHOOT_CLOSE, true);
+        }
+    }
+
+    if ( MechanismFactory::GetMechanismFactory()->GetShooter() != nullptr )
+    {    
+
         // process teleop/manual interrupts
         // auto currentState = static_cast<SHOOTER_STATE>(GetCurrentState());
     

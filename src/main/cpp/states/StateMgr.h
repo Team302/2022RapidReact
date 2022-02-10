@@ -59,6 +59,7 @@ class StateMgr
         /// @brief  return the current state
         /// @return int - the current state
         inline int GetCurrentState() const { return m_currentStateID; };
+        inline IState* GetCurrentStatePtr() const { return m_stateVector[m_currentStateID]; };
 
     protected:
         virtual void CheckForStateTransition();

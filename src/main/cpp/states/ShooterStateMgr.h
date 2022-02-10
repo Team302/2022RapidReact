@@ -25,6 +25,7 @@
 
 
 
+
 // Third Party Includes
 
 class ShooterStateMgr : public StateMgr
@@ -43,14 +44,15 @@ class ShooterStateMgr : public StateMgr
 		/// @return IntakeStateMgr* pointer to the state manager
 		static ShooterStateMgr* GetInstance();
         void CheckForStateTransition() override;
-
+        bool AtTarget();
     private:
 
         ShooterStateMgr();
         ~ShooterStateMgr() = default;
-
+        
+        DragonLimelight* m_dragonLimeLight;
+        const double m_CHANGE_STATE_TARGET = 120.0; 
 		static ShooterStateMgr*	m_instance;
-    
         const StateStruc  m_offState = {SHOOTER_STATE::OFF, StateType::SHOOTER, true};
         const StateStruc  m_shootFarState = {SHOOTER_STATE::SHOOT_FAR, StateType::SHOOTER, false};
         const StateStruc m_shootCloseState = {SHOOTER_STATE::SHOOT_CLOSE, StateType::SHOOTER, false};
