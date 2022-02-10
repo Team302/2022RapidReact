@@ -30,7 +30,7 @@
  <!-- ====================================================
      Chassis
      ====================================================  -->
-<!-- -->
+<!--
     <chassis  type="SWERVE"
               wheelDiameter="4.13"
               wheelBase="21.0"  
@@ -401,7 +401,6 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
-
               <motor usage="BALLTRANSFERLIFT"
               canId="1"
               pdpID="14"
@@ -421,6 +420,7 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism> 
+
  <!--
     <mechanism type="ARM"
                networkTable="ArmNT"
@@ -452,5 +452,5 @@
               minAngle="0.0"
               maxAngle="360.0" />
     </mechanism>  
-              -->
+              
 </robot>
