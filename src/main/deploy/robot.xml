@@ -30,7 +30,7 @@
  <!-- ====================================================
      Chassis
      ====================================================  -->
-<!-- -->
+<!--
     <chassis  type="SWERVE"
               wheelDiameter="4.13"
               wheelBase="21.0"  
@@ -95,8 +95,8 @@
 		    <cancoder canId="2"
                             offset="-106.787"/>
         </swervemodule>     
--->
-       <!--
+
+       
         <swervemodule type="LEFT_BACK"
                       turn_p="0.07"
                       turn_i="0.00075"
@@ -251,7 +251,7 @@
         </swervemodule>
 
     </chassis>  
-      <!-- -->
+      -->
     <!--
  <mechanism type="SHOOTER"
                networkTable="shooterNT"
@@ -339,7 +339,7 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     -->
-    <!--
+    
     <mechanism type="BALLTRANSFER"
                networkTable="BallTransferNT"
                controlFile="balltransfer.xml">
@@ -361,7 +361,6 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
-
               <motor usage="BALLTRANSFERLIFT"
               canId="1"
               pdpID="14"
@@ -381,6 +380,7 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism> 
+
  <!--
     <mechanism type="ARM"
                networkTable="ArmNT"
@@ -412,5 +412,5 @@
               minAngle="0.0"
               maxAngle="360.0" />
     </mechanism>  
-              -->
+              
 </robot>
