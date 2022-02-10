@@ -31,7 +31,7 @@
               wheelBase="21.0"  
               track="21.0"
               wheelSpeedCalcOption="ETHER"
-              poseEstimationOption="EULERCHASSIS"
+              poseEstimationOption="WPI"
               odometryComplianceCoefficient="1.3"
               maxVelocity="162"
               maxAngularVelocity="1591.2"
