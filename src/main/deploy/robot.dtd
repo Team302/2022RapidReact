@@ -198,7 +198,7 @@
                                       DIFFERENTIAL_LEFT_MAIN  | DIFFERENTIAL_LEFT_FOLLOWER  |
                                       DIFFERENTIAL_RIGHT_MAIN | DIFFERENTIAL_RIGHT_FOLLOWER |
                                       INTAKE_SPIN | INTAKE_EXTEND | 
-                                      BALL_TRANSFER_SPIN | BALL_TRANSFER_LIFT |
+                                      BALL_TRANSFER_SPIN | BALL_TRANSFER_LIFT | BALL_TRANSFER_OFF |
                                       SHOOTER | SHOOTER_HOOD |
                                       CLIMBER_LIFT | CLIMBER_ROTATE  ) "DIFFERENTIAL_LEFT_MAIN"
           canId             		(  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 
