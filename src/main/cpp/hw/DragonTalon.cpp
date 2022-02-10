@@ -782,3 +782,18 @@ void DragonTalon::SetVoltage
 {
 	m_talon.get()->SetVoltage(output);
 }
+
+
+ bool DragonTalon::IsForwardLimitSwitchClosed() const
+ {
+	auto sensors = m_talon.get()->GetSensorCollection();
+	auto closed = sensors.IsFwdLimitSwitchClosed();
+	return closed == 1;
+}
+
+bool DragonTalon::IsReverseLimitSwitchClosed() const
+{
+	auto sensors = m_talon.get()->GetSensorCollection();
+	auto closed = sensors.IsRevLimitSwitchClosed();
+	return closed == 1;
+}

@@ -133,6 +133,15 @@ TeleopControl::TeleopControl() : m_axisIDs(),
     ctrlNo = 1;
     if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
+		m_controllerIndex[INTAKE_LEFT] 	= ctrlNo;
+		m_buttonIDs[INTAKE_LEFT]		= IDragonGamePad::LEFT_BUMPER;	
+		m_controllerIndex[INTAKE_RIGHT] = ctrlNo;
+		m_buttonIDs[INTAKE_RIGHT]		= IDragonGamePad::RIGHT_BUMPER;	
+	
+		m_controllerIndex[EXPEL_LEFT] 	= ctrlNo;
+		m_buttonIDs[EXPEL_LEFT] 		= IDragonGamePad::POV_90;	
+		m_controllerIndex[EXPEL_RIGHT] 	= ctrlNo;
+		m_buttonIDs[EXPEL_RIGHT] 		= IDragonGamePad::POV_270;	
 
 	}
     else if ( m_controllers[ctrlNo] != nullptr )

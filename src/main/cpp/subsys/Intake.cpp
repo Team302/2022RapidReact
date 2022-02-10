@@ -26,6 +26,7 @@
 #include <hw/interfaces/IDragonMotorController.h>
 
 // Third Party Includes
+
 using namespace std;
 
 Intake::Intake
@@ -33,13 +34,31 @@ Intake::Intake
     MechanismTypes::MECHANISM_TYPE      type,
     string                              controlFileName,
     string                              ntName,                        
-    shared_ptr<IDragonMotorController> intakeMotor,
+    shared_ptr<IDragonMotorController> spinMotor,
     shared_ptr<IDragonMotorController> extendMotor   
 ) : Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::LEFT_INTAKE, 
                    controlFileName, 
                    ntName, 
-                   intakeMotor, 
+                   spinMotor, 
                    extendMotor)
 {
 }
 
+bool Intake::IsFullyExtended() const
+{
+    auto motor = GetSecondaryMotor();
+    if (motor.get() != nullptr)
+    {
+        return motor.get()->IsForwardLimitSwitchClosed();
+    }
+    return false;
+}
+bool Intake::IsRetracted() const
+{
+    auto motor = GetSecondaryMotor();
+    if (motor.get() != nullptr)
+    {
+        return motor.get()->IsReverseLimitSwitchClosed();
+    }
+    return false;
+}
