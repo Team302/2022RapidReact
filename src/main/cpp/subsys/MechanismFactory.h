@@ -43,6 +43,7 @@
 #include <subsys/BallTransfer.h>
 #include <subsys/Shooter.h>
 #include <subsys/Climber.h>
+#include <subsys/BallTransfer.h>
 
 // Third Party Includes
 

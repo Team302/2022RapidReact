@@ -23,6 +23,8 @@
 #include <states/Intake/LeftIntakeStateMgr.h>
 #include <states/Intake/RightIntakeStateMgr.h>
 #include <states/ShooterStateMgr.h>
+#include <states/StateMgr.h>
+#include <Robot.h>
 
 #include <subsys/Shooter.h>
 
@@ -46,15 +48,15 @@ void Robot::RobotInit()
         
     auto mechFactory = MechanismFactory::GetMechanismFactory();
     m_leftIntake = mechFactory->GetLeftIntake();
-    m_leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
+    m_leftIntakeStateMgr = m_leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
 
     m_rightIntake = mechFactory->GetRightIntake();
-    m_rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
+    m_rightIntakeStateMgr = m_rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
 
     m_shooter = mechFactory->GetShooter();
-    m_shooterStateMgr = ShooterStateMgr::GetInstance();
+    m_shooterStateMgr = m_shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
+    
     m_ballTransfer = mechFactory->GetBallTransfer();
-
     m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
     
     m_cyclePrims = new CyclePrimitives();

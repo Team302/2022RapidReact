@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< main
 See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
 =======
@@ -15,6 +16,13 @@ compiling CyclePrimitives.cpp successful.
 =======
 >>>>>>> finished adding ball transfer to robot, and started adding the lift state
 =======
+=======
+<<<<<<< HEAD
+See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+=======
+See file:///C:/Users/user/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+>>>>>>> BallTransfer
+>>>>>>> BallTransfer
 compiling AutonSelector.cpp successful.
 
 compiling CyclePrimitives.cpp successful.
@@ -125,13 +133,29 @@ compiling ToggleButton.cpp successful.
 
 compiling POVButton.cpp successful.
 
+<<<<<<< HEAD
 compiling DriveDistance.cpp successful.
 
+=======
+compiling PrimitiveParams.cpp successful.
+
+compiling PrimitiveParser.cpp successful.
+
+compiling DoNothing.cpp successful.
+
+compiling DriveDistance.cpp successful.
+
+compiling DrivePath.cpp successful.
+
+>>>>>>> BallTransfer
 compiling DriveTime.cpp successful.
 
 compiling DriveToTarget.cpp successful.
 
+<<<<<<< HEAD
 <<<<<<< main
+=======
+>>>>>>> BallTransfer
 compiling DriveToWall.cpp successful.
 
 compiling HoldPosition.cpp successful.
@@ -469,7 +493,11 @@ C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\SuperDrive.cpp:214:24: 
      frc::ChassisSpeeds chassisSpeeds = m_kinematics->ToChassisSpeeds(wheelSpeeds);
                         ^~~~~~~~~~~~~
 
+<<<<<<< HEAD
 <<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
 Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
 =======
 compiling SuperDrive.cpp successful.
@@ -552,6 +580,7 @@ compiling PigeonFactory.cpp successful.
 
 compiling DigitalInputUsage.cpp successful.
 
+<<<<<<< HEAD
 =======
 >>>>>>> edited the states
 compiling MotorControllerUsage.cpp successful.
@@ -670,6 +699,8 @@ compiling PigeonFactory.cpp successful.
 
 compiling DigitalInputUsage.cpp successful.
 
+=======
+>>>>>>> BallTransfer
 compiling MotorControllerUsage.cpp successful.
 
 compiling ServoUsage.cpp successful.
@@ -771,4 +802,8 @@ compiling SwerveModuleDefn.cpp successful.
 compiling SwerveDrive.cpp successful.
 
 Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/Users/user/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
+<<<<<<< HEAD
 >>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
+>>>>>>> BallTransfer

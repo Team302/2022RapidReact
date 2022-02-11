@@ -94,8 +94,9 @@
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="2"
                             offset="-106.787"/>
-        </swervemodule>
+        </swervemodule>     
 
+       
         <swervemodule type="LEFT_BACK"
                       turn_p="0.07"
                       turn_i="0.00075"
@@ -123,8 +124,8 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>                  
-             <motor usage="SWERVE_TURN"
+                    reverselimitswitchopen="true"/>           
+           <motor usage="SWERVE_TURN"
                     canId="0"
                     pdpID="0"
                     type="FALCON"
@@ -145,9 +146,9 @@
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="0"
                             offset="67.06055"/>
-        </swervemodule>
+        </swervemodule>     
 
-        <swervemodule type="RIGHT_FRONT"
+       <swervemodule type="RIGHT_FRONT"
                       turn_p="0.07"
                       turn_i="0.00075"
                       turn_d="0.0"
@@ -174,8 +175,8 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>                  
-             <motor  usage="SWERVE_TURN"
+                    reverselimitswitchopen="true"/>                 
+            <motor  usage="SWERVE_TURN"
                     canId="12"
                     pdpID="12"
                     type="FALCON"
@@ -197,7 +198,6 @@
 		    <cancoder canId="12"
                             offset="60.81"/>
         </swervemodule>
-
         <swervemodule type="LEFT_FRONT"
                       turn_p="0.07"
                       turn_i="0.00075"
@@ -225,8 +225,8 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>                  
-             <motor usage="SWERVE_TURN"
+                    reverselimitswitchopen="true"/>                
+            <motor usage="SWERVE_TURN"
                     canId="14"
                     pdpID="14"
                     type="FALCON"
@@ -251,7 +251,6 @@
         </swervemodule>
 
     </chassis>  
-    <!--   -->
       -->
 <!-- ====================================================
      Shooter

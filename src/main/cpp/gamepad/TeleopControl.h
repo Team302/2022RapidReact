@@ -50,6 +50,7 @@ class TeleopControl
             DRIVE_TURBO,
             DRIVE_BRAKE,
             REZERO_PIGEON,
+            ARCADE_THROTTLE,
             ROTATE_TO_GOAL,
             DRIVE_POLAR,
             DRIVE_POLAR_INTAKE,

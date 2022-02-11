@@ -33,9 +33,9 @@
 #include <xmlmechdata/StateDataDefn.h>
 #include <states/Intake/IntakeState.h>
 #include <states/ShooterState.h>
-#include <states/BallTransfer/BallTransferState.h>
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
+#include <states/BallTransfer/BallTransferState.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
 #include <subsys/BallTransfer.h>
 
@@ -59,6 +59,8 @@ void StateMgr::Init
 ) 
 {
     m_mech = mech;
+
+
     if (mech != nullptr)
     {
         // Parse the configuration file 
@@ -113,16 +115,16 @@ void StateMgr::Init
                         	break;
                     
 
-                    	    case StateType::SHOOTER:
+                    	        case StateType::SHOOTER:
                        		    thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
                        		    break;
 
-                            case StateType::CLIMBER:
-                            thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
-                            break;
-                            case StateType::BALLTRANSFER:
-                            thisState = new BallTransferState(controlData, controlData2, target, secondaryTarget);
-                            break;
+                                case StateType::CLIMBER:
+                                    thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
+                                    break;
+                                case StateType::BALLTRANSFER:
+                                    thisState = new BallTransferState(controlData, controlData2, target, secondaryTarget);
+                                    break;
                     	    default:
                     	    {
                         	    Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));

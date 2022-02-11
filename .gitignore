@@ -30,12 +30,3 @@
 *.exe
 *.out
 *.app
-
-# Other Misc Files
-*.lock
-*.bin
-*.probe
-.gradle/*
-.vscode/*
-build/*
-gradle/*

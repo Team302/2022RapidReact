@@ -15,7 +15,11 @@ c++
 -O2
 -nostdinc
 -I
+<<<<<<< HEAD
 <<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
 C:\\GitRepos\\2022RapidReact\\src\\main\\cpp
 -I
 C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty
@@ -115,7 +119,11 @@ C:\\Users\\user\\.gradle\\caches\\transforms-3\\b08b9f937e430cdef8c06ff4f3c7060e
 C:\\Users\\user\\.gradle\\caches\\transforms-3\\2a5a8c7196d96ca8c3653526d1ab3dd8\\transformed\\cscore-cpp-2022.1.1-headers
 -I
 C:\\Users\\user\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers
+<<<<<<< HEAD
 >>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
+>>>>>>> BallTransfer
 -isystem
 C:\\Users\\Public\\wpilib\\2022\\roborio\\arm-frc2022-linux-gnueabi\\usr\\lib\\gcc\\arm-frc2022-linux-gnueabi\\7.3.0\\include
 -isystem
