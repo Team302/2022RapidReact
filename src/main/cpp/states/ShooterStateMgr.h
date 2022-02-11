@@ -22,6 +22,7 @@
 // Team 302 includes
 #include <states/StateMgr.h>
 #include <states/StateStruc.h>
+#include <hw/DragonLimelight.h>
 
 
 
