@@ -23,6 +23,7 @@
 #include <states/StateMgr.h>
 #include <states/StateStruc.h>
 #include <hw/DragonLimelight.h>
+#include <subsys/Shooter.h>
 
 
 
@@ -52,6 +53,7 @@ class ShooterStateMgr : public StateMgr
         ~ShooterStateMgr() = default;
         
         DragonLimelight* m_dragonLimeLight;
+        Shooter* m_shooter;
         const double m_CHANGE_STATE_TARGET = 120.0; 
 		static ShooterStateMgr*	m_instance;
         const StateStruc  m_offState = {SHOOTER_STATE::OFF, StateType::SHOOTER, true};

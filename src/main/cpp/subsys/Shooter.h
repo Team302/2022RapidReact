@@ -40,4 +40,7 @@ class Shooter : public Mech2IndMotors
 
         Shooter() = delete;
         virtual ~Shooter() = default;
+        
+        bool IsFullyExtended() const;
+        bool IsRetracted() const;
 };

@@ -36,3 +36,24 @@ Shooter::Shooter
 ) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::SHOOTER,  controlFileName, networkTableName, primaryMotor, secondaryMotor)
 {
 }
+
+bool Shooter::IsFullyExtended() const
+{
+    auto motor = GetSecondaryMotor();
+    if (motor.get() != nullptr)
+    {
+        return motor.get()->IsForwardLimitSwitchClosed();
+    }
+    return false;
+}
+bool Shooter::IsRetracted() const
+{
+    auto motor = GetSecondaryMotor();
+    if (motor.get() != nullptr)
+    {
+        return motor.get()->IsReverseLimitSwitchClosed();
+    }
+    return false;
+}
+
+
