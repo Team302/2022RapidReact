@@ -70,10 +70,10 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 
 }
 
-MechanismFactory::MechanismFactory() :// m_intake(nullptr),
-                                       m_ballTransfer(nullptr)
-									  // m_arm(nullptr),
-									 //  m_ballRelease(nullptr)
+MechanismFactory::MechanismFactory() : m_climber(nullptr),
+									   m_intake(nullptr),
+                                       m_ballTransfer(nullptr),
+									   m_shooter(nullptr)
 {
 }
 
@@ -195,6 +195,11 @@ IMech* MechanismFactory::GetMechanism
 	else if (type == MechanismTypes::MECHANISM_TYPE::SHOOTER)
 	{
 		return GetShooter();
+	}
+
+	else if (type == MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER)
+	{
+		return GetBallTransfer();
 	}
 	return nullptr;
 }

@@ -67,6 +67,7 @@ BallTransferStateMgr::BallTransferStateMgr()
 /// @return void
 void BallTransferStateMgr::CheckForStateTransition()
 {
+    /**
     if ( MechanismFactory::GetMechanismFactory()->GetBallTransfer() != nullptr )
     {
         // process teleop/manual interrupts
@@ -91,6 +92,7 @@ void BallTransferStateMgr::CheckForStateTransition()
             }
         }
     }
+    **/
 }
 
 
