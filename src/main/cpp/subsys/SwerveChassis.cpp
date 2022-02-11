@@ -91,7 +91,7 @@ SwerveChassis::SwerveChassis
     m_boost(0.0),
     m_brake(0.0),
     m_runWPI(false),
-    m_poseOpt(PoseEstimatorEnum::EULER_AT_CHASSIS),
+    m_poseOpt(PoseEstimatorEnum::WPI),
     m_pose(),
     m_offsetPoseAngle(0_deg),
     m_timer(),
@@ -405,6 +405,13 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     // double dDistX2Target = m_targetFinder.GetDistance2TargetXYR(myPose).X().to<double>();
     // double dDistY2Target = m_targetFinder.GetDistance2TargetXYR(myPose).Y().to<double>();
     auto dTargetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
+
+    //Debugging
+    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "Current X", myPose.X().to<double>());
+    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "Current Y", myPose.Y().to<double>());
+    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "Current Rot(Degrees)", myPose.Rotation().Degrees().to<double>());
+    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", dTargetAngle.to<double>()); 
+
     CalcHeadingCorrection(dTargetAngle);
     rot += m_yawCorrection;
 }

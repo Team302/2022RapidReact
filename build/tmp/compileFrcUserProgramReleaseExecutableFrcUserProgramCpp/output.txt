@@ -1,10 +1,46 @@
 See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
-compiling DragonVision.cpp successful.
+compiling DoNothing.cpp successful.
 
-compiling Logger.cpp successful.
+compiling HoldPosition.cpp successful.
+
+compiling DriveDistance.cpp successful.
+
+compiling SuperDrive.cpp successful.
+
+compiling DriveToWall.cpp successful.
+
+compiling DragonVision.cpp successful.
 
 compiling PrimitiveFactory.cpp successful.
 
 compiling ResetPosition.cpp successful.
+
+compiling DrivePath.cpp successful.
+
+compiling Robot.cpp successful.
+
+compiling TurnToAngle.cpp successful.
+
+compiling SwerveDrive.cpp successful.
+
+compiling ChassisFactory.cpp successful.
+
+compiling EtherDirtySwerve.cpp successful.
+
+compiling EtherFieldSwerve.cpp successful.
+
+compiling WPIDirtySwerve.cpp successful.
+
+compiling SwerveModule.cpp successful.
+
+compiling ChassisDefn.cpp successful.
+
+compiling SwerveModuleDefn.cpp successful.
+
+compiling WPIFieldSwerve.cpp successful.
+
+compiling TurnAngle.cpp successful.
+
+compiling SwerveChassis.cpp successful.
 
 Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
