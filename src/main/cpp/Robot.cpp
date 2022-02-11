@@ -122,6 +122,12 @@ void Robot::TeleopInit()
     {
         m_shooterStateMgr->SetCurrentState(ShooterStateMgr::SHOOT_FAR , true);
     }
+    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
+    {
+        m_ballTransferStateMgr->SetCurrentState(BallTransferStateMgr::BALL_TRANSFER_STATE::SPIN, true);
+    }
+
+
 }
 
 void Robot::TeleopPeriodic() 
