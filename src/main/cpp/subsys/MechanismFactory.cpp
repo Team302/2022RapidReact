@@ -279,11 +279,6 @@ IMech* MechanismFactory::GetMechanism
 			return nullptr;
 			break;
 	}
-
-	else if (type == MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER)
-	{
-		return GetBallTransfer();
-	}
 	return nullptr;
 }
 

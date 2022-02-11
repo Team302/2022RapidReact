@@ -120,8 +120,8 @@ class Mech2IndMotors : public IMech2IndMotors
         MechanismTypes::MECHANISM_TYPE              m_type;
         std::string                                 m_controlFile;
         std::string                                 m_ntName;
-        std::shared_ptr<IDragonMotorController>     m_spin;
-        std::shared_ptr<IDragonMotorController>     m_lift;
+        std::shared_ptr<IDragonMotorController>     m_primary;
+        std::shared_ptr<IDragonMotorController>     m_secondary;
         double                                      m_primaryTarget;
         double                                      m_secondaryTarget;
         
