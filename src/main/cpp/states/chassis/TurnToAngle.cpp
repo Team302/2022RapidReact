@@ -98,12 +98,18 @@ void TurnToAngle::Run()
             m_pid.SetSetpoint(m_targetAngle.to<double>());
             auto rotatePercent = m_pid.Calculate(currentAngle.to<double>());
             rotatePercent = clamp(rotatePercent, -1.0, 1.0);
-            m_chassis->Drive(0.0, 0.0, rotatePercent, false);
+            m_chassis->Drive(0.0, 0.0, rotatePercent,
+                             IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
+						     IChassis::HEADING_OPTION::TOWARD_GOAL);
+
         }
         else
         {
             m_atTarget = true;
-            m_chassis->Drive(0.0, 0.0, 0.0, false);
+            m_chassis->Drive(0.0, 0.0, 0.0,
+                             IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
+						     IChassis::HEADING_OPTION::TOWARD_GOAL);
+
         }
     }
 }

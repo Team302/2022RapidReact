@@ -48,11 +48,5 @@ class SwerveDrive : public IState
         bool                                m_usePWLinearProfile;
         bool                                m_lastUp;
         bool                                m_lastDown;
-        frc::Vector2d                       m_offset;
-
-        DragonTargetFinder m_ClsTargetFinder;
-
-        TurnToAngle* m_clsTurnToAngle;
-        
-
+        frc::Vector2d                       m_offset;     
 };

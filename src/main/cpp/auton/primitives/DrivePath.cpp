@@ -42,10 +42,10 @@ DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChas
                          m_trajectory(),
                          m_runHoloController(false),
                          m_ramseteController(),
-                         m_holoController(frc2::PIDController{1, 0, 0},
-                                          frc2::PIDController{1, 0, 0},
-                                          frc::ProfiledPIDController<units::radian>{1, 0, 0,
-                                                                                    frc::TrapezoidProfile<units::radian>::Constraints{6.28_rad_per_s, 3.14_rad_per_s / 1_s}}),
+                         m_holoController(frc2::PIDController{0, 0, 0},
+                                          frc2::PIDController{0, 0, 0},
+                                          frc::ProfiledPIDController<units::radian>{0, 0, 0,
+                                                                                    frc::TrapezoidProfile<units::radian>::Constraints{0_rad_per_s, 0_rad_per_s / 1_s}}),
                          //max velocity of 1 rotation per second and a max acceleration of 180 degrees per second squared.
                          m_PrevPos(m_chassis.get()->GetPose()),
                          m_PosChgTimer(make_unique<Timer>()),
@@ -148,7 +148,10 @@ void DrivePath::Run()
         Logger::GetLogger()->ToNtTable("DrivePathValues", "ChassisSpeedsZ", units::degrees_per_second_t(refChassisSpeeds.omega()).to<double>());
 
         // Run the chassis
-        m_chassis->Drive(refChassisSpeeds, false);
+        m_chassis->Drive(refChassisSpeeds,
+                         IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
+						 IChassis::HEADING_OPTION::DEFAULT);
+
     }
     else //If we don't have states to run, don't move the robot
     {
@@ -156,7 +159,9 @@ void DrivePath::Run()
         speeds.vx = 0_mps;
         speeds.vy = 0_mps;
         speeds.omega = units::angular_velocity::radians_per_second_t(0);
-        m_chassis->Drive(speeds, false);
+        m_chassis->Drive(speeds,
+                         IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
+						 IChassis::HEADING_OPTION::DEFAULT);
     }
 
 }
@@ -277,7 +282,7 @@ void DrivePath::GetTrajectory //Parses pathweaver json to create a series of poi
         //wpi::sys::path::append(deployDir, "paths");  //goes into "/lvuser/deploy/paths" on roborio
         //wpi::sys::path::append(deployDir, path); // load path from deploy directory
     	auto deployDir = frc::filesystem::GetDeployDirectory();
-        deployDir += "/paths/" + m_pathname;
+        deployDir += "/paths/" + path;
 
         Logger::GetLogger()->LogError(string("Deploy path is "), deployDir.c_str()); //Debugging
         

@@ -47,19 +47,29 @@ double DeadbandValue::ApplyDeadband
 ) const
 {
     auto val = inputVal;
-    if ( std::abs(val) < IDeadband::M_DEADBAND_VALUE )
+    if (std::abs(val) < IDeadband::M_LOWER_DEADBAND_VALUE)
     {
         val = 0.0;
     }
+    else if (val > IDeadband::M_UPPER_DEADBAND_VALUE)
+    {
+        val = 1.0;
+    }
+    else if (std::abs(val) > IDeadband::M_UPPER_DEADBAND_VALUE)
+    {
+        val = -1.0;
+    }
     else if ( val > 0.0 )
     {
-        val -= IDeadband::M_DEADBAND_VALUE;         // shift deadband to 0.0
-        val /= (1.0 - IDeadband::M_DEADBAND_VALUE); // scale value to the range
+        val -= IDeadband::M_LOWER_DEADBAND_VALUE;         // shift deadband to 0.0
+        auto range = IDeadband::M_UPPER_DEADBAND_VALUE - IDeadband::M_LOWER_DEADBAND_VALUE;
+        val /= range; // scale value to the range
     }
     else if ( val < 0.0 )
     {
-        val += IDeadband::M_DEADBAND_VALUE;         // shift deadband to 0.0
-        val /= (1.0 - IDeadband::M_DEADBAND_VALUE); // scale value to range
+        val += IDeadband::M_LOWER_DEADBAND_VALUE;         // shift deadband to 0.0
+        auto range = IDeadband::M_UPPER_DEADBAND_VALUE - IDeadband::M_LOWER_DEADBAND_VALUE;
+        val /= range; // scale value to the range
     }
     return val;
 }
