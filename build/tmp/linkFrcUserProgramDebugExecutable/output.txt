@@ -1,4 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
 See file:///C:/GitRepos/2022RapidReact/build/tmp/linkFrcUserProgramDebugExecutable/output.txt for all output for linkFrcUserProgramDebugExecutable.
 linking frcUserProgram successful.
 
@@ -8,4 +12,8 @@ See file:///C:/Users/user/Documents/GitHub/2022RapidReact/build/tmp/linkFrcUserP
 linking frcUserProgram successful.
 
 Finished linkFrcUserProgramDebugExecutable, see full log file:///C:/Users/user/Documents/GitHub/2022RapidReact/build/tmp/linkFrcUserProgramDebugExecutable/output.txt.
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer

@@ -40,6 +40,7 @@
 #include <hw/usages/DragonSolenoidMap.h>
 #include <subsys/interfaces/IMech.h>
 #include <subsys/Intake.h>
+#include <subsys/BallTransfer.h>
 #include <subsys/Shooter.h>
 #include <subsys/Climber.h>
 #include <subsys/BallTransfer.h>
@@ -90,7 +91,8 @@ class MechanismFactory
 		);
 		inline BallTransfer* GetBallTransfer() const { return m_ballTransfer;};
 		
-		inline Intake* GetIntake() const { return m_intake;};
+		inline Intake* GetLeftIntake() const { return m_leftIntake;};
+		inline Intake* GetRightIntake() const { return m_rightIntake;};
 		inline Shooter* GetShooter() const { return m_shooter;};
 
 		IMech* GetMechanism
@@ -135,10 +137,13 @@ class MechanismFactory
 		virtual ~MechanismFactory() = default;
 
 		static MechanismFactory*	m_mechanismFactory;
-		Climber*		m_climber;
-		Intake* 		m_intake;
-		BallTransfer* 	m_ballTransfer;
+		
+
+		Intake* 		m_leftIntake;
+		Intake* 		m_rightIntake;
+		BallTransfer* 		m_ballTransfer;
 		Shooter* 		m_shooter;
+		Climber*        	m_climber;
 
 		
 

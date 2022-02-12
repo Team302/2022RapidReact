@@ -1,5 +1,9 @@
 -o
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
 C:\\GitRepos\\2022RapidReact\\build\\exe\\frcUserProgram\\debug\\frcUserProgram
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\17psugcxoj7q58y7v26g3dan6\\DriveToWall.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\17zuicsmxn6218i2i3mi0moxu\\MechanismDefn.o
@@ -325,6 +329,10 @@ C:\\Users\\user\\.gradle\\caches\\transforms-3\\a39337c056f485a1a729fb9c786d1e8e
 C:\\Users\\user\\.gradle\\caches\\transforms-3\\a39337c056f485a1a729fb9c786d1e8e\\transformed\\opencv-cpp-4.5.2-1-linuxathenadebug\\linux\\athena\\shared\\libopencv_stitchingd.so.4.5
 C:\\Users\\user\\.gradle\\caches\\transforms-3\\a39337c056f485a1a729fb9c786d1e8e\\transformed\\opencv-cpp-4.5.2-1-linuxathenadebug\\linux\\athena\\shared\\libopencv_videod.so.4.5
 C:\\Users\\user\\.gradle\\caches\\transforms-3\\a39337c056f485a1a729fb9c786d1e8e\\transformed\\opencv-cpp-4.5.2-1-linuxathenadebug\\linux\\athena\\shared\\libopencv_videoiod.so.4.5
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
 -rdynamic
 -pthread

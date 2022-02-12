@@ -108,8 +108,17 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_buttonIDs[DRIVE_25PERCENT] 		= IDragonGamePad::POV_180;	
 		m_controllerIndex[DRIVE_SHIFT_UP] 	= ctrlNo;
 		m_buttonIDs[DRIVE_SHIFT_UP] 		= IDragonGamePad::RIGHT_BUMPER;	
-		m_controllerIndex[DRIVE_SHIFT_DOWN] = ctrlNo;
-		m_buttonIDs[DRIVE_SHIFT_DOWN] 		= IDragonGamePad::LEFT_BUMPER;	
+
+        //////////////////////////////
+		// for now left bubper point to target
+		//m_controllerIndex[DRIVE_SHIFT_DOWN] = ctrlNo;
+		//m_buttonIDs[DRIVE_SHIFT_DOWN] 		= IDragonGamePad::LEFT_BUMPER;
+			
+		m_controllerIndex[FINDTARGET] = ctrlNo;
+		m_buttonIDs[FINDTARGET]	 		= IDragonGamePad::LEFT_BUMPER;	
+
+        /////////////////////////////////////////////////////////////////////  
+		
 		m_controllerIndex[DRIVE_TURBO] 		= ctrlNo;
 		m_axisIDs[ DRIVE_TURBO]	     		= IDragonGamePad::RIGHT_TRIGGER;
 		m_controllerIndex[DRIVE_BRAKE] 		= ctrlNo;
@@ -124,6 +133,15 @@ TeleopControl::TeleopControl() : m_axisIDs(),
     ctrlNo = 1;
     if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
+		m_controllerIndex[INTAKE_LEFT] 	= ctrlNo;
+		m_buttonIDs[INTAKE_LEFT]		= IDragonGamePad::LEFT_BUMPER;	
+		m_controllerIndex[INTAKE_RIGHT] = ctrlNo;
+		m_buttonIDs[INTAKE_RIGHT]		= IDragonGamePad::RIGHT_BUMPER;	
+	
+		m_controllerIndex[EXPEL_LEFT] 	= ctrlNo;
+		m_buttonIDs[EXPEL_LEFT] 		= IDragonGamePad::POV_90;	
+		m_controllerIndex[EXPEL_RIGHT] 	= ctrlNo;
+		m_buttonIDs[EXPEL_RIGHT] 		= IDragonGamePad::POV_270;	
 
 	}
     else if ( m_controllers[ctrlNo] != nullptr )

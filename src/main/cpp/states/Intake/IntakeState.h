@@ -18,6 +18,7 @@
 #include <states/Mech2MotorState.h>
 
 class ControlData;
+class Intake;
 
 class IntakeState : public Mech2MotorState
 {
@@ -26,6 +27,7 @@ class IntakeState : public Mech2MotorState
         IntakeState() = delete;
         IntakeState
         (
+            Intake*      intake,
             ControlData* controlSpin,
             ControlData* controlExtend, 
             double       spinTarget,

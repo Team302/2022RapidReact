@@ -26,6 +26,7 @@
 #include <states/IState.h>
 #include <hw/DragonPigeon.h>
 #include <states/chassis/DragonTargetFinder.h> //target finder point to target centet
+#include <states/chassis/TurnToAngle.h>
 
 class SwerveDrive : public IState
 {
@@ -50,4 +51,8 @@ class SwerveDrive : public IState
         frc::Vector2d                       m_offset;
 
         DragonTargetFinder m_ClsTargetFinder;
+
+        TurnToAngle* m_clsTurnToAngle;
+        
+
 };

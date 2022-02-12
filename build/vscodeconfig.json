@@ -15,6 +15,10 @@
     "systemCArgs": [],
     "allLibFiles": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -160,6 +164,10 @@
       "C:\\Users\\user\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers\\",
       "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
       "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
     ],
     "binaries": [
@@ -170,11 +178,19 @@
             "source": {
               "srcDirs": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
                 "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
               ],
               "includes": [
@@ -188,11 +204,19 @@
             "exportedHeaders": {
               "srcDirs": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
                 "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
               ],
               "includes": [
@@ -223,6 +247,10 @@
         ],
         "libHeaders": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -274,6 +302,10 @@
           "C:\\Users\\user\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers\\",
           "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
           "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
         ],
         "sharedLibrary": false,
@@ -285,11 +317,19 @@
         "source": {
           "srcDirs": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
             "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
           ],
           "includes": [
@@ -325,11 +365,19 @@
         "source": {
           "srcDirs": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
             "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
           ],
           "includes": [
@@ -381,6 +429,10 @@
     "systemCArgs": [],
     "allLibFiles": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -526,6 +578,10 @@
       "C:\\Users\\user\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers\\",
       "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
       "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
     ],
     "binaries": [
@@ -536,11 +592,19 @@
             "source": {
               "srcDirs": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
                 "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
               ],
               "includes": [
@@ -554,11 +618,19 @@
             "exportedHeaders": {
               "srcDirs": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
                 "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
                 "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
               ],
               "includes": [
@@ -588,6 +660,10 @@
         ],
         "libHeaders": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\00adc7d6ebae797c5217969501024116\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\42f7c898d4ee5bd93a0172a5e69627f1\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -639,6 +715,10 @@
           "C:\\Users\\user\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers\\",
           "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
           "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
         ],
         "sharedLibrary": false,
@@ -650,11 +730,19 @@
         "source": {
           "srcDirs": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
             "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
           ],
           "includes": [
@@ -689,11 +777,19 @@
         "source": {
           "srcDirs": [
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
             "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
 =======
             "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp\\",
             "C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty\\"
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
           ],
           "includes": [

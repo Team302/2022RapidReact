@@ -18,11 +18,11 @@
        
 enum StateType
 {
-    INTAKE,
-    INTAKE2,
-    BALLTRANSFER,
+    BALLTRANSFEROFF,
+    LEFT_INTAKE,
+    RIGHT_INTAKE,
+    BALL_TRANSFER,
     SHOOTER,
-    SHOOTER_HOOD,
     CLIMBER,
     MAX_STATE_TYPES
 };

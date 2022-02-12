@@ -51,7 +51,7 @@ class BallTransferStateMgr : public StateMgr
 
 		static BallTransferStateMgr*	m_instance;
 
-        const StateStruc  m_offState = {BALL_TRANSFER_STATE::OFF, StateType::BALLTRANSFER, true};
-        const StateStruc  m_spinState = {BALL_TRANSFER_STATE::SPIN, StateType::BALLTRANSFER, false};
-        const StateStruc  m_liftState = {BALL_TRANSFER_STATE::LIFT, StateType::BALLTRANSFER, false};
+        const StateStruc  m_offState = {BALL_TRANSFER_STATE::OFF, StateType::BALL_TRANSFER, true};
+        const StateStruc  m_spinState = {BALL_TRANSFER_STATE::SPIN, StateType::BALL_TRANSFER, false};
+        const StateStruc  m_liftState = {BALL_TRANSFER_STATE::LIFT, StateType::BALL_TRANSFER, false};
 };

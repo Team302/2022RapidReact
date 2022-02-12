@@ -50,23 +50,23 @@ Mech2IndMotors::Mech2IndMotors
     MechanismTypes::MECHANISM_TYPE              type,
     std::string                                 controlFileName,
     std::string                                 networkTableName,
-    shared_ptr<IDragonMotorController>          spinMotor,
-    shared_ptr<IDragonMotorController>          liftMotor
+    shared_ptr<IDragonMotorController>          primaryMotor,
+    shared_ptr<IDragonMotorController>          secondaryMotor
 ) : IMech2IndMotors(),
     m_type(type),
     m_controlFile(controlFileName),
     m_ntName(networkTableName),
-    m_spin( spinMotor),
-    m_lift( liftMotor),
+    m_primary( primaryMotor),
+    m_secondary( secondaryMotor),
     m_primaryTarget(0.0),
     m_secondaryTarget(0.0)
 {
-    if ( m_spin.get() == nullptr )
+    if ( primaryMotor.get() == nullptr )
     {
         Logger::GetLogger()->LogError( Logger::LOGGER_LEVEL::ERROR_ONCE, string( "Mech2IndMotors constructor" ), string( "failed to create primary control" ) );
     }    
     
-    if ( m_lift.get() == nullptr )
+    if ( secondaryMotor.get() == nullptr )
     {
         Logger::GetLogger()->LogError( Logger::LOGGER_LEVEL::ERROR_ONCE, string( "Mech2IndMotors constructor" ), string( "failed to create secondary control" ) );
     }
@@ -116,13 +116,13 @@ void Mech2IndMotors::Update()
 {
     auto ntName = GetNetworkTableName();
     auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
-    if ( m_spin.get() != nullptr )
+    if ( m_primary.get() != nullptr )
     {
-        m_spin.get()->Set(table, m_primaryTarget);
+        m_primary.get()->Set(table, m_primaryTarget);
     }
-    if ( m_lift.get() != nullptr )
+    if ( m_secondary.get() != nullptr )
     {
-        m_lift.get()->Set(table, m_secondaryTarget);
+        m_secondary.get()->Set(table, m_secondaryTarget);
     }
 
     LogData();
@@ -145,28 +145,28 @@ void Mech2IndMotors::UpdateTargets
 /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
 double Mech2IndMotors::GetPrimaryPosition() const 
 {
-    return ( m_spin.get() != nullptr ) ? m_spin.get()->GetRotations() * 360.0 : 0.0;
+    return ( m_primary.get() != nullptr ) ? m_primary.get()->GetRotations() * 360.0 : 0.0;
 }
 
 /// @brief  Return the current position of the secondary motor in the mechanism.  The value is in inches or degrees.
 /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
 double Mech2IndMotors::GetSecondaryPosition() const 
 {
-    return ( m_lift.get() != nullptr ) ? m_lift.get()->GetRotations() * 360.0 : 0.0;
+    return ( m_secondary.get() != nullptr ) ? m_secondary.get()->GetRotations() * 360.0 : 0.0;
 }
 
 /// @brief  Get the current speed of the primary motor in the mechanism.  The value is in inches per second or degrees per second.
 /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
 double Mech2IndMotors::GetPrimarySpeed() const 
 {
-    return ( m_spin.get() != nullptr ) ? m_spin.get()->GetRPS() : 0.0;
+    return ( m_primary.get() != nullptr ) ? m_primary.get()->GetRPS() : 0.0;
 }
 
 /// @brief  Get the current speed of the secondary motor in the mechanism.  The value is in inches per second or degrees per second.
 /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
 double Mech2IndMotors::GetSecondarySpeed() const 
 {
-    return ( m_lift.get() != nullptr ) ? m_lift.get()->GetRPS() : 0.0;
+    return ( m_secondary.get() != nullptr ) ? m_secondary.get()->GetRPS() : 0.0;
 }
 
 /// @brief  Set the control constants (e.g. PIDF values).
@@ -178,9 +178,9 @@ void Mech2IndMotors::SetControlConstants
     ControlData*                                pid                 
 ) 
 {
-    if ( m_spin.get() != nullptr )
+    if ( m_primary.get() != nullptr )
     {
-        m_spin.get()->SetControlConstants(slot, pid);
+        m_primary.get()->SetControlConstants(slot, pid);
     }
 }
 void Mech2IndMotors::SetSecondaryControlConstants
@@ -189,9 +189,9 @@ void Mech2IndMotors::SetSecondaryControlConstants
     ControlData*                                pid                 
 ) 
 {
-    if ( m_lift.get() != nullptr )
+    if ( m_secondary.get() != nullptr )
     {
-        m_lift.get()->SetControlConstants(slot, pid);
+        m_secondary.get()->SetControlConstants(slot, pid);
     }    
 }
 

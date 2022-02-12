@@ -43,12 +43,16 @@ class Robot : public frc::TimedRobot
   CyclePrimitives*      m_cyclePrims;
   frc::Timer*           m_timer;
   SwerveDrive*          m_swerve;
-  BallTransfer*         m_ballTransfer;
+
+  IntakeStateMgr*       m_leftIntakeStateMgr;
+  Intake*               m_leftIntake;
+
+  IntakeStateMgr*       m_rightIntakeStateMgr;
+  Intake*               m_rightIntake;
+
   BallTransferStateMgr* m_ballTransferStateMgr;
+  BallTransfer*         m_ballTransfer;
 
-  IntakeStateMgr*       m_intakeStateMgr;
-
-  Intake*               m_intake;
   ShooterStateMgr*      m_shooterStateMgr;
   Shooter*              m_shooter;
 };

@@ -84,13 +84,13 @@ void MechanismDefn::ParseXML
             string typeStr = attr.as_string();
             for_each( typeStr.begin(), typeStr.end(), [](char & c){c = ::toupper(c);});
 
-            if ( typeStr.compare( "INTAKE") == 0 )
+            if ( typeStr.compare( "LEFT_INTAKE") == 0 )
             {
-                type = MechanismTypes::MECHANISM_TYPE::INTAKE;
+                type = MechanismTypes::MECHANISM_TYPE::LEFT_INTAKE;
             }
-            else if ( typeStr.compare( "INTAKE2") == 0 )
+            else if ( typeStr.compare( "RIGHT_INTAKE") == 0 )
             {
-                type = MechanismTypes::MECHANISM_TYPE::INTAKE2;
+                type = MechanismTypes::MECHANISM_TYPE::RIGHT_INTAKE;
             }
             else if (typeStr.compare( "BALL_TRANSFER") == 0)
             {

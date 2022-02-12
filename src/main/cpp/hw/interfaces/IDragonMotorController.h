@@ -115,6 +115,8 @@ class IDragonMotorController
         virtual ~IDragonMotorController() = default;
         virtual double GetGearRatio() const = 0;
 
+        virtual bool IsForwardLimitSwitchClosed() const = 0;
+        virtual bool IsReverseLimitSwitchClosed() const = 0;
 
     protected:
 

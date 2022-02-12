@@ -112,12 +112,16 @@ class Mech2IndMotors : public IMech2IndMotors
         double GetPrimaryTarget() const { return m_primaryTarget; }
         double GetSecondaryTarget() const { return m_secondaryTarget; }
 
+    protected:
+        inline std::shared_ptr<IDragonMotorController> GetPrimaryMotor() const {return m_primary;};
+        inline std::shared_ptr<IDragonMotorController> GetSecondaryMotor() const {return m_secondary;};
+
     private: 
         MechanismTypes::MECHANISM_TYPE              m_type;
         std::string                                 m_controlFile;
         std::string                                 m_ntName;
-        std::shared_ptr<IDragonMotorController>     m_spin;
-        std::shared_ptr<IDragonMotorController>     m_lift;
+        std::shared_ptr<IDragonMotorController>     m_primary;
+        std::shared_ptr<IDragonMotorController>     m_secondary;
         double                                      m_primaryTarget;
         double                                      m_secondaryTarget;
         

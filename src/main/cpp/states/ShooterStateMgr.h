@@ -22,6 +22,8 @@
 // Team 302 includes
 #include <states/StateMgr.h>
 #include <states/StateStruc.h>
+#include <hw/DragonLimelight.h>
+
 
 
 
@@ -34,7 +36,8 @@ class ShooterStateMgr : public StateMgr
         enum SHOOTER_STATE
         {
             OFF,
-            ON
+            SHOOT_FAR,
+            SHOOT_CLOSE
         };
 
         
@@ -42,14 +45,16 @@ class ShooterStateMgr : public StateMgr
 		/// @return IntakeStateMgr* pointer to the state manager
 		static ShooterStateMgr* GetInstance();
         void CheckForStateTransition() override;
-
+        bool AtTarget();
     private:
 
         ShooterStateMgr();
         ~ShooterStateMgr() = default;
-
+        
+        DragonLimelight* m_dragonLimeLight;
+        const double m_CHANGE_STATE_TARGET = 120.0; 
 		static ShooterStateMgr*	m_instance;
-    
         const StateStruc  m_offState = {SHOOTER_STATE::OFF, StateType::SHOOTER, true};
-        const StateStruc  m_onState = {SHOOTER_STATE::ON, StateType::SHOOTER, false};
+        const StateStruc  m_shootFarState = {SHOOTER_STATE::SHOOT_FAR, StateType::SHOOTER, false};
+        const StateStruc m_shootCloseState = {SHOOTER_STATE::SHOOT_CLOSE, StateType::SHOOTER, false};
 };

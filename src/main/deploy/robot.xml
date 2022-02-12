@@ -304,8 +304,8 @@
      Intake
      ====================================================  -->
      <!-- 
-    <mechanism type="INTAKE"
-               networkTable="IntakeNT"
+    <mechanism type="LEFT_INTAKE"
+               networkTable="LeftIntakeNT"
                controlFile="intake.xml">
        <motor usage="INTAKE_SPIN"
               canId="0"

@@ -20,7 +20,8 @@
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/MechanismFactory.h>
 #include <auton/CyclePrimitives.h>
-#include <states/Intake/IntakeStateMgr.h>
+#include <states/Intake/LeftIntakeStateMgr.h>
+#include <states/Intake/RightIntakeStateMgr.h>
 #include <states/ShooterStateMgr.h>
 #include <states/StateMgr.h>
 #include <Robot.h>
@@ -29,34 +30,36 @@
 
 void Robot::RobotInit() 
 {
-  // Read the XML file to build the robot 
-  auto defn = new RobotDefn();
-  defn->ParseXML();
+    // Read the XML file to build the robot 
+    auto defn = new RobotDefn();
+    defn->ParseXML();
 
-  // Get local copies of the teleop controller and the chassis
-  m_controller = TeleopControl::GetInstance();
-  m_controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, IDragonGamePad::AXIS_PROFILE::CUBED);
-  m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
-  m_controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, IDragonGamePad::AXIS_PROFILE::CUBED);
-  m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
-  m_controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_PROFILE::CUBED);
-  m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
-  auto factory = ChassisFactory::GetChassisFactory();
-  m_chassis = factory->GetIChassis();
-  m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
+    // Get local copies of the teleop controller and the chassis
+    m_controller = TeleopControl::GetInstance();
+    m_controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, IDragonGamePad::AXIS_PROFILE::CUBED);
+    m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
+    m_controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, IDragonGamePad::AXIS_PROFILE::CUBED);
+    m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
+    m_controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_PROFILE::CUBED);
+    m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
+    auto factory = ChassisFactory::GetChassisFactory();
+    m_chassis = factory->GetIChassis();
+    m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
+        
+    auto mechFactory = MechanismFactory::GetMechanismFactory();
+    m_leftIntake = mechFactory->GetLeftIntake();
+    m_leftIntakeStateMgr = m_leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
+
+    m_rightIntake = mechFactory->GetRightIntake();
+    m_rightIntakeStateMgr = m_rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
+
+    m_shooter = mechFactory->GetShooter();
+    m_shooterStateMgr = m_shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
     
-  auto mechFactory = MechanismFactory::GetMechanismFactory();
-  m_intake = mechFactory->GetIntake();
-  m_intakeStateMgr = m_intake != nullptr ? IntakeStateMgr::GetInstance() : nullptr;
-
-  m_shooter = mechFactory->GetShooter();
-  m_shooterStateMgr = m_shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
-  
-
-  m_ballTransfer = mechFactory->GetBallTransfer();
-  m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
-
-  m_cyclePrims = new CyclePrimitives();
+    m_ballTransfer = mechFactory->GetBallTransfer();
+    m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
+    
+    m_cyclePrims = new CyclePrimitives();
 }
 
 /**
@@ -69,10 +72,10 @@ void Robot::RobotInit()
  */
 void Robot::RobotPeriodic() 
 {
-  if (m_chassis != nullptr)
-  {
-    m_chassis->UpdateOdometry();
-  }
+    if (m_chassis != nullptr)
+    {
+        m_chassis->UpdateOdometry();
+    }
 }
 
 /**
@@ -88,18 +91,18 @@ void Robot::RobotPeriodic()
  */
 void Robot::AutonomousInit() 
 {
-  if (m_cyclePrims != nullptr)
-  {
-    m_cyclePrims->Init();
-  }
+    if (m_cyclePrims != nullptr)
+    {
+        m_cyclePrims->Init();
+    }
 }
 
 void Robot::AutonomousPeriodic() 
 {
-  if (m_cyclePrims != nullptr)
-  {
-    m_cyclePrims->Run();
-  }
+    if (m_cyclePrims != nullptr)
+    {
+        m_cyclePrims->Run();
+    }
 }
 
 void Robot::TeleopInit() 
@@ -107,15 +110,19 @@ void Robot::TeleopInit()
 
     if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
     {
-       m_swerve->Init();
+        m_swerve->Init();
     }
-    if (m_intakeStateMgr != nullptr)
+    if (m_leftIntake != nullptr && m_leftIntakeStateMgr != nullptr)
     {
-        m_intakeStateMgr->SetCurrentState(IntakeStateMgr::INTAKE_STATE::INTAKE, false);
+        m_leftIntakeStateMgr->RunCurrentState();
+    }
+    if (m_rightIntake != nullptr && m_rightIntakeStateMgr != nullptr)
+    {
+        m_rightIntakeStateMgr->RunCurrentState();
     }
     if (m_shooterStateMgr != nullptr && m_shooter != nullptr)
     {
-        m_shooterStateMgr->SetCurrentState(ShooterStateMgr::ON , true);
+        m_shooterStateMgr->SetCurrentState(ShooterStateMgr::SHOOT_FAR , true);
     }
     if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
     {
@@ -127,27 +134,29 @@ void Robot::TeleopInit()
 
 void Robot::TeleopPeriodic() 
 {
- 
-  if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
-  {
-
-    m_swerve->Run();
-  }
-
-  if (m_intake != nullptr && m_intakeStateMgr != nullptr)
-  {
-    m_intakeStateMgr->RunCurrentState();
-  }
-  
-  if (m_shooter != nullptr && m_shooterStateMgr != nullptr)
-  {
-       m_shooterStateMgr->RunCurrentState();
-  }
-
+    if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
+    {
+        m_swerve->Run();
+    }
     if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
-  {
-    m_ballTransferStateMgr->RunCurrentState();
-  }
+    {
+        m_ballTransferStateMgr->RunCurrentState();
+    }
+
+    if (m_leftIntake != nullptr && m_leftIntakeStateMgr != nullptr)
+    {
+        m_leftIntakeStateMgr->RunCurrentState();
+    }
+    if (m_rightIntake != nullptr && m_rightIntakeStateMgr != nullptr)
+    {
+        m_rightIntakeStateMgr->RunCurrentState();
+    }
+    
+    if (m_shooter != nullptr && m_shooterStateMgr != nullptr)
+    {
+        m_shooterStateMgr->RunCurrentState();
+    }
+
 }
 
 void Robot::DisabledInit() 
@@ -173,6 +182,6 @@ void Robot::TestPeriodic()
 #ifndef RUNNING_FRC_TESTS
 int main() 
 {
-  return frc::StartRobot<Robot>();
+    return frc::StartRobot<Robot>();
 }
 #endif

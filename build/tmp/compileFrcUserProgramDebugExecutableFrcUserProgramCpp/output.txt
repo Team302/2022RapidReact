@@ -1,4 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
 See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
 compiling PrimitiveParams.cpp successful.
 
@@ -169,7 +173,15 @@ compiling DrivePath.cpp successful.
 
 compiling DriveToWall.cpp successful.
 
+<<<<<<< HEAD
+<<<<<<< main
+<<<<<<< main
+<<<<<<< main
 compiling HoldPosition.cpp successful.
+>>>>>>> began working on ball transfer
+=======
+compiling HoldPosition.cpp successful.
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer
 
 compiling ResetPosition.cpp successful.
@@ -468,6 +480,10 @@ C:\Users\darth\.gradle\caches\transforms-3\13e16f6d00fe299fb36dcbe82772049b\tran
 C:\Users\darth\.gradle\caches\transforms-3\13e16f6d00fe299fb36dcbe82772049b\transformed\wpiutil-cpp-2022.2.1-headers/wpi/math:13:2: warning: #warning "Use <wpi/numbers> and wpi::numbers instead to reflect C++20 <numbers> and std::numbers" [-Wcpp]
 
 <<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
 Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.
 =======
 compiling ControlData.cpp successful.
@@ -494,6 +510,84 @@ compiling ScaledDeadbandValue.cpp successful.
 
 compiling SquaredProfile.cpp successful.
 
+<<<<<<< HEAD
+compiling SuperDrive.cpp successful.
+
+compiling ButtonDecorator.cpp successful.
+
+compiling DebouncedButton.cpp successful.
+
+compiling AnalogButton.cpp successful.
+
+compiling POVButton.cpp successful.
+
+compiling ToggleButton.cpp successful.
+
+compiling DigitalButton.cpp successful.
+
+compiling DragonXBox.cpp successful.
+
+compiling TurnAngle.cpp successful.
+
+compiling DragonGamepad.cpp successful.
+
+compiling FunctionMap.cpp successful.
+
+compiling DragonDigitalInput.cpp successful.
+
+compiling TeleopControl.cpp successful.
+
+compiling DragonPDP.cpp successful.
+
+compiling DragonLimelight.cpp successful.
+
+compiling DragonPigeon.cpp successful.
+
+compiling DragonFalcon.cpp successful.
+
+compiling DragonServo.cpp successful.
+=======
+=======
+compiling BallTransferStateMgr.cpp failed.
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\states\BallTransfer\BallTransferStateMgr.cpp: In member function 'virtual void BallTransferStateMgr::CheckForStateTransition()':
+C:\Users\user\Documents\GitHub\2022RapidReact\src\main\cpp\states\BallTransfer\BallTransferStateMgr.cpp:64:96: error: 'LIFT' is not a member of 'TeleopControl::FUNCTION_IDENTIFIER'
+             auto liftPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::LIFT);
+                                                                                                ^~~~
+
+>>>>>>> finished adding ball transfer to robot, and started adding the lift state
+compiling PrimitiveFactory.cpp successful.
+>>>>>>> edited the states
+=======
+compiling HoldPosition.cpp successful.
+
+compiling ResetPosition.cpp successful.
+
+compiling ControlData.cpp successful.
+
+compiling MechanismTargetData.cpp successful.
+
+compiling AnalogAxis.cpp successful.
+
+compiling CubedProfile.cpp successful.
+
+compiling DeadbandValue.cpp successful.
+
+compiling FlippedAxis.cpp successful.
+
+compiling LinearProfile.cpp successful.
+
+compiling NoDeadbandValue.cpp successful.
+
+compiling PiecewiseLinearProfile.cpp successful.
+
+compiling ScaledAxis.cpp successful.
+
+compiling ScaledDeadbandValue.cpp successful.
+
+compiling SquaredProfile.cpp successful.
+
+=======
+>>>>>>> BallTransfer
 compiling AnalogButton.cpp successful.
 
 compiling ButtonDecorator.cpp successful.
@@ -529,6 +623,10 @@ compiling DragonLimelight.cpp successful.
 compiling DragonFalcon.cpp successful.
 
 compiling DragonServo.cpp successful.
+<<<<<<< HEAD
+>>>>>>> finished lift state and started changing the base class
+=======
+>>>>>>> BallTransfer
 
 compiling DragonVision.cpp successful.
 
@@ -655,4 +753,8 @@ compiling SwerveModuleDefn.cpp successful.
 compiling PrimitiveFactory.cpp successful.
 
 Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/user/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
 >>>>>>> BallTransfer

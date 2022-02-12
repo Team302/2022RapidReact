@@ -77,40 +77,55 @@ void StateMgr::Init
             m_stateVector.resize(stateMap.size());
             // create the states passing the configuration data
             for ( auto td: targetData )
+            {
+                auto stateString = td->GetStateString();
+                auto stateStringToStrucItr = stateMap.find( stateString );
+                if ( stateStringToStrucItr != stateMap.end() )
                 {
-                    auto stateString = td->GetStateString();
-                    auto stateStringToStrucItr = stateMap.find( stateString );
-                    if ( stateStringToStrucItr != stateMap.end() )
+                    auto struc = stateStringToStrucItr->second;
+                    auto slot = struc.id;
+                    if ( m_stateVector[slot] == nullptr )
                     {
-                        auto struc = stateStringToStrucItr->second;
-                        auto slot = struc.id;
-                        if ( m_stateVector[slot] == nullptr )
+                        auto controlData = td->GetController();
+                	auto controlData2 = td->GetController2();
+                        auto target = td->GetTarget();
+                	auto secondaryTarget = td->GetSecondTarget();
+                        auto type = struc.type;
+                        IState* thisState = nullptr;
+                        switch (type)
                         {
-                            auto controlData = td->GetController();
-                            auto target = td->GetTarget();
-                            auto controlData2 = td->GetController2();
-                            auto secondaryTarget = td->GetSecondTarget();
-                            auto type = struc.type;
-                            IState* thisState = nullptr;
-                            switch (type)
-                            {
-                                /*
-                                case StateType::INTAKE:
-                        	    thisState = new IntakeState(controlData, controlData2, target, secondaryTarget);
+                            case StateType::LEFT_INTAKE:
+                        	    thisState = new IntakeState(MechanismFactory::GetMechanismFactory()->GetLeftIntake(),
+                                                            controlData,
+                                                            controlData2, 
+                                                            target, 
+                                                            secondaryTarget);
                         	    break;
+
+                            case StateType::RIGHT_INTAKE:
+                        	    thisState = new IntakeState(MechanismFactory::GetMechanismFactory()->GetRightIntake(),
+                                                            controlData,
+                                                            controlData2, 
+                                                            target, 
+                                                            secondaryTarget);
+                        	    break;
+                        	    
+                    	    case StateType::BALL_TRANSFER:
+                        	    thisState = new BallTransferState(controlData, controlData2, target, secondaryTarget);
+                        	    break;
+                    
+
                     	        case StateType::SHOOTER:
                        		    thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
                        		    break;
+
                                 case StateType::CLIMBER:
-                                thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
-                                break; 
-                                */
-                                case StateType::BALLTRANSFER:
-                                thisState = new BallTransferState(controlData, controlData2, target, secondaryTarget);
-                                break;
+                                    thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
+                                    break;
+
                     	    default:
                     	    {
-                        	Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));
+                        	    Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));
                     	    }
                     	    break;
                 	}
