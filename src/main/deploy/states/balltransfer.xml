@@ -3,14 +3,21 @@
 <statedata>
 	<controlData identifier="openloop" 
 	             mode="PERCENT_OUTPUT"/>
+
 	<mechanismTarget stateIdentifier="BALLTRANSFEROFF"
 	                 controlDataIdentifier="openloop"
-					 value="0.0"/>
+					 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondvalue="0.0"/>		 
 	<mechanismTarget stateIdentifier="BALLTRANSFERSPIN"
 	                 controlDataIdentifier="openloop"
-					 value="1.0"/>
+					 controlDataIdentifier2="openloop"
+					 value="1.0"
+					 secondvalue="0.5"/>
 	<mechanismTarget stateIdentifier="BALLTRANSFERLIFT"
-	                 controlDataIdentifier2="openloop"
-					 secondValue="0.5"/>
+	                 controlDataIdentifier="openloop"
+					 controlDataIdentifier2="openloop"
+					 value="-1.0"
+					 secondValue="-0.5"/>
 
 </statedata>

@@ -38,8 +38,8 @@ BallTransfer::BallTransfer
     shared_ptr<IDragonMotorController> spinMotor, //Motor controller passed in from mech factory
     shared_ptr<IDragonMotorController> liftMotor //Second motor controller passed in from mech factory
 ) : Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER, 
-                   networkTableName, 
                    controlFileName, 
+                   networkTableName, 
                    spinMotor, 
                    liftMotor)
 //  ^ Creates a 1 motor mechanism of type "Ball Transfer", states control data and network table name, also pass in motor controller
