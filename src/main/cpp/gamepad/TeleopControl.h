@@ -66,7 +66,6 @@ class TeleopControl
             STOP_LIMELIGHT_FEED_TO_DASH,
             CAMERA_FEED_TO_DASH,
             STOP_CAMERA_FEED_TO_DASH,
-            
             FINDTARGET,    //Rotate to point to target center
             MAX_FUNCTIONS
         };

@@ -86,7 +86,22 @@ TeleopControl::TeleopControl() : m_axisIDs(),
         m_buttonIDs[inx]  		= IDragonGamePad::UNDEFINED_BUTTON;
         m_controllerIndex[inx]  = -1;
     }
+/*
+Driver
+L-Stick Robot Drive (Field Orient) //SWERVE_DRIVE_DRIVE
+R-Stick X Axis Robot Rotation //SWERVE_DRIVE_ROTATE
+Left Bumper - Polar Drive  //FINDTARGET
+Right Bumper - Maintain Target
+Right Trigger - Climber Manual UP
+Left Trigger Climber manual DOWN
+Select + R-Stick yAxis Pos Climber Arm Forward
+Select + R-Stick yAxis Neg - Climber Arm Back
+A Button - Automated Climber
+B Button - Rezero Pigion    //REZERO_PIGEON 
 
+
+
+*/
     auto ctrlNo = 0;
     if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
@@ -97,7 +112,13 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_controllerIndex[ SWERVE_DRIVE_ROTATE]			= ctrlNo;
 		m_axisIDs[ SWERVE_DRIVE_ROTATE]					= IDragonGamePad::RIGHT_JOYSTICK_X;
 		m_controllerIndex[ REZERO_PIGEON ]				= ctrlNo;
-		m_buttonIDs[ REZERO_PIGEON ]					= IDragonGamePad::X_BUTTON;
+		m_buttonIDs[ REZERO_PIGEON ]					= IDragonGamePad::B_BUTTON;
+		m_controllerIndex[DRIVE_POLAR] 					= ctrlNo;//m_controllerIndex[DRIVE_SHIFT_UP] 	= ctrlNo;
+		m_buttonIDs[DRIVE_POLAR] 						= IDragonGamePad::RIGHT_BUMPER;	//m_buttonIDs[DRIVE_SHIFT_UP] 		= IDragonGamePad::RIGHT_BUMPER;	
+		m_controllerIndex[FINDTARGET] 					= ctrlNo;  //m_controllerIndex[DRIVE_SHIFT_DOWN] = ctrlNo;
+		m_buttonIDs[FINDTARGET]	 						= IDragonGamePad::LEFT_BUMPER;	//m_buttonIDs[DRIVE_SHIFT_DOWN] 		= IDragonGamePad::LEFT_BUMPER;
+
+		// TODO Decide on the following Geo3
 		m_controllerIndex[DRIVE_FULL] 		= ctrlNo;
 		m_buttonIDs[DRIVE_FULL] 			= IDragonGamePad::POV_0;	
 		m_controllerIndex[DRIVE_75PERCENT] 	= ctrlNo;
@@ -106,21 +127,6 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_buttonIDs[DRIVE_50PERCENT] 		= IDragonGamePad::POV_270;	
 		m_controllerIndex[DRIVE_25PERCENT] 	= ctrlNo;
 		m_buttonIDs[DRIVE_25PERCENT] 		= IDragonGamePad::POV_180;	
-
-		//m_controllerIndex[DRIVE_SHIFT_UP] 	= ctrlNo;
-		//m_buttonIDs[DRIVE_SHIFT_UP] 		= IDragonGamePad::RIGHT_BUMPER;	
-
-		//m_controllerIndex[DRIVE_SHIFT_DOWN] = ctrlNo;
-		//m_buttonIDs[DRIVE_SHIFT_DOWN] 		= IDragonGamePad::LEFT_BUMPER;
-		
-		m_controllerIndex[DRIVE_POLAR] 	= ctrlNo;
-		m_buttonIDs[DRIVE_POLAR] 		= IDragonGamePad::RIGHT_BUMPER;	
-			
-		m_controllerIndex[FINDTARGET] = ctrlNo;
-		m_buttonIDs[FINDTARGET]	 		= IDragonGamePad::LEFT_BUMPER;	
-
-        /////////////////////////////////////////////////////////////////////  
-		
 		m_controllerIndex[DRIVE_TURBO] 		= ctrlNo;
 		m_axisIDs[ DRIVE_TURBO]	     		= IDragonGamePad::RIGHT_TRIGGER;
 		m_controllerIndex[DRIVE_BRAKE] 		= ctrlNo;
@@ -132,18 +138,32 @@ TeleopControl::TeleopControl() : m_axisIDs(),
         Logger::GetLogger()->LogError( string("TeleopControl::TeleopControl"), string("No controller plugged into port 0"));
     }
 
+/*
+Co-Pilot
+Right Bumper - Right Intake        INTAKE_RIGHT
+Left Bumper - Left Intake          INTAKE_LEFT
+A- Button - Auto Shoot
+X- Button - Force Shoot
+B - Button - Manual Kicker
+Left Stick yAxis - Shooter hood manual
+start - stop - Get ready to shoot state
+Down d-Pad - Get ready to shoot
+Left d-Pad - Left Intake Expell     EXPEL_LEFT
+Right d-Pad - Right Intake Expell   EXPEL_RIGHT
+*/
+
     ctrlNo = 1;
     if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
-		m_controllerIndex[INTAKE_LEFT] 	= ctrlNo;
-		m_buttonIDs[INTAKE_LEFT]		= IDragonGamePad::LEFT_BUMPER;	
-		m_controllerIndex[INTAKE_RIGHT] = ctrlNo;
-		m_buttonIDs[INTAKE_RIGHT]		= IDragonGamePad::RIGHT_BUMPER;	
-	
-		m_controllerIndex[EXPEL_LEFT] 	= ctrlNo;
-		m_buttonIDs[EXPEL_LEFT] 		= IDragonGamePad::POV_90;	
-		m_controllerIndex[EXPEL_RIGHT] 	= ctrlNo;
-		m_buttonIDs[EXPEL_RIGHT] 		= IDragonGamePad::POV_270;	
+
+		m_controllerIndex[INTAKE_LEFT] 		= ctrlNo;
+		m_buttonIDs[INTAKE_LEFT]			= IDragonGamePad::LEFT_BUMPER;	
+		m_controllerIndex[INTAKE_RIGHT] 	= ctrlNo;
+		m_buttonIDs[INTAKE_RIGHT]			= IDragonGamePad::RIGHT_BUMPER;	
+		m_controllerIndex[EXPEL_LEFT] 		= ctrlNo;
+		m_buttonIDs[EXPEL_LEFT] 			= IDragonGamePad::POV_270;	
+		m_controllerIndex[EXPEL_RIGHT] 		= ctrlNo;
+		m_buttonIDs[EXPEL_RIGHT] 			= IDragonGamePad::POV_90;	
 
 	}
     else if ( m_controllers[ctrlNo] != nullptr )
