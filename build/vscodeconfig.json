@@ -14,6 +14,7 @@
     "systemCMacros": [],
     "systemCArgs": [],
     "allLibFiles": [
+<<<<<<< main
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\47a7ea2f706e62a5be870ed40114146c\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c9aaee0968b5842f6deb1bd3767dcdd7\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\b975060d99dfbfe1a809809ab9a387ad\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -86,6 +87,80 @@
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers\\",
       "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
       "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+=======
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\07102907b57d70cc1ab6519c9cee00f8\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9c2b882d28c9ffa98afbce44041f09ad\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d306774cdb3e60908cece68d32c6755d\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3c8e5162cf6a2737d79f8f91312bf302\\transformed\\cci-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\770d6605b9c709d41202ec0de523e9e2\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\2e8234a3d44f7c9d000d430997ff5bb9\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9341711e4062501652d2ae4d5c4643f7\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d1fd0bd99c9e92ff74caaa461e411165\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\71abc103ec7fd14c26abb6d5a3f2c586\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\6e72ab9dcef912cfb7a89c6fb0240c4c\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c36749a0ce4c3890d357b5047dfa5da7\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c32ac1d3a671615614c5855b793ae221\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\325ae9998d82e376212e3ea265b4089d\\transformed\\wpilibc-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5116bcab7338e38d82dbb9ab607a6ba0\\transformed\\ntcore-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\e472cb6779ec5fa9d11d5b226116775b\\transformed\\hal-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\cb792664bef47569dcffa6c9710cc9c3\\transformed\\wpimath-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8e545b9267d8462ae1a98a7e46be3ab8\\transformed\\wpiutil-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9977cc751f90faa75a321b45a4033ad1\\transformed\\netcomm-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8603052b8e02e9d78112e43b4910ee07\\transformed\\chipobject-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c11872428d3d63ffefa58c7fd3e014e2\\transformed\\visa-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\4d761be71ed3a6ec98a51fa949f07d83\\transformed\\cameraserver-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5ab3c73f681a3de5d970f6f3b9cade0e\\transformed\\cscore-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "D:\\Github\\2022RapidReact\\src\\main\\cpp\\",
+      "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\cd4c5baa53c5976da1faa54a4afa38d4\\transformed\\wpilibNewCommands-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\e4247ad5b8685700234c5c356ce1166c\\transformed\\wpilibc-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\449cc64309b772cd0f0039b5ad65dce8\\transformed\\ntcore-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\a8186daa11344f84a76fac2a9a7d1f9d\\transformed\\hal-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3984b6e7b2362973e36e8acea8c60f99\\transformed\\wpimath-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\b257b4a30020bb0bf75b007f3404227f\\transformed\\wpiutil-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3343476a3e01b6f1e87476f57bdce10f\\transformed\\cameraserver-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\ba57301d353a4463653823071d763fee\\transformed\\cscore-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\eae53d227d89d0574829342933550be5\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+    ],
+    "allLibSources": [
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\cd4c5baa53c5976da1faa54a4afa38d4\\transformed\\wpilibNewCommands-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\e4247ad5b8685700234c5c356ce1166c\\transformed\\wpilibc-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\449cc64309b772cd0f0039b5ad65dce8\\transformed\\ntcore-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\a8186daa11344f84a76fac2a9a7d1f9d\\transformed\\hal-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3984b6e7b2362973e36e8acea8c60f99\\transformed\\wpimath-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\b257b4a30020bb0bf75b007f3404227f\\transformed\\wpiutil-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3343476a3e01b6f1e87476f57bdce10f\\transformed\\cameraserver-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\ba57301d353a4463653823071d763fee\\transformed\\cscore-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\eae53d227d89d0574829342933550be5\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+    ],
+    "allLibHeaders": [
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\07102907b57d70cc1ab6519c9cee00f8\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9c2b882d28c9ffa98afbce44041f09ad\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d306774cdb3e60908cece68d32c6755d\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3c8e5162cf6a2737d79f8f91312bf302\\transformed\\cci-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\770d6605b9c709d41202ec0de523e9e2\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\2e8234a3d44f7c9d000d430997ff5bb9\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9341711e4062501652d2ae4d5c4643f7\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d1fd0bd99c9e92ff74caaa461e411165\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\71abc103ec7fd14c26abb6d5a3f2c586\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\6e72ab9dcef912cfb7a89c6fb0240c4c\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c36749a0ce4c3890d357b5047dfa5da7\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c32ac1d3a671615614c5855b793ae221\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\325ae9998d82e376212e3ea265b4089d\\transformed\\wpilibc-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5116bcab7338e38d82dbb9ab607a6ba0\\transformed\\ntcore-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\e472cb6779ec5fa9d11d5b226116775b\\transformed\\hal-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\cb792664bef47569dcffa6c9710cc9c3\\transformed\\wpimath-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8e545b9267d8462ae1a98a7e46be3ab8\\transformed\\wpiutil-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9977cc751f90faa75a321b45a4033ad1\\transformed\\netcomm-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8603052b8e02e9d78112e43b4910ee07\\transformed\\chipobject-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c11872428d3d63ffefa58c7fd3e014e2\\transformed\\visa-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\4d761be71ed3a6ec98a51fa949f07d83\\transformed\\cameraserver-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5ab3c73f681a3de5d970f6f3b9cade0e\\transformed\\cscore-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "D:\\Github\\2022RapidReact\\src\\main\\cpp\\",
+      "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added network table reader
     ],
     "binaries": [
       {
@@ -94,8 +169,8 @@
           {
             "source": {
               "srcDirs": [
-                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
-                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+                "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\",
+                "D:\\Github\\2022RapidReact\\src\\main\\cpp\\"
               ],
               "includes": [
                 "**/*.cpp",
@@ -107,8 +182,8 @@
             },
             "exportedHeaders": {
               "srcDirs": [
-                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
-                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+                "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\",
+                "D:\\Github\\2022RapidReact\\src\\main\\cpp\\"
               ],
               "includes": [
                 "**/*.hpp",
@@ -137,6 +212,7 @@
           }
         ],
         "libHeaders": [
+<<<<<<< main
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\47a7ea2f706e62a5be870ed40114146c\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c9aaee0968b5842f6deb1bd3767dcdd7\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\b975060d99dfbfe1a809809ab9a387ad\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -162,6 +238,33 @@
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers\\",
           "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
           "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+=======
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\07102907b57d70cc1ab6519c9cee00f8\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9c2b882d28c9ffa98afbce44041f09ad\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d306774cdb3e60908cece68d32c6755d\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3c8e5162cf6a2737d79f8f91312bf302\\transformed\\cci-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\770d6605b9c709d41202ec0de523e9e2\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\2e8234a3d44f7c9d000d430997ff5bb9\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9341711e4062501652d2ae4d5c4643f7\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d1fd0bd99c9e92ff74caaa461e411165\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\71abc103ec7fd14c26abb6d5a3f2c586\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\6e72ab9dcef912cfb7a89c6fb0240c4c\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c36749a0ce4c3890d357b5047dfa5da7\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c32ac1d3a671615614c5855b793ae221\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\325ae9998d82e376212e3ea265b4089d\\transformed\\wpilibc-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5116bcab7338e38d82dbb9ab607a6ba0\\transformed\\ntcore-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\e472cb6779ec5fa9d11d5b226116775b\\transformed\\hal-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\cb792664bef47569dcffa6c9710cc9c3\\transformed\\wpimath-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8e545b9267d8462ae1a98a7e46be3ab8\\transformed\\wpiutil-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9977cc751f90faa75a321b45a4033ad1\\transformed\\netcomm-2022.4.0-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8603052b8e02e9d78112e43b4910ee07\\transformed\\chipobject-2022.4.0-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c11872428d3d63ffefa58c7fd3e014e2\\transformed\\visa-2022.4.0-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\4d761be71ed3a6ec98a51fa949f07d83\\transformed\\cameraserver-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5ab3c73f681a3de5d970f6f3b9cade0e\\transformed\\cscore-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+          "D:\\Github\\2022RapidReact\\src\\main\\cpp\\",
+          "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added network table reader
         ],
         "sharedLibrary": false,
         "executable": true
@@ -171,8 +274,8 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
-            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+            "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\",
+            "D:\\Github\\2022RapidReact\\src\\main\\cpp\\"
           ],
           "includes": [
             "**/*.cpp",
@@ -206,8 +309,8 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
-            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+            "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\",
+            "D:\\Github\\2022RapidReact\\src\\main\\cpp\\"
           ],
           "includes": [
             "**/*.hpp",
@@ -257,6 +360,7 @@
     "systemCMacros": [],
     "systemCArgs": [],
     "allLibFiles": [
+<<<<<<< main
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\47a7ea2f706e62a5be870ed40114146c\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c9aaee0968b5842f6deb1bd3767dcdd7\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\b975060d99dfbfe1a809809ab9a387ad\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -329,6 +433,80 @@
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers\\",
       "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
       "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+=======
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\07102907b57d70cc1ab6519c9cee00f8\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9c2b882d28c9ffa98afbce44041f09ad\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d306774cdb3e60908cece68d32c6755d\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3c8e5162cf6a2737d79f8f91312bf302\\transformed\\cci-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\770d6605b9c709d41202ec0de523e9e2\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\2e8234a3d44f7c9d000d430997ff5bb9\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9341711e4062501652d2ae4d5c4643f7\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d1fd0bd99c9e92ff74caaa461e411165\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\71abc103ec7fd14c26abb6d5a3f2c586\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\6e72ab9dcef912cfb7a89c6fb0240c4c\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c36749a0ce4c3890d357b5047dfa5da7\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c32ac1d3a671615614c5855b793ae221\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\325ae9998d82e376212e3ea265b4089d\\transformed\\wpilibc-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5116bcab7338e38d82dbb9ab607a6ba0\\transformed\\ntcore-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\e472cb6779ec5fa9d11d5b226116775b\\transformed\\hal-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\cb792664bef47569dcffa6c9710cc9c3\\transformed\\wpimath-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8e545b9267d8462ae1a98a7e46be3ab8\\transformed\\wpiutil-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9977cc751f90faa75a321b45a4033ad1\\transformed\\netcomm-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8603052b8e02e9d78112e43b4910ee07\\transformed\\chipobject-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c11872428d3d63ffefa58c7fd3e014e2\\transformed\\visa-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\4d761be71ed3a6ec98a51fa949f07d83\\transformed\\cameraserver-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5ab3c73f681a3de5d970f6f3b9cade0e\\transformed\\cscore-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "D:\\Github\\2022RapidReact\\src\\main\\cpp\\",
+      "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\cd4c5baa53c5976da1faa54a4afa38d4\\transformed\\wpilibNewCommands-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\e4247ad5b8685700234c5c356ce1166c\\transformed\\wpilibc-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\449cc64309b772cd0f0039b5ad65dce8\\transformed\\ntcore-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\a8186daa11344f84a76fac2a9a7d1f9d\\transformed\\hal-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3984b6e7b2362973e36e8acea8c60f99\\transformed\\wpimath-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\b257b4a30020bb0bf75b007f3404227f\\transformed\\wpiutil-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3343476a3e01b6f1e87476f57bdce10f\\transformed\\cameraserver-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\ba57301d353a4463653823071d763fee\\transformed\\cscore-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\eae53d227d89d0574829342933550be5\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+    ],
+    "allLibSources": [
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\cd4c5baa53c5976da1faa54a4afa38d4\\transformed\\wpilibNewCommands-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\e4247ad5b8685700234c5c356ce1166c\\transformed\\wpilibc-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\449cc64309b772cd0f0039b5ad65dce8\\transformed\\ntcore-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\a8186daa11344f84a76fac2a9a7d1f9d\\transformed\\hal-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3984b6e7b2362973e36e8acea8c60f99\\transformed\\wpimath-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\b257b4a30020bb0bf75b007f3404227f\\transformed\\wpiutil-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3343476a3e01b6f1e87476f57bdce10f\\transformed\\cameraserver-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\ba57301d353a4463653823071d763fee\\transformed\\cscore-cpp-2022.3.1-sources\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\eae53d227d89d0574829342933550be5\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+    ],
+    "allLibHeaders": [
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\07102907b57d70cc1ab6519c9cee00f8\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9c2b882d28c9ffa98afbce44041f09ad\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d306774cdb3e60908cece68d32c6755d\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3c8e5162cf6a2737d79f8f91312bf302\\transformed\\cci-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\770d6605b9c709d41202ec0de523e9e2\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\2e8234a3d44f7c9d000d430997ff5bb9\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9341711e4062501652d2ae4d5c4643f7\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d1fd0bd99c9e92ff74caaa461e411165\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\71abc103ec7fd14c26abb6d5a3f2c586\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\6e72ab9dcef912cfb7a89c6fb0240c4c\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c36749a0ce4c3890d357b5047dfa5da7\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c32ac1d3a671615614c5855b793ae221\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\325ae9998d82e376212e3ea265b4089d\\transformed\\wpilibc-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5116bcab7338e38d82dbb9ab607a6ba0\\transformed\\ntcore-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\e472cb6779ec5fa9d11d5b226116775b\\transformed\\hal-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\cb792664bef47569dcffa6c9710cc9c3\\transformed\\wpimath-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8e545b9267d8462ae1a98a7e46be3ab8\\transformed\\wpiutil-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9977cc751f90faa75a321b45a4033ad1\\transformed\\netcomm-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8603052b8e02e9d78112e43b4910ee07\\transformed\\chipobject-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c11872428d3d63ffefa58c7fd3e014e2\\transformed\\visa-2022.4.0-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\4d761be71ed3a6ec98a51fa949f07d83\\transformed\\cameraserver-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5ab3c73f681a3de5d970f6f3b9cade0e\\transformed\\cscore-cpp-2022.3.1-headers\\",
+      "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "D:\\Github\\2022RapidReact\\src\\main\\cpp\\",
+      "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added network table reader
     ],
     "binaries": [
       {
@@ -337,8 +515,8 @@
           {
             "source": {
               "srcDirs": [
-                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
-                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+                "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\",
+                "D:\\Github\\2022RapidReact\\src\\main\\cpp\\"
               ],
               "includes": [
                 "**/*.cpp",
@@ -350,8 +528,8 @@
             },
             "exportedHeaders": {
               "srcDirs": [
-                "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
-                "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+                "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\",
+                "D:\\Github\\2022RapidReact\\src\\main\\cpp\\"
               ],
               "includes": [
                 "**/*.hpp",
@@ -379,6 +557,7 @@
           }
         ],
         "libHeaders": [
+<<<<<<< main
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\47a7ea2f706e62a5be870ed40114146c\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c9aaee0968b5842f6deb1bd3767dcdd7\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\b975060d99dfbfe1a809809ab9a387ad\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -404,6 +583,33 @@
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers\\",
           "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
           "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+=======
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\07102907b57d70cc1ab6519c9cee00f8\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9c2b882d28c9ffa98afbce44041f09ad\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d306774cdb3e60908cece68d32c6755d\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\3c8e5162cf6a2737d79f8f91312bf302\\transformed\\cci-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\770d6605b9c709d41202ec0de523e9e2\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\2e8234a3d44f7c9d000d430997ff5bb9\\transformed\\api-cpp-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9341711e4062501652d2ae4d5c4643f7\\transformed\\cci-sim-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\d1fd0bd99c9e92ff74caaa461e411165\\transformed\\simTalonSRX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\71abc103ec7fd14c26abb6d5a3f2c586\\transformed\\simTalonFX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\6e72ab9dcef912cfb7a89c6fb0240c4c\\transformed\\simVictorSPX-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c36749a0ce4c3890d357b5047dfa5da7\\transformed\\simPigeonIMU-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c32ac1d3a671615614c5855b793ae221\\transformed\\simCANCoder-5.20.0-beta-2-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\325ae9998d82e376212e3ea265b4089d\\transformed\\wpilibc-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5116bcab7338e38d82dbb9ab607a6ba0\\transformed\\ntcore-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\e472cb6779ec5fa9d11d5b226116775b\\transformed\\hal-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\cb792664bef47569dcffa6c9710cc9c3\\transformed\\wpimath-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8e545b9267d8462ae1a98a7e46be3ab8\\transformed\\wpiutil-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9977cc751f90faa75a321b45a4033ad1\\transformed\\netcomm-2022.4.0-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\8603052b8e02e9d78112e43b4910ee07\\transformed\\chipobject-2022.4.0-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\c11872428d3d63ffefa58c7fd3e014e2\\transformed\\visa-2022.4.0-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\4d761be71ed3a6ec98a51fa949f07d83\\transformed\\cameraserver-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\5ab3c73f681a3de5d970f6f3b9cade0e\\transformed\\cscore-cpp-2022.3.1-headers\\",
+          "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+          "D:\\Github\\2022RapidReact\\src\\main\\cpp\\",
+          "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\"
+>>>>>>> Added network table reader
         ],
         "sharedLibrary": false,
         "executable": true
@@ -413,8 +619,8 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
-            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+            "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\",
+            "D:\\Github\\2022RapidReact\\src\\main\\cpp\\"
           ],
           "includes": [
             "**/*.cpp",
@@ -447,8 +653,8 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\GitRepos\\2022RapidReact\\src\\main\\cpp\\",
-            "C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty\\"
+            "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\",
+            "D:\\Github\\2022RapidReact\\src\\main\\cpp\\"
           ],
           "includes": [
             "**/*.hpp",
