@@ -57,8 +57,8 @@ BallTransferStateMgr::BallTransferStateMgr()
 {
     map<string, StateStruc> stateMap;
     stateMap["BALLTRANSFEROFF"] = m_offState;
+    stateMap["BALLTRANSFERSPIN"] = m_spinState;
     stateMap["BALLTRANSFERLIFT"] = m_liftState;
-    stateMap["BALLTRANSFERSPIN"] = m_liftState;
 
     Init(MechanismFactory::GetMechanismFactory()->GetBallTransfer(), stateMap);
 }
