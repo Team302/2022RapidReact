@@ -74,11 +74,6 @@ void CyclePrimitives::Run()
 		if (m_currentPrim != nullptr)
 		{
 			m_currentPrim->Run();
-
-			if (m_currentPrim->IsDone())
-			{
-				GetNextPrim();
-			}
 			Logger::GetLogger()->LogError(string("CyclePrimitives"), string("Running current primitive"));
 
 			if (m_currentPrim->IsDone())
