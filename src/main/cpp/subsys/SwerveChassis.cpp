@@ -90,7 +90,7 @@ SwerveChassis::SwerveChassis
     m_scale(1.0),
     m_boost(0.0),
     m_brake(0.0),
-    m_runWPI(false),
+    m_runWPI(true),
     m_poseOpt(PoseEstimatorEnum::WPI),
     m_pose(),
     m_offsetPoseAngle(0_deg),
@@ -153,12 +153,13 @@ void SwerveChassis::SetBrake( double brake )
 
 void SwerveChassis::CalcHeadingCorrection
 (
-    units::angle::degree_t  targetAngle
+    units::angle::degree_t  targetAngle,
+    double                  kP
 ) 
 {
     auto currentAngle = GetYaw();
-    auto errorAngle = remainder((targetAngle.to<double>() - currentAngle.to<double>()), 360.);
-    m_yawCorrection = units::angular_velocity::degrees_per_second_t(errorAngle*kPHeadingControl);
+    auto errorAngle = remainder((targetAngle.to<double>() - currentAngle.to<double>()), 360.0);
+    m_yawCorrection = units::angular_velocity::degrees_per_second_t(errorAngle*kP);
 }
 
 /// @brief Drive the chassis
@@ -196,10 +197,15 @@ void SwerveChassis::Drive
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "ZSpeed", rot.to<double>() );
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "yaw", m_pigeon->GetYaw() );
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "scale", m_scale );
+    Logger::GetLogger()->ToNtTable("Swerve Chassis", "angle error Degrees Per Second", m_yawCorrection.to<double>());
+
+    Logger::GetLogger()->ToNtTable("Swerve Chassis", "Current X", GetPose().X().to<double>());
+    Logger::GetLogger()->ToNtTable("Swerve Chassis", "Current Y", GetPose().Y().to<double>());
+    Logger::GetLogger()->ToNtTable("Swerve Chassis", "Current Rot(Degrees)", GetPose().Rotation().Degrees().to<double>());
     
     if ( (abs(xSpeed.to<double>()) < m_deadband) && 
          (abs(ySpeed.to<double>()) < m_deadband) && 
-         (abs(rot.to<double>())    < m_deadband) )
+         (abs(rot.to<double>())    < m_angularDeadband.to<double>()) )
     {
         m_frontLeft.get()->StopMotors();
         m_frontRight.get()->StopMotors();
@@ -333,7 +339,7 @@ void SwerveChassis::Drive
 {
     if ( abs(drive)  < m_deadband && 
          abs(steer)  < m_deadband && 
-         abs(rotate) < m_deadband )
+         abs(rotate) < m_angularDeadband.to<double>() )
     {
         // feed the motors
         m_frontLeft.get()->StopMotors();
@@ -370,19 +376,19 @@ void SwerveChassis::AdjustRotToMaintainHeading
     units::radians_per_second_t& rot 
 )
 {
-    if (abs(rot.to<double>()) < m_deadband) 
+    if (abs(rot.to<double>()) < m_deadband) //this doesn't use angular deadband b/c it's a fix
     {
         rot = units::radians_per_second_t(0.0);
         if (abs(xspeed.to<double>()) > 0.0 || abs(yspeed.to<double>() > 0.0))
         {
-            CalcHeadingCorrection(m_storedYaw);
+            CalcHeadingCorrection(m_storedYaw, kPMaintainHeadingControl);
         }
     }
     else
     {
         m_storedYaw = units::angle::degree_t(m_pigeon->GetYaw());
     }
-    rot += m_yawCorrection;
+    rot -= m_yawCorrection;
 }
 
 void SwerveChassis::AdjustRotToPointTowardGoal
@@ -407,13 +413,10 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     auto dTargetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
 
     //Debugging
-    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "Current X", myPose.X().to<double>());
-    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "Current Y", myPose.Y().to<double>());
-    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "Current Rot(Degrees)", myPose.Rotation().Degrees().to<double>());
     Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", dTargetAngle.to<double>()); 
 
-    CalcHeadingCorrection(dTargetAngle);
-    rot += m_yawCorrection;
+    CalcHeadingCorrection(dTargetAngle, kPGoalHeadingControl);
+    rot -= m_yawCorrection;
 }
 
 

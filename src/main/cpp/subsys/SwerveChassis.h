@@ -177,7 +177,8 @@ class SwerveChassis : public IChassis
 
         void CalcHeadingCorrection
         (
-            units::angle::degree_t  targetAngle
+            units::angle::degree_t  targetAngle,
+            double                  kP
         );
 
         void CalcSwerveModuleStates
@@ -239,7 +240,8 @@ class SwerveChassis : public IChassis
         units::angular_velocity::radians_per_second_t               m_rotate;
         units::angle::degree_t                                      m_targetHeading;
 
-        const double                                                m_deadband = 0.1;
+        const double                                                m_deadband = 0.05;
+        const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.008);
         
         frc::Translation2d m_frontLeftLocation;
         frc::Translation2d m_frontRightLocation;
@@ -259,10 +261,11 @@ class SwerveChassis : public IChassis
                                                            {0.1, 0.1, 0.1},   // state standard deviations
                                                            {0.05},            // local measurement standard deviations
                                                            {0.1, 0.1, 0.1} }; // vision measurement standard deviations
-        const double kPHeadingControl = 0.004;
-        const double kIHeadingControl = 0.001;
-        const double kDHeadingControl = 0.0;
-        const double kFHeadingControl = 0.0;
+        const double kPMaintainHeadingControl = 4.0;
+        const double kPGoalHeadingControl = 10.0;
+        const double kIHeadingControl = 0.0; //not being used
+        const double kDHeadingControl = 0.0; //not being used
+        const double kFHeadingControl = 0.0; //not being used
         units::angle::degree_t m_storedYaw;
         units::angular_velocity::degrees_per_second_t m_yawCorrection;
 
