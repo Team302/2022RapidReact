@@ -41,6 +41,8 @@
 // Third Party Includes
 #include <ctre/phoenix/sensors/CANCoder.h>
 
+#include <iostream>
+
 using namespace std;
 using namespace frc;
 
@@ -234,11 +236,32 @@ void SwerveChassis::Drive
             m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
 
             auto [fl, fr, bl, br] = states;
+
+            std::cout << "Swerve Chassis Drive Mode: " + to_string(mode) << endl;
+
+            // adjust wheel angles
+            if (mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE)
+            {
+                auto currentPose = GetPose();
+                auto goalPose = m_targetFinder.GetPosCenterTarget();
+
+                fl.angle = UpdateForPolarDrive(currentPose, goalPose, m_frontLeftLocation, chassisSpeeds);
+                fr.angle = UpdateForPolarDrive(currentPose, goalPose, m_frontRightLocation, chassisSpeeds);
+                bl.angle = UpdateForPolarDrive(currentPose, goalPose, m_backLeftLocation, chassisSpeeds);
+                br.angle = UpdateForPolarDrive(currentPose, goalPose, m_backRightLocation, chassisSpeeds);
+
+                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Front Left Angle", fl.angle.Degrees().to<double>());
+                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Front Right Angle", fr.angle.Degrees().to<double>());
+                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Back Left Angle", bl.angle.Degrees().to<double>());
+                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Back Right Angle", br.angle.Degrees().to<double>());
+           }
         
             m_frontLeft.get()->SetDesiredState(fl);
             m_frontRight.get()->SetDesiredState(fr);
             m_backLeft.get()->SetDesiredState(bl);
             m_backRight.get()->SetDesiredState(br); 
+
+            //Is moving check
             auto ax = m_accel.GetX();
             auto ay = m_accel.GetY();
             auto az = m_accel.GetZ();
