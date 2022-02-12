@@ -19,8 +19,11 @@ C:\\GitRepos\\2022RapidReact\\src\\main\\cpp
 -I
 C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty
 -I
+<<<<<<< refs/remotes/origin/PracticeXML
 <<<<<<< main
 <<<<<<< main
+=======
+>>>>>>> Started work on debugging polar drive
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\47a7ea2f706e62a5be870ed40114146c\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers
 -I
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c9aaee0968b5842f6deb1bd3767dcdd7\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers
@@ -66,6 +69,7 @@ C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a1deeb780726d8fcab4da1679229ba4
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0db5702a18949d54beec6d44b2db0b02\\transformed\\cscore-cpp-2022.3.1-headers
 -I
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers
+<<<<<<< refs/remotes/origin/PracticeXML
 =======
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a5f12ba1f483b99a8457ff10562e78fb\\transformed\\wpilibNewCommands-cpp-2022.2.1-headers
 =======
@@ -120,6 +124,8 @@ C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0010e3dd4a581fe91f56df7d2c1bbbd
 =======
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers
 >>>>>>> Auton Testing
+=======
+>>>>>>> Started work on debugging polar drive
 -isystem
 C:\\Users\\Public\\wpilib\\2022\\roborio\\arm-frc2022-linux-gnueabi\\usr\\lib\\gcc\\arm-frc2022-linux-gnueabi\\7.3.0\\include
 -isystem

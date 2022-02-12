@@ -1,5 +1,6 @@
 See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
 <<<<<<< refs/remotes/origin/PracticeXML
+<<<<<<< refs/remotes/origin/PracticeXML
 =======
 <<<<<<< main
 compiling HoldPosition.cpp successful.
@@ -51,12 +52,15 @@ compiling WPIFieldSwerve.cpp successful.
 
 compiling SuperDrive.cpp successful.
 =======
+=======
+>>>>>>> Started work on debugging polar drive
 compiling DragonVision.cpp successful.
 
 compiling PrimitiveFactory.cpp successful.
 
 compiling ResetPosition.cpp successful.
 
+<<<<<<< refs/remotes/origin/PracticeXML
 compiling DrivePath.cpp successful.
 <<<<<<< main
 >>>>>>> Path Testing
@@ -71,6 +75,8 @@ C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DrivePath.cpp:70:10: wa
 >>>>>>> Auton Testing
 >>>>>>> Auton Testing
 
+=======
+>>>>>>> Started work on debugging polar drive
 compiling SwerveChassis.cpp successful.
 
 Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
