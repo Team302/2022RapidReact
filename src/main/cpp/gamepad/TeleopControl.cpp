@@ -87,20 +87,20 @@ TeleopControl::TeleopControl() : m_axisIDs(),
         m_controllerIndex[inx]  = -1;
     }
 /*
-Driver
-L-Stick Robot Drive (Field Orient) //SWERVE_DRIVE_DRIVE
-R-Stick X Axis Robot Rotation //SWERVE_DRIVE_ROTATE
-Left Bumper - Polar Drive  //FINDTARGET
-Right Bumper - Maintain Target
-Right Trigger - Climber Manual UP
-Left Trigger Climber manual DOWN
-Select + R-Stick yAxis Pos Climber Arm Forward
-Select + R-Stick yAxis Neg - Climber Arm Back
-A Button - Automated Climber
-B Button - Rezero Pigion    //REZERO_PIGEON 
+	Driver  NOTES FROM TANAY
+	L-Stick Robot Drive (Field Orient) 				SWERVE_DRIVE_DRIVE  << SWERVEDIRVE.CPP  <<ROBOT.CPP
+	R-Stick X Axis Robot Rotation 					SWERVE_DRIVE_ROTATE  << SWERVEDIRVE.CPP  <<ROBOT.CPP
+	Left Bumper - 	Maintain Target					FINDTARGET  << SWERVEDIRVE.CPP
+	Right Bumper - Polar Drive        				DRIVE_POLAR  << SWERVEDIRVE.CPP
 
+	Right Trigger - Climber Manual UP   			CLIMBER_MAN_UP <<ClimberStateMgr
+	Left Trigger Climber manual DOWN    			CLIMBER_MAN_DOWN  <<ClimberStateMgr
 
+	Select + R-Stick yAxis Pos Climber Arm Forward  SELECT_CLIMBER_ARM + CLIMBER_MAN_UP <<ClimberStateMgr
+	Select + R-Stick yAxis Neg - Climber Arm Back   SELECT_CLIMBER_ARM + CLIMBER_MAN_DOWN <<ClimberStateMgr
 
+	A Button - Automated Climber        			CLIMB_AUTO  <<ClimberStateMgr
+	B Button - Rezero Pigion    					REZERO_PIGEON  << SWERVEDIRVE.CPP
 */
     auto ctrlNo = 0;
     if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
@@ -111,14 +111,29 @@ B Button - Rezero Pigion    //REZERO_PIGEON
 		m_axisIDs[ SWERVE_DRIVE_STEER]					= IDragonGamePad::LEFT_JOYSTICK_X;
 		m_controllerIndex[ SWERVE_DRIVE_ROTATE]			= ctrlNo;
 		m_axisIDs[ SWERVE_DRIVE_ROTATE]					= IDragonGamePad::RIGHT_JOYSTICK_X;
+	
 		m_controllerIndex[ REZERO_PIGEON ]				= ctrlNo;
 		m_buttonIDs[ REZERO_PIGEON ]					= IDragonGamePad::B_BUTTON;
-		m_controllerIndex[DRIVE_POLAR] 					= ctrlNo;//m_controllerIndex[DRIVE_SHIFT_UP] 	= ctrlNo;
-		m_buttonIDs[DRIVE_POLAR] 						= IDragonGamePad::RIGHT_BUMPER;	//m_buttonIDs[DRIVE_SHIFT_UP] 		= IDragonGamePad::RIGHT_BUMPER;	
-		m_controllerIndex[FINDTARGET] 					= ctrlNo;  //m_controllerIndex[DRIVE_SHIFT_DOWN] = ctrlNo;
-		m_buttonIDs[FINDTARGET]	 						= IDragonGamePad::LEFT_BUMPER;	//m_buttonIDs[DRIVE_SHIFT_DOWN] 		= IDragonGamePad::LEFT_BUMPER;
+		m_controllerIndex[DRIVE_POLAR] 					= ctrlNo;  
+		m_buttonIDs[DRIVE_POLAR] 						= IDragonGamePad::RIGHT_BUMPER;		
+		m_controllerIndex[FINDTARGET] 					= ctrlNo;  
+		m_buttonIDs[FINDTARGET]	 						= IDragonGamePad::LEFT_BUMPER;	
+		
+		//TODO needs hook to states 
+		//Analog???
+		m_controllerIndex[CLIMBER_MAN_UP]				= ctrlNo;  
+		m_axisIDs[CLIMBER_MAN_UP]	 					= IDragonGamePad::RIGHT_TRIGGER;
+		m_controllerIndex[CLIMBER_MAN_DOWN]				= ctrlNo;  
+		m_axisIDs[CLIMBER_MAN_DOWN]	 				    = IDragonGamePad::LEFT_TRIGGER;	
+		// used to enable climber and disable what right-stick Y might be mapped to.
+		// used with CLIMBER_MAN_UP and CLIMBER_MAN_DOWN
+		m_controllerIndex[SELECT_CLIMBER_ARM]			= ctrlNo;  
+		m_buttonIDs[SELECT_CLIMBER_ARM]	 				= IDragonGamePad::RIGHT_STICK_PRESSED;
 
-		// TODO Decide on the following Geo3
+		m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
+		m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::A_BUTTON;
+
+		// TODO Decide on the following Geo3 I think leave as is.
 		m_controllerIndex[DRIVE_FULL] 		= ctrlNo;
 		m_buttonIDs[DRIVE_FULL] 			= IDragonGamePad::POV_0;	
 		m_controllerIndex[DRIVE_75PERCENT] 	= ctrlNo;
@@ -127,10 +142,6 @@ B Button - Rezero Pigion    //REZERO_PIGEON
 		m_buttonIDs[DRIVE_50PERCENT] 		= IDragonGamePad::POV_270;	
 		m_controllerIndex[DRIVE_25PERCENT] 	= ctrlNo;
 		m_buttonIDs[DRIVE_25PERCENT] 		= IDragonGamePad::POV_180;	
-		m_controllerIndex[DRIVE_TURBO] 		= ctrlNo;
-		m_axisIDs[ DRIVE_TURBO]	     		= IDragonGamePad::RIGHT_TRIGGER;
-		m_controllerIndex[DRIVE_BRAKE] 		= ctrlNo;
-		m_axisIDs[ DRIVE_BRAKE]	     		= IDragonGamePad::LEFT_TRIGGER;
 
     }
     else
@@ -139,17 +150,17 @@ B Button - Rezero Pigion    //REZERO_PIGEON
     }
 
 /*
-Co-Pilot
-Right Bumper - Right Intake        INTAKE_RIGHT
-Left Bumper - Left Intake          INTAKE_LEFT
-A- Button - Auto Shoot
-X- Button - Force Shoot
-B - Button - Manual Kicker
-Left Stick yAxis - Shooter hood manual
-start - stop - Get ready to shoot state
-Down d-Pad - Get ready to shoot
-Left d-Pad - Left Intake Expell     EXPEL_LEFT
-Right d-Pad - Right Intake Expell   EXPEL_RIGHT
+	Co-Pilot NOTES FROM TANAY
+	Right Bumper - Right Intake         	INTAKE_RIGHT  RightIntakeStateMgr 
+	Left Bumper - Left Intake           	INTAKE_LEFT   LeftIntakeStateMgr 
+	A- Button - Auto Shoot              	AUTO_SHOOT    ShooterStateMgr
+	X- Button - Force Shoot             	FORCE_SHOOT   ShooterStateMgr
+	B - Button - Manual Kicker          	MAN_KICKER    ???
+	Left Stick yAxis - Shooter hood manual  SHOOTER_HOOD_MAN  ShooterStateMgr 
+	start - stop - Get ready to shoot state RDY2_SHOOT_STATE  ShooterStateMgr  
+	Down d-Pad - Get ready to shoot     	RDY2_SHOOT   ShooterStateMgr
+	Left d-Pad - Left Intake Expell     	EXPEL_LEFT   LeftIntakeStateMgr
+	Right d-Pad - Right Intake Expell   	EXPEL_RIGHT  RightIntakeStateMgr 
 */
 
     ctrlNo = 1;
@@ -164,6 +175,22 @@ Right d-Pad - Right Intake Expell   EXPEL_RIGHT
 		m_buttonIDs[EXPEL_LEFT] 			= IDragonGamePad::POV_270;	
 		m_controllerIndex[EXPEL_RIGHT] 		= ctrlNo;
 		m_buttonIDs[EXPEL_RIGHT] 			= IDragonGamePad::POV_90;	
+
+        //TODO needs hook for States
+		m_controllerIndex[AUTO_SHOOT] 		= ctrlNo;
+		m_buttonIDs[AUTO_SHOOT] 			= IDragonGamePad::A_BUTTON;	
+		m_controllerIndex[FORCE_SHOOT] 		= ctrlNo;
+		m_buttonIDs[FORCE_SHOOT] 			= IDragonGamePad::X_BUTTON;	
+		m_controllerIndex[MAN_KICKER] 		= ctrlNo;
+		m_buttonIDs[MAN_KICKER] 			= IDragonGamePad::B_BUTTON;	
+		m_controllerIndex[RDY2_SHOOT] 		= ctrlNo;
+ 		m_buttonIDs[RDY2_SHOOT] 			= IDragonGamePad::POV_180;	
+ 		m_controllerIndex[RDY2_SHOOT_STATE] = ctrlNo;
+ 		m_buttonIDs[RDY2_SHOOT_STATE]		= IDragonGamePad::START_BUTTON;	
+ 	
+
+	 	m_controllerIndex[SHOOTER_HOOD_MAN]	= ctrlNo;
+		m_axisIDs[SHOOTER_HOOD_MAN]			= IDragonGamePad::LEFT_JOYSTICK_Y;
 
 	}
     else if ( m_controllers[ctrlNo] != nullptr )

@@ -34,7 +34,7 @@
 class TeleopControl
 {
     public:
-
+// TODO:REMOVE UNUSED IDENTIFIERS
         enum FUNCTION_IDENTIFIER
         {
             UNKNOWN_FUNCTION,
@@ -66,7 +66,19 @@ class TeleopControl
             STOP_LIMELIGHT_FEED_TO_DASH,
             CAMERA_FEED_TO_DASH,
             STOP_CAMERA_FEED_TO_DASH,
+            // added 2022 Geo3
             FINDTARGET,    //Rotate to point to target center
+            CLIMBER_MAN_UP,
+            CLIMBER_MAN_DOWN,
+            CLIMB_AUTO,
+            AUTO_SHOOT,
+            FORCE_SHOOT,
+            MAN_KICKER,
+            RDY2_SHOOT,
+            RDY2_SHOOT_STATE, //
+            //Shooter hood manual
+            SHOOTER_HOOD_MAN,
+
             MAX_FUNCTIONS
         };
 
