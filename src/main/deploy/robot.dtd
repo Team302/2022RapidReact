@@ -40,6 +40,7 @@
                               50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 
                               60 | 61 | 62 ) "0"
           rotation CDATA "0.0"
+          type      (pigeon1 | pigeon2) "pigeon1"
           usage     (CENTER_OF_ROTATION | SHOOTER_CENTER)  "CENTER_OF_ROTATION"
 >
 

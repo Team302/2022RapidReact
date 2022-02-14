@@ -20,7 +20,7 @@
 
 // Team 302 includes
 #include <controllers/ControlData.h>
-#include <states/ShooterState.h>
+#include <states/shooter/ShooterState.h>
 #include <states/Mech2MotorState.h>
 #include <subsys/MechanismFactory.h>
 

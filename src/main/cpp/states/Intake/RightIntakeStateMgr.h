@@ -21,7 +21,7 @@
 // FRC includes
 
 // Team 302 includes
-#include <states/Intake/IntakeStateMgr.h>
+#include <states/intake/IntakeStateMgr.h>
 #include <states/StateStruc.h>
 
 

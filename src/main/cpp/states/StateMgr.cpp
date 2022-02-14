@@ -31,8 +31,8 @@
 #include <subsys/interfaces/IMech.h>
 #include <utils/Logger.h>
 #include <xmlmechdata/StateDataDefn.h>
-#include <states/Intake/IntakeState.h>
-#include <states/ShooterState.h>
+#include <states/intake/IntakeState.h>
+#include <states/shooter/ShooterState.h>
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
 

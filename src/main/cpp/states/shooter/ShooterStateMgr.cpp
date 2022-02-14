@@ -23,12 +23,12 @@
 
 // Team 302 includes
 #include <states/IState.h>
-#include <states/ShooterStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
 #include <xmlmechdata/StateDataDefn.h>
 #include <controllers/MechanismTargetData.h>
 #include <utils/Logger.h>
 #include <gamepad/TeleopControl.h>
-#include <states/ShooterState.h>
+#include <states/shooter/ShooterState.h>
 #include <states/StateMgr.h>
 #include <states/StateStruc.h>
 #include <subsys/MechanismFactory.h>

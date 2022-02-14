@@ -16,15 +16,31 @@
 
 #pragma once
 #include <memory>
-#include <ctre/phoenix/Sensors/PigeonIMU.h>
+#include <ctre/phoenix/sensors/WPI_PigeonIMU.h>
+#include <ctre/phoenix/sensors/WPI_Pigeon2.h>
+#include <ctre/Phoenix.h>
 
 
 class DragonPigeon
 {
     public:
+		enum PIGEON_TYPE
+		{
+			PIGEON1,
+			PIGEON2
+		};
+
+		enum PIGEON_USAGE
+		{
+			CENTER_OF_ROBOT,
+			CENTER_OF_SHOOTER
+		};
+
         DragonPigeon
         (
             int  canID,
+            DragonPigeon::PIGEON_USAGE usage,
+            DragonPigeon::PIGEON_TYPE type,
             double rotation
         );
         DragonPigeon() = delete;
@@ -37,7 +53,8 @@ class DragonPigeon
 
     private:
 
-        std::unique_ptr<ctre::phoenix::sensors::PigeonIMU> m_pigeon;
+        ctre::phoenix::sensors::WPI_PigeonIMU* m_pigeon;
+        ctre::phoenix::sensors::WPI_Pigeon2* m_pigeon2;
 
         double m_initialYaw;
         double m_initialPitch;

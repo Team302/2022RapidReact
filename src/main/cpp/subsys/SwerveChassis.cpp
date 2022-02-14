@@ -84,7 +84,7 @@ SwerveChassis::SwerveChassis
     m_maxAngularSpeed(maxAngularSpeed),
     m_maxAcceleration(maxAcceleration),
     m_maxAngularAcceleration(maxAngularAcceleration),
-    m_pigeon(PigeonFactory::GetFactory()->GetPigeon()),
+    m_pigeon(PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)),
     m_accel(BuiltInAccelerometer()),
     m_isMoving(false),
     m_scale(1.0),

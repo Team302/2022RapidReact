@@ -36,7 +36,7 @@ Intake::Intake
     string                              ntName,                        
     shared_ptr<IDragonMotorController> spinMotor,
     shared_ptr<IDragonMotorController> extendMotor   
-) : Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::LEFT_INTAKE, 
+) : Mech2IndMotors(type, 
                    controlFileName, 
                    ntName, 
                    spinMotor, 

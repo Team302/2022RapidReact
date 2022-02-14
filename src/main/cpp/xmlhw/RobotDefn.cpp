@@ -112,7 +112,7 @@ void RobotDefn::ParseXML()
                     }
                     else if ( strcmp(child.name(), "limelight") == 0 )
                     {
-                        ///auto limelight = limelightXML.get()->ParseXML( child);
+                        limelightXML.get()->ParseXML( child);
                     }
                     else
                     {
@@ -147,4 +147,5 @@ void RobotDefn::ParseXML()
     catch(const std::exception& e)
     {
         Logger::GetLogger()->LogError( string("RobotDefn::ParseXML"), string("Error thrown while parsing robot.xml") );
-    }}
+    }
+}

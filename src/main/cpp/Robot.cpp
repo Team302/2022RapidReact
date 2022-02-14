@@ -20,9 +20,9 @@
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/MechanismFactory.h>
 #include <auton/CyclePrimitives.h>
-#include <states/Intake/LeftIntakeStateMgr.h>
-#include <states/Intake/RightIntakeStateMgr.h>
-#include <states/ShooterStateMgr.h>
+#include <states/intake/LeftIntakeStateMgr.h>
+#include <states/intake/RightIntakeStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
 
 #include <subsys/Shooter.h>
 

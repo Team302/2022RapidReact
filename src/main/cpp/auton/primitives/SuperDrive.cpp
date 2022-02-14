@@ -99,7 +99,7 @@ void SuperDrive::Init(PrimitiveParams* params)
 
 	//m_startHeading = m_chassis->GetHeading();
 	m_startHeading = 0.0;
-	auto pigeon = PigeonFactory::GetFactory()->GetPigeon();
+	auto pigeon = PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
 	if ( pigeon != nullptr )
 	{
 		m_startHeading = pigeon->GetYaw();
@@ -135,7 +135,7 @@ void SuperDrive::Init(PrimitiveParams* params)
 
 void SuperDrive::Run() 
 {
-	auto pigeon = PigeonFactory::GetFactory()->GetPigeon();
+	auto pigeon = PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
 	if ( pigeon != nullptr )
 	{
 		m_currentHeading = pigeon->GetYaw() - m_startHeading;

@@ -104,7 +104,7 @@ void SwerveDrive::Run()
         if (controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::REZERO_PIGEON))
         {
             auto factory = PigeonFactory::GetFactory();
-            auto m_pigeon = factory->GetPigeon();
+            auto m_pigeon = factory->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
             m_pigeon->ReZeroPigeon(0, 0);
             m_chassis.get()->ZeroAlignSwerveModules();
             m_lastUp = false;

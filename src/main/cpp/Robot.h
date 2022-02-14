@@ -14,7 +14,7 @@
 #include <states/intake/IntakeStateMgr.h>
 #include <subsys/Intake.h>
 #include <auton/CyclePrimitives.h>
-#include <states/ShooterStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
 #include <subsys/Shooter.h>
 #include <states/chassis/SwerveDrive.h>
 #include <subsys/Shooter.h>

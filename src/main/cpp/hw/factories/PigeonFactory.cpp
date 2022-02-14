@@ -53,7 +53,8 @@ PigeonFactory* PigeonFactory::GetFactory()
 
 PigeonFactory::PigeonFactory()
 {
-    m_pigeon = nullptr;
+    m_centerPigeon = nullptr;
+    m_shooterPigeon = nullptr;
 }
 
 
@@ -63,17 +64,48 @@ PigeonFactory::PigeonFactory()
 DragonPigeon* PigeonFactory::CreatePigeon
 (
     int 	canID,
+    DragonPigeon::PIGEON_TYPE type, 
+    DragonPigeon::PIGEON_USAGE usage, 
     double  rotation
 )
 {
-    if ( m_pigeon == nullptr )
+    switch (usage)
     {
-        m_pigeon = new DragonPigeon( canID, rotation );
+        case DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT:
+            if (m_centerPigeon == nullptr)
+            {
+                m_centerPigeon = new DragonPigeon( canID, usage, type, rotation );
+            }
+            return m_centerPigeon;
+            break;
+        case DragonPigeon::PIGEON_USAGE::CENTER_OF_SHOOTER:
+            if (m_shooterPigeon == nullptr)
+            {
+                m_shooterPigeon = new DragonPigeon( canID, usage, type, rotation );
+            }
+            return m_shooterPigeon;
+            break;
+        default:
+            break;
     }
-    return m_pigeon;
+    return nullptr;
 }
 
-DragonPigeon* PigeonFactory::GetPigeon() const
+DragonPigeon* PigeonFactory::GetPigeon
+(
+    DragonPigeon::PIGEON_USAGE usage 
+) const
 {
-    return m_pigeon;
+    switch (usage)
+    {
+        case DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT:
+            return m_centerPigeon;
+            break;
+        case DragonPigeon::PIGEON_USAGE::CENTER_OF_SHOOTER:
+            return m_shooterPigeon;
+            break;
+        default:
+            break;
+    }
+    return nullptr;
 }
