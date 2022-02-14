@@ -1,5 +1,8 @@
 -o
 <<<<<<< main
+<<<<<<< main
+=======
+>>>>>>> Added nullptr checks
 C:\\GitRepos\\2022RapidReact\\build\\exe\\frcUserProgram\\debug\\frcUserProgram
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\17psugcxoj7q58y7v26g3dan6\\DriveToWall.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\17zuicsmxn6218i2i3mi0moxu\\MechanismDefn.o
@@ -11,8 +14,15 @@ C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgram
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\1s68jbzvq2z7sr00hlo9matwp\\DragonMotorControllerFactory.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\1y9fffj170cichs7gz77obmxf\\ScaledAxis.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\21m8488i5xtf1ha93uxeks23\\EtherFieldSwerve.o
+<<<<<<< main
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\24mnmett5u0fzvp2gdvd66yb\\FieldDefn.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\28z1bzrs5iyzfmzsoyzsr2lvj\\WPIDirtySwerve.o
+=======
+C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\24br8uaci9gzds7ysfyxql13e\\NetworkTableReader.o
+C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\24mnmett5u0fzvp2gdvd66yb\\FieldDefn.o
+C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\28z1bzrs5iyzfmzsoyzsr2lvj\\WPIDirtySwerve.o
+C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\2ag9lzbd10za9z6y61uf2z98g\\LeftIntakeStateMgr.o
+>>>>>>> Added nullptr checks
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\2qwrjf0tef5rof8ed7w9g60wl\\DragonPigeon.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\2s5zxd2kocsq2cjbc64kmxggq\\ClimberState.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\2sbvpwswszgypkxw5qql2uhu9\\SwerveModule.o
@@ -23,6 +33,10 @@ C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgram
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\41x4vzt2zbf6t4pxacp0keq29\\AngleUtils.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\45ioc37b7814q2gvs6xuqrpid\\ButtonDecorator.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\46zqo7bsibtar2otnq8qln46r\\AnalogButton.o
+<<<<<<< main
+=======
+C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\47yl5gahhmgdnm98f1fznesp1\\RightIntakeStateMgr.o
+>>>>>>> Added nullptr checks
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\48cfkizsfqje92oc2cq10wo0m\\POVButton.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\4prrxbs3nx26n2egvdpqiv32r\\ServoUsage.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\4sia4nqo0xnnb7iuj4jqtv581\\DigitalInputFactory.o
@@ -144,6 +158,7 @@ C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fe1ae8a91360f10fb1b99f73e15a30d
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fe1ae8a91360f10fb1b99f73e15a30d4\\transformed\\opencv-cpp-4.5.2-1-linuxathenadebug\\linux\\athena\\shared\\libopencv_stitchingd.so.4.5
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fe1ae8a91360f10fb1b99f73e15a30d4\\transformed\\opencv-cpp-4.5.2-1-linuxathenadebug\\linux\\athena\\shared\\libopencv_videod.so.4.5
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fe1ae8a91360f10fb1b99f73e15a30d4\\transformed\\opencv-cpp-4.5.2-1-linuxathenadebug\\linux\\athena\\shared\\libopencv_videoiod.so.4.5
+<<<<<<< main
 =======
 D:\\Github\\2022RapidReact\\build\\exe\\frcUserProgram\\debug\\frcUserProgram
 D:\\Github\\2022RapidReact\\build\\objs\\frcUserProgram\\debug\\frcUserProgramCpp\\17psugcxoj7q58y7v26g3dan6\\DriveToWall.o
@@ -292,6 +307,8 @@ C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\fe1ae8a91360f10fb1b99f73e15a30d4
 C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\fe1ae8a91360f10fb1b99f73e15a30d4\\transformed\\opencv-cpp-4.5.2-1-linuxathenadebug\\linux\\athena\\shared\\libopencv_videod.so.4.5
 C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\fe1ae8a91360f10fb1b99f73e15a30d4\\transformed\\opencv-cpp-4.5.2-1-linuxathenadebug\\linux\\athena\\shared\\libopencv_videoiod.so.4.5
 >>>>>>> Added network table reader
+=======
+>>>>>>> Added nullptr checks
 -rdynamic
 -pthread
 -ldl
