@@ -3,36 +3,41 @@
 <statedata>
 	<controlData identifier="openloop" 
 	             mode="PERCENT_OUTPUT"/>
-				 
-	<controlData identifier="closedloop"
-				 mode="POSITION_DEGREES"
-				 proportional="0.155"
-				 />
 
-	<controlData identifier="closedloop2"
+	<controlData identifier="closedloop"
 				 mode="VELOCITY_RPS"
 				 proportional="0.155"
 				 feedforward="0.045"/>
 				 
-	<!--mechanismTarget stateIdentifier="SHOOTERON"
-	                 controlDataIdentifier="openloop"
-					 value="1.0"/--> 
 	<mechanismTarget stateIdentifier="SHOOTEROFF"
 	                 controlDataIdentifier="openloop"
 					 value="0.0"/>
 
  <mechanismTarget stateIdentifier="SHOOTERCLOSE"
-	                 controlDataIdentifier="closedloop2"
+	                 controlDataIdentifier="closedloop"
 					 value="40"
-					 controlDataIdentifier2="closedloop"
-					 secondValue="30"/>
+					 controlDataIdentifier2="openloop"
+					 secondValue="-1.0"/>
 
 
  <mechanismTarget stateIdentifier="SHOOTERFAR"
-	                 controlDataIdentifier="closedloop2"
+	                 controlDataIdentifier="closedloop"
 					 value="40"
-					 controlDataIdentifier2="closedloop"
-					 secondValue="30"/>
+					 controlDataIdentifier2="openloop"
+					 secondValue="1.0"/>
+
+<mechanismTarget stateIdentifier="SHOOTERCLOSELOW"
+	                 controlDataIdentifier="closedloop"
+					 value="10"
+					 controlDataIdentifier2="openloop"
+					 secondValue="1.0"/>					 
+
+<mechanismTarget stateIdentifier="SHOOTERMANUAL"
+	                 controlDataIdentifier="closedloop"
+					 value="40"
+					 controlDataIdentifier2="openloop"
+					 secondValue="0.0"/>
+
 					  <!-- 8ft from hub <mechanismTarget stateIdentifier="SHOOTERON"
 	                 controlDataIdentifier="closedloop"
 					 value="55.0"/> -->
@@ -41,8 +46,5 @@
 					 <!--changed the angle-->
 				<!--12.5ft from hub- <mechanismTarget stateIdentifier="SHOOTERON"
 	                 controlDataIdentifier="closedloop"
-					 value="70.0"/>	  -->
-
-
-					 
+					 value="70.0"/>	  -->		 
 </statedata>

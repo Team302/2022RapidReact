@@ -38,7 +38,9 @@ class ShooterStateMgr : public StateMgr
         {
             OFF,
             SHOOT_FAR,
-            SHOOT_CLOSE
+            SHOOT_CLOSE,
+            SHOOT_CLOSE_LOW,
+            SHOOTER_MANUAL
         };
 
         
@@ -59,4 +61,7 @@ class ShooterStateMgr : public StateMgr
         const StateStruc  m_offState = {SHOOTER_STATE::OFF, StateType::SHOOTER, true};
         const StateStruc  m_shootFarState = {SHOOTER_STATE::SHOOT_FAR, StateType::SHOOTER, false};
         const StateStruc m_shootCloseState = {SHOOTER_STATE::SHOOT_CLOSE, StateType::SHOOTER, false};
+        const StateStruc m_shootManualState = {SHOOTER_STATE::SHOOTER_MANUAL, StateType::SHOOTER, false};
+        const StateStruc m_shootCloseLowState = {SHOOTER_STATE::SHOOT_CLOSE_LOW, StateType::SHOOTER, false};
+
 };

@@ -250,8 +250,8 @@
         </swervemodule>
 
     </chassis>  
-    <!--   -->
-    <!--
+      
+    
  <mechanism type="SHOOTER"
                networkTable="shooterNT"
                controlFile="shooter.xml">
@@ -293,7 +293,7 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
--->
+
 <!-- ====================================================
      Intake
      ====================================================  -->

@@ -60,8 +60,11 @@ ShooterStateMgr::ShooterStateMgr()
     stateMap["SHOOTEROFF"] = m_offState;
     stateMap["SHOOTERCLOSE"] = m_shootFarState;
     stateMap["SHOOTERFAR"] = m_shootCloseState;
+    stateMap["SHOOTERMANUAL"] = m_shootManualState;
+    stateMap["SHOOTERCLOSELOW"] = m_shootCloseLowState;
+
     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
-    
+    m_shooter = MechanismFactory::GetMechanismFactory()->GetShooter();    
 
     Init(MechanismFactory::GetMechanismFactory()->GetShooter(), stateMap);
 }   
@@ -70,46 +73,46 @@ ShooterStateMgr::ShooterStateMgr()
 /// @brief  run the current state
 /// @return void
 
-bool ShooterStateMgr::AtTarget() {return GetCurrentStatePtr()->AtTarget();}
+bool ShooterStateMgr::AtTarget() 
+{
+    if(GetCurrentState() == SHOOT_FAR)
+    {
+        return GetCurrentStatePtr()->AtTarget() && m_shooter->IsFullyExtended();
+    }
+    else if(GetCurrentState() == SHOOT_CLOSE)
+    {
+       return GetCurrentStatePtr()->AtTarget() && m_shooter->IsRetracted();
+    }
+    else
+    {
+        return false;
+    }
+}
 
 void ShooterStateMgr::CheckForStateTransition()
 {
-    if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 10.0_deg)
-    {
-        if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET))
+    
+    if ( MechanismFactory::GetMechanismFactory()->GetShooter() != nullptr )
+    {    
+        if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 10.0_deg)
         {
-        SetCurrentState(SHOOT_FAR, true);
-        }
-        else
-        {
-        SetCurrentState(SHOOT_CLOSE, true);
+        
+            if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET))
+            {
+                SetCurrentState(SHOOT_FAR, true);
+            }
+             else
+            {
+                SetCurrentState(SHOOT_CLOSE, true);
+            }
         }
     }
+
 
     if ( MechanismFactory::GetMechanismFactory()->GetShooter() != nullptr )
     {    
 
-        // process teleop/manual interrupts
-        // auto currentState = static_cast<SHOOTER_STATE>(GetCurrentState());
-    
-        // auto controller = TeleopControl::GetInstance();
-        // if ( controller != nullptr )
-        // {
-        //     auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE);
-        //     auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL);
-        //     if (intakePressed  &&  currentState != SHOOTER_STATE::ON )
-        //     {
-        //         SetCurrentState( INTAKE_STATE::INTAKE, false );
-        //     }
-        //     else if (expelPressed && currentState != INTAKE_STATE::EXPEL )
-        //     {
-        //         SetCurrentState( INTAKE_STATE::EXPEL, false );
-        //     }           
-        //     else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF )
-        //     {
-        //         SetCurrentState( INTAKE_STATE::OFF, false );
-        //     }
-        // }
+       
     }
 
 }
