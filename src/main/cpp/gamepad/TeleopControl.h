@@ -45,40 +45,37 @@ class TeleopControl
             DRIVE_75PERCENT,
             DRIVE_50PERCENT,
             DRIVE_25PERCENT,
-            DRIVE_SHIFT_UP,  //not mapped to controller 2.13.22
-            DRIVE_SHIFT_DOWN,  //not mapped to controller 
-            DRIVE_TURBO,//not mapped to controller
-            DRIVE_BRAKE,//not mapped to controller
+            DRIVE_SHIFT_UP,             //not mapped to controller 2.13.22
+            DRIVE_SHIFT_DOWN,           //not mapped to controller 
+            DRIVE_TURBO,                //not mapped to controller
+            DRIVE_BRAKE,                //not mapped to controller
             REZERO_PIGEON,
-            ROTATE_TO_GOAL,  //not used maybe same as FINDTARGET
+            ROTATE_TO_GOAL,             //not used maybe same as FINDTARGET
             DRIVE_POLAR,
-            DRIVE_POLAR_INTAKE,   //not used yet?? 2.13.22
+            DRIVE_POLAR_INTAKE,         //not used yet?? 2.13.22
             INTAKE_LEFT,
             INTAKE_RIGHT,
             EXPEL_LEFT,
             EXPEL_RIGHT,
-            AUTO_SHOOT_HIGH,  //not used 
-            AUTO_SHOOT_LOW,   //not used
-            CLIMBER_REACH,   //not used
-            CLIMBER_ROTATE,  //not used
-            AUTO_CLIMB_TRAVERSE,  //not used
-            LIMELIGHT_FEED_TO_DASH, //not used
+            AUTO_SHOOT_HIGH,  
+            AUTO_SHOOT_LOW,   
+            AUTO_CLIMB_TRAVERSE,        //not used
+            LIMELIGHT_FEED_TO_DASH,     //not used
             STOP_LIMELIGHT_FEED_TO_DASH,  //not used
-            CAMERA_FEED_TO_DASH,  //not used
-            STOP_CAMERA_FEED_TO_DASH,  //not used
+            CAMERA_FEED_TO_DASH,        //not used
+            STOP_CAMERA_FEED_TO_DASH,   //not used
 
             // added 2022 Geo3 2.13.22
-            FINDTARGET,    //Rotate to point to target center
-            CLIMBER_MAN_UP,  //Button Mapped needs calls at mgrs
-            CLIMBER_MAN_DOWN, //Button Mapped needs calls to mgrs
-            CLIMB_AUTO, //Button Mapped needs calls to mgrs
-            AUTO_SHOOT,//Button Mapped needs calls to mgrs
-            FORCE_SHOOT,//Button Mapped needs calls to mgrs
-            MAN_KICKER,//Button Mapped needs calls to mgrs
-            RDY2_SHOOT,//Button Mapped needs calls to mgrs
-            RDY2_SHOOT_STATE, ///Button Mapped needs calls to mgrs
+            FINDTARGET,         //Rotate to point to target center
+            CLIMBER_MAN_UP,     //Button Mapped needs calls at mgrs
+            CLIMBER_MAN_DOWN,   //Button Mapped needs calls to mgrs
+            CLIMB_AUTO,         //Button Mapped needs calls to mgrs
+            MANUAL_SHOOT,       //Button Mapped needs calls to mgrs
+            MAN_KICKER,         //Button Mapped needs calls to mgrs
+            SHOOTER_OFF,        //Button Mapped needs calls to mgrs
+            SHOOTER_MTR_ON,     //Button Mapped needs calls to mgrs
             //Shooter hood manual
-            SHOOTER_HOOD_MAN, //Button Mapped needs calls to mgrs
+            SHOOTER_HOOD_MAN,   //Button Mapped needs calls to mgrs
             SELECT_CLIMBER_ARM, //Button Mapped needs calls to mgrs
 
             MAX_FUNCTIONS

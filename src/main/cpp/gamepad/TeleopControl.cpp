@@ -128,7 +128,7 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		// used to enable climber and disable what right-stick Y might be mapped to.
 		// used with CLIMBER_MAN_UP and CLIMBER_MAN_DOWN
 		m_controllerIndex[SELECT_CLIMBER_ARM]			= ctrlNo;  
-		m_buttonIDs[SELECT_CLIMBER_ARM]	 				= IDragonGamePad::RIGHT_STICK_PRESSED;
+		m_buttonIDs[SELECT_CLIMBER_ARM]	 				= IDragonGamePad::SELECT_BUTTON;
 
 		m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
 		m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::A_BUTTON;
@@ -154,13 +154,13 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 	Right Bumper - Right Intake         	INTAKE_RIGHT  RightIntakeStateMgr 
 	Left Bumper - Left Intake           	INTAKE_LEFT   LeftIntakeStateMgr 
 	A- Button - Auto Shoot              	AUTO_SHOOT    ShooterStateMgr
-	X- Button - Force Shoot             	FORCE_SHOOT   ShooterStateMgr
+	y- Button - Force Shoot             	MANUAL_SHOOT  ShooterStateMgr
 	B - Button - Manual Kicker          	MAN_KICKER    ???
 	Left Stick yAxis - Shooter hood manual  SHOOTER_HOOD_MAN  ShooterStateMgr 
-	start - stop - Get ready to shoot state RDY2_SHOOT_STATE  ShooterStateMgr  
-	Down d-Pad - Get ready to shoot     	RDY2_SHOOT   ShooterStateMgr
-	Left d-Pad - Left Intake Expell     	EXPEL_LEFT   LeftIntakeStateMgr
-	Right d-Pad - Right Intake Expell   	EXPEL_RIGHT  RightIntakeStateMgr 
+	start - shooter off						SHOOTER_OFF    ShooterStateMgr  
+	Down d-Pad - start shooter mtr	     	SHOOTER_MTR_ON ShooterStateMgr
+	Left d-Pad - Left Intake Expell     	EXPEL_LEFT     LeftIntakeStateMgr
+	Right d-Pad - Right Intake Expell   	EXPEL_RIGHT    RightIntakeStateMgr 
 */
 
     ctrlNo = 1;
@@ -177,16 +177,19 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_buttonIDs[EXPEL_RIGHT] 			= IDragonGamePad::POV_90;	
 
         //TODO needs hook for States
-		m_controllerIndex[AUTO_SHOOT] 		= ctrlNo;
-		m_buttonIDs[AUTO_SHOOT] 			= IDragonGamePad::A_BUTTON;	
-		m_controllerIndex[FORCE_SHOOT] 		= ctrlNo;
-		m_buttonIDs[FORCE_SHOOT] 			= IDragonGamePad::X_BUTTON;	
+		m_controllerIndex[AUTO_SHOOT_HIGH] 		= ctrlNo;
+		m_buttonIDs[AUTO_SHOOT_HIGH] 			= IDragonGamePad::A_BUTTON;	
+		m_controllerIndex[AUTO_SHOOT_LOW] 		= ctrlNo;
+		m_buttonIDs[AUTO_SHOOT_LOW] 			= IDragonGamePad::X_BUTTON;	
+
+		m_controllerIndex[MANUAL_SHOOT] 		= ctrlNo;  
+		m_buttonIDs[MANUAL_SHOOT] 			= IDragonGamePad::Y_BUTTON;	
 		m_controllerIndex[MAN_KICKER] 		= ctrlNo;
 		m_buttonIDs[MAN_KICKER] 			= IDragonGamePad::B_BUTTON;	
-		m_controllerIndex[RDY2_SHOOT] 		= ctrlNo;
- 		m_buttonIDs[RDY2_SHOOT] 			= IDragonGamePad::POV_180;	
- 		m_controllerIndex[RDY2_SHOOT_STATE] = ctrlNo;
- 		m_buttonIDs[RDY2_SHOOT_STATE]		= IDragonGamePad::START_BUTTON;	
+		m_controllerIndex[SHOOTER_MTR_ON] 	= ctrlNo;
+ 		m_buttonIDs[SHOOTER_MTR_ON] 		= IDragonGamePad::POV_180;	
+ 		m_controllerIndex[SHOOTER_OFF] 		= ctrlNo;
+ 		m_buttonIDs[SHOOTER_OFF]			= IDragonGamePad::START_BUTTON;	
  	
 
 	 	m_controllerIndex[SHOOTER_HOOD_MAN]	= ctrlNo;
