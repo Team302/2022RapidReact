@@ -74,15 +74,18 @@ bool ShooterStateMgr::AtTarget() {return GetCurrentStatePtr()->AtTarget();}
 
 void ShooterStateMgr::CheckForStateTransition()
 {
-    if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 10.0_deg)
+    if (m_dragonLimeLight != nullptr )
     {
-        if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET))
+        if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 10.0_deg)
         {
-        SetCurrentState(SHOOT_FAR, true);
-        }
-        else
-        {
-        SetCurrentState(SHOOT_CLOSE, true);
+            if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET))
+            {
+                SetCurrentState(SHOOT_FAR, true);
+            }
+            else
+            {
+                SetCurrentState(SHOOT_CLOSE, true);
+            }
         }
     }
 

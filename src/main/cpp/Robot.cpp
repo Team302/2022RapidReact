@@ -50,10 +50,17 @@ void Robot::RobotInit()
 
     m_rightIntake = mechFactory->GetRightIntake();
     m_rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
-
+    /** **/
     m_shooter = mechFactory->GetShooter();
     m_shooterStateMgr = ShooterStateMgr::GetInstance();
-    
+    /** **/
+   // m_leftIntake = nullptr;
+   // m_leftIntakeStateMgr = nullptr;
+   // m_rightIntake = nullptr;
+   // m_rightIntakeStateMgr = nullptr;
+   // m_shooter = nullptr;
+   // m_shooterStateMgr = nullptr;
+
     m_cyclePrims = new CyclePrimitives();
 }
 

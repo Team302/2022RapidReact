@@ -46,8 +46,8 @@
               controlFile="chassis.xml">
 			 
         <swervemodule type="RIGHT_BACK"
-                      turn_p="0.125"
-                      turn_i="0.0175"
+                      turn_p="0.11"
+                      turn_i="0.0075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -97,8 +97,8 @@
         </swervemodule>
 
         <swervemodule type="LEFT_BACK"
-                      turn_p="0.125"
-                      turn_i="0.0175"
+                      turn_p="0.11"
+                      turn_i="0.0075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -148,8 +148,8 @@
         </swervemodule>
 
         <swervemodule type="RIGHT_FRONT"
-                      turn_p="0.125"
-                      turn_i="0.0175"
+                      turn_p="0.11"
+                      turn_i="0.0075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -199,8 +199,8 @@
         </swervemodule>
 
         <swervemodule type="LEFT_FRONT"
-                      turn_p="0.125"
-                      turn_i="0.0175"
+                      turn_p="0.11"
+                      turn_i="0.0075"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
