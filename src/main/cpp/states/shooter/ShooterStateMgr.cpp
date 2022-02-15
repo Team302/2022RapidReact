@@ -74,45 +74,55 @@ bool ShooterStateMgr::AtTarget() {return GetCurrentStatePtr()->AtTarget();}
 
 void ShooterStateMgr::CheckForStateTransition()
 {
-    if (m_dragonLimeLight != nullptr )
-    {
-        if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 10.0_deg)
-        {
-            if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET))
-            {
-                SetCurrentState(SHOOT_FAR, true);
-            }
-            else
-            {
-                SetCurrentState(SHOOT_CLOSE, true);
-            }
-        }
-    }
 
     if ( MechanismFactory::GetMechanismFactory()->GetShooter() != nullptr )
     {    
+        auto controller = TeleopControl::GetInstance();
+        if ( controller != nullptr )
+        {
+            auto currentState = static_cast<SHOOTER_STATE>(GetCurrentState());
 
-        // process teleop/manual interrupts
-        // auto currentState = static_cast<SHOOTER_STATE>(GetCurrentState());
-    
-        // auto controller = TeleopControl::GetInstance();
-        // if ( controller != nullptr )
-        // {
-        //     auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE);
-        //     auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL);
-        //     if (intakePressed  &&  currentState != SHOOTER_STATE::ON )
-        //     {
-        //         SetCurrentState( INTAKE_STATE::INTAKE, false );
-        //     }
-        //     else if (expelPressed && currentState != INTAKE_STATE::EXPEL )
-        //     {
-        //         SetCurrentState( INTAKE_STATE::EXPEL, false );
-        //     }           
-        //     else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF )
-        //     {
-        //         SetCurrentState( INTAKE_STATE::OFF, false );
-        //     }
-        // }
+            auto isShootHighSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH);
+            auto isShootLowSelected  = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW);
+            auto isManualShootSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT);
+            auto isShooterOffSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_OFF);
+            auto isPrepareToShootSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_MTR_ON);
+            // should the next one be an axis??
+            auto isManualShooterHoodSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_HOOD_MAN);
+            if (isShootHighSelected && m_dragonLimeLight != nullptr)
+            {
+                if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 10.0_deg)
+                {
+                    if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET) && currentState != SHOOTER_STATE::SHOOT_FAR)
+                    {
+                        SetCurrentState(SHOOTER_STATE::SHOOT_FAR, true);
+                    }
+                    else if (currentState != SHOOTER_STATE::SHOOT_CLOSE)
+                    {
+                        SetCurrentState(SHOOTER_STATE::SHOOT_CLOSE, true);
+                    }
+                }
+            }
+            else if (isShootLowSelected)
+            {
+                // TODO:: add state definition
+            }
+            else if (isShooterOffSelected && currentState != SHOOTER_STATE::OFF)
+            {
+                SetCurrentState(SHOOTER_STATE::OFF, true);
+            }
+            else if (isManualShootSelected)
+            {
+                // TODO: Define State
+            }
+            else if (isManualShooterHoodSelected) // TODO: should this be an axis instead of a button?
+            {
+                // TODO: Define State
+            }
+            else if (isPrepareToShootSelected)
+            {
+                // TODO: Define State
+            }
+        }
     }
-
 }

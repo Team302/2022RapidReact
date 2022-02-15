@@ -70,15 +70,15 @@ void RightIntakeStateMgr::CheckForStateTransition()
             auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL_RIGHT);
             if (intakePressed  &&  currentState != INTAKE_STATE::INTAKE )
             {
-                SetCurrentState( INTAKE_STATE::INTAKE, false );
+                SetCurrentState( INTAKE_STATE::INTAKE, true );
             }
             else if (expelPressed && currentState != INTAKE_STATE::EXPEL )
             {
-                SetCurrentState( INTAKE_STATE::EXPEL, false );
+                SetCurrentState( INTAKE_STATE::EXPEL, true );
             }           
             else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF )
             {
-                SetCurrentState( INTAKE_STATE::OFF, false );
+                SetCurrentState( INTAKE_STATE::OFF, true );
             }
         }
     }    

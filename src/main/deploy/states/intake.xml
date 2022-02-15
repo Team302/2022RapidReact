@@ -12,10 +12,10 @@
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
 					 value="1.0"
-					 secondValue="0.5"/>
+					 secondValue="1.0"/>
 	<mechanismTarget stateIdentifier="INTAKEEXPEL"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
-					 value="-1.0"
-					 secondValue="-0.5"/>
+					 value="-1"
+					 secondValue="-1"/>
 </statedata>
