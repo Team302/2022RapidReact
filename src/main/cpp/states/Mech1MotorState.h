@@ -27,7 +27,7 @@ class Mech1MotorState : public IState
 
         Mech1MotorState
         (
-  //        IMech1IndMotor*                 mechanism,
+            IMech1IndMotor*                 mechanism,
             ControlData*                    control,
             double                          target
         );

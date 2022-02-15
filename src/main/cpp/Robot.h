@@ -18,6 +18,7 @@
 #include <subsys/Shooter.h>
 #include <states/chassis/SwerveDrive.h>
 #include <subsys/Shooter.h>
+#include <states/servo/ServoStateMgr.h>
 
 
 
@@ -49,4 +50,7 @@ class Robot : public frc::TimedRobot
   Intake*               m_rightIntake;
   ShooterStateMgr*      m_shooterStateMgr;
   Shooter*              m_shooter;
+
+  Servo*                m_servo;
+  ServoStateMgr*        m_servoStateMgr;
 };

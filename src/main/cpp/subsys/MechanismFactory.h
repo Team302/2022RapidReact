@@ -136,10 +136,10 @@ class MechanismFactory
 		static MechanismFactory*	m_mechanismFactory;
 		Climber*	m_climber;
 
-		Intake* m_leftIntake;
-		Intake* m_rightIntake;
-		
+		Intake* 	m_leftIntake;
+		Intake* 	m_rightIntake;
+		Shooter* 	m_shooter;
 
-		Shooter* m_shooter;
+		Servo*		m_servo;
 
 };

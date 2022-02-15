@@ -35,7 +35,8 @@ class MechanismTypes
             RIGHT_INTAKE,
             BALL_TRANSFER,
             SHOOTER,
-            CLIMBER,                 
+            CLIMBER,
+            SERVO,               
             MAX_MECHANISM_TYPES
         };
 };
