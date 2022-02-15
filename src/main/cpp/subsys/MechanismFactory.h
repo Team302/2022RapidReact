@@ -146,12 +146,12 @@ class MechanismFactory
 
 		Intake* 		m_leftIntake;
 		Intake* 		m_rightIntake;
-		BallTransfer*	m_ballTransfer;
 		Shooter* 		m_shooter;
 		Climber*		m_climber;
 		Indexer* 		m_leftIndexer;
 		Indexer* 		m_rightIndexer;
 		Lift* 			m_lift;
 		
+		Servo*		        m_servo;
 
 };

@@ -18,6 +18,8 @@
 #include <states/lift/LiftStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <subsys/interfaces/IChassis.h>
+#include <states/servo/ServoStateMgr.h>
+
 
 
 
@@ -50,4 +52,6 @@ class Robot : public frc::TimedRobot
   LiftStateMgr*         m_liftStateMgr;
   ShooterStateMgr*      m_shooterStateMgr;
   ClimberStateMgr*      m_climberStateMgr;
+
+  ServoStateMgr*        m_servoStateMgr;
 };

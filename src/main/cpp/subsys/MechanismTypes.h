@@ -38,7 +38,8 @@ class MechanismTypes
             RIGHT_INDEXER,
             LIFT,
             SHOOTER,
-            CLIMBER,                 
+            CLIMBER,
+            SERVO,               
             MAX_MECHANISM_TYPES
         };
 };

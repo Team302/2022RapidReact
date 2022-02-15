@@ -13,19 +13,37 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#include <controllers/ControlData.h>
-#include <controllers/MechanismTargetData.h>
-#include <states/Servo/ServoState.h>
-#include <subsys/Mech1Servo.h>
+// Team 302 includes
+#include <states/servo/ServoState.h>
 #include <subsys/MechanismFactory.h>
-#include <subsys/interfaces/IMech1Servo.h>
 #include <states/Mech1MotorState.h>
+
+// Third Party Includes
 
 
 ServoState::ServoState
 (
-    ControlData*                    control, 
+    ControlData*                    control,
     double                          target
-) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetIMech1Servo(), control, target )
+) : m_servo(MechanismFactory::GetMechanismFactory()->GetServo()),
+    m_target(target)
 {
+}
+
+void ServoState::Init()
+{
+    // No-op - we already have the information
+}
+
+void ServoState::Run()
+{
+    if (m_servo != nullptr)
+    {
+        m_servo->SetAngle(m_target);
+    }
+}
+
+bool ServoState::AtTarget() const
+{
+    return true;
 }
