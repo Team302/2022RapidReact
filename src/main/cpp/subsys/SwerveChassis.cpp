@@ -237,7 +237,6 @@ void SwerveChassis::Drive
 
             auto [fl, fr, bl, br] = states;
 
-            std::cout << "Swerve Chassis Drive Mode: " + to_string(mode) << endl;
 
             // adjust wheel angles
             if (mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE)
@@ -245,10 +244,12 @@ void SwerveChassis::Drive
                 auto currentPose = GetPose();
                 auto goalPose = m_targetFinder.GetPosCenterTarget();
 
-                fl.angle = UpdateForPolarDrive(currentPose, goalPose, m_frontLeftLocation, chassisSpeeds);
-                fr.angle = UpdateForPolarDrive(currentPose, goalPose, m_frontRightLocation, chassisSpeeds);
-                bl.angle = UpdateForPolarDrive(currentPose, goalPose, m_backLeftLocation, chassisSpeeds);
-                br.angle = UpdateForPolarDrive(currentPose, goalPose, m_backRightLocation, chassisSpeeds);
+                Rotation2d yaw = units::degree_t(m_pigeon->GetYaw());
+
+                fl.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, yaw), chassisSpeeds);
+                fr.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontRightLocation, yaw), chassisSpeeds);
+                bl.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backLeftLocation, yaw), chassisSpeeds);
+                br.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, yaw), chassisSpeeds);
 
                 Logger::GetLogger()->ToNtTable("Swerve Chassis", "Front Left Angle", fl.angle.Degrees().to<double>());
                 Logger::GetLogger()->ToNtTable("Swerve Chassis", "Front Right Angle", fr.angle.Degrees().to<double>());
@@ -284,10 +285,12 @@ void SwerveChassis::Drive
                 auto currentPose = GetPose();
                 auto goalPose = m_targetFinder.GetPosCenterTarget();
 
-                m_flState.angle = UpdateForPolarDrive(currentPose, goalPose, m_frontLeftLocation, chassisSpeeds);
-                m_frState.angle = UpdateForPolarDrive(currentPose, goalPose, m_frontRightLocation, chassisSpeeds);
-                m_blState.angle = UpdateForPolarDrive(currentPose, goalPose, m_backLeftLocation, chassisSpeeds);
-                m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, m_backRightLocation, chassisSpeeds);
+                Rotation2d yaw = units::degree_t(m_pigeon->GetYaw());
+
+                m_flState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, yaw), chassisSpeeds);
+                m_frState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontRightLocation, yaw), chassisSpeeds);
+                m_blState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backLeftLocation, yaw), chassisSpeeds);
+                m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, yaw), chassisSpeeds);
            }
 
             m_frontLeft.get()->SetDesiredState(m_flState);
@@ -309,16 +312,24 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
 (
     Pose2d              robotPose,
     Pose2d              goalPose,
-    Translation2d       wheelLoc,
+    Transform2d       wheelLoc,
     ChassisSpeeds       speeds
 )
 {
     Rotation2d ninety {units::angle::degree_t(90.0)};
-    Transform2d relativeWheelPosition(wheelLoc, Rotation2d());
+    Transform2d relativeWheelPosition = wheelLoc;
+    //This wheel pose may not be accurate, may need to do manually using trig functions
     auto WheelPose = robotPose + relativeWheelPosition;
     auto wheelToGoalTrans = WheelPose - goalPose;
-    auto radialAngle = wheelToGoalTrans.Rotation().Degrees();
-    auto orbitAngle = wheelToGoalTrans.Rotation().Degrees() + ninety.Degrees();
+
+    auto wheelDeltaX = WheelPose.X() - goalPose.X();
+    auto wheelDeltaY = WheelPose.Y() - goalPose.Y();
+
+    units::angle::degree_t triangleTheta = units::angle::degree_t(atan(wheelDeltaY.to<double>() / wheelDeltaX.to<double>()));
+
+
+    auto radialAngle = triangleTheta;
+    auto orbitAngle = triangleTheta + ninety.Degrees();
 
     auto hasRadialComp = (abs(speeds.vx.to<double>()) > 0.1);
     auto hasOrbitComp = (abs(speeds.vy.to<double>()) > 0.1);

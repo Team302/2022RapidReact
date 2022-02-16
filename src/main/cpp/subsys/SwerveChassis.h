@@ -201,7 +201,7 @@ class SwerveChassis : public IChassis
         (
             frc::Pose2d              robotPose,
             frc::Pose2d              goalPose,
-            frc::Translation2d       wheelLoc,
+            frc::Transform2d       wheelLoc,
             frc::ChassisSpeeds       speeds
         );
 
