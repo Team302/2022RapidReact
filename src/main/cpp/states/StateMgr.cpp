@@ -37,6 +37,9 @@
 #include <states/shooter/ShooterState.h>
 #include <states/shooter/ShooterStateAutoHigh.h>
 #include <states/shooter/ShooterStateManual.h>
+#include <states/Intake/IntakeState.h>
+#include <states/ShooterState.h>
+#include <states/servo/ServoState.h>
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
 #include <states/BallTransfer/BallTransferState.h>
@@ -166,6 +169,9 @@ void StateMgr::Init
                                                              controlData2, 
                                                              target, 
                                                              secondaryTarget);
+                                break;
+                            case StateType::SERVO:
+                                thisState = new ServoState(controlData, target);
                                 break;
 
                             case StateType::LEFT_INDEXER:

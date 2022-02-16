@@ -18,12 +18,14 @@
 #include <subsys/Intake.h>
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/MechanismFactory.h>
+#include <states/servo/ServoStateMgr.h>
 #include <subsys/Shooter.h>
 #include <xmlhw/RobotDefn.h>
 #include <subsys/Indexer.h>
 #include <subsys/Lift.h>
 #include <states/indexer/LeftIndexerStateMgr.h>
 #include <states/indexer/RightIndexerStateMgr.h>
+#include <states/servo/ServoStateMgr.h>
 
 
 void Robot::RobotInit() 
@@ -50,6 +52,9 @@ void Robot::RobotInit()
     m_shooterStateMgr = ShooterStateMgr::GetInstance();
     m_climberStateMgr = ClimberStateMgr::GetInstance();
 
+    m_servo = mechFactory->GetServo();
+    m_servoStateMgr= m_servo != nullptr ? ServoStateMgr::GetInstance() : nullptr;
+    
     m_cyclePrims = new CyclePrimitives();
 }
 
@@ -159,6 +164,10 @@ void Robot::TeleopPeriodic()
     if (m_shooterStateMgr != nullptr)
     {
         m_shooterStateMgr->RunCurrentState();
+    }
+    if (m_servo != nullptr && m_servoStateMgr != nullptr)
+    {
+        m_servoStateMgr->RunCurrentState();
     }
     if (m_climberStateMgr != nullptr)
     {

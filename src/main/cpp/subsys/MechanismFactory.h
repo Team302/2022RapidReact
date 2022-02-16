@@ -99,6 +99,7 @@ class MechanismFactory
 		inline Indexer* GetLeftIndexer() const { return m_leftIndexer;};
 		inline Indexer* GetRightIndexer() const { return m_rightIndexer;};
 		inline Lift* GetLift() const { return m_lift;};
+		inline Servo* GetServo() const { return m_servo;};
 
 		IMech* GetMechanism
 		(
