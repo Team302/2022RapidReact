@@ -78,5 +78,9 @@ C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DrivePath.cpp:70:10: wa
 =======
 >>>>>>> Started work on debugging polar drive
 compiling SwerveChassis.cpp successful.
+C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveChassis.cpp: In static member function 'static units::angle::degree_t SwerveChassis::UpdateForPolarDrive(frc::Pose2d, frc::Pose2d, frc::Transform2d, frc::ChassisSpeeds)':
+C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveChassis.cpp:323:10: warning: variable 'wheelToGoalTrans' set but not used [-Wunused-but-set-variable]
+     auto wheelToGoalTrans = WheelPose - goalPose;
+          ^~~~~~~~~~~~~~~~
 
 Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
