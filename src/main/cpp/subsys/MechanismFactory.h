@@ -91,6 +91,7 @@ class MechanismFactory
 		inline Intake* GetLeftIntake() const { return m_leftIntake;};
 		inline Intake* GetRightIntake() const { return m_rightIntake;};
 		inline Shooter* GetShooter() const { return m_shooter;};
+		inline Servo* GetServo() const { return m_servo;};
 
 		IMech* GetMechanism
 		(

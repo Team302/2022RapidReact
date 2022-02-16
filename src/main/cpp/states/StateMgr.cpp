@@ -33,6 +33,7 @@
 #include <xmlmechdata/StateDataDefn.h>
 #include <states/Intake/IntakeState.h>
 #include <states/ShooterState.h>
+#include <states/servo/ServoState.h>
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
 
@@ -112,6 +113,9 @@ void StateMgr::Init
 
                             case StateType::CLIMBER:
                                 thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
+                                break;
+                            case StateType::SERVO:
+                                thisState = new ServoState(controlData, target);
                                 break;
 
                     	    default:

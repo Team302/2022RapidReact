@@ -17,12 +17,12 @@
 #pragma once
 
 //Team 302 Includes
-#include <states/Mech1MotorState.h>
+#include <states/IState.h>
 #include <controllers/MechanismTargetData.h>
 #include <subsys/Mech1Servo.h>
+#include <states/Mech1MotorState.h>
 
 class ControlData;
-
 
 class ServoState : public Mech1MotorState
 {
@@ -30,9 +30,22 @@ class ServoState : public Mech1MotorState
         ServoState() = delete;
         ServoState
         (
-            ControlData*                    control,
+            ControlData*                    ControlData,
             double                          target
         );
 
         ~ServoState() = default;
+        
+        
+        void Init() override;
+        void Run() override;
+        bool AtTarget() const override;
+
+        double GetTarget() const {return m_target;}
+
+    private:
+
+        double                      m_target;
+        IMech1Servo*                m_servo;
+        
 };

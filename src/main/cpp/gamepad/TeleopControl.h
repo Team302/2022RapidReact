@@ -57,6 +57,8 @@ class TeleopControl
             INTAKE_RIGHT,
             EXPEL_LEFT,
             EXPEL_RIGHT,
+            LOOK_RIGHT,
+            LOOK_LEFT,
             AUTO_SHOOT_HIGH,
             AUTO_SHOOT_LOW,
             CLIMBER_REACH,

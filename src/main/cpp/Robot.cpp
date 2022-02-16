@@ -23,6 +23,7 @@
 #include <states/Intake/LeftIntakeStateMgr.h>
 #include <states/Intake/RightIntakeStateMgr.h>
 #include <states/ShooterStateMgr.h>
+#include <states/servo/ServoStateMgr.h>
 
 #include <subsys/Shooter.h>
 
@@ -53,6 +54,9 @@ void Robot::RobotInit()
 
     m_shooter = mechFactory->GetShooter();
     m_shooterStateMgr = ShooterStateMgr::GetInstance();
+
+    m_servo = mechFactory->GetServo();
+    m_servoStateMgr= m_servo != nullptr ? ServoStateMgr::GetInstance() : nullptr;
     
     m_cyclePrims = new CyclePrimitives();
 }
@@ -140,6 +144,10 @@ void Robot::TeleopPeriodic()
     if (m_shooter != nullptr && m_shooterStateMgr != nullptr)
     {
         m_shooterStateMgr->RunCurrentState();
+    }
+    if (m_servo != nullptr && m_servoStateMgr != nullptr)
+    {
+        m_servoStateMgr->RunCurrentState();
     }
 
 }
