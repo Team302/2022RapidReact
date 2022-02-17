@@ -23,7 +23,7 @@
                                           BALLRELEASEHOLD | BALLRELEASEOPEN | SHOOTERCLOSE | SHOOTERFAR | SHOOTEROFF |
                                           UNKNOWN ) "UNKNOWN"
           controlDataIdentifier         CDATA #REQUIRED
-          controlDataIdentifier2        CDATA #IMPLAFIED
+          controlDataIdentifier2        CDATA #IMPLIED
           value                         CDATA #REQUIRED
           secondValue                   CDATA #IMPLAFIED
           solenoid                      ( NONE | ON | OFF ) "NONE"
