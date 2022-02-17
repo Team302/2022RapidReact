@@ -197,7 +197,7 @@ class SwerveChassis : public IChassis
         (
             units::radians_per_second_t& rot
         );
-        static units::angle::degree_t UpdateForPolarDrive
+        units::angle::degree_t UpdateForPolarDrive
         (
             frc::Pose2d              robotPose,
             frc::Pose2d              goalPose,
