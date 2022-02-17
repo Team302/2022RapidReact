@@ -15,6 +15,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include <controllers/MechanismTargetData.h>
 #include <controllers/ControlModes.h>
@@ -38,7 +39,8 @@ MechanismTargetData::MechanismTargetData
     m_solenoid( solenoid ),
     m_secondTarget( secondTarget )
 {
-
+    cout << string ("abc ") + m_controller;
+    cout << endl;
 }
 
 
@@ -49,6 +51,8 @@ void MechanismTargetData::Update( std::vector<ControlData*> data )
 {
     for ( auto cd : data )
     {
+        //this is where the code stops working
+
         if ( m_controller.compare( string(cd->GetIdentifier()))  == 0 )
         {
             m_controlData = cd;

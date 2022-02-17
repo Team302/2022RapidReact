@@ -71,8 +71,10 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 }
 
 MechanismFactory::MechanismFactory() : m_leftIntake(nullptr),
-									   m_rightIntake(nullptr),
- 				                       m_shooter(nullptr)
+				       m_rightIntake(nullptr),
+				       m_ballTransfer(nullptr),
+ 				       m_shooter(nullptr),
+ 				       m_climber(nullptr)
 {
 }
 
@@ -192,6 +194,20 @@ void MechanismFactory::CreateIMechanism
 			}
 		}
 		break;		
+		case MechanismTypes::BALL_TRANSFER:
+		{
+			if (m_ballTransfer == nullptr)
+			{
+				auto m_spin = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
+				auto m_lift = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_SPIN);
+				if ((m_lift.get() != nullptr) && m_spin.get() != nullptr)
+				{
+					m_ballTransfer = new BallTransfer(networkTableName, controlFileName, m_spin, m_lift);
+				}
+			}
+		}
+		break;
+
 		default:
 		{
 			string msg = "unknown Mechanism type ";
@@ -249,6 +265,10 @@ IMech* MechanismFactory::GetMechanism
 
 		case MechanismTypes::MECHANISM_TYPE::RIGHT_INTAKE:
 			return GetRightIntake();
+			break;
+			
+		case MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER:
+			return GetBallTransfer();
 			break;
 	
 		case MechanismTypes::MECHANISM_TYPE::SHOOTER:

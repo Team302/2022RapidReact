@@ -15,6 +15,11 @@ c++
 -O2
 -nostdinc
 -I
+<<<<<<< HEAD
+<<<<<<< main
+=======
+<<<<<<< HEAD
+>>>>>>> BallTransfer
 C:\\GitRepos\\2022RapidReact\\src\\main\\cpp
 -I
 C:\\GitRepos\\2022RapidReact\\src\\main\\thirdparty
@@ -63,7 +68,66 @@ C:\\Users\\darth\\.gradle\\caches\\transforms-3\\a1deeb780726d8fcab4da1679229ba4
 -I
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\0db5702a18949d54beec6d44b2db0b02\\transformed\\cscore-cpp-2022.3.1-headers
 -I
+<<<<<<< HEAD
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\38c30bd3404596b9fb7e0e9817d9e3e2\\transformed\\opencv-cpp-4.5.2-1-headers
+=======
+C:\\Users\\darth\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers
+=======
+C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\cpp
+-I
+C:\\Users\\user\\Documents\\GitHub\\2022RapidReact\\src\\main\\thirdparty
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\5710c59e3d7b792f670c109f160305be\\transformed\\wpilibNewCommands-cpp-2022.1.1-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\39e6626dcb60612d4196e8913d8671f9\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\770df1a3bb81598cd26e30c6c12773c2\\transformed\\api-cpp-5.20.0-beta-2-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\c0799e4fdc2c2c95005c51fd67255a54\\transformed\\cci-5.20.0-beta-2-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\f5f2ec55ad63c9aee4c99769d08e1dfc\\transformed\\wpiapi-cpp-sim-5.20.0-beta-2-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\e1673eacca63be5e707f58027e505a48\\transformed\\api-cpp-sim-5.20.0-beta-2-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\4980f13391514bcb7952e1b2f143ac75\\transformed\\cci-sim-5.20.0-beta-2-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\fc0957270fd6892632ce741878e2d5f8\\transformed\\simTalonSRX-5.20.0-beta-2-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\5f322b32849a0f1f617e94d9b20cecb2\\transformed\\simTalonFX-5.20.0-beta-2-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\a8254809c047bff92587335e7757c00c\\transformed\\simVictorSPX-5.20.0-beta-2-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\ed6913eb28a628bfb81c0764304d203a\\transformed\\simPigeonIMU-5.20.0-beta-2-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\015e949ce506432e3af00351c9d35cfc\\transformed\\simCANCoder-5.20.0-beta-2-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\178114eb00f372730a0b1c89d5ebb019\\transformed\\wpilibc-cpp-2022.1.1-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\641643087ae9777ae75100ffdbc4697e\\transformed\\ntcore-cpp-2022.1.1-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\1a9cdc5d7555160eb1dcea208642f77f\\transformed\\hal-cpp-2022.1.1-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\a9434eb4c6f89ebba955d60fea0deea2\\transformed\\wpimath-cpp-2022.1.1-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\fea46de20e2869b0be986ea81684d897\\transformed\\wpiutil-cpp-2022.1.1-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\66a16582f6a200fa3a5e3581b24f0c3f\\transformed\\netcomm-2022.2.3-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\683856b648f7528f026e1684c6185c89\\transformed\\chipobject-2022.2.3-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\5d3969cbc3b439049cd8f46e118be0dd\\transformed\\visa-2022.2.3-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\b08b9f937e430cdef8c06ff4f3c7060e\\transformed\\cameraserver-cpp-2022.1.1-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\2a5a8c7196d96ca8c3653526d1ab3dd8\\transformed\\cscore-cpp-2022.1.1-headers
+-I
+C:\\Users\\user\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b\\transformed\\opencv-cpp-4.5.2-1-headers
+<<<<<<< HEAD
+>>>>>>> began working on ball transfer
+=======
+>>>>>>> BallTransfer
+>>>>>>> BallTransfer
+>>>>>>> BallTransfer
 -isystem
 C:\\Users\\Public\\wpilib\\2022\\roborio\\arm-frc2022-linux-gnueabi\\usr\\lib\\gcc\\arm-frc2022-linux-gnueabi\\7.3.0\\include
 -isystem

@@ -124,10 +124,16 @@ vector<MechanismTargetData*> StateDataDefn::ParseXML
                         }
                     }
                 }
+                Logger::GetLogger()->ToNtTable(string("Test"), string("targetdate size"),to_string(targetDataVector.size()));
+
+                cout << string("target data size ") + to_string(targetDataVector.size());
+                cout << endl;
 
                 for ( auto td : targetDataVector )
                 {
                     td->Update( controlDataVector );
+                    cout << td->GetStateString();
+                    cout << endl;
                 }
             }
             else
