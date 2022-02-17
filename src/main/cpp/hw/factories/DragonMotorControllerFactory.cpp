@@ -89,7 +89,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
         }        
         if ( reverseLimitSwitch )
         {
-            talon->SetForwardLimitSwitch(reverseLimitSwitchNormallyOpen);
+            talon->SetReverseLimitSwitch(reverseLimitSwitchNormallyOpen);
         }
 
         if ( followMotor > -1 )
@@ -115,7 +115,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
         }        
         if ( reverseLimitSwitch )
         {
-            talon->SetForwardLimitSwitch(reverseLimitSwitchNormallyOpen);
+            talon->SetReverseLimitSwitch(reverseLimitSwitchNormallyOpen);
         }
         
         if ( followMotor > -1 )

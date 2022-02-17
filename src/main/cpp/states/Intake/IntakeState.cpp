@@ -32,6 +32,8 @@ IntakeState::IntakeState
                      controlSpin, 
                      controlExtend, 
                      spinTarget,
-                     extendTarget) 
+                     extendTarget),
+    m_intake(intake)
 {
 }
+

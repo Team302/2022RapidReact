@@ -36,8 +36,12 @@ class ShooterStateMgr : public StateMgr
         enum SHOOTER_STATE
         {
             OFF,
-            SHOOT_FAR,
-            SHOOT_CLOSE
+            AUTO_SHOOT_HIGH_GOAL_FAR,
+            AUTO_SHOOT_HIGH_GOAL_CLOSE,
+            SHOOT_LOW_GOAL,
+            SHOOT_MANUAL,
+            SHOOTER_HOOD_ADJUST,
+            PREPARE_TO_SHOOT
         };
 
         
@@ -54,7 +58,11 @@ class ShooterStateMgr : public StateMgr
         DragonLimelight* m_dragonLimeLight;
         const double m_CHANGE_STATE_TARGET = 120.0; 
 		static ShooterStateMgr*	m_instance;
-        const StateStruc  m_offState = {SHOOTER_STATE::OFF, StateType::SHOOTER, true};
-        const StateStruc  m_shootFarState = {SHOOTER_STATE::SHOOT_FAR, StateType::SHOOTER, false};
-        const StateStruc m_shootCloseState = {SHOOTER_STATE::SHOOT_CLOSE, StateType::SHOOTER, false};
+        const StateStruc m_offState = {SHOOTER_STATE::OFF, StateType::SHOOTER, true};
+        const StateStruc m_shootFarState = {SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR, StateType::SHOOTER, false};
+        const StateStruc m_shootCloseState = {SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE, StateType::SHOOTER, false};
+        const StateStruc m_shootLowState = {SHOOTER_STATE::SHOOT_LOW_GOAL, StateType::SHOOTER, false};
+        const StateStruc m_manualShootState = {SHOOTER_STATE::SHOOT_MANUAL, StateType::SHOOTER, false};
+        const StateStruc m_shooterHoodAdjust = {SHOOTER_STATE::SHOOTER_HOOD_ADJUST, StateType::SHOOTER, false};
+        const StateStruc m_prepareToShoot = {SHOOTER_STATE::PREPARE_TO_SHOOT, StateType::SHOOTER, false};
 };

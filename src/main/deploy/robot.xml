@@ -359,7 +359,7 @@
               canId="2"
               pdpID="2"
               type="TALONSRX"
-              inverted="true"
+              inverted="false"
               sensorInverted="false"
               feedbackDevice="NONE"
               countsPerRev="0"

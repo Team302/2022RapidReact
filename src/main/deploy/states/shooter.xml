@@ -17,18 +17,47 @@
 	<!--mechanismTarget stateIdentifier="SHOOTERON"
 	                 controlDataIdentifier="openloop"
 					 value="1.0"/--> 
+
+                              SHOOTEROFF | SHOOTERCLOSE | SHOOTERFAR | SHOOTLOWGOAL | MANUALSHOOT | ADJUSTHOOD | PREPARETOSHOOT |                                        
+
 	<mechanismTarget stateIdentifier="SHOOTEROFF"
 	                 controlDataIdentifier="openloop"
-					 value="0.0"/>
+	                 controlDataIdentifie2r="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
 
- <mechanismTarget stateIdentifier="SHOOTERCLOSE"
+	<mechanismTarget stateIdentifier="SHOOTLOWGOAL"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifie2r="openloop"
+					 value="0.5"
+					 secondValue="0.0"/>
+
+	<mechanismTarget stateIdentifier="MANUALSHOOT"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifie2r="openloop"
+					 value="0.5"
+					 secondValue="0.0"/>
+
+	<mechanismTarget stateIdentifier="ADJUSTHOOD"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifie2r="openloop"
+					 value="0.0"
+					 secondValue="0.2"/>
+
+	<mechanismTarget stateIdentifier="PREPARETOSHOOT"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifie2r="openloop"
+					 value="0.5"
+					 secondValue="0.0"/>
+
+ 	<mechanismTarget stateIdentifier="SHOOTERCLOSE"
 	                 controlDataIdentifier="closedloop2"
 					 value="40"
 					 controlDataIdentifier2="closedloop"
 					 secondValue="30"/>
 
 
- <mechanismTarget stateIdentifier="SHOOTERFAR"
+ 	<mechanismTarget stateIdentifier="SHOOTERFAR"
 	                 controlDataIdentifier="closedloop2"
 					 value="40"
 					 controlDataIdentifier2="closedloop"

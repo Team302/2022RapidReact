@@ -45,7 +45,7 @@ class Intake : public Mech2IndMotors
         Intake() = delete;
         virtual ~Intake() = default;
 
-        bool IsFullyExtended() const;
-        bool IsRetracted() const;
+        bool StopIfFullyExtended() const;
+        bool StopIfRetracted() const;
 
 };

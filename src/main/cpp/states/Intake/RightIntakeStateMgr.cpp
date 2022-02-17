@@ -80,6 +80,12 @@ void RightIntakeStateMgr::CheckForStateTransition()
             {
                 SetCurrentState( INTAKE_STATE::OFF, true );
             }
+            auto intake = MechanismFactory::GetMechanismFactory()->GetRightIntake();
+            auto stopped = intake->StopIfFullyExtended();
+            if (!stopped)
+            {
+                intake->StopIfRetracted();
+            }
         }
     }    
 }

@@ -60,6 +60,11 @@ ShooterStateMgr::ShooterStateMgr()
     stateMap["SHOOTEROFF"] = m_offState;
     stateMap["SHOOTERCLOSE"] = m_shootFarState;
     stateMap["SHOOTERFAR"] = m_shootCloseState;
+    stateMap["SHOOTLOWGOAL"] = m_shootLowState;
+    stateMap["MANUALSHOOT"] = m_manualShootState;
+    stateMap["ADJUSTHOOD"] = m_shooterHoodAdjust;
+    stateMap["PREPARETOSHOOT"] = m_prepareToShoot;
+
     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
     
 
@@ -87,19 +92,18 @@ void ShooterStateMgr::CheckForStateTransition()
             auto isManualShootSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT);
             auto isShooterOffSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_OFF);
             auto isPrepareToShootSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_MTR_ON);
-            // should the next one be an axis??
-            auto isManualShooterHoodSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_HOOD_MAN);
+            auto shooterHoodAdjust = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_HOOD_MAN);
             if (isShootHighSelected && m_dragonLimeLight != nullptr)
             {
                 if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 10.0_deg)
                 {
-                    if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET) && currentState != SHOOTER_STATE::SHOOT_FAR)
+                    if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET) && currentState != SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR)
                     {
-                        SetCurrentState(SHOOTER_STATE::SHOOT_FAR, true);
+                        SetCurrentState(SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR, true);
                     }
-                    else if (currentState != SHOOTER_STATE::SHOOT_CLOSE)
+                    else if (currentState != SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE)
                     {
-                        SetCurrentState(SHOOTER_STATE::SHOOT_CLOSE, true);
+                        SetCurrentState(SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE, true);
                     }
                 }
             }
@@ -115,7 +119,7 @@ void ShooterStateMgr::CheckForStateTransition()
             {
                 // TODO: Define State
             }
-            else if (isManualShooterHoodSelected) // TODO: should this be an axis instead of a button?
+            else if (abs(shooterHoodAdjust) > 0.05) // TODO: should this be an axis instead of a button?
             {
                 // TODO: Define State
             }

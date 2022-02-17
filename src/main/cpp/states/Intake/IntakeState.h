@@ -34,4 +34,9 @@ class IntakeState : public Mech2MotorState
             double       extendTarget
         );
         ~IntakeState() = default;
+
+        bool StopExtendingOrRetracting() const;
+
+    private:
+        Intake*     m_intake;
 };
