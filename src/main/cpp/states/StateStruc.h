@@ -18,7 +18,6 @@
        
 enum StateType
 {
-    BALLTRANSFEROFF,
     LEFT_INTAKE,
     RIGHT_INTAKE,
     BALL_TRANSFER,
