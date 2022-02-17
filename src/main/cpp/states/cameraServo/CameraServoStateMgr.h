@@ -13,38 +13,44 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+#pragma once
+
+// C++ Includes
+
+// FRC includes
+
 // Team 302 includes
-#include <states/servo/ServoState.h>
-#include <subsys/MechanismFactory.h>
-#include <states/Mech1MotorState.h>
-#include <controllers/ControlData.h>
-#include <controllers/MechanismTargetData.h>
+#include <states/StateMgr.h>
+#include <states/StateStruc.h>
+
+
+
 // Third Party Includes
 
-
-ServoState::ServoState
-(
-    ControlData*                    ControlData,
-    double                          target
-) : Mech1MotorState(MechanismFactory::GetMechanismFactory()->GetServo(), ControlData, target)
-
+class CameraServoStateMgr : public StateMgr
 {
-}
+    public:
+        /// @enum the various states of the camera servo
+        enum CAMERA_SERVO_STATE
+        {
+            LOOK_RIGHT,
+            LOOK_LEFT,
+            MAX_CAMERA_SERVO_STATES
+        };
 
-void ServoState::Init()
-{
-    // No-op - we already have the information
-}
+        
+		/// @brief  Find or create the state manmanager
+		/// @return CameraServoStateMgr* pointer to the state manager
+		static CameraServoStateMgr* GetInstance();
+        void CheckForStateTransition() override;
 
-void ServoState::Run()
-{
-    if (m_servo != nullptr)
-    {
-        m_servo->SetAngle(m_target);
-    }
-}
+    private:
 
-bool ServoState::AtTarget() const
-{
-    return true;
-}
+        CameraServoStateMgr();
+        ~CameraServoStateMgr() = default;
+
+		static CameraServoStateMgr*	m_instance;
+
+        const StateStruc  m_rightState = {CAMERA_SERVO_STATE::LOOK_RIGHT, StateType::CAMERA_SERVO, true};
+        const StateStruc  m_leftState = {CAMERA_SERVO_STATE::LOOK_LEFT, StateType::CAMERA_SERVO, false};
+};

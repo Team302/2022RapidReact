@@ -18,7 +18,7 @@
 #include <subsys/Shooter.h>
 #include <states/chassis/SwerveDrive.h>
 #include <subsys/Shooter.h>
-#include <states/servo/ServoStateMgr.h>
+#include <states/cameraServo/CameraServoStateMgr.h>
 
 
 
@@ -51,6 +51,6 @@ class Robot : public frc::TimedRobot
   ShooterStateMgr*      m_shooterStateMgr;
   Shooter*              m_shooter;
 
-  Servo*                m_servo;
-  ServoStateMgr*        m_servoStateMgr;
+  CameraServoStateMgr*  m_cameraServoStateMgr;
+  CameraServo*          m_cameraServo;
 };

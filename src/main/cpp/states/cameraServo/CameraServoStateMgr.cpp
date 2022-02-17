@@ -33,7 +33,7 @@
 #include <states/StateStruc.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
-#include <states/servo/ServoStateMgr.h>
+#include <states/cameraServo/CameraServoStateMgr.h>
 #include <subsys/MechanismFactory.h>
 #include <hw/DragonServo.h>
 
@@ -43,49 +43,49 @@
 using namespace std;
 
 
-ServoStateMgr* ServoStateMgr::m_instance = nullptr;
-ServoStateMgr* ServoStateMgr::GetInstance()
+CameraServoStateMgr* CameraServoStateMgr::m_instance = nullptr;
+CameraServoStateMgr* CameraServoStateMgr::GetInstance()
 {
-	if ( ServoStateMgr::m_instance == nullptr )
+	if ( CameraServoStateMgr::m_instance == nullptr )
 	{
-	     ServoStateMgr::m_instance = new ServoStateMgr();
+	     CameraServoStateMgr::m_instance = new CameraServoStateMgr();
 	}
-	return ServoStateMgr::m_instance;
+	return CameraServoStateMgr::m_instance;
 }
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-ServoStateMgr::ServoStateMgr()
+CameraServoStateMgr::CameraServoStateMgr()
 {
     map<string, StateStruc> stateMap;
     stateMap["LOOKRIGHT"] = m_rightState;
     stateMap["LOOKLEFT"] = m_leftState;
 
-    Init(MechanismFactory::GetMechanismFactory()->GetServo(), stateMap);
+    Init(MechanismFactory::GetMechanismFactory()->GetCameraServo(), stateMap);
 }   
 
 
 /// @brief  run the current state
 /// @return void
-void ServoStateMgr::CheckForStateTransition()
+void CameraServoStateMgr::CheckForStateTransition()
 {
-    if ( MechanismFactory::GetMechanismFactory()->GetServo() != nullptr )
+    if ( MechanismFactory::GetMechanismFactory()->GetCameraServo() != nullptr )
     {
         // process teleop/manual interrupts
-        auto currentState = static_cast<SERVO_STATE>(GetCurrentState());
+        auto currentState = static_cast<CAMERA_SERVO_STATE>(GetCurrentState());
     
         auto controller = TeleopControl::GetInstance();
         if ( controller != nullptr )
         {
             auto rightPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::LOOK_RIGHT);
             auto leftPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::LOOK_LEFT);
-            if (rightPressed  &&  currentState != SERVO_STATE::LOOK_RIGHT )
+            if (rightPressed  &&  currentState != CAMERA_SERVO_STATE::LOOK_RIGHT )
             {
-                SetCurrentState( SERVO_STATE::LOOK_RIGHT, true );
+                SetCurrentState( CAMERA_SERVO_STATE::LOOK_RIGHT, true );
             }
-            else if (leftPressed && currentState != SERVO_STATE::LOOK_LEFT )
+            else if (leftPressed && currentState != CAMERA_SERVO_STATE::LOOK_LEFT )
             {
-                SetCurrentState( SERVO_STATE::LOOK_LEFT, true );
+                SetCurrentState( CAMERA_SERVO_STATE::LOOK_LEFT, true );
             }           
         }
     }

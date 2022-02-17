@@ -36,7 +36,7 @@ class MechanismTypes
             BALL_TRANSFER,
             SHOOTER,
             CLIMBER,
-            SERVO,               
+            CAMERA_SERVO,               
             MAX_MECHANISM_TYPES
         };
 };

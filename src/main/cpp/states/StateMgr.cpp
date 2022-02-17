@@ -33,7 +33,7 @@
 #include <xmlmechdata/StateDataDefn.h>
 #include <states/Intake/IntakeState.h>
 #include <states/ShooterState.h>
-#include <states/servo/ServoState.h>
+#include <states/cameraServo/CameraServoState.h>
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
 

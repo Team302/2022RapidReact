@@ -42,6 +42,7 @@
 #include <subsys/Intake.h>
 #include <subsys/Shooter.h>
 #include <subsys/Climber.h>
+#include <subsys/CameraServo.h>
 
 // Third Party Includes
 
@@ -91,7 +92,7 @@ class MechanismFactory
 		inline Intake* GetLeftIntake() const { return m_leftIntake;};
 		inline Intake* GetRightIntake() const { return m_rightIntake;};
 		inline Shooter* GetShooter() const { return m_shooter;};
-		inline Servo* GetServo() const { return m_servo;};
+		inline CameraServo* GetCameraServo() const { return m_cameraServo;};
 
 		IMech* GetMechanism
 		(
@@ -135,12 +136,12 @@ class MechanismFactory
 		virtual ~MechanismFactory() = default;
 
 		static MechanismFactory*	m_mechanismFactory;
-		Climber*	m_climber;
+		Climber*					m_climber;
 
-		Intake* 	m_leftIntake;
-		Intake* 	m_rightIntake;
-		Shooter* 	m_shooter;
+		Intake* 					m_leftIntake;
+		Intake* 					m_rightIntake;
+		Shooter* 					m_shooter;
 
-		Servo*		m_servo;
+		CameraServo*				m_cameraServo;
 
 };

@@ -12,15 +12,15 @@
 // Third Party Includes
 
 
-class Servo : public Mech1Servo
+class CameraServo : public Mech1Servo
 {
     public:
 
-        Servo
+        CameraServo
         (
             DragonServo* servo
         );
 
-        Servo() = delete;
-        virtual ~Servo() = default;
+        CameraServo() = delete;
+        virtual ~CameraServo() = default;
 };
