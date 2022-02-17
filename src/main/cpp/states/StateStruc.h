@@ -30,7 +30,7 @@ enum StateType
     SHOOTER_MANUAL,
     SHOOTER_AUTO,
     CLIMBER,
-    SERVO,
+    CAMERA_SERVO,
     MAX_STATE_TYPES
 };
 

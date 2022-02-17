@@ -18,6 +18,14 @@
 #include <states/lift/LiftStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <subsys/interfaces/IChassis.h>
+#include <states/intake/IntakeStateMgr.h>
+#include <subsys/Intake.h>
+#include <auton/CyclePrimitives.h>
+#include <states/ShooterStateMgr.h>
+#include <subsys/Shooter.h>
+#include <states/chassis/SwerveDrive.h>
+#include <subsys/Shooter.h>
+#include <states/cameraServo/CameraServoStateMgr.h>
 #include <states/servo/ServoStateMgr.h>
 
 
@@ -53,5 +61,6 @@ class Robot : public frc::TimedRobot
   ShooterStateMgr*      m_shooterStateMgr;
   ClimberStateMgr*      m_climberStateMgr;
 
-  ServoStateMgr*        m_servoStateMgr;
+  CameraServoStateMgr*  m_cameraServoStateMgr;
+  CameraServo*          m_cameraServo;
 };

@@ -39,7 +39,7 @@ class MechanismTypes
             LIFT,
             SHOOTER,
             CLIMBER,
-            SERVO,               
+            CAMERA_SERVO,               
             MAX_MECHANISM_TYPES
         };
 };

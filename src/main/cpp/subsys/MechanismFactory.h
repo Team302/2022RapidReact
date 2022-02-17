@@ -46,6 +46,7 @@
 #include <subsys/BallTransfer.h>
 #include <subsys/Lift.h>
 #include <subsys/Indexer.h>
+#include <subsys/CameraServo.h>
 
 // Third Party Includes
 
@@ -100,6 +101,7 @@ class MechanismFactory
 		inline Indexer* GetRightIndexer() const { return m_rightIndexer;};
 		inline Lift* GetLift() const { return m_lift;};
 		inline Servo* GetServo() const { return m_servo;};
+		inline CameraServo* GetCameraServo() const { return m_cameraServo;};
 
 		IMech* GetMechanism
 		(
@@ -154,5 +156,7 @@ class MechanismFactory
 		Lift* 			m_lift;
 		
 		Servo*		        m_servo;
+
+		CameraServo*				m_cameraServo;
 
 };

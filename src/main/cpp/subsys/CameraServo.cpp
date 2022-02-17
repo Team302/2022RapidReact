@@ -13,39 +13,24 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+#include <memory>
+#include <string>
 
-#pragma once
 
-//Team 302 Includes
-#include <states/IState.h>
-#include <controllers/MechanismTargetData.h>
+// FRC includes
+
+// Team 302 includes
+#include <subsys/CameraServo.h>
 #include <subsys/Mech1Servo.h>
-#include <states/Mech1MotorState.h>
+#include <hw/DragonServo.h>
 
-class ControlData;
+// Third Party Includes
 
-class ServoState : public Mech1MotorState
+using namespace std;
+
+CameraServo::CameraServo
+(
+    DragonServo* servo 
+) : Mech1Servo(MechanismTypes::MECHANISM_TYPE::CAMERA_SERVO,  string("cameraservo.xml"),  string("CameraServoNT"), servo)
 {
-    public:
-        ServoState() = delete;
-        ServoState
-        (
-            ControlData*                    ControlData,
-            double                          target
-        );
-
-        ~ServoState() = default;
-        
-        
-        void Init() override;
-        void Run() override;
-        bool AtTarget() const override;
-
-        double GetTarget() const {return m_target;}
-
-    private:
-
-        double                      m_target;
-        IMech1Servo*                m_servo;
-        
-};
+}
