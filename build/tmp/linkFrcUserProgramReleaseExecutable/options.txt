@@ -367,6 +367,9 @@ C:\\Users\\user\\.gradle\\caches\\transforms-3\\92c7872c5ded4815e3674b79f8713535
 =======
 >>>>>>> BallTransfer
 >>>>>>> BallTransfer
+<<<<<<< HEAD
+>>>>>>> BallTransfer
+=======
 >>>>>>> BallTransfer
 -rdynamic
 -pthread

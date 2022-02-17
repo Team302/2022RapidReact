@@ -127,6 +127,9 @@ C:\\Users\\user\\.gradle\\caches\\transforms-3\\513d63680c462fd3c3f26d776e7a371b
 =======
 >>>>>>> BallTransfer
 >>>>>>> BallTransfer
+<<<<<<< HEAD
+>>>>>>> BallTransfer
+=======
 >>>>>>> BallTransfer
 -isystem
 C:\\Users\\Public\\wpilib\\2022\\roborio\\arm-frc2022-linux-gnueabi\\usr\\lib\\gcc\\arm-frc2022-linux-gnueabi\\7.3.0\\include
