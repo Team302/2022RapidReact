@@ -3,17 +3,17 @@
 <statedata>
 	<controlData identifier="openloop" 
 	             mode="PERCENT_OUTPUT"/>
-	<mechanismTarget stateIdentifier="INTAKEOFF"
+	<mechanismTarget stateIdentifier="INTAKE_OFF"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
 					 value="0.0"
 					 secondValue="-1.0"/>
-	<mechanismTarget stateIdentifier="INTAKEON"
+	<mechanismTarget stateIdentifier="INTAKE_ON"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
 					 value="1.0"
 					 secondValue="1.0"/>
-	<mechanismTarget stateIdentifier="INTAKEEXPEL"
+	<mechanismTarget stateIdentifier="INTAKE_EXPEL"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
 					 value="-1.0"

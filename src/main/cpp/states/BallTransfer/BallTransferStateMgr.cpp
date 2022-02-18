@@ -23,17 +23,18 @@
 #include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
-#include <states/IState.h>
-#include <states/balltransfer/BallTransferStateMgr.h>
-#include <xmlmechdata/StateDataDefn.h>
 #include <controllers/MechanismTargetData.h>
-#include <utils/Logger.h>
 #include <gamepad/TeleopControl.h>
 #include <states/balltransfer/BallTransferState.h>
-#include <subsys/MechanismFactory.h>
-#include <subsys/MechanismTypes.h>
+#include <states/balltransfer/BallTransferStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
+#include <states/IState.h>
 #include <states/StateMgr.h>
 #include <states/StateStruc.h>
+#include <subsys/MechanismFactory.h>
+//#include <subsys/MechanismTypes.h>
+#include <utils/Logger.h>
+#include <xmlmechdata/StateDataDefn.h>
 
 
 // Third Party Includes
@@ -53,46 +54,92 @@ BallTransferStateMgr* BallTransferStateMgr::GetInstance()
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-BallTransferStateMgr::BallTransferStateMgr() 
+BallTransferStateMgr::BallTransferStateMgr() : StateMgr(),
+                                               m_transfer(MechanismFactory::GetMechanismFactory()->GetBallTransfer()),
+                                               m_shooterStateMgr(ShooterStateMgr::GetInstance()),
+                                               m_lastManualState(BALL_TRANSFER_STATE::LOAD),
+                                               m_nt()
 {
-    map<string, StateStruc> stateMap;
-    stateMap["BALLTRANSFEROFF"] = m_offState;
-    stateMap["BALLTRANSFERSPIN"] = m_spinState;
-    stateMap["BALLTRANSFERLIFT"] = m_liftState;
+    if (m_transfer != nullptr)
+    {
+        auto ntName = m_transfer->GetNetworkTableName();
+        m_nt = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
+    }
+    else
+    {
+        m_nt = nt::NetworkTableInstance::GetDefault().GetTable("transfer");
+    }
 
-    Init(MechanismFactory::GetMechanismFactory()->GetBallTransfer(), stateMap);
+    map<string, StateStruc> stateMap;
+    stateMap["BALLTRANSFER_OFF"] = m_offState;
+    stateMap["BALLTRANSFER_LOAD"] = m_loadState;
+    stateMap["BALLTRANSFER_HOLD"] = m_holdState;
+    stateMap["BALLTRANSFER_SHOOT"] = m_feedState;
+    Init(m_transfer, stateMap);
 }
 
 /// @brief  run the current state
 /// @return void
 void BallTransferStateMgr::CheckForStateTransition()
-{
-    /**
-    if ( MechanismFactory::GetMechanismFactory()->GetBallTransfer() != nullptr )
+{        
+    if (m_transfer != nullptr )
     {
+        auto isBallPresent = m_transfer->IsBallPresent();
+        Logger::GetLogger()->ToNtTable(m_nt, string("Ball Present Sensor"), to_string(isBallPresent));
+
         // process teleop/manual interrupts
         auto currentState = static_cast<BALL_TRANSFER_STATE>(GetCurrentState());
-        
         auto controller = TeleopControl::GetInstance();
-        if ( controller != nullptr )
+        auto isManualShoot   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT) : false;
+        auto isManualKicker  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MAN_KICKER) : false;
+        auto isAutoShootHigh = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH) : false;
+        auto isAutoShootLow  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW) : false;
+
+        if (isBallPresent && (isAutoShootHigh || isAutoShootLow))
         {
-            auto spinPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::BALL_TRANSFER_SPIN);
-            auto liftPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::BALL_TRANSFER_LIFT);
-            if (spinPressed  &&  currentState != BALL_TRANSFER_STATE::SPIN )
+            if (currentState == BALL_TRANSFER_STATE::HOLD)
             {
-                SetCurrentState( BALL_TRANSFER_STATE::SPIN, false );
+                Logger::GetLogger()->ToNtTable(m_nt, string("Transfer Ready "), string("true"));
+                if (m_shooterStateMgr != nullptr && m_shooterStateMgr->AtTarget())
+                {
+                    Logger::GetLogger()->ToNtTable(m_nt, string("Shooter Ready "), string("true"));
+                    SetCurrentState(BALL_TRANSFER_STATE::FEED, true);
+                }
+                else // no transition
+                {
+                    Logger::GetLogger()->ToNtTable(m_nt, string("Shooter Ready "), string("false"));
+                }
             }
-            else if (liftPressed && currentState != BALL_TRANSFER_STATE::LIFT )
+            else
             {
-                SetCurrentState( BALL_TRANSFER_STATE::LIFT, false );
-            }           
-            else if ((!spinPressed && !liftPressed) && currentState != BALL_TRANSFER_STATE::OFF )
-            {
-                SetCurrentState( BALL_TRANSFER_STATE::OFF, false );
+                Logger::GetLogger()->ToNtTable(m_nt, string("Transfer Ready "), string("false"));
+                SetCurrentState(BALL_TRANSFER_STATE::HOLD, true);
             }
         }
+        else if (isManualShoot)
+        {
+            SetCurrentState(BALL_TRANSFER_STATE::FEED, true);
+        }
+        else if (isManualKicker)
+        {
+            if (currentState == BALL_TRANSFER_STATE::LOAD)
+            {
+                SetCurrentState(BALL_TRANSFER_STATE::FEED, true);
+            }
+            else
+            {
+                SetCurrentState(BALL_TRANSFER_STATE::LOAD, true);
+            }
+        }
+        else if (isBallPresent)
+        {
+            SetCurrentState(BALL_TRANSFER_STATE::HOLD, true);
+        }
+        else 
+        {
+            SetCurrentState(BALL_TRANSFER_STATE::LOAD, true);
+        }
     }
-    **/
 }
 
 

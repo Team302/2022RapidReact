@@ -54,14 +54,14 @@ ShooterStateMgr* ShooterStateMgr::GetInstance()
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-ShooterStateMgr::ShooterStateMgr()
+ShooterStateMgr::ShooterStateMgr() : StateMgr()
 {
     map<string, StateStruc> stateMap;
-    stateMap["SHOOTEROFF"] = m_offState;
-    stateMap["SHOOTERCLOSE"] = m_shootFarState;
-    stateMap["SHOOTERFAR"] = m_shootCloseState;
-    stateMap["SHOOTLOWGOAL"] = m_shootLowState;
-    stateMap["MANUALSHOOT"] = m_manualShootState;
+    stateMap["SHOOTER_OFF"] = m_offState;
+    stateMap["SHOOT_HIGHGOAL_CLOSE"] = m_shootFarState;
+    stateMap["SHOOT_HIGHGOAL_FAR"] = m_shootCloseState;
+    stateMap["SHOOT_LOWGOAL"] = m_shootLowState;
+    stateMap["MANUAL_SHOOT"] = m_manualShootState;
     stateMap["ADJUSTHOOD"] = m_shooterHoodAdjust;
     stateMap["PREPARETOSHOOT"] = m_prepareToShoot;
 
@@ -72,10 +72,10 @@ ShooterStateMgr::ShooterStateMgr()
 }   
 
 
-/// @brief  run the current state
-/// @return void
-
-bool ShooterStateMgr::AtTarget() {return GetCurrentStatePtr()->AtTarget();}
+bool ShooterStateMgr::AtTarget() const
+{
+    return GetCurrentStatePtr()->AtTarget();
+}
 
 void ShooterStateMgr::CheckForStateTransition()
 {
@@ -109,24 +109,29 @@ void ShooterStateMgr::CheckForStateTransition()
             }
             else if (isShootLowSelected)
             {
-                // TODO:: add state definition
-            }
-            else if (isShooterOffSelected && currentState != SHOOTER_STATE::OFF)
-            {
-                SetCurrentState(SHOOTER_STATE::OFF, true);
-            }
-            else if (isManualShootSelected)
-            {
-                // TODO: Define State
-            }
-            else if (abs(shooterHoodAdjust) > 0.05) // TODO: should this be an axis instead of a button?
-            {
-                // TODO: Define State
+                SetCurrentState(SHOOTER_STATE::SHOOT_LOW_GOAL, true);
             }
             else if (isPrepareToShootSelected)
             {
-                // TODO: Define State
+                SetCurrentState(SHOOTER_STATE::PREPARE_TO_SHOOT, true);
             }
+            else if (isManualShootSelected)
+            {
+                SetCurrentState(SHOOTER_STATE::SHOOT_MANUAL, true);
+            }
+            else if (abs(shooterHoodAdjust) > 0.05) 
+            {
+                SetCurrentState(SHOOTER_STATE::SHOOTER_HOOD_ADJUST, true);
+            }
+            else if (isShooterOffSelected)
+            {
+                SetCurrentState(SHOOTER_STATE::OFF, true);
+            }
+            else if (currentState != SHOOTER_STATE::OFF)
+            {
+                SetCurrentState(SHOOTER_STATE::PREPARE_TO_SHOOT, true);
+            }
+
         }
     }
 }

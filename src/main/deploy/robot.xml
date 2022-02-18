@@ -12,20 +12,20 @@
 
        <!-- 
        <limelight tablename="limelight"
-                     mountingheight="41.0"
-                     horizontaloffset="0.0"
-                     mountingangle="15.0"
-                     rotation="0.0"
-                     targetheight="104.0"
-                     targetheight2="0.0"
-                     defaultledmode="currentpipeline"
-                     defaultcammode="vision"
-                     streammode="sidebyside"
-                     snapshots="off"
-                     crosshairx="0.5"
-                     crosshairy="0.5"
-                     secondcrosshairx="0.25"
-                     secondcrosshairy="0.25" />
+            mountingheight="41.0"
+            horizontaloffset="0.0"
+            mountingangle="15.0"
+            rotation="0.0"
+            targetheight="104.0"
+            targetheight2="0.0"
+            defaultledmode="currentpipeline"
+            defaultcammode="vision"
+            streammode="sidebyside"
+            snapshots="off"
+            crosshairx="0.5"
+            crosshairy="0.5"
+            secondcrosshairx="0.25"
+            secondcrosshairy="0.25" />
   -->
  <!-- ====================================================
      Chassis
@@ -250,49 +250,9 @@
         </swervemodule>
 
        </chassis>  
-       <mechanism type="SHOOTER"
-               networkTable="shooterNT"
-               controlFile="shooter.xml">
-       <motor usage="SHOOTER"
-              canId="14"
-              pdpID="14"
-              type="FALCON"
-              inverted="true"
-              sensorInverted="false"
-              feedbackDevice="NONE"
-              countsPerRev="2048"
-              gearRatio="1.0"
-              brakeMode="false"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="false"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="false"
-              reverselimitswitchopen="true"/>
 
-       <motor usage="SHOOTER_HOOD"
-              canId="7"
-              pdpID="7"
-              type="TALONSRX"
-              inverted="true"
-              sensorInverted="false"
-              feedbackDevice="NONE"
-              countsPerRev="0"
-              gearRatio="1.0"
-              brakeMode="true"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="true"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="true"
-              reverselimitswitchopen="true"/>
-    </mechanism>
 <!-- ====================================================
-     Intake
+     Intakes
      ====================================================  -->
     <mechanism type="LEFT_INTAKE"
                networkTable="LeftIntakeNT"
@@ -375,11 +335,15 @@
               reverselimitswitchopen="true"/>
     </mechanism>
 
+<!-- ====================================================
+     Ball Transfer
+     ====================================================  -->
+
     <!--
     <mechanism type="BALLTRANSFER"
                networkTable="BallTransferNT"
                controlFile="balltransfer.xml">
-       <motor usage="BALLTRANSFER"
+       <motor usage="BALL_TRANSFER_SPIN"
               canId="14"
               pdpID="14"
               type="TALONSRX"
@@ -397,9 +361,78 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
+       <motor usage="BALL_TRANSFER_LIFT"
+              canId="14"
+              pdpID="14"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="false"
+              reverselimitswitchopen="true"/>      
+       <digitalInput usage="BALL_PRESENT"
+                     digitalId="0"  
+                     reversed="false"/>      
+       </mechanism>
+              -->
+
+<!-- ====================================================
+     Shooter
+     ====================================================  -->
+       <mechanism type="SHOOTER"
+               networkTable="shooterNT"
+               controlFile="shooter.xml">
+       <motor usage="SHOOTER"
+              canId="14"
+              pdpID="14"
+              type="FALCON"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="2048"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="false"
+              reverselimitswitchopen="true"/>
+
+       <motor usage="SHOOTER_HOOD"
+              canId="7"
+              pdpID="7"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="true"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="true"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="true"
+              reverselimitswitchopen="true"/>
     </mechanism>
 
-              -->
+<!-- ====================================================
+     Climber
+     ====================================================  -->
        <mechanism type="CLIMBER"
                networkTable="climberNT"
                controlFile="climber.xml">

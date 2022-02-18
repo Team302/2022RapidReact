@@ -13,25 +13,19 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-
-#include <iostream>
 #include <map>
 
+#include <frc/Filesystem.h>
 
+#include <auton/AutonSelector.h>
+#include <auton/PrimitiveEnums.h>
+#include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
+#include <auton/primitives/IPrimitive.h>
+#include <utils/Logger.h>
 
 #include <pugixml/pugixml.hpp>
 
-#include <frc/Filesystem.h>
-#include <frc/SmartDashboard/SmartDashboard.h>
-
-
-
-#include <auton/PrimitiveParams.h>
-#include <auton/AutonSelector.h>
-#include <auton/PrimitiveEnums.h>
-#include <auton/primitives/IPrimitive.h>
-#include <utils/Logger.h>
 
 using namespace std;
 using namespace pugi;

@@ -22,6 +22,7 @@ enum StateType
     RIGHT_INTAKE,
     BALL_TRANSFER,
     SHOOTER,
+    SHOOTER_MANUAL,
     CLIMBER,
     MAX_STATE_TYPES
 };

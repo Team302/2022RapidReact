@@ -23,6 +23,7 @@
 
 
 #include <states/chassis/DragonTargetFinder.h>
+#include <wpi/numbers>
 
 // in: 
 // out: Pose2d Field position of target center x,y,r(0_deg)
@@ -113,8 +114,8 @@ double DragonTargetFinder::GetAngle2Target(frc::Pose2d lCurPose)
     // Chassis Quadarant location based on radians to target.  ///////////////
     int iQuadrantsLoc = 0; // Quadrants I,II,III,IV.  Standard radians rotation counter clockwise
 
-    double dDeg2Target = (dAngleAA * (180.0 / PI)); // convert rad to degrees.
-    double dDeg2TargetB = (dAngleBB * (180.0 / PI));
+    double dDeg2Target = (dAngleAA * (180.0 / wpi::numbers::pi)); // convert rad to degrees.
+    double dDeg2TargetB = (dAngleBB * (180.0 / wpi::numbers::pi));
 
     if ((dAngleAA) < 0 && (dAngleBB > 0))
     {

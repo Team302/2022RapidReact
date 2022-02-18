@@ -153,26 +153,18 @@ void MechanismFactory::CreateIMechanism
 			}
 		}
 		break;
-		
-		case MechanismTypes::MECHANISM_TYPE::CLIMBER :
+
+		case MechanismTypes::BALL_TRANSFER:
 		{
-			if (m_climber == nullptr)
+			if (m_ballTransfer == nullptr)
 			{
-				auto motor1 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_LIFT );
-				auto motor2 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_ROTATE);
-				if ( motor1.get() != nullptr && motor2.get() != nullptr )
+				auto spin = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
+				auto lift = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_SPIN);
+				auto ballPresentSw = GetDigitalInput(digitalInputs, DigitalInputUsage::BALL_PRESENT);
+				if ((lift.get() != nullptr) && spin.get() != nullptr && ballPresentSw.get() != nullptr)
 				{
-					m_climber = new Climber(motor1, motor2);
-					//m_climber = make_shared<Climber>(motor1, motor2);
+					m_ballTransfer = new BallTransfer(networkTableName, controlFileName, spin, lift, ballPresentSw);
 				}
-				else
-				{
-					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No climber motors exist in XML"));
-				}
-			}
-			else
-			{
-				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Climber already exists") );
 			}
 		}
 		break;
@@ -194,16 +186,26 @@ void MechanismFactory::CreateIMechanism
 			}
 		}
 		break;		
-		case MechanismTypes::BALL_TRANSFER:
+		
+		case MechanismTypes::MECHANISM_TYPE::CLIMBER :
 		{
-			if (m_ballTransfer == nullptr)
+			if (m_climber == nullptr)
 			{
-				auto m_spin = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
-				auto m_lift = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_SPIN);
-				if ((m_lift.get() != nullptr) && m_spin.get() != nullptr)
+				auto motor1 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_LIFT );
+				auto motor2 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_ROTATE);
+				if ( motor1.get() != nullptr && motor2.get() != nullptr )
 				{
-					m_ballTransfer = new BallTransfer(networkTableName, controlFileName, m_spin, m_lift);
+					m_climber = new Climber(motor1, motor2);
+					//m_climber = make_shared<Climber>(motor1, motor2);
 				}
+				else
+				{
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No climber motors exist in XML"));
+				}
+			}
+			else
+			{
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Climber already exists") );
 			}
 		}
 		break;

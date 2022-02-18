@@ -13,26 +13,49 @@
 				 mode="VELOCITY_RPS"
 				 proportional="0.155"
 				 feedforward="0.045"/>
-				 
-	<!--mechanismTarget stateIdentifier="SHOOTERON"
-	                 controlDataIdentifier="openloop"
-					 value="1.0"/--> 
-	<mechanismTarget stateIdentifier="SHOOTEROFF"
-	                 controlDataIdentifier="openloop"
-					 value="0.0"/>
 
- <mechanismTarget stateIdentifier="SHOOTERCLOSE"
+	<mechanismTarget stateIdentifier="SHOOTER_OFF"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifie2r="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
+
+	<mechanismTarget stateIdentifier="SHOOT_LOWGOAL"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifie2r="openloop"
+					 value="0.5"
+					 secondValue="1.0"/>
+
+	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifie2r="openloop"
+					 value="0.5"
+					 secondValue="0.0"/>
+
+	<mechanismTarget stateIdentifier="ADJUSTHOOD"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifie2r="openloop"
+					 value="0.0"
+					 secondValue="0.2"/>
+
+	<mechanismTarget stateIdentifier="PREPARETOSHOOT"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifie2r="openloop"
+					 value="0.5"
+					 secondValue="0.0"/>
+
+ 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
 	                 controlDataIdentifier="closedloop2"
 					 value="40"
-					 controlDataIdentifier2="closedloop"
-					 secondValue="30"/>
+					 controlDataIdentifier2="openloop"
+					 secondValue="1.0"/>
 
 
- <mechanismTarget stateIdentifier="SHOOTERFAR"
+ 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
 	                 controlDataIdentifier="closedloop2"
 					 value="40"
-					 controlDataIdentifier2="closedloop"
-					 secondValue="30"/>
+					 controlDataIdentifier2="openloop"
+					 secondValue="-1.0"/>
 					  <!-- 8ft from hub <mechanismTarget stateIdentifier="SHOOTERON"
 	                 controlDataIdentifier="closedloop"
 					 value="55.0"/> -->

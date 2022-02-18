@@ -79,7 +79,6 @@ void CyclePrimitives::Run()
 		}
 		else
 		{
-			Logger::GetLogger()->LogError(string("CyclePrimitive"), string("Completed"));
 			m_isDone = true;
 			m_primParams.clear();	// clear the primitive params vector
 			m_currentPrimSlot = 0;  //Reset current prim slot

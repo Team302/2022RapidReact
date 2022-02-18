@@ -21,6 +21,7 @@
 
 // Team 302 includes
 #include <subsys/Mech2IndMotors.h>
+#include <hw/DragonDigitalInput.h>
 
 
 // Third Party Includes
@@ -35,10 +36,15 @@ class BallTransfer : public Mech2IndMotors
         (
             std::string GetControlFileName,
             std::string GetNetworkTableName,
-            std::shared_ptr<IDragonMotorController> m_spin,
-            std::shared_ptr<IDragonMotorController> m_lift
+            std::shared_ptr<IDragonMotorController> spinMotor,
+            std::shared_ptr<IDragonMotorController> liftMotor,
+            std::shared_ptr<DragonDigitalInput>     ballPresentSw
         );
+
+        bool IsBallPresent() const;
 
         BallTransfer() = delete;
         virtual ~BallTransfer() = default;
+    private:
+        std::shared_ptr<DragonDigitalInput>     m_ballPresentSw;
 };

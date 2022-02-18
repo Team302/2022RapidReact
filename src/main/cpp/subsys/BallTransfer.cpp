@@ -23,6 +23,7 @@
 #include <subsys/BallTransfer.h>
 #include <subsys/Mech2IndMotors.h>
 #include <hw/interfaces/IDragonMotorController.h>
+#include <hw/DragonDigitalInput.h>
 #include <subsys/MechanismFactory.h>
 
 
@@ -35,13 +36,23 @@ BallTransfer::BallTransfer
 (
     string networkTableName,
     string controlFileName,
-    shared_ptr<IDragonMotorController> spinMotor, //Motor controller passed in from mech factory
-    shared_ptr<IDragonMotorController> liftMotor //Second motor controller passed in from mech factory
+    shared_ptr<IDragonMotorController> spinMotor, 
+    shared_ptr<IDragonMotorController> liftMotor,
+    shared_ptr<DragonDigitalInput>     ballPresentSw
 ) : Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER, 
                    controlFileName, 
                    networkTableName, 
                    spinMotor, 
-                   liftMotor)
-//  ^ Creates a 1 motor mechanism of type "Ball Transfer", states control data and network table name, also pass in motor controller
+                   liftMotor),
+    m_ballPresentSw(ballPresentSw)
 {
+}
+
+bool BallTransfer::IsBallPresent() const
+{
+    if (m_ballPresentSw.get() != nullptr)
+    {
+        return m_ballPresentSw.get()->Get();
+    }
+    return false;
 }

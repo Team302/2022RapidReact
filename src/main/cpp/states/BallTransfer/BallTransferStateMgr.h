@@ -18,10 +18,13 @@
 // C++ Includes
 
 // FRC includes
+#include <networktables/NetworkTable.h>
 
 // Team 302 includes
+#include <states/shooter/ShooterStateMgr.h>
 #include <states/StateMgr.h>
 #include <states/StateStruc.h>
+#include <subsys/BallTransfer.h>
 
 
 // Third Party Includes
@@ -33,8 +36,9 @@ class BallTransferStateMgr : public StateMgr
         enum BALL_TRANSFER_STATE
         {
             OFF,
-            LIFT,
-            SPIN,
+            LOAD,
+            HOLD,
+            FEED,
             MAX_BALL_TRANSFER_STATES
         };
 
@@ -46,12 +50,20 @@ class BallTransferStateMgr : public StateMgr
 
 
     private:
+        BallTransfer*                           m_transfer;
+        ShooterStateMgr*                        m_shooterStateMgr;
+        BALL_TRANSFER_STATE                     m_lastManualState;
+        std::shared_ptr<nt::NetworkTable>       m_nt;     
+
+
+
         BallTransferStateMgr();
         ~BallTransferStateMgr() = default;
 
 		static BallTransferStateMgr*	m_instance;
 
         const StateStruc  m_offState = {BALL_TRANSFER_STATE::OFF, StateType::BALL_TRANSFER, true};
-        const StateStruc  m_spinState = {BALL_TRANSFER_STATE::SPIN, StateType::BALL_TRANSFER, false};
-        const StateStruc  m_liftState = {BALL_TRANSFER_STATE::LIFT, StateType::BALL_TRANSFER, false};
+        const StateStruc  m_loadState = {BALL_TRANSFER_STATE::LOAD, StateType::BALL_TRANSFER, false};
+        const StateStruc  m_holdState = {BALL_TRANSFER_STATE::HOLD, StateType::BALL_TRANSFER, false};
+        const StateStruc  m_feedState = {BALL_TRANSFER_STATE::FEED, StateType::BALL_TRANSFER, false};
 };

@@ -15,18 +15,16 @@
 //====================================================================================================================================================
 
 // C++ includes
-#include <iostream>
 #include <string>
 #include <memory>
 
 // FRC includes
-#include <frc/SmartDashboard/SmartDashboard.h>
 
 // Team302 includes
-#include <hw/usages/DigitalInputUsage.h>
-#include <xmlhw/DigitalInputDefn.h>
 #include <hw/DragonDigitalInput.h>
+#include <hw/usages/DigitalInputUsage.h>
 #include <utils/HardwareIDValidation.h>
+#include <xmlhw/DigitalInputDefn.h>
 
 // Third Party includes
 #include <pugixml/pugixml.hpp>
@@ -52,10 +50,9 @@ shared_ptr<DragonDigitalInput> DigitalInputDefn::ParseXML
     shared_ptr<DragonDigitalInput> input;
 
     // initialize the attributes to default values
-    DigitalInputUsage::DIGITAL_SENSOR_USAGE  usage = DigitalInputUsage::DIGITAL_SENSOR_USAGE::UNKNOWN_DIGITAL_TYPE;
-    int                                     digitalID = 0;
-    bool                                    reversed = false;
-
+    auto usage = DigitalInputUsage::DIGITAL_SENSOR_USAGE::UNKNOWN_DIGITAL_TYPE;
+    int  digitalID = 0;
+    bool reversed = false;
     bool hasError = false;
 
     // Parse/validate the XML
@@ -63,13 +60,13 @@ shared_ptr<DragonDigitalInput> DigitalInputDefn::ParseXML
     {
         if ( strcmp( attr.name(), "usage" ) == 0 )
         {
-            string usageString = string(attr.value());
+            auto usageString = string(attr.value());
             usage = DigitalInputUsage::GetInstance()->GetUsage(usageString );
         }
         else if ( strcmp( attr.name(), "digitalId" ) == 0 )
         {
-            int iVal = attr.as_int();
-            hasError = HardwareIDValidation::ValidateDIOID( iVal, string( "DigitalInputDefn::ParseXML(digital Input pin)" ) );
+            digitalID = attr.as_int();
+            hasError = HardwareIDValidation::ValidateDIOID( digitalID, string( "DigitalInputDefn::ParseXML(digital Input pin)" ) );
         }
         else if ( strcmp( attr.name(), "reversed" ) == 0 )
         {
