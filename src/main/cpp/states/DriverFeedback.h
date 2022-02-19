@@ -14,8 +14,9 @@
 //====================================================================================================================================================
 #pragma once
 #include <hw/Led.h>
-#include <states/ShooterStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
 #include <states/climber/ClimberStateMgr.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
 class DriverFeedback
 {
     public:
@@ -26,5 +27,6 @@ class DriverFeedback
         ShooterStateMgr* m_shooter;
         Led*             m_led;
         ClimberStateMgr* m_climber;
+        BallTransferStateMgr* m_ballTransfer;
 
 };

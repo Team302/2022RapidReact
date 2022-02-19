@@ -30,6 +30,7 @@ class Led {
             RED,
             PINK,
             BLACK,
+            YELLOW
 
         };
         void setColor(LED_COLORS color);
@@ -43,5 +44,6 @@ class Led {
         const double m_RED = 0.61;
         const double m_PINK = 0.57;
         const double m_BLACK = 0.99;
+        const double m_YELLOW = 0.69;
         
 };

@@ -48,6 +48,8 @@ void Led::setColor(LED_COLORS color)
 
         case RED:
             m_spark->Set(m_RED);
+        case YELLOW:
+            m_spark->Set(m_YELLOW);    
         break;
 
         default:

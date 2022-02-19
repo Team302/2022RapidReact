@@ -23,6 +23,7 @@ DriverFeedback::DriverFeedback()
     m_shooter = ShooterStateMgr::GetInstance();
     m_led = new Led(1);
     m_climber = ClimberStateMgr::GetInstance();
+    m_ballTransfer = BallTransferStateMgr::GetInstance();
 }
 
 void DriverFeedback::updateLed()
@@ -31,12 +32,26 @@ void DriverFeedback::updateLed()
     {
         m_led->setColor(Led::RED);
     }
-    else if(m_shooter->GetCurrentState() == ShooterStateMgr::SHOOT_FAR)
+    else if(m_shooter->AtTarget())
     {
         m_led->setColor(Led::BLUE);
     }
+    else if(m_shooter->GetCurrentState() == ShooterStateMgr::AUTO_SHOOT_HIGH_GOAL_CLOSE)
+    {
+        m_led->setColor(Led::GREEN);
+    }
+    else if(m_shooter->GetCurrentState() == ShooterStateMgr::AUTO_SHOOT_HIGH_GOAL_FAR)
+    {
+        m_led->setColor(Led::PINK);
+    }
+    else if(m_shooter->GetCurrentState() == ShooterStateMgr::SHOOT_LOW_GOAL)
+    {
+        m_led->setColor(Led::BLACK);
+    }else if(m_ballTransfer->GetCurrentState() == BallTransferStateMgr::HOLD){
+        
+        m_led->setColor(Led::YELLOW);
+    }
+    
 }
-
- 
 
 
