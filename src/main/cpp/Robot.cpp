@@ -43,12 +43,13 @@ void Robot::RobotInit()
 
     m_rightIntake = mechFactory->GetRightIntake();
     m_rightIntakeStateMgr = m_rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
-
-    m_shooter = mechFactory->GetShooter();
-    m_shooterStateMgr = m_shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
     
-    m_ballTransfer = mechFactory->GetBallTransfer();
+    //m_ballTransfer = mechFactory->GetBallTransfer();
+    m_ballTransfer = nullptr;
     m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
+
+    m_shooter = m_ballTransfer != nullptr ? mechFactory->GetShooter() : nullptr;
+    m_shooterStateMgr = m_shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
     
     m_cyclePrims = new CyclePrimitives();
 }
