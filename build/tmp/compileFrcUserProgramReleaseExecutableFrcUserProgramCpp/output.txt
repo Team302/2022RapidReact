@@ -1,20 +1,28 @@
 See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/PracticeXML
 <<<<<<< refs/remotes/origin/PracticeXML
 <<<<<<< refs/remotes/origin/PracticeXML
 =======
 <<<<<<< main
+=======
+compiling DoNothing.cpp successful.
+
+>>>>>>> SwerveTesting
 compiling HoldPosition.cpp successful.
 
-compiling DoNothing.cpp successful.
+compiling TurnAngle.cpp successful.
 
 compiling DriveDistance.cpp successful.
 
 compiling DriveToWall.cpp successful.
 
+<<<<<<< HEAD
 compiling TurnAngle.cpp successful.
 
 >>>>>>> Path Testing
+=======
+>>>>>>> SwerveTesting
 compiling DragonVision.cpp successful.
 
 compiling PrimitiveFactory.cpp successful.
@@ -22,12 +30,19 @@ compiling PrimitiveFactory.cpp successful.
 compiling ResetPosition.cpp successful.
 
 compiling DrivePath.cpp successful.
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/PracticeXML
 C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DrivePath.cpp: In member function 'virtual void DrivePath::Init(PrimitiveParams*)':
 C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DrivePath.cpp:70:10: warning: unused variable 'm_heading' [-Wunused-variable]
      auto m_heading = params->GetHeading();
           ^~~~~~~~~
 =======
+=======
+C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DrivePath.cpp: In member function 'virtual void DrivePath::Init(PrimitiveParams*)':
+C:\GitRepos\2022RapidReact\src\main\cpp\auton\primitives\DrivePath.cpp:66:10: warning: unused variable 'm_heading' [-Wunused-variable]
+     auto m_heading = params->GetHeading();
+          ^~~~~~~~~
+>>>>>>> SwerveTesting
 
 compiling Robot.cpp successful.
 
@@ -43,13 +58,13 @@ compiling EtherFieldSwerve.cpp successful.
 
 compiling WPIDirtySwerve.cpp successful.
 
-compiling ChassisDefn.cpp successful.
-
 compiling SwerveModule.cpp successful.
 
-compiling SwerveModuleDefn.cpp successful.
+compiling ChassisDefn.cpp successful.
 
 compiling WPIFieldSwerve.cpp successful.
+
+compiling SwerveModuleDefn.cpp successful.
 
 compiling SuperDrive.cpp successful.
 =======

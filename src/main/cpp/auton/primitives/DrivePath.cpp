@@ -72,6 +72,10 @@ void DrivePath::Init(PrimitiveParams *params)
 
     Logger::GetLogger()->LogError(string("DrivePathInit"), string(m_pathname));
 
+    auto m_heading = params->GetHeading();
+
+    Logger::GetLogger()->LogError(string("DrivePathInit"), string(m_pathname));
+
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Initialized", "False");
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Running", "False");
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Done", "False");
