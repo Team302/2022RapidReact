@@ -72,7 +72,8 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 
 MechanismFactory::MechanismFactory() : m_leftIntake(nullptr),
 									   m_rightIntake(nullptr),
- 				                       m_shooter(nullptr)
+ 				                       m_shooter(nullptr),
+									   m_cameraServo(nullptr)
 {
 }
 
@@ -191,7 +192,19 @@ void MechanismFactory::CreateIMechanism
 				}
 			}
 		}
-		break;		
+		break;	
+		case MechanismTypes::CAMERA_SERVO:
+		{
+			if (m_cameraServo == nullptr)
+			{
+				auto servo = GetServo(servos, ServoUsage::RELEASE_SERVO);
+				if (servo != nullptr)
+				{
+					m_cameraServo = new CameraServo(servo);
+				}
+			}
+		}
+		break;	
 		default:
 		{
 			string msg = "unknown Mechanism type ";

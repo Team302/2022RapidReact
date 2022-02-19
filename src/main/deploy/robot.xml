@@ -30,7 +30,7 @@
  <!-- ====================================================
      Chassis
      ====================================================  -->
-<!-- -->
+<!-- 
     <chassis  type="SWERVE"
               wheelDiameter="4.13"
               wheelBase="21.0"  
@@ -250,8 +250,8 @@
         </swervemodule>
 
     </chassis>  
-    <!--   -->
-    <!--
+
+    
  <mechanism type="SHOOTER"
                networkTable="shooterNT"
                controlFile="shooter.xml">
@@ -433,4 +433,10 @@
               maxAngle="360.0" />
     </mechanism>  
               -->
+    <mechanism type="CAMERASERVO">
+       <servo usage="CAMERASERVO"
+              pwmId="0"
+              minAngle="0.0"
+              maxAngle="360.0" />
+    </mechanism>    
 </robot>

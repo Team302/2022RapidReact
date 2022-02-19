@@ -16,18 +16,16 @@
 // Team 302 includes
 #include <states/cameraServo/CameraServoState.h>
 #include <subsys/MechanismFactory.h>
-#include <states/Mech1MotorState.h>
 #include <controllers/ControlData.h>
 #include <controllers/MechanismTargetData.h>
+#include <subsys/Mech1Servo.h>
 // Third Party Includes
 
 
 CameraServoState::CameraServoState
 (
-    ControlData*                    ControlData,
     double                          target
-) : IState(MechanismFactory::GetMechanismFactory()->GetCameraServo(), ControlData, target)
-
+) : m_target(target), m_servo(MechanismFactory::GetMechanismFactory()->GetCameraServo())
 {
 }
 
@@ -38,9 +36,9 @@ void CameraServoState::Init()
 
 void CameraServoState::Run()
 {
-    if (m_cameraServo != nullptr)
+    if (m_servo != nullptr)
     {
-        m_cameraServo->SetAngle(m_target);
+        m_servo->SetAngle(m_target);
     }
 }
 

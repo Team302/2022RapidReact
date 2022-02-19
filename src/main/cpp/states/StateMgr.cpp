@@ -114,8 +114,8 @@ void StateMgr::Init
                             case StateType::CLIMBER:
                                 thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
                                 break;
-                            case StateType::SERVO:
-                                thisState = new ServoState(controlData, target);
+                            case StateType::CAMERA_SERVO:
+                                thisState = new CameraServoState(target);
                                 break;
 
                     	    default:
