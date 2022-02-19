@@ -64,7 +64,7 @@ void RobotDefn::ParseXML()
 {
     // set the file to parse
 	auto deployDir = frc::filesystem::GetDeployDirectory();
-    string filename = deployDir + string("/robot.xml");
+    string filename = deployDir + string("/robotswervechassis.xml");
 
     try
     {

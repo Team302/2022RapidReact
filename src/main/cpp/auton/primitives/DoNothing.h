@@ -23,11 +23,11 @@
 
 // Team 302 includes
 #include <auton/primitives/IPrimitive.h>
+#include <subsys/interfaces/IChassis.h>
 
 // Third Party Includes
 
 // forward declares
-class IChassis;
 class PrimitiveParams;
 
 
@@ -69,5 +69,7 @@ class DoNothing : public IPrimitive
 		float m_currentTime;	//Time since init
 		std::shared_ptr<IChassis> m_chassis;	
 		std::unique_ptr<frc::Timer> m_timer;
+		double						m_heading;
+		IChassis::HEADING_OPTION	m_headingOption;
 };
 

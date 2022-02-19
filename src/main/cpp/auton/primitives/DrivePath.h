@@ -78,7 +78,6 @@ private:
     int                                     m_timesRun;
     frc::Pose2d                             m_targetPose;
     std::string                             m_pathname;
-    frc::Rotation2d                         m_heading;
     double                                  m_deltaX;
     double                                  m_deltaY;
     std::vector<frc::Trajectory::State>     m_trajectoryStates;

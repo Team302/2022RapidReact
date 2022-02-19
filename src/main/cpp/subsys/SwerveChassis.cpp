@@ -161,7 +161,8 @@ void SwerveChassis::CalcHeadingCorrection
 ) 
 {
     auto currentAngle = GetYaw();
-    auto errorAngle = remainder((targetAngle.to<double>() - currentAngle.to<double>()), 360.0);
+    //auto errorAngle = remainder((targetAngle.to<double>() - currentAngle.to<double>()), 360.0);
+    auto errorAngle = remainder((currentAngle.to<double>() - targetAngle.to<double>()), 360.0);
     m_yawCorrection = units::angular_velocity::degrees_per_second_t(errorAngle*kP);
 }
 
@@ -193,6 +194,8 @@ void SwerveChassis::Drive
 
         case HEADING_OPTION::SPECIFIED_ANGLE:
             CalcHeadingCorrection(m_targetHeading, kPMaintainHeadingControl);
+            Logger::GetLogger()->LogError("Specified Angle (Degrees): ", to_string(m_targetHeading.to<double>()));
+            Logger::GetLogger()->LogError("Yaw correction (DPS): ", to_string(m_yawCorrection.to<double>()));
             rot -= m_yawCorrection;
             break;
 

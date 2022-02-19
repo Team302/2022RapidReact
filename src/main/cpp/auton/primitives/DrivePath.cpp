@@ -66,13 +66,7 @@ void DrivePath::Init(PrimitiveParams *params)
     m_headingOption = params->GetHeadingOption();
     m_heading = params->GetHeading();
 
-    auto m_heading = params->GetHeading();
-
-    auto m_heading = params->GetHeading();
-
     Logger::GetLogger()->LogError(string("DrivePathInit"), string(m_pathname));
-
-    auto m_heading = params->GetHeading();
 
     Logger::GetLogger()->LogError(string("DrivePathInit"), string(m_pathname));
 
