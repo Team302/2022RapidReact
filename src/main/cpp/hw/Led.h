@@ -32,9 +32,9 @@ class Led {
             BLACK,
 
         };
-        virtual void setColor(LED_COLORS color);
+        void setColor(LED_COLORS color);
         Led() = delete;
-        virtual ~Led() = default;
+        ~Led() = default;
         
     private:
         frc::Spark* m_spark;
