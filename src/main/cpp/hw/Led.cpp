@@ -31,23 +31,23 @@ void Led::setColor(LED_COLORS color)
     switch(color)
     {
         case BLUE:
-            m_spark->Set(0.87);
+            m_spark->Set(m_BLUE);
         break;
 
         case GREEN:
-            m_spark->Set(0.77);
+            m_spark->Set(m_GREEN);
         break;
 
         case PINK:
-            m_spark->Set(0.57);
+            m_spark->Set(m_PINK);
         break;
 
         case BLACK:
-            m_spark->Set(0.99);
+            m_spark->Set(m_BLACK);
         break;
 
         case RED:
-            m_spark->Set(0.61);
+            m_spark->Set(m_RED);
         break;
 
         default:
