@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include <iostream>
-
 #include <hw/DragonLimelight.h>
 
 #include <pugixml/pugixml.hpp>

@@ -17,14 +17,13 @@
 // C++ Includes
 #include <string>
 #include <cstring>
-#include <iostream>
 
 // FRC includes
 
 // Team 302 includes
 #include <controllers/MechanismTargetData.h>
-#include <xmlmechdata/MechanismTargetDefn.h>
 #include <utils/Logger.h>
+#include <xmlmechdata/MechanismTargetDefn.h>
 
 // Third Party Includes
 #include <pugixml/pugixml.hpp>
@@ -60,32 +59,22 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
         if ( strcmp( attr.name(), "stateIdentifier" ) == 0 )
         {
             stateName = string( attr.value() );
-            cout << stateName;
-            cout << endl;
         }
         else if ( strcmp( attr.name(), "controlDataIdentifier" ) == 0 )
         {
             controllerIdentifier = string( attr.value() );
-            cout << controllerIdentifier;
-            cout << endl;
         }
         else if ( strcmp( attr.name(), "controlDataIdentifier2" ) == 0 )
         {
             controllerIdentifier2 = string( attr.value() );
-            cout << controllerIdentifier2;
-            cout << endl;
         }
         else if ( strcmp( attr.name(), "value") == 0 )
         {
             target = attr.as_double();
-            cout << attr.value();
-            cout << endl;
         }
         else if ( strcmp( attr.name(), "secondValue") == 0 )
         {
             secondTarget = attr.as_double();
-            cout << attr.value();
-            cout <<endl;
         }
         else if( strcmp( attr.name(), "solenoid" ) == 0 )
         {
@@ -93,20 +82,14 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
             if(strcmp(val, "ON") == 0)
             {
                 solenoid = MechanismTargetData::SOLENOID::ON;
-                cout << attr.value();
-                cout << endl;
             }
             else if ( strcmp(val, "REVERSE") == 0)
             {
                 solenoid = MechanismTargetData::SOLENOID::REVERSE;
-                cout << attr.value();
-                cout << endl;
             }
             else if( strcmp(val, "NONE") == 0)
             {
                 solenoid = MechanismTargetData::SOLENOID::NONE;
-                cout << attr.value();
-                cout << endl;
             }
             else
             {

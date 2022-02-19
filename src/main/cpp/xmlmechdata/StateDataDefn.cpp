@@ -34,20 +34,19 @@
 #include <memory>
 #include <string>
 #include <cstring>
-#include <iostream>
 
 // FRC includes
 #include <frc/Filesystem.h>
 
 // Team 302 includes
-#include <xmlmechdata/StateDataDefn.h>
-#include <utils/Logger.h>
-#include <subsys/MechanismTypes.h>
-#include <subsys/MechanismFactory.h>
 #include <controllers/ControlData.h>
+#include <controllers/MechanismTargetData.h>
+#include <subsys/MechanismFactory.h>
+#include <subsys/MechanismTypes.h>
+#include <utils/Logger.h>
 #include <xmlmechdata/ControlDataDefn.h>
 #include <xmlmechdata/MechanismTargetDefn.h>
-#include <controllers/MechanismTargetData.h>
+#include <xmlmechdata/StateDataDefn.h>
 
 // Third Party Includes
 #include <pugixml/pugixml.hpp>
@@ -124,16 +123,10 @@ vector<MechanismTargetData*> StateDataDefn::ParseXML
                         }
                     }
                 }
-                Logger::GetLogger()->ToNtTable(string("Test"), string("targetdate size"),to_string(targetDataVector.size()));
-
-                cout << string("target data size ") + to_string(targetDataVector.size());
-                cout << endl;
 
                 for ( auto td : targetDataVector )
                 {
                     td->Update( controlDataVector );
-                    cout << td->GetStateString();
-                    cout << endl;
                 }
             }
             else

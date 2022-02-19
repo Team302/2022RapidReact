@@ -38,17 +38,21 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
 
     PrimitiveParamsVector paramVector;
 
-    PRIMITIVE_IDENTIFIER        primitiveType = UNKNOWN_PRIMITIVE;
-    float                       time = 15.0;
-    float                       distance = 0.0;
-    float                       heading = 0.0;
-    float                       startDriveSpeed = 0.0;
-    float                       endDriveSpeed = 0.0;
-    float                       xloc = 0.0;
-    float                       yloc = 0.0;
-    std::string                 pathName;
-    
-    bool hasError = false;
+    auto primitiveType = UNKNOWN_PRIMITIVE;
+    auto time = 15.0;
+    auto distance = 0.0;
+    auto headingOption = IChassis::HEADING_OPTION::MAINTAIN;
+    auto heading = 0.0;
+    auto startDriveSpeed = 0.0;
+    auto endDriveSpeed = 0.0;
+    auto xloc = 0.0;
+    auto yloc = 0.0;
+    std::string pathName;
+    auto leftIntakeState = IntakeStateMgr::INTAKE_STATE::OFF;
+    auto rightIntakeState = IntakeStateMgr::INTAKE_STATE::OFF;
+    auto shooterState = ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT;
+
+    auto hasError = false;
 
 	auto deployDir = frc::filesystem::GetDeployDirectory();
 	auto autonDir = deployDir + "/auton/";
@@ -66,6 +70,25 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
     primStringToEnumMap["TURN_ANGLE_REL"] = TURN_ANGLE_REL;
     primStringToEnumMap["DRIVE_PATH"] = DRIVE_PATH;
     primStringToEnumMap["RESET_POSITION"] = RESET_POSITION;
+
+    map<string, IChassis::HEADING_OPTION> headingOptionMap;
+    headingOptionMap["MAINTAIN"] = IChassis::HEADING_OPTION::MAINTAIN;
+    headingOptionMap["TOWARD_GOAL"] = IChassis::HEADING_OPTION::TOWARD_GOAL;
+    headingOptionMap["LEFT_INTAKE_TOWARD_BALL"] = IChassis::HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL;
+    headingOptionMap["RIGHT_INTAKE_TOWARD_BALL"] = IChassis::HEADING_OPTION::RIGHT_INTAKE_TOWARD_BALL;
+    headingOptionMap["SPECIFIED_ANGLE"] = IChassis::HEADING_OPTION::SPECIFIED_ANGLE;
+    
+    map<string, IntakeStateMgr::INTAKE_STATE> intakeStateMap;
+    intakeStateMap["OFF"] = IntakeStateMgr::INTAKE_STATE::OFF;
+    intakeStateMap["INTAKE"] = IntakeStateMgr::INTAKE_STATE::INTAKE;
+    intakeStateMap["EXPEL"] = IntakeStateMgr::INTAKE_STATE::EXPEL;  
+
+    map<string, ShooterStateMgr::SHOOTER_STATE> shooterStateMap;
+    shooterStateMap["OFF"] = ShooterStateMgr::SHOOTER_STATE::OFF;
+    shooterStateMap["AUTO_SHOOT_HIGH_GOAL_FAR"] = ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
+    shooterStateMap["AUTO_SHOOT_HIGH_GOAL_CLOSE"] = ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE;
+    shooterStateMap["SHOOT_LOW_GOAL"] = ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL;
+    shooterStateMap["PREPARE_TO_SHOOT"] = ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT;
 
     xml_document doc;
     xml_parse_result result = doc.load_file( fulldirfile.c_str() );
@@ -103,6 +126,19 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                         {
                             distance = attr.as_float();
                         }
+                        else if ( strcmp( attr.name(), "headingOption" ) == 0 )
+                        {
+                            auto headingItr = headingOptionMap.find( attr.value() );
+                            if ( headingItr != headingOptionMap.end() )
+                            {
+                                headingOption = headingItr->second;
+                            }
+                            else
+                            {
+                                Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid heading option"), attr.value());
+                                hasError = true;
+                            }
+                        }
                         else if ( strcmp( attr.name(), "heading" ) == 0 )
                         {
                             heading = attr.as_float();
@@ -127,6 +163,45 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                         {
                             pathName = attr.value();
                         }                
+                        else if ( strcmp( attr.name(), "leftIntake" ) == 0 )
+                        {
+                            auto leftItr = intakeStateMap.find( attr.value() );
+                            if ( leftItr != intakeStateMap.end() )
+                            {
+                                leftIntakeState = leftItr->second;
+                            }
+                            else
+                            {
+                                Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid left intake state"), attr.value());
+                                hasError = true;
+                            }
+                        }
+                        else if ( strcmp( attr.name(), "rightIntake" ) == 0 )
+                        {
+                            auto rightItr = intakeStateMap.find( attr.value() );
+                            if ( rightItr != intakeStateMap.end() )
+                            {
+                                rightIntakeState = rightItr->second;
+                            }
+                            else
+                            {
+                                Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid right intake state"), attr.value());
+                                hasError = true;
+                            }
+                        }
+                        else if ( strcmp( attr.name(), "shooter" ) == 0 )
+                        {
+                            auto shootItr = shooterStateMap.find( attr.value() );
+                            if ( shootItr != shooterStateMap.end() )
+                            {
+                                shooterState = shootItr->second;
+                            }
+                            else
+                            {
+                                Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid shooter state"), attr.value());
+                                hasError = true;
+                            }
+                        }
                         else
                         {
                             Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid attribute"), attr.name());
@@ -135,16 +210,19 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                     }
                     if ( !hasError )
                     {   
-                        cout << "Primitive Type " << primitiveType << endl;
                         paramVector.emplace_back( new PrimitiveParams( primitiveType,
                                                                        time,
                                                                        distance,
                                                                        xloc,
                                                                        yloc,
+                                                                       headingOption,
                                                                        heading,
                                                                        startDriveSpeed,
                                                                        endDriveSpeed,
-                                                                       pathName ) );
+                                                                       pathName,
+                                                                       leftIntakeState,
+                                                                       rightIntakeState,
+                                                                       shooterState ) );
                     }
                     else 
                     {

@@ -15,10 +15,9 @@
 
 #include <vector>
 #include <string>
-#include <iostream>
 
-#include <controllers/MechanismTargetData.h>
 #include <controllers/ControlModes.h>
+#include <controllers/MechanismTargetData.h>
 
 using namespace std;
 
@@ -39,8 +38,6 @@ MechanismTargetData::MechanismTargetData
     m_solenoid( solenoid ),
     m_secondTarget( secondTarget )
 {
-    cout << string ("abc ") + m_controller;
-    cout << endl;
 }
 
 

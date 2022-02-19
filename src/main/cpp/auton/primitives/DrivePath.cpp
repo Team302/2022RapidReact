@@ -15,21 +15,20 @@
 
 //C++
 #include <string>
-#include <iostream>
 
 //FRC Includes
 #include <frc/controller/PIDController.h>
 #include <frc/controller/ProfiledPIDController.h>
-#include <frc/trajectory/TrajectoryUtil.h>
 #include <frc/Filesystem.h>
+#include <frc/trajectory/TrajectoryUtil.h>
 #include <units/angular_velocity.h>
+#include <wpi/fs.h>
 
 // 302 Includes
 #include <auton/primitives/DrivePath.h>
 #include <subsys/ChassisFactory.h>
 #include <utils/Logger.h>
 
-#include <wpi/fs.h>
 
 using namespace std;
 using namespace frc;
@@ -54,14 +53,18 @@ DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChas
                          m_deltaX(0.0),
                          m_deltaY(0.0),
                          m_trajectoryStates(),
-                         m_desiredState()
+                         m_desiredState(),
+                         m_headingOption(IChassis::HEADING_OPTION::MAINTAIN),
+                         m_heading(0.0)
 
 {
     m_trajectoryStates.clear();
 }
 void DrivePath::Init(PrimitiveParams *params)
 {
-    auto m_pathname = params->GetPathName(); //Grabs path name from auton xml
+    m_pathname = params->GetPathName(); //Grabs path name from auton xml
+    m_headingOption = params->GetHeadingOption();
+    m_heading = params->GetHeading();
 
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Initialized", "False");
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Running", "False");
@@ -98,15 +101,8 @@ void DrivePath::Init(PrimitiveParams *params)
 
         //Is used to determine what controller/ "drive mode" pathweaver will run in
         //Holo / Holonomic = Swerve X, y, z movement   Ramsete = Differential / Tank x, y movement
-        if (m_runHoloController)
-        {
-            m_holoController.SetEnabled(true);
-        }
-        else
-        {
-            m_ramseteController.SetEnabled(true);
-        }
-
+        m_holoController.SetEnabled(m_runHoloController);
+        m_ramseteController.SetEnabled(!m_runHoloController);
 
         //Sampling means to grab a state based on the time, if we want to know what state we should be running at 5 seconds,
         //we will sample the 5 second state.
@@ -148,10 +144,14 @@ void DrivePath::Run()
         Logger::GetLogger()->ToNtTable("DrivePathValues", "ChassisSpeedsZ", units::degrees_per_second_t(refChassisSpeeds.omega()).to<double>());
 
         // Run the chassis
+        if (m_headingOption == IChassis::HEADING_OPTION::SPECIFIED_ANGLE)
+        {
+            m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
+        }
+
         m_chassis->Drive(refChassisSpeeds,
                          IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
-						 IChassis::HEADING_OPTION::DEFAULT);
-
+						 m_headingOption);
     }
     else //If we don't have states to run, don't move the robot
     {

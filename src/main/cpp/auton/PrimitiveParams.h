@@ -24,6 +24,9 @@
 
 // Team 302 includes
 #include <auton/PrimitiveEnums.h>
+#include <states/intake/IntakeStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
+#include <subsys/interfaces/IChassis.h>
 
 // Third Party Includes
 
@@ -39,10 +42,14 @@ class PrimitiveParams
                 float                                               distance,
                 float                                               xLoc,
                 float                                               yLoc,
+                IChassis::HEADING_OPTION                            headingOption,
                 float                                               heading,
                 float                                               startDriveSpeed,
                 float                                               endDriveSpeed,
-                std::string                                         pathName
+                std::string                                         pathName,
+                IntakeStateMgr::INTAKE_STATE                        leftIntakeState,
+                IntakeStateMgr::INTAKE_STATE                        rightIntakeState,
+                ShooterStateMgr::SHOOTER_STATE                      shooterState
         );//Constructor. Takes in all parameters
 
         PrimitiveParams() = delete;
@@ -50,19 +57,23 @@ class PrimitiveParams
 
 
         //Some getters
-        PRIMITIVE_IDENTIFIER GetID() const;
-        float GetTime() const;
-        float GetDistance() const;
-        float GetXLocation() const;
-        float GetYLocation() const;
-        float GetHeading() const;
-        float GetDriveSpeed() const;
-        float GetEndDriveSpeed() const;
-        std::string GetPathName() const;
+        PRIMITIVE_IDENTIFIER GetID() const {return m_id;};
+        float GetTime() const {return m_time;};
+        float GetDistance() const {return m_distance;};
+        float GetXLocation() const {return m_xLoc;};
+        float GetYLocation() const {return m_yLoc;};
+        IChassis::HEADING_OPTION GetHeadingOption() const {return m_headingOption;};
+        float GetHeading() const {return m_heading;};
+        float GetDriveSpeed() const {return m_startDriveSpeed;};
+        float GetEndDriveSpeed() const {return m_endDriveSpeed;};
+        std::string GetPathName() const {return m_pathName;};
+        IntakeStateMgr::INTAKE_STATE GetLeftIntakeState() const {return m_leftIntakeState;};
+        IntakeStateMgr::INTAKE_STATE GetRightIntakeState() const {return m_rightIntakeState;};
+        ShooterStateMgr::SHOOTER_STATE GetShooterState() const {return m_shooterState;};
 
 
         //Setters
-        void SetDistance(float distance);
+        void SetDistance(float distance) {m_distance = distance;};
 
     private:
         //Primitive Parameters
@@ -71,10 +82,14 @@ class PrimitiveParams
         float                                               m_distance;
         float                                               m_xLoc;
         float                                               m_yLoc;
+        IChassis::HEADING_OPTION                            m_headingOption;
         float                                               m_heading;
         float                                               m_startDriveSpeed;
         float                                               m_endDriveSpeed;
         std::string                                         m_pathName;
+        IntakeStateMgr::INTAKE_STATE                        m_leftIntakeState;
+        IntakeStateMgr::INTAKE_STATE                        m_rightIntakeState;
+        ShooterStateMgr::SHOOTER_STATE                      m_shooterState;
 
 };
 

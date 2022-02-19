@@ -19,16 +19,15 @@
 ///        create a PDP singleton object. The parsing leverages the 3rd party Open Source Pugixml library (https://pugixml.org/).
 
 // C++ Includes
-#include <iostream>
 #include <memory>
 
 // FRC includes
 #include <frc/PowerDistribution.h>
 
 // Team 302 includes
+#include <hw/factories/PDPFactory.h>
 #include <utils/HardwareIDValidation.h>
 #include <utils/Logger.h>
-#include <hw/factories/PDPFactory.h>
 #include <xmlhw/PDPDefn.h>
 
 // Third Party Includes

@@ -165,7 +165,7 @@ class SwerveChassis : public IChassis
         double GetScaleFactor() const {return m_scale;}
         bool IsMoving() const { return m_isMoving;}
         double GetodometryComplianceCoefficient() const { return m_odometryComplianceCoefficient; }
-
+        void SetTargetHeading(units::angle::degree_t targetYaw) override;
 
     private:
         frc::ChassisSpeeds GetFieldRelativeSpeeds
@@ -238,7 +238,6 @@ class SwerveChassis : public IChassis
         units::velocity::meters_per_second_t                        m_drive;
         units::velocity::meters_per_second_t                        m_steer;
         units::angular_velocity::radians_per_second_t               m_rotate;
-        units::angle::degree_t                                      m_targetHeading;
 
         const double                                                m_deadband = 0.05;
         const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.008);
@@ -270,6 +269,7 @@ class SwerveChassis : public IChassis
         units::angular_velocity::degrees_per_second_t m_yawCorrection;
 
         DragonTargetFinder m_targetFinder;
+        units::angle::degree_t m_targetHeading;
 
 
 };

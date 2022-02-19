@@ -16,6 +16,9 @@
 
 #include <auton/PrimitiveEnums.h>
 #include <auton/PrimitiveParams.h>
+#include <states/intake/IntakeStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
+#include <subsys/interfaces/IChassis.h>
 
 PrimitiveParams::PrimitiveParams
 (
@@ -24,73 +27,31 @@ PrimitiveParams::PrimitiveParams
     float                       						distance,
     float                       						xLoc,
     float                       						yLoc,
+	IChassis::HEADING_OPTION		    				headingOpt,
     float                       						heading,
     float                       						startDriveSpeed,
     float                       						endDriveSpeed,
-	std::string											pathName
+	std::string											pathName,
+	IntakeStateMgr::INTAKE_STATE                        leftIntakeState,
+	IntakeStateMgr::INTAKE_STATE                        rightIntakeState,
+	ShooterStateMgr::SHOOTER_STATE                      shooterState
 ):	//Pass over parameters to class variables
 		m_id(id), //Primitive ID
 		m_time(time),
 		m_distance(distance),
-		m_xLoc( xLoc ),
-		m_yLoc( yLoc ),
+		m_xLoc(xLoc),
+		m_yLoc(yLoc),
+		m_headingOption(headingOpt),
 		m_heading(heading),
-		m_startDriveSpeed( startDriveSpeed ),
-		m_endDriveSpeed( endDriveSpeed ),
-		m_pathName ( pathName)
+		m_startDriveSpeed(startDriveSpeed),
+		m_endDriveSpeed(endDriveSpeed),
+		m_pathName (pathName),
+		m_leftIntakeState(leftIntakeState),
+		m_rightIntakeState(rightIntakeState),
+		m_shooterState(shooterState)
 {
 }
 
-PRIMITIVE_IDENTIFIER PrimitiveParams::GetID() const
-{
-	return m_id;
-}
-
-float PrimitiveParams::GetTime() const
-{
-	return m_time;
-}
-
-float PrimitiveParams::GetDistance() const
-{
-	return m_distance;
-}
-
-float PrimitiveParams::GetXLocation() const
-{
-    return m_xLoc;
-}
-
-float PrimitiveParams::GetYLocation() const
-{
-    return m_yLoc;
-}
-
-float PrimitiveParams::GetHeading() const
-{
-	return m_heading;
-}
-
-float PrimitiveParams::GetDriveSpeed() const
-{
-    return m_startDriveSpeed;
-}
-
-float PrimitiveParams::GetEndDriveSpeed() const
-{
-    return m_endDriveSpeed;
-}
-
-std::string PrimitiveParams::GetPathName() const
-{
-	return m_pathName;
-}
-
-//Setters
-void PrimitiveParams::SetDistance(float distance)
-{
-	m_distance = distance;
-}
 
 
 
