@@ -60,6 +60,7 @@ CameraServoStateMgr::CameraServoStateMgr()
     map<string, StateStruc> stateMap;
     stateMap["LOOKRIGHT"] = m_rightState;
     stateMap["LOOKLEFT"] = m_leftState;
+    stateMap["SCAN"] = m_scanState;
 
     Init(MechanismFactory::GetMechanismFactory()->GetCameraServo(), stateMap);
 }   
@@ -79,6 +80,7 @@ void CameraServoStateMgr::CheckForStateTransition()
         {
             auto rightPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::LOOK_RIGHT);
             auto leftPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::LOOK_LEFT);
+            auto scanPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SCAN);
             if (rightPressed  &&  currentState != CAMERA_SERVO_STATE::LOOK_RIGHT )
             {
                 SetCurrentState( CAMERA_SERVO_STATE::LOOK_RIGHT, true );
@@ -86,7 +88,11 @@ void CameraServoStateMgr::CheckForStateTransition()
             else if (leftPressed && currentState != CAMERA_SERVO_STATE::LOOK_LEFT )
             {
                 SetCurrentState( CAMERA_SERVO_STATE::LOOK_LEFT, true );
-            }           
+            }
+            else if ((scanPressed && currentState != CAMERA_SERVO_STATE::LOOK_RIGHT) && currentState != CAMERA_SERVO_STATE::LOOK_LEFT)
+            {
+                SetCurrentState( CAMERA_SERVO_STATE::SCAN, true);
+            }
         }
     }
 

@@ -21,6 +21,7 @@
 #include <controllers/MechanismTargetData.h>
 #include <subsys/Mech1Servo.h>
 #include <states/Mech1MotorState.h>
+#include <subsys/interfaces/IMech1Servo.h>
 
 class ControlData;
 
@@ -30,7 +31,6 @@ class CameraServoState : public IState
         CameraServoState() = delete;
         CameraServoState
         (
-            ControlData*                    ControlData,
             double                          target
         );
 
@@ -46,6 +46,7 @@ class CameraServoState : public IState
     private:
 
         double                      m_target;
-        IMech1Servo*                m_cameraServo;
+        IMech1Servo*                m_servo;
+
         
 };

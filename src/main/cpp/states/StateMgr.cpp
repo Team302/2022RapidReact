@@ -170,8 +170,8 @@ void StateMgr::Init
                                                              target, 
                                                              secondaryTarget);
                                 break;
-                            case StateType::SERVO:
-                                thisState = new ServoState(controlData, target);
+                            case StateType::CAMERA_SERVO:
+                                thisState = new CameraServoState(target);
                                 break;
 
                             case StateType::LEFT_INDEXER:

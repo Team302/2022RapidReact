@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE statedata SYSTEM "stateData.dtd">
+<statedata>
+	<controlData identifier="openloop" 
+	             mode="POSITION_DEGREES"/>
+	<mechanismTarget stateIdentifier="CAMERASERVOLEFT"
+	                 controlDataIdentifier="openloop"
+					 value="120.0"/>
+	<mechanismTarget stateIdentifier="CAMERASERVORIGHT"
+	                 controlDataIdentifier="openloop"
+					 value="60.0"/>
+    <mechanismTarget stateIdentifier="CAMERASERVOSCAN"
+                     controlDataIdentifier="openloop"
+                     value="180.0"/>
+
+</statedata>

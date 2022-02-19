@@ -24,7 +24,7 @@
 #include <states/ShooterStateMgr.h>
 #include <subsys/Shooter.h>
 #include <states/chassis/SwerveDrive.h>
-#include <subsys/Shooter.h>
+#include <subsys/CameraServo.h>
 #include <states/cameraServo/CameraServoStateMgr.h>
 #include <states/servo/ServoStateMgr.h>
 

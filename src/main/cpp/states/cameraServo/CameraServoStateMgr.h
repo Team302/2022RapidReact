@@ -35,6 +35,7 @@ class CameraServoStateMgr : public StateMgr
         {
             LOOK_RIGHT,
             LOOK_LEFT,
+            SCAN,
             MAX_CAMERA_SERVO_STATES
         };
 
@@ -53,4 +54,5 @@ class CameraServoStateMgr : public StateMgr
 
         const StateStruc  m_rightState = {CAMERA_SERVO_STATE::LOOK_RIGHT, StateType::CAMERA_SERVO, true};
         const StateStruc  m_leftState = {CAMERA_SERVO_STATE::LOOK_LEFT, StateType::CAMERA_SERVO, false};
+        const StateStruc  m_scanState = {CAMERA_SERVO_STATE::SCAN, StateType::CAMERA_SERVO, false};
 };

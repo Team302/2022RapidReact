@@ -77,7 +77,9 @@ MechanismFactory::MechanismFactory() : 	m_leftIntake(nullptr),
 										m_climber(nullptr),
 										m_leftIndexer(nullptr),
 										m_rightIndexer(nullptr),
-										m_lift(nullptr)
+										m_lift(nullptr),
+									        m_cameraServo(nullptr)
+
 {
 }
 
@@ -270,7 +272,7 @@ void MechanismFactory::CreateIMechanism
 				}
 			}
 		}
-		break;		
+		break;	
 		
 		case MechanismTypes::MECHANISM_TYPE::CLIMBER :
 		{
@@ -293,7 +295,18 @@ void MechanismFactory::CreateIMechanism
 			}
 		}
 		break;
-
+		case MechanismTypes::CAMERA_SERVO:
+		{
+			if (m_cameraServo == nullptr)
+			{
+				auto servo = GetServo(servos, ServoUsage::RELEASE_SERVO);
+				if (servo != nullptr)
+				{
+					m_cameraServo = new CameraServo(servo);
+				}
+			}
+		}
+		break;	
 		default:
 		{
 			string msg = "unknown Mechanism type ";
