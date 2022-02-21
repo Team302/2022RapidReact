@@ -11,7 +11,7 @@
 	<mechanismTarget stateIdentifier="INTAKE_ON"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
-					 value="1.0"
+					 value="0.55"
 					 secondValue="1.0"/>
 	<mechanismTarget stateIdentifier="INTAKE_EXPEL"
 	                 controlDataIdentifier="openloop"

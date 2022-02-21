@@ -81,63 +81,76 @@ BallTransferStateMgr::BallTransferStateMgr() : StateMgr(),
 /// @brief  run the current state
 /// @return void
 void BallTransferStateMgr::CheckForStateTransition()
-{        
+{     
     if (m_transfer != nullptr )
     {
         auto isBallPresent = m_transfer->IsBallPresent();
+        auto isLiftForward = m_transfer->IsLiftForward();
         Logger::GetLogger()->ToNtTable(m_nt, string("Ball Present Sensor"), to_string(isBallPresent));
+        Logger::GetLogger()->ToNtTable(m_nt, string("Lift Forward Sensor"), to_string(isLiftForward));
 
         // process teleop/manual interrupts
         auto currentState = static_cast<BALL_TRANSFER_STATE>(GetCurrentState());
+        Logger::GetLogger()->ToNtTable(m_nt, string("Current BallTransfer State"), currentState);
         auto controller = TeleopControl::GetInstance();
         auto isManualShoot   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT) : false;
         auto isManualKicker  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MAN_KICKER) : false;
         auto isAutoShootHigh = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH) : false;
         auto isAutoShootLow  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW) : false;
 
+        auto targetState = currentState;
         if (isBallPresent && (isAutoShootHigh || isAutoShootLow))
         {
             if (currentState == BALL_TRANSFER_STATE::HOLD)
             {
-                Logger::GetLogger()->ToNtTable(m_nt, string("Transfer Ready "), string("true"));
                 if (m_shooterStateMgr != nullptr && m_shooterStateMgr->AtTarget())
                 {
-                    Logger::GetLogger()->ToNtTable(m_nt, string("Shooter Ready "), string("true"));
-                    SetCurrentState(BALL_TRANSFER_STATE::FEED, true);
+                    targetState = BALL_TRANSFER_STATE::FEED;
                 }
-                else // no transition
+                else if (isLiftForward)
                 {
-                    Logger::GetLogger()->ToNtTable(m_nt, string("Shooter Ready "), string("false"));
+                    targetState = BALL_TRANSFER_STATE::OFF;
                 }
             }
-            else
+            else if (!isLiftForward)
             {
-                Logger::GetLogger()->ToNtTable(m_nt, string("Transfer Ready "), string("false"));
-                SetCurrentState(BALL_TRANSFER_STATE::HOLD, true);
+                targetState = BALL_TRANSFER_STATE::HOLD;
             }
         }
         else if (isManualShoot)
         {
-            SetCurrentState(BALL_TRANSFER_STATE::FEED, true);
+            targetState = BALL_TRANSFER_STATE::FEED;
         }
         else if (isManualKicker)
         {
             if (currentState == BALL_TRANSFER_STATE::LOAD)
             {
-                SetCurrentState(BALL_TRANSFER_STATE::FEED, true);
+                targetState = BALL_TRANSFER_STATE::FEED;
             }
             else
             {
-                SetCurrentState(BALL_TRANSFER_STATE::LOAD, true);
+                targetState = BALL_TRANSFER_STATE::LOAD;
             }
         }
         else if (isBallPresent)
         {
-            SetCurrentState(BALL_TRANSFER_STATE::HOLD, true);
+            if (isLiftForward)
+            {
+                targetState = BALL_TRANSFER_STATE::OFF;
+            }
+            else
+            {
+                targetState = BALL_TRANSFER_STATE::HOLD;
+            }
         }
         else 
         {
-            SetCurrentState(BALL_TRANSFER_STATE::LOAD, true);
+            targetState = BALL_TRANSFER_STATE::LOAD;
+        }
+        if (targetState != currentState)
+        {
+            Logger::GetLogger()->ToNtTable(m_nt, string("Changing BallTransfer State"), targetState);
+            SetCurrentState(targetState, true);
         }
     }
 }

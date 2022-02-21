@@ -44,8 +44,8 @@ void Robot::RobotInit()
     m_rightIntake = mechFactory->GetRightIntake();
     m_rightIntakeStateMgr = m_rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
     
-    //m_ballTransfer = mechFactory->GetBallTransfer();
-    m_ballTransfer = nullptr;
+    m_ballTransfer = mechFactory->GetBallTransfer();
+    //m_ballTransfer = nullptr;
     m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
 
     m_shooter = m_ballTransfer != nullptr ? mechFactory->GetShooter() : nullptr;
@@ -119,6 +119,7 @@ void Robot::TeleopInit()
     if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
     {
         m_ballTransferStateMgr->RunCurrentState();
+//        m_ballTransferStateMgr->SetCurrentState(BallTransferStateMgr::BALL_TRANSFER_STATE::LOAD, true);
     }
 
 
@@ -130,10 +131,6 @@ void Robot::TeleopPeriodic()
     {
         m_swerve->Run();
     }
-    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
-    {
-        m_ballTransferStateMgr->RunCurrentState();
-    }
 
     if (m_leftIntake != nullptr && m_leftIntakeStateMgr != nullptr)
     {
@@ -142,6 +139,10 @@ void Robot::TeleopPeriodic()
     if (m_rightIntake != nullptr && m_rightIntakeStateMgr != nullptr)
     {
         m_rightIntakeStateMgr->RunCurrentState();
+    }
+    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
+    {
+        m_ballTransferStateMgr->RunCurrentState();
     }
     
     if (m_shooter != nullptr && m_shooterStateMgr != nullptr)

@@ -18,11 +18,13 @@
 // C++ Includes
 
 // FRC includes
+#include <networktables/NetworkTable.h>
 
 // Team 302 includes
 #include <states/StateMgr.h>
 #include <states/StateStruc.h>
 #include <hw/DragonLimelight.h>
+#include <subsys/Shooter.h>
 
 
 
@@ -56,6 +58,9 @@ class ShooterStateMgr : public StateMgr
         ~ShooterStateMgr() = default;
         
         DragonLimelight* m_dragonLimeLight;
+        Shooter*                                m_shooter;
+        std::shared_ptr<nt::NetworkTable>       m_nt;     
+
 
         const double m_CHANGE_STATE_TARGET = 120.0; 
 		static ShooterStateMgr*	m_instance;

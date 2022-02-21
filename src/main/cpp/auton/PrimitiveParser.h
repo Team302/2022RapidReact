@@ -21,14 +21,9 @@
 // FRC includes
 
 // Team 302 includes
-
-// Third Party Includes
-
-
-
 #include <auton/PrimitiveParams.h>
 
-//#include <iostream>
+// Third Party Includes
 
 class PrimitiveParser
 {

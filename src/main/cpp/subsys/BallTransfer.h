@@ -38,13 +38,16 @@ class BallTransfer : public Mech2IndMotors
             std::string GetNetworkTableName,
             std::shared_ptr<IDragonMotorController> spinMotor,
             std::shared_ptr<IDragonMotorController> liftMotor,
-            std::shared_ptr<DragonDigitalInput>     ballPresentSw
+            std::shared_ptr<DragonDigitalInput>     ballPresentSw,
+            std::shared_ptr<DragonDigitalInput>     liftForwardSw
         );
 
         bool IsBallPresent() const;
+        bool IsLiftForward() const;
 
         BallTransfer() = delete;
         virtual ~BallTransfer() = default;
     private:
         std::shared_ptr<DragonDigitalInput>     m_ballPresentSw;
+        std::shared_ptr<DragonDigitalInput>     m_liftForwardSw;
 };

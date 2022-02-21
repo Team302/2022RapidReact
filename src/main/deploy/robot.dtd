@@ -247,7 +247,7 @@
 <!ATTLIST digitalInput 
           usage             ( INTAKE_OUT | INTAKE_IN |
                               BALL_PRESENT | 
-                              BALL_TRANSFER_UP | BALL_TRANFSER_DOWN |
+                              BALL_TRANSFER_FORWARD | BALL_TRANSFER_BACK |
                               SHOOTER_HOOD_MIN | SHOOTER_HOOD_MAX |
                               CLIMBER_BACK | CLIMBER_FORWARD ) "BALL_PRESENT"
           digitalId         (  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 

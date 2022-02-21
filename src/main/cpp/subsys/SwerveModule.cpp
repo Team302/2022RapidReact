@@ -365,7 +365,7 @@ void SwerveModule::SetDriveSpeed( units::velocity::meters_per_second_t speed )
     }
     else
     {
-        auto percent = m_activeState.speed / m_maxVelocity;
+        double percent = m_activeState.speed / m_maxVelocity;
         percent *= clamp((m_scale + m_boost - m_brake), 0.0, 1.0);
 
         Logger::GetLogger()->ToNtTable(m_nt, string("drive target - percent"), percent );

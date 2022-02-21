@@ -161,9 +161,10 @@ void MechanismFactory::CreateIMechanism
 				auto spin = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
 				auto lift = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_SPIN);
 				auto ballPresentSw = GetDigitalInput(digitalInputs, DigitalInputUsage::BALL_PRESENT);
-				if ((lift.get() != nullptr) && spin.get() != nullptr && ballPresentSw.get() != nullptr)
+				auto liftForwardSw = GetDigitalInput(digitalInputs, DigitalInputUsage::BALL_TRANSFER_FORWARD);
+				if ((lift.get() != nullptr) && spin.get() != nullptr && ballPresentSw.get() != nullptr && liftForwardSw.get() != nullptr)
 				{
-					m_ballTransfer = new BallTransfer(networkTableName, controlFileName, spin, lift, ballPresentSw);
+					m_ballTransfer = new BallTransfer(networkTableName, controlFileName, spin, lift, ballPresentSw, liftForwardSw);
 				}
 			}
 		}

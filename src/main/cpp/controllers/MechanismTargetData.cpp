@@ -33,8 +33,8 @@ MechanismTargetData::MechanismTargetData
     m_controller( controller ),
     m_controller2( controller2 ),
     m_target( target ),
-    m_controlData(),
-    m_controlData2(),
+    m_controlData(nullptr),
+    m_controlData2(nullptr),
     m_solenoid( solenoid ),
     m_secondTarget( secondTarget )
 {
