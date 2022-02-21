@@ -29,6 +29,7 @@
 #include <states/IState.h>
 #include <states/StateMgr.h>
 #include <states/StateStruc.h>
+#include <subsys/Climber.h>
 
 // Third Party Includes
 
@@ -57,6 +58,9 @@ class ClimberStateMgr : public StateMgr
         void CheckForStateTransition() override;
 
     private:
+        Climber*                                m_climber;
+        std::shared_ptr<nt::NetworkTable>       m_nt;     
+
 
 		static ClimberStateMgr*	m_instance;
 

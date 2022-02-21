@@ -46,7 +46,5 @@ class SwerveDrive : public IState
         std::shared_ptr<SwerveChassis>      m_chassis;
         TeleopControl*                      m_controller;
         bool                                m_usePWLinearProfile;
-        bool                                m_lastUp;
-        bool                                m_lastDown;
         frc::Vector2d                       m_offset;     
 };

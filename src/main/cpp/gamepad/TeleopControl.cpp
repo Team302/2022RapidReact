@@ -132,17 +132,6 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 
 		m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
 		m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::A_BUTTON;
-
-		// TODO Decide on the following Geo3 I think leave as is.
-		m_controllerIndex[DRIVE_FULL] 		= ctrlNo;
-		m_buttonIDs[DRIVE_FULL] 			= IDragonGamePad::POV_0;	
-		m_controllerIndex[DRIVE_75PERCENT] 	= ctrlNo;
-		m_buttonIDs[DRIVE_75PERCENT] 		= IDragonGamePad::POV_90;	
-		m_controllerIndex[DRIVE_50PERCENT] 	= ctrlNo;
-		m_buttonIDs[DRIVE_50PERCENT] 		= IDragonGamePad::POV_270;	
-		m_controllerIndex[DRIVE_25PERCENT] 	= ctrlNo;
-		m_buttonIDs[DRIVE_25PERCENT] 		= IDragonGamePad::POV_180;	
-
     }
     else
     {
