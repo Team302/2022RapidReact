@@ -83,7 +83,6 @@ DragonLimelight* LimelightDefn::ParseXML(pugi::xml_node    limelightNode)
         {
             rotation = units::angle::degree_t(attr.as_double());
         }
-		//todo: should this come from state XMLs
         else if ( strcmp( attr.name(), "targetheight" ) == 0 )
         {
             targetHeight = units::length::inch_t(attr.as_double());

@@ -103,6 +103,7 @@ void BallTransferStateMgr::CheckForStateTransition()
         {
             if (currentState == BALL_TRANSFER_STATE::HOLD)
             {
+                Logger::GetLogger()->ToNtTable(m_nt, string("Shooter at target"), to_string(m_shooterStateMgr->AtTarget()));
                 if (m_shooterStateMgr != nullptr && m_shooterStateMgr->AtTarget())
                 {
                     targetState = BALL_TRANSFER_STATE::FEED;

@@ -49,7 +49,7 @@ BallTransfer::BallTransfer
     m_liftForwardSw(liftForwardSw)
 {
     spinMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
-    liftMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::MEDIUM);
+    liftMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
 }
 
 bool BallTransfer::IsBallPresent() const

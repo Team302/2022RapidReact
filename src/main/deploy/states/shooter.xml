@@ -29,7 +29,7 @@
 	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
-					 value="0.70"
+					 value="0.6"
 					 secondValue="0.0"/>
 
 	<mechanismTarget stateIdentifier="ADJUSTHOOD"
