@@ -17,6 +17,8 @@
 #include <states/shooter/ShooterStateMgr.h>
 #include <states/climber/ClimberStateMgr.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
+#include <states/ShooterStateMgr.h>
+#include <states/climber/ClimberStateMgr.h>
 class DriverFeedback
 {
     public:

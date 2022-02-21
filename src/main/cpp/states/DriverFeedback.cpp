@@ -47,11 +47,17 @@ void DriverFeedback::updateLed()
     else if(m_shooter->GetCurrentState() == ShooterStateMgr::SHOOT_LOW_GOAL)
     {
         m_led->setColor(Led::BLACK);
-    }else if(m_ballTransfer->GetCurrentState() == BallTransferStateMgr::HOLD){
+    }
+    else if(m_ballTransfer->GetCurrentState() == BallTransferStateMgr::HOLD){
         
         m_led->setColor(Led::YELLOW);
     }
-    
+    else if(m_shooter->GetCurrentState() == ShooterStateMgr::SHOOT_FAR)
+    {
+        m_led->setColor(Led::BLUE);
+    }
 }
+
+ 
 
 
