@@ -34,20 +34,19 @@
 #include <memory>
 #include <string>
 #include <cstring>
-#include <iostream>
 
 // FRC includes
 #include <frc/Filesystem.h>
 
 // Team 302 includes
-#include <xmlmechdata/StateDataDefn.h>
-#include <utils/Logger.h>
-#include <subsys/MechanismTypes.h>
-#include <subsys/MechanismFactory.h>
 #include <controllers/ControlData.h>
+#include <controllers/MechanismTargetData.h>
+#include <subsys/MechanismFactory.h>
+#include <subsys/MechanismTypes.h>
+#include <utils/Logger.h>
 #include <xmlmechdata/ControlDataDefn.h>
 #include <xmlmechdata/MechanismTargetDefn.h>
-#include <controllers/MechanismTargetData.h>
+#include <xmlmechdata/StateDataDefn.h>
 
 // Third Party Includes
 #include <pugixml/pugixml.hpp>
@@ -110,11 +109,11 @@ vector<MechanismTargetData*> StateDataDefn::ParseXML
                     {
                         if (strcmp(child.name(), "controlData") == 0)
                         {
-                            controlDataVector.push_back( controlDataXML->ParseXML( child ) );
+                            controlDataVector.push_back( controlDataXML.get()->ParseXML( child ) );
                         }
                         else if (strcmp(child.name(), "mechanismTarget") == 0)
                         {
-                            targetDataVector.push_back( mechanismTargetXML->ParseXML( child ) );
+                            targetDataVector.push_back( mechanismTargetXML.get()->ParseXML( child ) );
                         }
                         else
                         {
@@ -124,7 +123,7 @@ vector<MechanismTargetData*> StateDataDefn::ParseXML
                         }
                     }
                 }
-
+                
                 for ( auto td : targetDataVector )
                 {
                     td->Update( controlDataVector );

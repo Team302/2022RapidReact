@@ -21,15 +21,16 @@
 
 // FRC includes
 #include <frc/geometry/Pose2d.h>
+#include <units/angle.h>
+#include <units/length.h>
 #include <units/velocity.h>
 #include <units/angular_velocity.h>
 
 // Team 302 includes
-#include <controllers/ControlModes.h>
 #include <controllers/ControlData.h>
+#include <controllers/ControlModes.h>
+
 // Third Party Includes
-#include <units/angle.h>
-#include <units/length.h>
 
 
 namespace frc
@@ -61,7 +62,10 @@ class IChassis
             DEFAULT,
             MAINTAIN,
             POLAR_HEADING,
-            TOWARD_GOAL
+            TOWARD_GOAL,
+            SPECIFIED_ANGLE,
+            LEFT_INTAKE_TOWARD_BALL,
+            RIGHT_INTAKE_TOWARD_BALL
         };
 
         /// @brief      return the chassis type
@@ -92,9 +96,10 @@ class IChassis
         virtual units::angular_velocity::radians_per_second_t GetMaxAngularSpeed() const = 0;
         virtual bool IsMoving() const = 0;
         virtual units::angle::degree_t GetYaw() const = 0;
+        virtual void SetTargetHeading(units::angle::degree_t targetYaw) = 0;
 
-	IChassis() = default;
-	virtual ~IChassis() = default;
+	    IChassis() = default;
+	    virtual ~IChassis() = default;
 };
 
 

@@ -7,16 +7,16 @@
 #include <string>
 
 #include <frc/TimedRobot.h>
-#include <frc/Timer.h>
-#include <frc/smartdashboard/SendableChooser.h>
-#include <gamepad/TeleopControl.h>
-#include <subsys/interfaces/IChassis.h>
-#include <states/intake/IntakeStateMgr.h>
-#include <subsys/Intake.h>
+
 #include <auton/CyclePrimitives.h>
-#include <states/ShooterStateMgr.h>
-#include <subsys/Shooter.h>
+#include <gamepad/TeleopControl.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
 #include <states/chassis/SwerveDrive.h>
+#include <states/intake/IntakeStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
+#include <subsys/BallTransfer.h>
+#include <subsys/Intake.h>
+#include <subsys/interfaces/IChassis.h>
 #include <subsys/Shooter.h>
 
 
@@ -43,10 +43,14 @@ class Robot : public frc::TimedRobot
   SwerveDrive*          m_swerve;
 
   IntakeStateMgr*       m_leftIntakeStateMgr;
-  IntakeStateMgr*       m_rightIntakeStateMgr;
-
   Intake*               m_leftIntake;
+
+  IntakeStateMgr*       m_rightIntakeStateMgr;
   Intake*               m_rightIntake;
+
+  BallTransferStateMgr* m_ballTransferStateMgr;
+  BallTransfer*         m_ballTransfer;
+
   ShooterStateMgr*      m_shooterStateMgr;
   Shooter*              m_shooter;
 };

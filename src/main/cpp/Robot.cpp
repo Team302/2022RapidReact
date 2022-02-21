@@ -2,29 +2,22 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "Robot.h"
-
-#include <fmt/core.h>
-#include <frc/smartdashboard/SmartDashboard.h>
-#include <frc/Timer.h>
-#include <frc/kinematics/ChassisSpeeds.h>
-
-#include <units/velocity.h>
-#include <units/angular_velocity.h>
 #include <Robot.h>
 
-#include <states/chassis/SwerveDrive.h>
-#include <xmlhw/RobotDefn.h>
-#include <subsys/ChassisFactory.h>
-#include <gamepad/TeleopControl.h>
-#include <subsys/interfaces/IChassis.h>
-#include <subsys/MechanismFactory.h>
 #include <auton/CyclePrimitives.h>
+#include <gamepad/TeleopControl.h>
+#include <states/chassis/SwerveDrive.h>
 #include <states/Intake/LeftIntakeStateMgr.h>
 #include <states/Intake/RightIntakeStateMgr.h>
-#include <states/ShooterStateMgr.h>
-
+#include <states/shooter/ShooterStateMgr.h>
+#include <subsys/BallTransfer.h>
+#include <subsys/ChassisFactory.h>
+#include <subsys/Intake.h>
+#include <subsys/interfaces/IChassis.h>
+#include <subsys/MechanismFactory.h>
 #include <subsys/Shooter.h>
+#include <xmlhw/RobotDefn.h>
+
 
 void Robot::RobotInit() 
 {
@@ -46,13 +39,17 @@ void Robot::RobotInit()
         
     auto mechFactory = MechanismFactory::GetMechanismFactory();
     m_leftIntake = mechFactory->GetLeftIntake();
-    m_leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
+    m_leftIntakeStateMgr = m_leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
 
     m_rightIntake = mechFactory->GetRightIntake();
-    m_rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
+    m_rightIntakeStateMgr = m_rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
+    
+    m_ballTransfer = mechFactory->GetBallTransfer();
+    //m_ballTransfer = nullptr;
+    m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
 
-    m_shooter = mechFactory->GetShooter();
-    m_shooterStateMgr = ShooterStateMgr::GetInstance();
+    m_shooter = m_ballTransfer != nullptr ? mechFactory->GetShooter() : nullptr;
+    m_shooterStateMgr = m_shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
     
     m_cyclePrims = new CyclePrimitives();
 }
@@ -117,8 +114,15 @@ void Robot::TeleopInit()
     }
     if (m_shooterStateMgr != nullptr && m_shooter != nullptr)
     {
-        m_shooterStateMgr->SetCurrentState(ShooterStateMgr::SHOOT_FAR , true);
+        m_shooterStateMgr->RunCurrentState();
     }
+    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
+    {
+        m_ballTransferStateMgr->RunCurrentState();
+//        m_ballTransferStateMgr->SetCurrentState(BallTransferStateMgr::BALL_TRANSFER_STATE::LOAD, true);
+    }
+
+
 }
 
 void Robot::TeleopPeriodic() 
@@ -135,6 +139,10 @@ void Robot::TeleopPeriodic()
     if (m_rightIntake != nullptr && m_rightIntakeStateMgr != nullptr)
     {
         m_rightIntakeStateMgr->RunCurrentState();
+    }
+    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
+    {
+        m_ballTransferStateMgr->RunCurrentState();
     }
     
     if (m_shooter != nullptr && m_shooterStateMgr != nullptr)

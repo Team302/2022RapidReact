@@ -22,8 +22,8 @@
 
 // Team 302 includes
 #include <controllers/MechanismTargetData.h>
-#include <xmlmechdata/MechanismTargetDefn.h>
 #include <utils/Logger.h>
+#include <xmlmechdata/MechanismTargetDefn.h>
 
 // Third Party Includes
 #include <pugixml/pugixml.hpp>

@@ -71,8 +71,10 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 }
 
 MechanismFactory::MechanismFactory() : m_leftIntake(nullptr),
-									   m_rightIntake(nullptr),
- 				                       m_shooter(nullptr)
+				       m_rightIntake(nullptr),
+				       m_ballTransfer(nullptr),
+ 				       m_shooter(nullptr),
+ 				       m_climber(nullptr)
 {
 }
 
@@ -151,6 +153,40 @@ void MechanismFactory::CreateIMechanism
 			}
 		}
 		break;
+
+		case MechanismTypes::BALL_TRANSFER:
+		{
+			if (m_ballTransfer == nullptr)
+			{
+				auto spin = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
+				auto lift = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_SPIN);
+				auto ballPresentSw = GetDigitalInput(digitalInputs, DigitalInputUsage::BALL_PRESENT);
+				auto liftForwardSw = GetDigitalInput(digitalInputs, DigitalInputUsage::BALL_TRANSFER_FORWARD);
+				if ((lift.get() != nullptr) && spin.get() != nullptr && ballPresentSw.get() != nullptr && liftForwardSw.get() != nullptr)
+				{
+					m_ballTransfer = new BallTransfer(networkTableName, controlFileName, spin, lift, ballPresentSw, liftForwardSw);
+				}
+			}
+		}
+		break;
+
+		case MechanismTypes::MECHANISM_TYPE::SHOOTER:
+		{
+			if (m_shooter == nullptr)
+			{
+				auto shooterMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER);
+				auto shooterHoodMotor = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER_HOOD);
+				if ( shooterMotor.get() != nullptr && shooterHoodMotor.get() != nullptr)
+				{
+					m_shooter = new Shooter(controlFileName, networkTableName, shooterMotor, shooterHoodMotor);
+				}
+				else
+				{
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No Shooter motor exists in XML"));
+				}
+			}
+		}
+		break;		
 		
 		case MechanismTypes::MECHANISM_TYPE::CLIMBER :
 		{
@@ -175,23 +211,6 @@ void MechanismFactory::CreateIMechanism
 		}
 		break;
 
-		case MechanismTypes::MECHANISM_TYPE::SHOOTER:
-		{
-			if (m_shooter == nullptr)
-			{
-				auto shooterMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER);
-				auto shooterHoodMotor = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER_HOOD);
-				if ( shooterMotor.get() != nullptr && shooterHoodMotor.get() != nullptr)
-				{
-					m_shooter = new Shooter(controlFileName, networkTableName, shooterMotor, shooterHoodMotor);
-				}
-				else
-				{
-					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("No Shooter motor exists in XML"));
-				}
-			}
-		}
-		break;		
 		default:
 		{
 			string msg = "unknown Mechanism type ";
@@ -249,6 +268,10 @@ IMech* MechanismFactory::GetMechanism
 
 		case MechanismTypes::MECHANISM_TYPE::RIGHT_INTAKE:
 			return GetRightIntake();
+			break;
+			
+		case MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER:
+			return GetBallTransfer();
 			break;
 	
 		case MechanismTypes::MECHANISM_TYPE::SHOOTER:

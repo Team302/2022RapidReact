@@ -31,11 +31,14 @@
 #include <subsys/interfaces/IMech.h>
 #include <utils/Logger.h>
 #include <xmlmechdata/StateDataDefn.h>
-#include <states/Intake/IntakeState.h>
-#include <states/ShooterState.h>
+#include <states/intake/IntakeState.h>
+#include <states/shooter/ShooterState.h>
+#include <states/shooter/ShooterStateManual.h>
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
-
+#include <states/BallTransfer/BallTransferState.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
+#include <subsys/BallTransfer.h>
 
 // Third Party Includes
 
@@ -57,6 +60,8 @@ void StateMgr::Init
 ) 
 {
     m_mech = mech;
+
+
     if (mech != nullptr)
     {
         // Parse the configuration file 
@@ -83,9 +88,9 @@ void StateMgr::Init
                     if ( m_stateVector[slot] == nullptr )
                     {
                         auto controlData = td->GetController();
-                	    auto controlData2 = td->GetController2();
+                	auto controlData2 = td->GetController2();
                         auto target = td->GetTarget();
-                	    auto secondaryTarget = td->GetSecondTarget();
+                	auto secondaryTarget = td->GetSecondTarget();
                         auto type = struc.type;
                         IState* thisState = nullptr;
                         switch (type)
@@ -105,14 +110,22 @@ void StateMgr::Init
                                                             target, 
                                                             secondaryTarget);
                         	    break;
-
-                    	    case StateType::SHOOTER:
+                        	    
+                    	    case StateType::BALL_TRANSFER:
+                        	    thisState = new BallTransferState(controlData, controlData2, target, secondaryTarget);
+                        	    break;
+                    
+                    	        case StateType::SHOOTER:
                        		    thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
                        		    break;
 
-                            case StateType::CLIMBER:
-                                thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
-                                break;
+                    	        case StateType::SHOOTER_MANUAL:
+                       		    thisState = new ShooterStateManual();
+                       		    break;
+
+                                case StateType::CLIMBER:
+                                    thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
+                                    break;
 
                     	    default:
                     	    {

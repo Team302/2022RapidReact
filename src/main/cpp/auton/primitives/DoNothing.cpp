@@ -75,7 +75,6 @@ void DoNothing::Run()
 		m_chassis->Drive(speeds, 
 						 IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
 						 IChassis::HEADING_OPTION::DEFAULT);
-		//m_chassis->SetOutput( ControlModes::CONTROL_TYPE::PERCENT_OUTPUT, 0.0, 0.0 );  
 	}
 	else
 	{

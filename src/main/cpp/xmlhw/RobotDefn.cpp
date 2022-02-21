@@ -31,22 +31,21 @@
 //========================================================================================================
 
 // C++ Includes
-#include <iostream>
 #include <memory>
 
 // FRC includes
 #include <frc/Filesystem.h>
 
 // Team 302 includes
-#include <xmlhw/CameraDefn.h>
-#include <xmlhw/ChassisDefn.h>
-#include <xmlhw/RobotDefn.h>
-#include <xmlhw/MechanismDefn.h>
-#include <xmlhw/LimelightDefn.h>
-#include <xmlhw/PDPDefn.h>
-#include <xmlhw/PigeonDefn.h>
 #include <hw/DragonPigeon.h>
 #include <utils/Logger.h>
+#include <xmlhw/CameraDefn.h>
+#include <xmlhw/ChassisDefn.h>
+#include <xmlhw/LimelightDefn.h>
+#include <xmlhw/MechanismDefn.h>
+#include <xmlhw/PDPDefn.h>
+#include <xmlhw/PigeonDefn.h>
+#include <xmlhw/RobotDefn.h>
 
 // Third Party Includes
 #include <pugixml/pugixml.hpp>
@@ -112,7 +111,7 @@ void RobotDefn::ParseXML()
                     }
                     else if ( strcmp(child.name(), "limelight") == 0 )
                     {
-                        ///auto limelight = limelightXML.get()->ParseXML( child);
+                        limelightXML.get()->ParseXML( child);
                     }
                     else
                     {
@@ -147,4 +146,5 @@ void RobotDefn::ParseXML()
     catch(const std::exception& e)
     {
         Logger::GetLogger()->LogError( string("RobotDefn::ParseXML"), string("Error thrown while parsing robot.xml") );
-    }}
+    }
+}

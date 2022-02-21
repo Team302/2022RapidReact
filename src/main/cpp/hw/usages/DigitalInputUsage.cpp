@@ -43,8 +43,8 @@ DigitalInputUsage::DigitalInputUsage()
     m_usageMap["INTAKE_OUT"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::INTAKE_OUT;
     m_usageMap["INTAKE_IN"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::INTAKE_IN;
     m_usageMap["BALL_PRESENT"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_PRESENT;
-    m_usageMap["BALL_TRANSER_UP"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_TRANSER_UP;
-    m_usageMap["BALL_TRANSER_DOWN"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_TRANSER_DOWN;
+    m_usageMap["BALL_TRANSFER_FORWARD"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_TRANSFER_FORWARD;
+    m_usageMap["BALL_TRANSFER_BACK"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_TRANSFER_BACK;
     m_usageMap["SHOOTER_HOOD_MIN"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::SHOOTER_HOOD_MIN;
     m_usageMap["SHOOTER_HOOD_MAX"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::SHOOTER_HOOD_MAX;
     m_usageMap["CLIMBER_BACK"] = DigitalInputUsage::DIGITAL_SENSOR_USAGE::CLIMBER_BACK;

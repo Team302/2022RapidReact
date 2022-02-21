@@ -84,7 +84,7 @@ SwerveChassis::SwerveChassis
     m_maxAngularSpeed(maxAngularSpeed),
     m_maxAcceleration(maxAcceleration),
     m_maxAngularAcceleration(maxAngularAcceleration),
-    m_pigeon(PigeonFactory::GetFactory()->GetPigeon()),
+    m_pigeon(PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)),
     m_accel(BuiltInAccelerometer()),
     m_isMoving(false),
     m_scale(1.0),
@@ -103,7 +103,8 @@ SwerveChassis::SwerveChassis
     m_backLeftLocation(-1.0*wheelBase/2.0, track/2.0),
     m_backRightLocation(-1.0*wheelBase/2.0, -1.0*track/2.0),
     m_storedYaw(m_pigeon->GetYaw()),
-    m_yawCorrection(units::angular_velocity::degrees_per_second_t(0.0))
+    m_yawCorrection(units::angular_velocity::degrees_per_second_t(0.0)),
+    m_targetHeading(units::angle::degree_t(0))
 {
     m_timer.Reset();
     m_timer.Start();
@@ -186,6 +187,19 @@ void SwerveChassis::Drive
 
         case HEADING_OPTION::TOWARD_GOAL:
             AdjustRotToPointTowardGoal(rot);
+            break;
+
+        case HEADING_OPTION::SPECIFIED_ANGLE:
+            CalcHeadingCorrection(m_targetHeading, kPMaintainHeadingControl);
+            rot -= m_yawCorrection;
+            break;
+
+        case HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL:
+            // TODO: implement
+            break;
+
+        case HEADING_OPTION::RIGHT_INTAKE_TOWARD_BALL:
+            // TODO: implement
             break;
 
         default:
@@ -716,5 +730,10 @@ void SwerveChassis::CalcSwerveModuleStates
     Logger::GetLogger()->ToNtTable("Swerve Calcs", "Front Right Speed - normalized", m_frState.speed.to<double>());
     Logger::GetLogger()->ToNtTable("Swerve Calcs", "Back Left Speed - normalized", m_blState.speed.to<double>());
     Logger::GetLogger()->ToNtTable("Swerve Calcs", "Back Right Speed - normalized", m_brState.speed.to<double>());
+}
+
+void SwerveChassis::SetTargetHeading(units::angle::degree_t targetYaw) 
+{
+    m_targetHeading = targetYaw;
 }
 

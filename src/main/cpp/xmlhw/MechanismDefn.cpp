@@ -25,31 +25,23 @@
 #include <utility>
 
 // FRC includes
-//#include <frc/AnalogInput.h>
-#include <frc/SmartDashboard/SmartDashboard.h>
 
 // Team 302 includes
-#include <subsys/MechanismFactory.h>
-#include <subsys/interfaces/IMech.h>
-
-#include <hw/usages/IDragonMotorControllerMap.h>
+#include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/DigitalInputMap.h>
 #include <hw/usages/DragonSolenoidMap.h>
+#include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/ServoMap.h>
-
+#include <subsys/interfaces/IMech.h>
+#include <subsys/MechanismFactory.h>
+#include <subsys/MechanismTypes.h>
+#include <utils/Logger.h>
 #include <xmlhw/CanCoderDefn.h>
 #include <xmlhw/DigitalInputDefn.h>
+#include <xmlhw/MechanismDefn.h>
 #include <xmlhw/MotorDefn.h>
 #include <xmlhw/ServoDefn.h> 
 #include <xmlhw/SolenoidDefn.h>
-
-#include <subsys/interfaces/IMech.h>
-#include <subsys/MechanismTypes.h>
-
-#include <utils/Logger.h>
-
-#include <xmlhw/MechanismDefn.h>
-#include <hw/interfaces/IDragonMotorController.h>
 
 // Third Party Includes
 #include <pugixml/pugixml.hpp>

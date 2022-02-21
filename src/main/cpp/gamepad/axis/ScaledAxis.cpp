@@ -25,7 +25,6 @@
 #include <gamepad/axis/ScaledAxis.h>
 
 #include <cmath>
-#include <iostream>
 
 ScaledAxis::ScaledAxis() : m_scale( 1.0 )
 {

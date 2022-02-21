@@ -23,6 +23,9 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
+#include <states/intake/LeftIntakeStateMgr.h>
+#include <states/intake/RightIntakeStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
 
 // Third Party Includes
 
@@ -62,5 +65,8 @@ class CyclePrimitives : public IState
 		std::unique_ptr<frc::Timer>     m_timer;
 		double                          m_maxTime;
 		bool							m_isDone;
+		LeftIntakeStateMgr*             m_leftIntake;
+		RightIntakeStateMgr*			m_rightIntake;
+		ShooterStateMgr*				m_shooter;
 };
 

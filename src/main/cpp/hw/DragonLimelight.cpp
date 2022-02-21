@@ -71,85 +71,106 @@ std::vector<double> DragonLimelight::Get3DSolve() const
 
 bool DragonLimelight::HasTarget() const
 {
-    return ( m_networktable.get()->GetNumber("tv", 0.0) > 0.1 );
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        return ( nt->GetNumber("tv", 0.0) > 0.1 );
+    }
+    return false;
+}
+
+units::angle::degree_t DragonLimelight::GetTx() const
+{
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        return units::angle::degree_t(nt->GetNumber("tx", 0.0));
+    }
+    return units::angle::degree_t(0.0);
+}
+ 
+units::angle::degree_t DragonLimelight::GetTy() const
+{
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        return units::angle::degree_t(nt->GetNumber("ty", 0.0));
+    }
+    return units::angle::degree_t(0.0);
 }
 
 units::angle::degree_t DragonLimelight::GetTargetHorizontalOffset() const
 {
-    units::angle::degree_t tx = units::angle::degree_t(m_networktable.get()->GetNumber("tx", 0.0));
-    units::angle::degree_t ty = units::angle::degree_t(m_networktable.get()->GetNumber("ty", 0.0));
     if ( abs(m_rotation.to<double>()) < 1.0 )
-    //if(m_rotation == units::angle::degree_t(0.0))
     {
-        return tx;
+        return GetTx();
     }
-//    else if(m_rotation == units::angle::degree_t(90.0))
     else if ( abs(m_rotation.to<double>()-90.0) < 1.0 )
     {
-        return -ty;
+        return -1.0 * GetTy();
     }
-//    else if(m_rotation == units::angle::degree_t(180.0))
     else if ( abs(m_rotation.to<double>()-180.0) < 1.0 )
     {
-        return -tx;
+        return -1.0 * GetTx();
     }
-//    else if(m_rotation == units::angle::degree_t(270.0))
     else if ( abs(m_rotation.to<double>()-270.0) < 1.0 )
     {
-        return ty;
+        return GetTy();
     }
-    else
-    {
-        Logger::GetLogger()->LogError("DragonLimelight::GetTargetVerticalOffset", "Invalid limelight rotation");
-        return units::angle::degree_t(-180.0);
-    }
+    Logger::GetLogger()->LogError("DragonLimelight::GetTargetVerticalOffset", "Invalid limelight rotation");
+    return GetTx();
 }
 
 units::angle::degree_t DragonLimelight::GetTargetVerticalOffset() const
 {
-    units::angle::degree_t tx = units::angle::degree_t(m_networktable.get()->GetNumber("tx", 0.0));
-    units::angle::degree_t ty = units::angle::degree_t(m_networktable.get()->GetNumber("ty", 0.0));
     if ( abs(m_rotation.to<double>()) < 1.0 )
-    //if(m_rotation == units::angle::degree_t(0.0))
     {
-        return ty;
+        return GetTy();
     }
-//    else if(m_rotation == units::angle::degree_t(90.0))
     else if ( abs(m_rotation.to<double>()-90.0) < 1.0 )
     {
-        return tx;
+        return GetTx();
     }
-//    else if(m_rotation == units::angle::degree_t(180.0))
     else if ( abs(m_rotation.to<double>()-180.0) < 1.0 )
     {
-        return -ty;
+        return -1.0 * GetTy();
     }
-//    else if(m_rotation == units::angle::degree_t(270.0))
     else if ( abs(m_rotation.to<double>()-270.0) < 1.0 )
     {
-        return -tx;
+        return -1.0 * GetTx();
     }
-    else
-    {
-        Logger::GetLogger()->LogError("DragonLimelight::GetTargetVerticalOffset", "Invalid limelight rotation");
-        return units::angle::degree_t(-180.0);
-    }
-    
+    Logger::GetLogger()->LogError("DragonLimelight::GetTargetVerticalOffset", "Invalid limelight rotation");
+    return GetTy();   
 }
 
 double DragonLimelight::GetTargetArea() const
 {
-    return m_networktable.get()->GetNumber("ta", 0.0);
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        return nt->GetNumber("ta", 0.0);
+    }
+    return 0.0;
 }
 
 units::angle::degree_t DragonLimelight::GetTargetSkew() const
 {
-    return units::angle::degree_t(m_networktable.get()->GetNumber("ts", 0.0));
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        return units::angle::degree_t(nt->GetNumber("ts", 0.0));
+    }
+    return units::angle::degree_t(0.0);
 }
 
 units::time::microsecond_t DragonLimelight::GetPipelineLatency() const
 {
-    return units::time::second_t(m_networktable.get()->GetNumber("tl", 0.0));
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        return units::time::second_t(nt->GetNumber("tl", 0.0));
+    }
+    return units::time::second_t(0.0);
 }
 
 
@@ -163,40 +184,68 @@ void DragonLimelight::SetTargetHeight
 
 void DragonLimelight::SetLEDMode(DragonLimelight::LED_MODE mode)
 {
-    m_networktable.get()->PutNumber("ledMode", mode);
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        nt->PutNumber("ledMode", mode);
+    }
 }
 
 void DragonLimelight::SetCamMode(DragonLimelight::CAM_MODE mode)
 {
-    m_networktable.get()->PutNumber("camMode", mode);
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        nt->PutNumber("camMode", mode);
+    }
 }
 
 void DragonLimelight::SetPipeline(int pipeline)
 {
-    m_networktable.get()->PutNumber("pipeline", pipeline);
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        nt->PutNumber("pipeline", pipeline);
+    }
 }
 
 void DragonLimelight::SetStreamMode(DragonLimelight::STREAM_MODE mode)
 {
-    m_networktable.get()->PutNumber("stream", mode);
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        nt->PutNumber("stream", mode);
+    }
 }
 
 void DragonLimelight::SetCrosshairPos( double crosshairPosX, double crosshairPosY)
 {
-    m_networktable.get()->PutNumber("cx0", crosshairPosX);
-    m_networktable.get()->PutNumber("cy0", crosshairPosY);
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        nt->PutNumber("cx0", crosshairPosX);
+        nt->PutNumber("cy0", crosshairPosY);
+    }
 }
 
 void DragonLimelight::SetSecondaryCrosshairPos( double crosshairPosX, double crosshairPosY)
 {
-    m_networktable.get()->PutNumber("cx1", crosshairPosX);
-    m_networktable.get()->PutNumber("cy1", crosshairPosY);
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        nt->PutNumber("cx1", crosshairPosX);
+        nt->PutNumber("cy1", crosshairPosY);
+    }
 }
 
 // MAX of 32 snapshots can be saved
 void DragonLimelight::ToggleSnapshot(DragonLimelight::SNAPSHOT_MODE toggle)
 {
-    m_networktable.get()->PutNumber("snapshot", toggle);
+    auto nt = m_networktable.get();
+    if (nt != nullptr)
+    {
+        nt->PutNumber("snapshot", toggle);
+    }
 }
 
 void DragonLimelight::PrintValues()

@@ -183,13 +183,13 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_buttonIDs[AUTO_SHOOT_LOW] 			= IDragonGamePad::X_BUTTON;	
 
 		m_controllerIndex[MANUAL_SHOOT] 		= ctrlNo;  
-		m_buttonIDs[MANUAL_SHOOT] 			= IDragonGamePad::Y_BUTTON;	
-		m_controllerIndex[MAN_KICKER] 		= ctrlNo;
-		m_buttonIDs[MAN_KICKER] 			= IDragonGamePad::B_BUTTON;	
-		m_controllerIndex[SHOOTER_MTR_ON] 	= ctrlNo;
- 		m_buttonIDs[SHOOTER_MTR_ON] 		= IDragonGamePad::POV_180;	
- 		m_controllerIndex[SHOOTER_OFF] 		= ctrlNo;
- 		m_buttonIDs[SHOOTER_OFF]			= IDragonGamePad::START_BUTTON;	
+		m_buttonIDs[MANUAL_SHOOT] 				= IDragonGamePad::Y_BUTTON;	
+		m_controllerIndex[MAN_KICKER] 			= ctrlNo;
+		m_buttonIDs[MAN_KICKER] 				= IDragonGamePad::B_BUTTON;	
+		m_controllerIndex[SHOOTER_MTR_ON] 		= ctrlNo;
+ 		m_buttonIDs[SHOOTER_MTR_ON] 			= IDragonGamePad::POV_180;	
+ 		m_controllerIndex[SHOOTER_OFF] 			= ctrlNo;
+ 		m_buttonIDs[SHOOTER_OFF]				= IDragonGamePad::START_BUTTON;	
  	
 
 	 	m_controllerIndex[SHOOTER_HOOD_MAN]	= ctrlNo;

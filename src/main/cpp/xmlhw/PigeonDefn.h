@@ -20,7 +20,6 @@
 // C++ Includes
 
 // FRC includes
-#include <frc/SmartDashboard/SmartDashboard.h>
 
 // Team 302 includes
 #include <hw/DragonPigeon.h>

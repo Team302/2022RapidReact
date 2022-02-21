@@ -37,14 +37,13 @@ using namespace frc;
 
 //Includes
 #include <cmath>
-#include <frc/SmartDashboard/SmartDashboard.h>
 
 //Team302 includes
 #include <auton/primitives/DriveDistance.h>
-#include <subsys/MechanismFactory.h>
-#include <subsys/interfaces/IChassis.h>
-#include <hw/factories/PigeonFactory.h>
 #include <hw/DragonPigeon.h>
+#include <hw/factories/PigeonFactory.h>
+#include <subsys/interfaces/IChassis.h>
+#include <subsys/MechanismFactory.h>
 #include <utils/Logger.h>
 
 DriveDistance::DriveDistance() :
@@ -76,7 +75,6 @@ void DriveDistance::Init(PrimitiveParams* params)
 	//Get parameters from params
 	m_targetDistance = params->GetDistance();
 	//m_initialDistance =  ChassisFactory::GetChassisFactory()->GetIChassis()->GetCurrentPosition();
-	//frc::SmartDashboard::PutNumber("Initial Distance", m_initialDistance);
 }
 
 void DriveDistance::Run() 
@@ -114,8 +112,6 @@ bool DriveDistance::IsDone()
 {
 	//float progress =  ChassisFactory::GetChassisFactory()->GetIChassis()->GetCurrentPosition() - m_initialDistance;
 	//bool reachedTarget = abs(progress) > abs(m_targetDistance);
-	//frc::SmartDashboard::PutNumber("current chassis dist", progress);
-	//frc::SmartDashboard::PutNumber("Target chassis distance", m_targetDistance);
 	m_timeRemaining -= IPrimitive::LOOP_LENGTH;
 
 	//bool notMoving = m_underSpeedCounts >= UNDER_SPEED_COUNT_THRESHOLD;

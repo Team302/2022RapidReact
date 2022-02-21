@@ -159,7 +159,6 @@ std::shared_ptr<SwerveModule> SwerveModuleDefn::ParseXML
         string childName (child.name());
     	if ( childName.compare("motor") == 0 )
     	{
-            Logger::GetLogger()->OnDash(string("RobotXML Parsing"), string("Swerve Motors"));
             auto motor = motorXML.get()->ParseXML(child);
             if ( motor.get() != nullptr )
             {

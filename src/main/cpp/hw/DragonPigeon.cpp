@@ -25,30 +25,32 @@ using namespace ctre::phoenix::sensors;
 DragonPigeon::DragonPigeon
 (
     int    canID,
+    DragonPigeon::PIGEON_USAGE usage,
+    DragonPigeon::PIGEON_TYPE type,
     double rotation
-) : m_pigeon(make_unique<PigeonIMU>(canID)),
+) : m_pigeon(nullptr),
+    m_pigeon2(nullptr),
     m_initialYaw(rotation),
     m_initialPitch(0.0),
     m_initialRoll(0.0)
 {
-    m_pigeon = make_unique<PigeonIMU>( canID );
-    m_pigeon.get()->ConfigFactoryDefault();
-    m_pigeon.get()->SetYaw(rotation, 0);
-    m_pigeon.get()->SetFusedHeading( rotation, 0);
+    if (type == DragonPigeon::PIGEON_TYPE::PIGEON1)
+    {
+        m_pigeon = new WPI_PigeonIMU(canID);
+        m_pigeon->ConfigFactoryDefault();
+        m_pigeon->SetYaw(rotation, 0);
+        m_pigeon->SetFusedHeading( rotation, 0);
 
-    m_pigeon.get()->SetStatusFramePeriod( PigeonIMU_StatusFrame::PigeonIMU_BiasedStatus_4_Mag, 120, 0);
-    m_pigeon.get()->SetStatusFramePeriod( PigeonIMU_StatusFrame::PigeonIMU_CondStatus_11_GyroAccum, 120, 0);
-    m_pigeon.get()->SetStatusFramePeriod( PigeonIMU_StatusFrame::PigeonIMU_BiasedStatus_6_Accel, 120, 0); // using fused heading not yaw
-//    m_pigeon.get()->SetStatusFramePeriod( PigeonIMU_StatusFrame::PigeonIMU_CondStatus_9_SixDeg_YPR, 120, 0); // using fused heading not yaw
-
-    /**
-    double ypr[3];
-    m_pigeon.get()->GetYawPitchRoll(ypr);
-
-    m_initialYaw   = ypr[0];
-    m_initialPitch = ypr[1];
-    m_initialRoll  = ypr[2];
-    **/
+        m_pigeon->SetStatusFramePeriod( PigeonIMU_StatusFrame::PigeonIMU_BiasedStatus_4_Mag, 120, 0);
+        m_pigeon->SetStatusFramePeriod( PigeonIMU_StatusFrame::PigeonIMU_CondStatus_11_GyroAccum, 120, 0);
+        m_pigeon->SetStatusFramePeriod( PigeonIMU_StatusFrame::PigeonIMU_BiasedStatus_6_Accel, 120, 0); // using fused heading not yaw
+    }
+    else
+    {
+        m_pigeon2 = new WPI_Pigeon2(canID);
+        m_pigeon2->ConfigFactoryDefault();
+        m_pigeon2->SetYaw(rotation);
+    }
 }
 
 
@@ -70,7 +72,14 @@ double DragonPigeon::GetYaw()
 
 void DragonPigeon::ReZeroPigeon( double angleDeg, int timeoutMs)
 {
-    m_pigeon.get()->SetFusedHeading( angleDeg, timeoutMs);
+    if (m_pigeon != nullptr)
+    {
+        m_pigeon->SetFusedHeading( angleDeg, timeoutMs);
+    }
+    else if (m_pigeon2 != nullptr)
+    {
+        m_pigeon2->SetYaw(angleDeg, timeoutMs);
+    }
 }
 
 double DragonPigeon::GetRawPitch()
@@ -100,9 +109,21 @@ double DragonPigeon::GetRawRoll()
 double DragonPigeon::GetRawYaw()
 {
     //double yaw = m_pigeon.get()->GetFusedHeading();
-    double ypr[3]; // yaw = 0 pitch = 1 roll = 2
-    m_pigeon.get()->GetYawPitchRoll(ypr);
-    double yaw = ypr[0];
+    //double ypr[3]; // yaw = 0 pitch = 1 roll = 2
+    //m_pigeon.get()->GetYawPitchRoll(ypr);
+    //double yaw = ypr[0];
+    double yaw = 0.0;
+    
+    if (m_pigeon != nullptr)
+    {
+        yaw = m_pigeon->GetYaw();
+    }
+    else if (m_pigeon2 != nullptr)
+    {
+        m_pigeon2->GetYaw();
+    }
+    yaw = remainder(yaw,360.0);
+
     // normalize it to be between -180 and + 180
     if ( yaw > 180 )
     {

@@ -65,7 +65,7 @@ std::string AutonSelector::GetSelectedAutoFile()
 void AutonSelector::FindXMLFileNames()
 {
 #ifdef __linux__
-	struct dirent* files;
+	//struct dirent* files;
 
 	auto deployDir = frc::filesystem::GetDeployDirectory();
 	auto autonDir = deployDir + "/auton/";
@@ -73,13 +73,11 @@ void AutonSelector::FindXMLFileNames()
 
 	if (directory != nullptr)
 	{
-		bool moreFiles = true;
-		while (moreFiles)
+		while (true)
 		{
-			files = readdir(directory);
+			auto files = readdir(directory);
 			if (files == nullptr)
 			{
-				moreFiles = false;
 				break;
 			}
 			else 
@@ -117,6 +115,7 @@ void AutonSelector::PutChoicesOnDashboard()
 			if ( !gotDefault )
 			{
 				m_chooser.SetDefaultOption(  m_xmlFiles[inx], m_xmlFiles[inx] );
+				gotDefault = true;
 			}
 			else
 			{

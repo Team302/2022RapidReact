@@ -31,6 +31,7 @@
 #include <controllers/ControlData.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <utils/Logger.h>
+#include <states/BallTransfer/BallTransferState.h>
 
 // Third Party Includes
 //#include <units/units.h>
@@ -60,12 +61,12 @@ Mech2IndMotors::Mech2IndMotors
     m_primaryTarget(0.0),
     m_secondaryTarget(0.0)
 {
-    if ( m_primary.get() == nullptr )
+    if ( primaryMotor.get() == nullptr )
     {
         Logger::GetLogger()->LogError( Logger::LOGGER_LEVEL::ERROR_ONCE, string( "Mech2IndMotors constructor" ), string( "failed to create primary control" ) );
     }    
     
-    if ( m_secondary.get() == nullptr )
+    if ( secondaryMotor.get() == nullptr )
     {
         Logger::GetLogger()->LogError( Logger::LOGGER_LEVEL::ERROR_ONCE, string( "Mech2IndMotors constructor" ), string( "failed to create secondary control" ) );
     }

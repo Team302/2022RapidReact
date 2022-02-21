@@ -57,6 +57,10 @@ class MechanismTargetData
         /// @return std::string controller indentifier
         inline std::string GetControllerString() const { return m_controller; };
 
+        /// @brief  Retrieve the controller identifier
+        /// @return std::string controller indentifier
+        inline std::string GetControllerString2() const { return m_controller2; };
+
         /// @brief  Retrieve the controller
         /// @return ControlData* controller
         inline ControlData* GetController() const { return m_controlData; };

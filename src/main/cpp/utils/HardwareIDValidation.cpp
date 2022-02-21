@@ -68,7 +68,7 @@ bool HardwareIDValidation::ValidatePDPID
 )
 {
     string errorMsg = "Invalid PDP ID " + to_string( pdpID );
-    return HardwareIDValidation::ValidateID( pdpID, 0, 15, methodID, errorMsg );
+    return HardwareIDValidation::ValidateID( pdpID, 0, 19, methodID, errorMsg );
 }
 
 

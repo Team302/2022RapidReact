@@ -50,6 +50,8 @@ DragonPigeon* PigeonDefn::ParseXML
     // initialize attributes to default values
     int canID = 0;
     double rotation = 0.0;
+    DragonPigeon::PIGEON_TYPE type = DragonPigeon::PIGEON_TYPE::PIGEON1;
+    DragonPigeon::PIGEON_USAGE usage = DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT;
 
     bool hasError = false;
 
@@ -65,6 +67,28 @@ DragonPigeon* PigeonDefn::ParseXML
         {
             rotation = attr.as_double();
         }
+        else if (strcmp(attr.name(), "type") == 0)
+        {
+            if (strcmp(attr.value(), "PIGEON2") == 0)
+            {
+                type = DragonPigeon::PIGEON_TYPE::PIGEON2;
+            }
+            else 
+            {
+                type = DragonPigeon::PIGEON_TYPE::PIGEON1;
+            }
+        }
+        else if (strcmp(attr.name(), "usage") == 0)
+        {
+            if (strcmp(attr.value(), "CENTER_OF_SHOOTER") == 0)
+            {
+                usage = DragonPigeon::PIGEON_USAGE::CENTER_OF_SHOOTER;
+            }
+            else 
+            {
+                usage = DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT;
+            }
+        }
         else
         {
             string msg("Invalid attribute ");
@@ -78,7 +102,10 @@ DragonPigeon* PigeonDefn::ParseXML
     if ( !hasError )
     {
         Logger::GetLogger()->OnDash(string("RobotXML Parsing"), string("Create Pigeon"));
-        pigeon = PigeonFactory::GetFactory()->CreatePigeon( canID, rotation );
+        pigeon = PigeonFactory::GetFactory()->CreatePigeon( canID, 
+                                                            type,
+                                                            usage,
+                                                            rotation );
     }
     return pigeon;
 }

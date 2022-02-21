@@ -8,6 +8,7 @@
                               TURN_ANGLE_ABS | TURN_ANGLE_REL | DRIVE_PATH | RESET_POSITION) "DO_NOTHING"
 		  time				CDATA #IMPLIED
           distance		    CDATA "0.0"
+          headingOption     ( MAINTAIN | TOWARD_GOAL | LEFT_INTAKE_TOWARD_BALL | RIGHT_INTAKE_TOWARD_BALL | SPECIFIED_ANGLE ) "MAINTAIN"
           heading           CDATA "0.0"
           drivespeed        CDATA "0.0"
           enddrivespeed     CDATA "0.0"
@@ -17,5 +18,9 @@
           armMovement       ( UP | DOWN | HOLD ) "HOLD"
           release           ( TRUE | FALSE ) "FALSE"
           pathname          CDATA #IMPLIED
+          leftIntake        ( OFF | INTAKE | EXPEL ) "OFF"
+          rightIntake       ( OFF | INTAKE | EXPEL ) "OFF"
+          shooter           ( OFF | AUTO_SHOOT_HIGH_GOAL_FAR | AUTO_SHOOT_HIGH_GOAL_CLOSE | SHOOT_LOW_GOAL | PREPARE_TO_SHOOT ) "PREPARE_TO_SHOOT"
 >
+
 

@@ -31,18 +31,34 @@
 class PigeonFactory
 {
 	public:
+
+
 		/// @brief  Find or create the analog input factory
 		/// @return PigeonFactory* pointer to the factory
 		static PigeonFactory* GetFactory();
 
-        DragonPigeon* GetPigeon() const;
-        DragonPigeon* CreatePigeon( int canID, double rotation );
+        DragonPigeon* GetPigeon
+		(
+			DragonPigeon::PIGEON_USAGE usage 
+		) const;
+
+		DragonPigeon* GetCenterPigeon() const { return m_centerPigeon; };
+		DragonPigeon* GetShooterPigeon() const { return m_shooterPigeon; };
+
+        DragonPigeon* CreatePigeon
+		( 
+			int canID, 
+			DragonPigeon::PIGEON_TYPE type, 
+			DragonPigeon::PIGEON_USAGE usage, 
+			double rotation 
+		);
 
 	private:
 		PigeonFactory();
 		virtual ~PigeonFactory() = default;
 
-        DragonPigeon* m_pigeon;
+        DragonPigeon* m_centerPigeon;
+		DragonPigeon* m_shooterPigeon;
 
 		static PigeonFactory*	m_factory;
 };

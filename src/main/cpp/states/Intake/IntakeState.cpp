@@ -14,7 +14,7 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#include <states/Intake/IntakeState.h>
+#include <states/intake/IntakeState.h>
 #include <states/Mech2MotorState.h>
 #include <subsys/MechanismFactory.h>
 #include <controllers/ControlData.h>
@@ -32,6 +32,8 @@ IntakeState::IntakeState
                      controlSpin, 
                      controlExtend, 
                      spinTarget,
-                     extendTarget) 
+                     extendTarget),
+    m_intake(intake)
 {
 }
+

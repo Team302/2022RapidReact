@@ -745,6 +745,7 @@ void DragonTalon::SetForwardLimitSwitch
 {
 	LimitSwitchNormal type = normallyOpen ? LimitSwitchNormal::LimitSwitchNormal_NormallyOpen : LimitSwitchNormal::LimitSwitchNormal_NormallyClosed;
 	m_talon.get()->ConfigForwardLimitSwitchSource( LimitSwitchSource::LimitSwitchSource_FeedbackConnector, type, 0  );
+	m_talon.get()->OverrideLimitSwitchesEnable(true);
 }
 
 void DragonTalon::SetReverseLimitSwitch
@@ -754,6 +755,7 @@ void DragonTalon::SetReverseLimitSwitch
 {
 	LimitSwitchNormal type = normallyOpen ? LimitSwitchNormal::LimitSwitchNormal_NormallyOpen : LimitSwitchNormal::LimitSwitchNormal_NormallyClosed;
 	m_talon.get()->ConfigReverseLimitSwitchSource( LimitSwitchSource::LimitSwitchSource_FeedbackConnector, type, 0  );
+	m_talon.get()->OverrideLimitSwitchesEnable(true);
 }
 
 

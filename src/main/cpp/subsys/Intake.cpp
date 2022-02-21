@@ -36,7 +36,7 @@ Intake::Intake
     string                              ntName,                        
     shared_ptr<IDragonMotorController> spinMotor,
     shared_ptr<IDragonMotorController> extendMotor   
-) : Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::LEFT_INTAKE, 
+) : Mech2IndMotors(type, 
                    controlFileName, 
                    ntName, 
                    spinMotor, 
@@ -44,21 +44,31 @@ Intake::Intake
 {
 }
 
-bool Intake::IsFullyExtended() const
+bool Intake::StopIfFullyExtended() const
 {
     auto motor = GetSecondaryMotor();
     if (motor.get() != nullptr)
     {
-        return motor.get()->IsForwardLimitSwitchClosed();
+        auto fullyExtended = motor.get()->IsForwardLimitSwitchClosed();
+        if (fullyExtended)
+        {
+            motor.get()->Set(0.0);
+        }
+        return fullyExtended;
     }
     return false;
 }
-bool Intake::IsRetracted() const
+bool Intake::StopIfRetracted() const
 {
     auto motor = GetSecondaryMotor();
     if (motor.get() != nullptr)
     {
-        return motor.get()->IsReverseLimitSwitchClosed();
+        auto fullyRetracted = motor.get()->IsReverseLimitSwitchClosed();
+        if (fullyRetracted)
+        {
+            motor.get()->Set(0.0);
+        }
+        return fullyRetracted;
     }
     return false;
 }

@@ -13,26 +13,49 @@
 				 mode="VELOCITY_RPS"
 				 proportional="0.155"
 				 feedforward="0.045"/>
-				 
-	<!--mechanismTarget stateIdentifier="SHOOTERON"
+
+	<mechanismTarget stateIdentifier="SHOOTER_OFF"
 	                 controlDataIdentifier="openloop"
-					 value="1.0"/--> 
-	<mechanismTarget stateIdentifier="SHOOTEROFF"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
+
+	<mechanismTarget stateIdentifier="SHOOT_LOWGOAL"
 	                 controlDataIdentifier="openloop"
-					 value="0.0"/>
+	                 controlDataIdentifier2="openloop"
+					 value="0.5"
+					 secondValue="0.0"/> <!-- 1.0 -->
 
- <mechanismTarget stateIdentifier="SHOOTERCLOSE"
+	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.70"
+					 secondValue="0.0"/>
+
+	<mechanismTarget stateIdentifier="ADJUSTHOOD"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.2"/>
+
+	<mechanismTarget stateIdentifier="PREPARETOSHOOT"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.35"
+					 secondValue="0.0"/>
+
+ 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
 	                 controlDataIdentifier="closedloop2"
+					 controlDataIdentifier2="openloop"
 					 value="40"
-					 controlDataIdentifier2="closedloop"
-					 secondValue="30"/>
+					 secondValue="0.0"/> <!-- 1.0 -->
 
 
- <mechanismTarget stateIdentifier="SHOOTERFAR"
+ 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
 	                 controlDataIdentifier="closedloop2"
+					 controlDataIdentifier2="openloop"
 					 value="40"
-					 controlDataIdentifier2="closedloop"
-					 secondValue="30"/>
+					 secondValue="0.0"/> <!-- -1.0 -->
 					  <!-- 8ft from hub <mechanismTarget stateIdentifier="SHOOTERON"
 	                 controlDataIdentifier="closedloop"
 					 value="55.0"/> -->

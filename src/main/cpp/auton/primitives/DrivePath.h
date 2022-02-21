@@ -82,5 +82,7 @@ private:
     double                                  m_deltaY;
     std::vector<frc::Trajectory::State>     m_trajectoryStates;
     frc::Trajectory::State                  m_desiredState;
+    IChassis::HEADING_OPTION                m_headingOption;
+    double                                  m_heading;
  
 };

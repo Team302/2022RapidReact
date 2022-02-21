@@ -99,7 +99,7 @@ void SuperDrive::Init(PrimitiveParams* params)
 
 	//m_startHeading = m_chassis->GetHeading();
 	m_startHeading = 0.0;
-	auto pigeon = PigeonFactory::GetFactory()->GetPigeon();
+	auto pigeon = PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
 	if ( pigeon != nullptr )
 	{
 		m_startHeading = pigeon->GetYaw();
@@ -135,11 +135,10 @@ void SuperDrive::Init(PrimitiveParams* params)
 
 void SuperDrive::Run() 
 {
-	auto pigeon = PigeonFactory::GetFactory()->GetPigeon();
+	auto pigeon = PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
 	if ( pigeon != nullptr )
 	{
 		m_currentHeading = pigeon->GetYaw() - m_startHeading;
-		//std::cout << "Pigeon Yaw: " + to_string(pigeon->GetYaw()) << endl;
 	}
 	//m_currentHeading = m_chassis->GetHeading() - m_chassis->GetTargetHeading(); //Calculate target heading
 
@@ -213,9 +212,6 @@ void SuperDrive::Run()
 	//wheelSpeeds.right = m_rightSpeed * m_chassis->GetMaxSpeed();;
     //frc::ChassisSpeeds chassisSpeeds = m_kinematics->ToChassisSpeeds(wheelSpeeds);
     //m_chassis->Drive(chassisSpeeds, IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED, IChassis::HEADING_OPTION::DEFAULT);
-
-	//cout << "DriveDistance LeftSpeed: " << to_string(m_leftSpeed) << endl;
-	//cout << "DriveDistance RightSpeed: " << to_string(m_rightSpeed) << endl;
 
 	//m_chassis->SetVelocityParams(PROPORTIONAL_COEFF, INTREGRAL_COEFF, DERIVATIVE_COEFF, FEET_FORWARD_COEFF, m_leftSpeed, m_rightSpeed);
 

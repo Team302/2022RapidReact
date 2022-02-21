@@ -50,7 +50,7 @@ TurnAngle::TurnAngle() : m_chassis( ChassisFactory::GetChassisFactory()->GetICha
 						 m_leftPos(0.0),
 						 m_rightPos(0.0),
 						 m_isDone(false),
-						 m_pigeon(PigeonFactory::GetFactory()->GetPigeon()),
+						 m_pigeon(PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)),
 						 m_heading(0.0)
 {
 }
@@ -59,7 +59,7 @@ void TurnAngle::Init(PrimitiveParams* params)
 {
 	m_isDone = false;
 	auto startHeading = 0.0;
-	auto pigeon = PigeonFactory::GetFactory()->GetPigeon();
+	auto pigeon = PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
 	if ( pigeon != nullptr )
 	{
 		startHeading = pigeon->GetYaw();

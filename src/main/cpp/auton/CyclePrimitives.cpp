@@ -15,22 +15,23 @@
 //====================================================================================================================================================
 
 // C++ Includes
-#include <string>
 #include <memory>
-#include <iostream>
+#include <string>
 
 // FRC includes
-#include <frc/Timer.h>
 #include <frc/DriverStation.h>
+#include <frc/Timer.h>
 
 // Team 302 includes
-#include <auton/primitives/IPrimitive.h>
-#include <auton/CyclePrimitives.h>
-#include <auton/PrimitiveFactory.h>
 #include <auton/AutonSelector.h>
+#include <auton/CyclePrimitives.h>
 #include <auton/PrimitiveEnums.h>
-#include <auton/PrimitiveParser.h>
+#include <auton/PrimitiveFactory.h>
 #include <auton/PrimitiveParams.h>
+#include <auton/PrimitiveParser.h>
+#include <auton/primitives/IPrimitive.h>
+#include <states/intake/IntakeStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
 #include <subsys/MechanismFactory.h>
 #include <utils/Logger.h>
 
@@ -48,7 +49,13 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
 									 m_autonSelector( new AutonSelector()) ,
 									 m_timer( make_unique<Timer>()),
 									 m_maxTime( 0.0 ),
-									 m_isDone( false )
+									 m_isDone( false ),
+									 //m_leftIntake(nullptr),
+									 //m_rightIntake(nullptr),
+									 //m_shooter(nullptr)
+									 m_leftIntake(LeftIntakeStateMgr::GetInstance()),
+									 m_rightIntake(RightIntakeStateMgr::GetInstance()),
+									 m_shooter(ShooterStateMgr::GetInstance())
 {
 }
 
@@ -71,6 +78,18 @@ void CyclePrimitives::Run()
 		if (m_currentPrim != nullptr)
 		{
 			m_currentPrim->Run();
+			if (m_leftIntake != nullptr)
+			{
+				m_leftIntake->RunCurrentState();
+			}
+			if (m_rightIntake != nullptr)
+			{
+				m_rightIntake->RunCurrentState();
+			}
+			if (m_shooter != nullptr)
+			{
+				m_shooter->RunCurrentState();
+			}
 
 			if (m_currentPrim->IsDone())
 			{
@@ -79,7 +98,6 @@ void CyclePrimitives::Run()
 		}
 		else
 		{
-			Logger::GetLogger()->LogError(string("CyclePrimitive"), string("Completed"));
 			m_isDone = true;
 			m_primParams.clear();	// clear the primitive params vector
 			m_currentPrimSlot = 0;  //Reset current prim slot
@@ -101,6 +119,18 @@ void CyclePrimitives::GetNextPrim()
 	if (m_currentPrim != nullptr)
 	{
 		m_currentPrim->Init(currentPrimParam);
+		if (m_leftIntake != nullptr)
+		{
+			m_leftIntake->SetCurrentState(currentPrimParam->GetLeftIntakeState(), true);
+		}
+		if (m_rightIntake != nullptr)
+		{
+			m_rightIntake->SetCurrentState(currentPrimParam->GetRightIntakeState(), true);
+		}
+		if (m_shooter != nullptr)
+		{
+			m_shooter->SetCurrentState(currentPrimParam->GetShooterState(), true);
+		}
 		m_maxTime = currentPrimParam->GetTime();
 		m_timer->Reset();
 		m_timer->Start();
@@ -119,10 +149,14 @@ void CyclePrimitives::RunDoNothing()
 		                                   0.0,                 // distance
 		                                   0.0,                 // target x location
 		                                   0.0,                 // target y location
+										   IChassis::HEADING_OPTION::MAINTAIN,
 		                                   0.0,                 // heading
 		                                   0.0,                 // start drive speed
 		                                   0.0,					// end drive speed
-										  std::string() );             
+										  std::string(),
+										  IntakeStateMgr::INTAKE_STATE::OFF,
+										  IntakeStateMgr::INTAKE_STATE::OFF,
+										  ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT );             
 		m_doNothing = m_primFactory->GetIPrimitive(params);
 		m_doNothing->Init(params);
 	}

@@ -48,8 +48,8 @@ class Mech2IndMotors : public IMech2IndMotors
             MechanismTypes::MECHANISM_TYPE              type,
             std::string                                 controlFileName,
             std::string                                 networkTableName,
-            std::shared_ptr<IDragonMotorController>     primaryMotor,
-            std::shared_ptr<IDragonMotorController>     secondaryMotor
+            std::shared_ptr<IDragonMotorController>     spinMotor,
+            std::shared_ptr<IDragonMotorController>     liftMotor
         );
 	    Mech2IndMotors() = delete;
 	    ~Mech2IndMotors() = default;
@@ -112,7 +112,6 @@ class Mech2IndMotors : public IMech2IndMotors
         double GetPrimaryTarget() const { return m_primaryTarget; }
         double GetSecondaryTarget() const { return m_secondaryTarget; }
 
-    protected:
         inline std::shared_ptr<IDragonMotorController> GetPrimaryMotor() const {return m_primary;};
         inline std::shared_ptr<IDragonMotorController> GetSecondaryMotor() const {return m_secondary;};
 
