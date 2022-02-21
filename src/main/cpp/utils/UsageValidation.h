@@ -31,7 +31,6 @@
 
 // Team 302 Includes
 #include <hw/interfaces/IDragonSensor.h>
-#include <utils/Logger.h>
 
 // Third Party Includes
 

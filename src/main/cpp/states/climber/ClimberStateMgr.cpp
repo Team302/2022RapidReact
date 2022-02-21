@@ -24,15 +24,14 @@
 #include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
-#include <states/IState.h>
-#include <states/climber/ClimberStateMgr.h>
-#include <states/climber/ClimberState.h>
-#include <xmlmechdata/StateDataDefn.h>
 #include <controllers/MechanismTargetData.h>
-#include <utils/Logger.h>
 #include <gamepad/TeleopControl.h>
+#include <states/climber/ClimberState.h>
+#include <states/climber/ClimberStateMgr.h>
+#include <states/IState.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
+#include <xmlmechdata/StateDataDefn.h>
 
 
 // Third Party Includes

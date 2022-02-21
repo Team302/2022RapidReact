@@ -25,6 +25,7 @@
 #include <hw/factories/DragonServoFactory.h>
 #include <hw/usages/ServoUsage.h>
 #include <utils/HardwareIDValidation.h>
+#include <utils/Logger.h>
 #include <xmlhw/ServoDefn.h>
 
 // Third Party Includes
@@ -58,26 +59,29 @@ using namespace std;
         // parse/validate the xml
         for (pugi::xml_attribute attr = ServoNode.first_attribute(); attr && !hasError; attr = attr.next_attribute())
         {
-            if ( strcmp( attr.name(), "usage" ) == 0 )
+            string attrName (attr.name());
+            if (attrName.compare("usage") == 0)
             {
                 usage = ServoUsage::GetInstance()->GetUsage( string( attr.value()));
             }
-            else if ( strcmp( attr.name(), "pwmId" ) == 0 )
+            else if (attrName.compare("pwmId" ) == 0)
             {
                 pwmID = attr.as_int();
                 hasError = HardwareIDValidation::ValidateDIOID( pwmID, string( "ServoDefn::ParseXML(PWM ID)" ) );
             }
-            else if ( strcmp( attr.name(), "minAngle" ) == 0 )
+            else if (attrName.compare("minAngle" ) == 0)
             {
                 minAngle = attr.as_int();
             }
-            else if ( strcmp( attr.name(), "maxAngle" ) == 0 )
+            else if (attrName.compare("maxAngle" ) == 0)
             {
                 maxAngle = attr.as_int();
             }
             else
             {
-                printf( "==>> ServoDefn::ParseXML invalid attribute %s \n", attr.name() );
+                string msg = "unknown attribute ";
+                msg += attr.name();
+                Logger::GetLogger()->LogError( string("ServoDefn"), msg );
                 hasError = true;
             }
         }

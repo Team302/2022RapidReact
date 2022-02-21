@@ -15,6 +15,7 @@
 //====================================================================================================================================================
 
 // C++ Includes
+#include <cmath>
 #include <memory>
 #include <string>
 
@@ -22,12 +23,16 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
-#include <auton/primitives/DoNothing.h>
 #include <auton/PrimitiveParams.h>
+#include <auton/primitives/DoNothing.h>
+#include <auton/primitives/DriveDistance.h>
 #include <auton/primitives/IPrimitive.h>
-#include <subsys/ChassisFactory.h>
 #include <controllers/ControlModes.h>
-#include <utils/Logger.h>
+#include <hw/DragonPigeon.h>
+#include <hw/factories/PigeonFactory.h>
+#include <subsys/ChassisFactory.h>
+#include <subsys/interfaces/IChassis.h>
+#include <subsys/MechanismFactory.h>
 
 // Third Party Includes
 
@@ -35,16 +40,7 @@
 using namespace std;
 using namespace frc;
 
-//Includes
-#include <cmath>
 
-//Team302 includes
-#include <auton/primitives/DriveDistance.h>
-#include <hw/DragonPigeon.h>
-#include <hw/factories/PigeonFactory.h>
-#include <subsys/interfaces/IChassis.h>
-#include <subsys/MechanismFactory.h>
-#include <utils/Logger.h>
 
 DriveDistance::DriveDistance() :
 	SuperDrive(),
@@ -79,7 +75,6 @@ void DriveDistance::Init(PrimitiveParams* params)
 
 void DriveDistance::Run() 
 {
-	Logger::GetLogger() -> LogError(string("DriveDistance::Run()"), string("Arrived!"));
 	SuperDrive::Run();
 
 	if (m_arcing) 

@@ -33,7 +33,6 @@
 #include <states/intake/IntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <subsys/MechanismFactory.h>
-#include <utils/Logger.h>
 
 // Third Party Includes
 

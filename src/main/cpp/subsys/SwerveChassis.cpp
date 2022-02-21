@@ -37,6 +37,7 @@
 // Team 302 includes
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/SwerveChassis.h>
+#include <utils/Logger.h>
 
 // Third Party Includes
 #include <ctre/phoenix/sensors/CANCoder.h>

@@ -14,12 +14,14 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+#include <frc/DigitalInput.h>
 
 #include <hw/DragonDigitalInput.h>
 #include <hw/usages/DigitalInputUsage.h>
-#include <frc/DigitalInput.h>
+#include <utils/Logger.h>
 
 using namespace frc;
+using namespace std;
 
 DragonDigitalInput::DragonDigitalInput
 (
@@ -51,7 +53,7 @@ bool DragonDigitalInput::Get() const
 	}
 	else
 	{
-		printf( "==>> Digital Input not created \n" );
+        Logger::GetLogger()->LogError( string("DragonXBox::GetAxisValue"), string("DigitalInput not created") );
 	}
 	return isSet;
 }
@@ -61,10 +63,6 @@ int  DragonDigitalInput::GetChannel() const
 	if ( m_digital != nullptr )
 	{
 		channel = m_digital->GetChannel();
-	}
-	else
-	{
-//		printf( "==>> Digital Input not created \n" );
 	}
 	return channel;
 }

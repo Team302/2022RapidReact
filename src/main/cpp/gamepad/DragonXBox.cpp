@@ -14,19 +14,22 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#include <gamepad/DragonXBox.h>
-
-#include <gamepad/axis/IDeadband.h>
-#include <gamepad/axis/IProfile.h>
-
-#include <gamepad/button/AnalogButton.h>
-#include <gamepad/button/DigitalButton.h>
-#include <gamepad/button/ButtonDecorator.h>
-#include <gamepad/button/POVButton.h>
-#include <gamepad/button/ToggleButton.h>
+#include <string>
 
 #include <frc/GenericHID.h>
 #include <frc/XboxController.h>
+
+#include <gamepad/axis/IDeadband.h>
+#include <gamepad/axis/IProfile.h>
+#include <gamepad/button/AnalogButton.h>
+#include <gamepad/button/ButtonDecorator.h>
+#include <gamepad/button/DigitalButton.h>
+#include <gamepad/button/POVButton.h>
+#include <gamepad/button/ToggleButton.h>
+#include <gamepad/DragonXBox.h>
+#include <utils/Logger.h>
+
+ using namespace std;
  
  /// @brief Wrapper for an XBOX controller used to control the robot in teleop mode.
 
@@ -96,7 +99,9 @@ double DragonXBox::GetAxisValue
     }
     else
     {
-        printf( "==>> no axis %d \n", axis );
+        string msg = string("No axis ");
+        msg += to_string(axis);
+        Logger::GetLogger()->LogError( string("DragonXBox::GetAxisValue"), msg );
     }
     return value;
 }

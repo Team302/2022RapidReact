@@ -545,10 +545,6 @@ int DragonTalon::ConfigSelectedFeedbackSensor
 	{
 		error = m_talon.get()->ConfigSelectedFeedbackSensor( feedbackDevice, pidIdx, timeoutMs );
 	}
-	else
-	{
-//		printf( "DragonTalon::ConfigSelectedFeedbackSensor: m_talon.get() not initialized \n" );
-	}
 	return error;
 }
 
@@ -564,10 +560,6 @@ int DragonTalon::ConfigSelectedFeedbackSensor
 	{
 		error = m_talon.get()->ConfigSelectedFeedbackSensor( feedbackDevice, pidIdx, timeoutMs );
 	}
-	else
-	{
-//		printf( "DragonTalon::ConfigSelectedFeedbackSensor: m_talon.get() not initialized \n" );
-	}
 	return error;
 }
 
@@ -581,10 +573,6 @@ int DragonTalon::ConfigPeakCurrentLimit
 	if ( m_talon.get() != nullptr )
 	{
 		error = m_talon.get()->ConfigPeakCurrentLimit( amps, timeoutMs );
-	}
-	else
-	{
-//		printf( "DragonTalon::ConfigPeakCurrentLimit: m_talon.get() not initialized \n" );
 	}
 	return error;
 }
@@ -600,10 +588,6 @@ int DragonTalon::ConfigPeakCurrentDuration
 	{
 		error = m_talon.get()->ConfigPeakCurrentDuration( milliseconds, timeoutMs );
 	}
-	else
-	{
-//		printf( "DragonTalon::ConfigPeakCurrentDuration: m_talon.get() not initialized \n" );
-	}
 	return error;
 }
 
@@ -617,10 +601,6 @@ int DragonTalon::ConfigContinuousCurrentLimit
 	if ( m_talon.get() != nullptr )
 	{
 		error = m_talon.get()->ConfigContinuousCurrentLimit( amps, timeoutMs );
-	}
-	else
-	{
-//		printf( "DragonTalon::ConfigContinuousCurrentLimit: m_talon.get() not initialized \n" );
 	}
 	return error;
 }

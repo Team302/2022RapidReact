@@ -32,7 +32,6 @@
 #include <subsys/interfaces/IMech1IndMotor.h>
 #include <subsys/interfaces/IMech1IndMotorSolenoid.h>
 #include <subsys/interfaces/IMech1Solenoid.h>
-#include <utils/Logger.h>
 
 // Third Party Includes
 #include <units/time.h>

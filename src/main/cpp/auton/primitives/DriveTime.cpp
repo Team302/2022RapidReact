@@ -27,7 +27,6 @@
 #include <auton/primitives/IPrimitive.h>
 #include <subsys/MechanismFactory.h>
 #include <controllers/ControlModes.h>
-#include <utils/Logger.h>
 
 // Third Party Includes
 

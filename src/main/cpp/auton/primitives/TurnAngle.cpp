@@ -31,7 +31,6 @@
 #include <subsys/ChassisFactory.h>
 #include <controllers/ControlModes.h>
 #include <subsys/interfaces/IChassis.h>
-#include <utils/Logger.h>
 #include <hw/factories/PigeonFactory.h>
 #include <hw/DragonPigeon.h>
 

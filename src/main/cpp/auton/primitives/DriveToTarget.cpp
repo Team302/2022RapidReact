@@ -27,7 +27,6 @@
 #include <auton/primitives/IPrimitive.h>
 #include <subsys/MechanismFactory.h>
 #include <controllers/ControlModes.h>
-#include <utils/Logger.h>
 
 // Third Party Includes
 
@@ -38,8 +37,8 @@ using namespace frc;
 #include <auton/primitives/DriveDistance.h>
 #include <auton/primitives/DriveToTarget.h>
 #include <auton/PrimitiveParams.h>
-//#include <hw/factories/DistanceSensorFactory.h>
 #include <hw/interfaces/IDragonDistanceSensor.h>
+#include <utils/Logger.h>
 
 DriveToTarget::DriveToTarget() :
 	m_sensor( nullptr ),
@@ -62,29 +61,33 @@ void DriveToTarget::Init
     if ( m_sensor != nullptr )
     {
         params->SetDistance( m_sensor->GetDistance() );
+	    m_minTimeToRun = 0.3;
+        m_underDistanceCounts = 0;
+
+        DriveDistance::Init( params );
     }
     else
     {
-    	printf("heyyy that lidar is nullptr \n");
+        Logger::GetLogger()->LogError( string("DriveToTarget"), string("No Lidar") );
     }
 
-	m_minTimeToRun = 0.3;
-    m_underDistanceCounts = 0;
-
-    DriveDistance::Init( params );
 }
 
 void DriveToTarget::Run()
 {
-	DriveDistance::Run();
-	if (m_minTimeToRun <= 0) {
-		if ( m_sensor->GetDistance() <= MIN_CUBE_DISTANCE ) 
+    if ( m_sensor != nullptr)
+    {
+        DriveDistance::Run();
+        if (m_minTimeToRun <= 0) 
         {
-			m_underDistanceCounts++;
-		}
-	}
+            if ( m_sensor->GetDistance() <= MIN_CUBE_DISTANCE ) 
+            {
+                m_underDistanceCounts++;
+            }
+        }
 
-	m_minTimeToRun -= IPrimitive::LOOP_LENGTH;
+        m_minTimeToRun -= IPrimitive::LOOP_LENGTH;
+    }
 }
 
 bool DriveToTarget::IsDone()

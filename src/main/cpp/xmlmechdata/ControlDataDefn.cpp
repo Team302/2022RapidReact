@@ -16,16 +16,17 @@
 //====================================================================================================================================================
 
 // C++ Includes
-#include <string>
 #include <cstring>
 #include <map>
+#include <string>
 
 // FRC includes
 
 // Team 302 includes
 #include <controllers/ControlData.h>
-#include <xmlmechdata/ControlDataDefn.h>
 #include <controllers/ControlModes.h>
+#include <utils/Logger.h>
+#include <xmlmechdata/ControlDataDefn.h>
 
 // Third Party Includes
 #include <pugixml/pugixml.hpp>
@@ -140,7 +141,9 @@ ControlData* ControlDataDefn::ParseXML
         }
         else
         {
-            printf( "==>> ControlDataDefn::ParseXML invalid attribute %s \n", attr.name() );
+            string msg = string("invalid attribute ");
+            msg += attr.name();
+            Logger::GetLogger()->LogError( string("ControlDataDefn::ParseXML"), msg );
             hasError = true;
         }
     }

@@ -26,12 +26,10 @@
 #include <frc/motorcontrol/MotorController.h>
 
 // Team 302 includes
-#include <hw/DragonFalcon.h>
-//#include <hw/DragonPDP.h>
-#include <hw/usages/MotorControllerUsage.h>
-#include <hw/interfaces/IDragonMotorController.h>
-#include <utils/Logger.h>
 #include <controllers/ControlModes.h>
+#include <hw/DragonFalcon.h>
+#include <hw/interfaces/IDragonMotorController.h>
+#include <hw/usages/MotorControllerUsage.h>
 
 
 // Third Party Includes

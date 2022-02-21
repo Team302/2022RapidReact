@@ -232,7 +232,9 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
         }
         else
         {
-            printf( "==>>MotorDefn::ParseXML invalid attribute %s \n", attr.name() );
+            string msg = "unknown attribute ";
+            msg += attr.name();
+            Logger::GetLogger()->LogError( string("MotorDefn"), msg );
             hasError = true;
         }
     }
@@ -251,8 +253,8 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
                                                                                          gearRatio,
                                                                                          brakeMode,
                                                                                          follow,
-                                                                                         peakCurrentLimit,
                                                                                          peakCurrentDuration,
+                                                                                         continuousCurrentLimit,
                                                                                          peakCurrentLimit,
                                                                                          enableCurrentLimit,
                                                                                          forwardLimitSwitch,

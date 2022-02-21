@@ -21,7 +21,6 @@
 
 // Team 302 includes
 #include <utils/AngleUtils.h>
-#include <utils/Logger.h>
 
 // Third Party Includes
 
@@ -58,7 +57,6 @@ units::angle::degree_t AngleUtils::GetDeltaAngle
     {
         delta += 360_deg;
     }
-    Logger::GetLogger()->ToNtTable("AngleUtils", "delta", delta.to<double>());
 
     return delta;
 }
