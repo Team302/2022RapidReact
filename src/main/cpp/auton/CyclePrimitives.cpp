@@ -50,9 +50,12 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
 									 m_timer( make_unique<Timer>()),
 									 m_maxTime( 0.0 ),
 									 m_isDone( false ),
-									 m_leftIntake(LeftIntakeStateMgr::GetInstance()),
-									 m_rightIntake(RightIntakeStateMgr::GetInstance()),
-									 m_shooter(ShooterStateMgr::GetInstance())
+									 //m_leftIntake(LeftIntakeStateMgr::GetInstance()),
+									 //m_rightIntake(RightIntakeStateMgr::GetInstance()),
+									 //m_shooter(ShooterStateMgr::GetInstance())
+									 m_leftIntake(nullptr),
+									 m_rightIntake(nullptr),
+									 m_shooter(nullptr)
 {
 }
 

@@ -7,4 +7,17 @@ compiling ResetPosition.cpp successful.
 
 compiling DrivePath.cpp successful.
 
+compiling SwerveChassis.cpp successful.
+C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveChassis.cpp: In member function 'virtual void SwerveChassis::Drive(frc::ChassisSpeeds, IChassis::CHASSIS_DRIVE_MODE, IChassis::HEADING_OPTION)':
+C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveChassis.cpp:271:28: warning: variable 'yaw' set but not used [-Wunused-but-set-variable]
+                 Rotation2d yaw = units::degree_t(m_pigeon->GetYaw());
+                            ^~~
+C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveChassis.cpp:313:28: warning: variable 'yaw' set but not used [-Wunused-but-set-variable]
+                 Rotation2d yaw = units::degree_t(m_pigeon->GetYaw());
+                            ^~~
+C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveChassis.cpp: In member function 'units::angle::degree_t SwerveChassis::UpdateForPolarDrive(frc::Pose2d, frc::Pose2d, frc::Transform2d, frc::ChassisSpeeds)':
+C:\GitRepos\2022RapidReact\src\main\cpp\subsys\SwerveChassis.cpp:355:10: warning: variable 'wheelToGoalTrans' set but not used [-Wunused-but-set-variable]
+     auto wheelToGoalTrans = WheelPose - goalPose;
+          ^~~~~~~~~~~~~~~~
+
 Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
