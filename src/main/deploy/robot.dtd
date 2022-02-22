@@ -217,6 +217,11 @@
                                       TACHOMETER | PULSEWIDTHENCODERPOSITION  |  
                                       SENSORSUM |  SENSORDIFFERENCE |  
                                       REMOTESENSOR0 |  REMOTESENSOR1 | SOFTWAREEMULATEDSENSOR ) "NONE"
+          motorType    		        ( NONE | FALCON500 | NEOMOTOR |  NEO500MOTOR |  
+                                      CIMMOTOR | MINICIMMOTOR  |  BAGMOTOR | PRO775 | ANDYMARK9015 |
+                                      ANDYMARKNEVEREST | ANDYMARKRS775125 | TETRIXMAXTORQUENADOMOTOR
+                                      ANDYMARKREDLINEA |  REVROBOTICSHDHEXMOTOR | BANEBOTSRS77518V |
+                                      BANEBOTSRS550 | MODERNROBOTICS12VDCMOTOR | JOHNSONELECTRICALGEARMOTOR ) "NONE"
           countsPerRev      		CDATA "0"
           gearRatio         		CDATA "1"
           brakeMode         		( true | false ) "false"

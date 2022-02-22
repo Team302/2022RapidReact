@@ -47,6 +47,28 @@ class IDragonMotorController
             LOW
         };
 
+        enum MOTOR_TYPE
+        {
+            FALCON500,
+            NEOMOTOR,
+            NEO500MOTOR,  
+            CIMMOTOR,
+            MINICIMMOTOR,
+            BAGMOTOR, 
+            PRO775,
+            ANDYMARK9015,
+            ANDYMARKNEVEREST,
+            ANDYMARKRS775125, 
+            TETRIXMAXTORQUENADOMOTOR,
+            ANDYMARKREDLINEA,
+            REVROBOTICSHDHEXMOTOR,
+            BANEBOTSRS77518V,
+            BANEBOTSRS550,
+            MODERNROBOTICS12VDCMOTOR,
+            JOHNSONELECTRICALGEARMOTOR,
+            NONE
+        };
+
         // Getters
         /// @brief  Return the number of revolutions the output shaft has spun
         /// @return double number of revolutions

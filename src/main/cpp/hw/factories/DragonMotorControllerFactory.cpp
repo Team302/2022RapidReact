@@ -62,7 +62,8 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     bool											forwardLimitSwitch,
     bool											forwardLimitSwitchNormallyOpen,
     bool											reverseLimitSwitch,
-    bool											reverseLimitSwitchNormallyOpen
+    bool											reverseLimitSwitchNormallyOpen,
+    IDragonMotorController::MOTOR_TYPE              motorType
 )
 {
     shared_ptr<IDragonMotorController> controller;
