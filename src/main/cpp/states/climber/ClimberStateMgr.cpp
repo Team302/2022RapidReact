@@ -29,8 +29,10 @@
 #include <states/climber/ClimberState.h>
 #include <states/climber/ClimberStateMgr.h>
 #include <states/IState.h>
+#include <subsys/Climber.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
+#include <utils/Logger.h>
 #include <xmlmechdata/StateDataDefn.h>
 
 
@@ -50,8 +52,19 @@ ClimberStateMgr* ClimberStateMgr::GetInstance()
 }
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-ClimberStateMgr::ClimberStateMgr()    
+ClimberStateMgr::ClimberStateMgr() : m_climber(MechanismFactory::GetMechanismFactory()->GetClimber()),
+                                     m_nt()
 {
+    if (m_climber != nullptr)
+    {
+        auto ntName = m_climber->GetNetworkTableName();
+        m_nt = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
+    }
+    else
+    {
+        m_nt = nt::NetworkTableInstance::GetDefault().GetTable("climber");
+    }    
+    
     // initialize the xml string to state map
     map<string, StateStruc> stateMap;
     stateMap["CLIMBEROFF"] = m_offState;
@@ -63,12 +76,29 @@ ClimberStateMgr::ClimberStateMgr()
     stateMap["CLIMBERROTATEIN"] = m_rotateInState;
     stateMap["CLIMBERHOLD"] = m_holdState;
 
-    Init(MechanismFactory::GetMechanismFactory()->GetClimber(), stateMap);
+    Init(m_climber, stateMap);
 }
 
 /// @brief run the current state
 /// @return void
 void ClimberStateMgr::CheckForStateTransition()
 {
-    //Check for button input
+    if (m_climber != nullptr )
+    {
+        // process teleop/manual interrupts
+        auto currentState = static_cast<CLIMBER_STATE>(GetCurrentState());
+        Logger::GetLogger()->ToNtTable(m_nt, string("Current climber State"), currentState);
+        auto controller = TeleopControl::GetInstance();
+        auto isArmDown   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_DOWN) : false;
+        auto isArmUp     = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_UP) : false;
+        auto isClimbMode = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SELECT_CLIMBER_ARM) : false;
+
+        auto targetState = currentState;
+
+        if (targetState != currentState)
+        {
+            Logger::GetLogger()->ToNtTable(m_nt, string("Changing climber State"), targetState);
+            SetCurrentState(targetState, true);
+        }
+    }
 }

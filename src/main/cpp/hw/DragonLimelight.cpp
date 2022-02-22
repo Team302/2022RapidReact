@@ -263,6 +263,13 @@ units::length::inch_t DragonLimelight::EstimateTargetDistance() const
     units::angle::degree_t angleFromHorizon = (GetMountingAngle() + GetTargetVerticalOffset());
     units::angle::radian_t angleRad = angleFromHorizon;
     double tanAngle = tan(angleRad.to<double>());
+
+    Logger::GetLogger()->ToNtTable(m_networktable, string("mounting angle "), GetMountingAngle().to<double>());
+    Logger::GetLogger()->ToNtTable(m_networktable, string("target vertical angle "), GetTargetVerticalOffset().to<double>());
+    Logger::GetLogger()->ToNtTable(m_networktable, string("angle radians "), angleRad.to<double>());
+    Logger::GetLogger()->ToNtTable(m_networktable, string("tan angle "), tanAngle);
+    Logger::GetLogger()->ToNtTable(m_networktable, string("distance "), ((GetTargetHeight()-GetMountingHeight()) / tanAngle).to<double>());
+
     return (GetTargetHeight()-GetMountingHeight()) / tanAngle;
 }
 
