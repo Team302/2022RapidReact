@@ -49,12 +49,12 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
 									 m_timer( make_unique<Timer>()),
 									 m_maxTime( 0.0 ),
 									 m_isDone( false ),
-									 //m_leftIntake(nullptr),
-									 //m_rightIntake(nullptr),
-									 //m_shooter(nullptr)
-									 m_leftIntake(LeftIntakeStateMgr::GetInstance()),
-									 m_rightIntake(RightIntakeStateMgr::GetInstance()),
-									 m_shooter(ShooterStateMgr::GetInstance())
+									 //m_leftIntake(LeftIntakeStateMgr::GetInstance()),
+									 //m_rightIntake(RightIntakeStateMgr::GetInstance()),
+									 //m_shooter(ShooterStateMgr::GetInstance())
+									 m_leftIntake(nullptr),
+									 m_rightIntake(nullptr),
+									 m_shooter(nullptr)
 {
 }
 
@@ -62,11 +62,14 @@ void CyclePrimitives::Init()
 {
 	m_currentPrimSlot = 0; //Reset current prim
 	m_primParams.clear();
+	Logger::GetLogger()->LogError(string("CyclePrimitivesInit"), string("Initialized"));
 
 	m_primParams = PrimitiveParser::ParseXML( m_autonSelector->GetSelectedAutoFile() );
+	Logger::GetLogger()->LogError(string("CyclePrimitivesInit"), to_string(m_primParams.size()));
 	if (!m_primParams.empty())
 	{
 		GetNextPrim();
+		Logger::GetLogger()->LogError(string("CyclePrimitivesInit"), string("Getting next prim"));
 	}
 }
 
@@ -94,6 +97,12 @@ void CyclePrimitives::Run()
 			{
 				GetNextPrim();
 			}
+			Logger::GetLogger()->LogError(string("CyclePrimitives"), string("Running current primitive"));
+
+			if (m_currentPrim->IsDone())
+			{
+				GetNextPrim();
+			}
 		}
 		else
 		{
@@ -107,6 +116,7 @@ void CyclePrimitives::Run()
 
 bool CyclePrimitives::AtTarget() const
 {
+	Logger::GetLogger()->LogError(string("CyclePrimitives-AtTarget"), string("Done"));
 	return m_isDone;
 }
 

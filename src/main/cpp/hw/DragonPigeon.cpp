@@ -78,7 +78,7 @@ void DragonPigeon::ReZeroPigeon( double angleDeg, int timeoutMs)
 {
     if (m_pigeon != nullptr)
     {
-        m_pigeon->SetFusedHeading( angleDeg, timeoutMs);
+        m_pigeon->SetYaw( angleDeg, timeoutMs);
     }
     else if (m_pigeon2 != nullptr)
     {

@@ -193,11 +193,11 @@ class SwerveChassis : public IChassis
         (
             units::radians_per_second_t& rot
         );
-        static units::angle::degree_t UpdateForPolarDrive
+        units::angle::degree_t UpdateForPolarDrive
         (
             frc::Pose2d              robotPose,
             frc::Pose2d              goalPose,
-            frc::Translation2d       wheelLoc,
+            frc::Transform2d       wheelLoc,
             frc::ChassisSpeeds       speeds
         );
 
@@ -254,6 +254,8 @@ class SwerveChassis : public IChassis
                                                            {0.05},            // local measurement standard deviations
                                                            {0.1, 0.1, 0.1} }; // vision measurement standard deviations
         const double kPMaintainHeadingControl = 4.0;
+        const double kPAutonSpecifiedHeading = 4.0;
+        const double kPAutonGoalHeadingControl = 4.0;
         const double kPGoalHeadingControl = 10.0;
         const double kIHeadingControl = 0.0; //not being used
         const double kDHeadingControl = 0.0; //not being used

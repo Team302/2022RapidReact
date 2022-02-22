@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE auton SYSTEM "auton.dtd">
+<auton>
+    <primitive id="DO_NOTHING"
+			   time="5.0"
+               heading="45.0"
+               headingOption="SPECIFIED_ANGLE"/>
+</auton>

@@ -32,6 +32,8 @@
 #include <frc/geometry/Transform2d.h>
 #include <frc/geometry/Translation2d.h>
 
+#include <frc/DriverStation.h>
+
 #include <wpi/numbers>
 
 // Team 302 includes
@@ -41,6 +43,8 @@
 
 // Third Party Includes
 #include <ctre/phoenix/sensors/CANCoder.h>
+
+#include <iostream>
 
 using namespace std;
 using namespace frc;
@@ -129,8 +133,10 @@ void SwerveChassis::CalcHeadingCorrection
     double                  kP
 ) 
 {
-    auto currentAngle = GetYaw();
-    auto errorAngle = remainder((targetAngle.to<double>() - currentAngle.to<double>()), 360.0);
+    //auto currentAngle = GetYaw();
+    auto currentAngle = GetPose().Rotation().Degrees();
+    //auto errorAngle = remainder((targetAngle.to<double>() - currentAngle.to<double>()), 360.0);
+    auto errorAngle = remainder((currentAngle.to<double>() - targetAngle.to<double>()), 360.0);
     m_yawCorrection = units::angular_velocity::degrees_per_second_t(errorAngle*kP);
 }
 
@@ -161,7 +167,9 @@ void SwerveChassis::Drive
             break;
 
         case HEADING_OPTION::SPECIFIED_ANGLE:
-            CalcHeadingCorrection(m_targetHeading, kPMaintainHeadingControl);
+            CalcHeadingCorrection(m_targetHeading, kPAutonSpecifiedHeading);
+            Logger::GetLogger()->LogError("Specified Angle (Degrees): ", to_string(m_targetHeading.to<double>()));
+            Logger::GetLogger()->LogError("Yaw correction (DPS): ", to_string(m_yawCorrection.to<double>()));
             rot -= m_yawCorrection;
             break;
 
@@ -198,6 +206,10 @@ void SwerveChassis::Drive
         m_drive = units::velocity::meters_per_second_t(0.0);
         m_steer = units::velocity::meters_per_second_t(0.0);
         m_rotate = units::angular_velocity::radians_per_second_t(0.0);
+        
+        //Debugging
+        Logger::GetLogger()->LogError(string("SwerveChassisDriveDeadband"), string("Rotate is set to 0"));
+
         m_isMoving = false;
     }
     else
@@ -218,11 +230,34 @@ void SwerveChassis::Drive
             m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
 
             auto [fl, fr, bl, br] = states;
+
+
+            // adjust wheel angles
+            if (mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE)
+            {
+                auto currentPose = GetPose();
+                auto goalPose = m_targetFinder.GetPosCenterTarget();
+
+                Rotation2d yaw = units::degree_t(m_pigeon->GetYaw());
+                Rotation2d testingZero = units::degree_t(0.0);
+
+                fl.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, testingZero), chassisSpeeds);
+                fr.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontRightLocation, testingZero), chassisSpeeds);
+                bl.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backLeftLocation, testingZero), chassisSpeeds);
+                br.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, testingZero), chassisSpeeds);
+
+                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Front Left Angle", fl.angle.Degrees().to<double>());
+                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Front Right Angle", fr.angle.Degrees().to<double>());
+                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Back Left Angle", bl.angle.Degrees().to<double>());
+                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Back Right Angle", br.angle.Degrees().to<double>());
+           }
         
             m_frontLeft.get()->SetDesiredState(fl);
             m_frontRight.get()->SetDesiredState(fr);
             m_backLeft.get()->SetDesiredState(bl);
             m_backRight.get()->SetDesiredState(br); 
+
+            //Is moving check
             auto ax = m_accel.GetX();
             auto ay = m_accel.GetY();
             auto az = m_accel.GetZ();
@@ -245,10 +280,13 @@ void SwerveChassis::Drive
                 auto currentPose = GetPose();
                 auto goalPose = m_targetFinder.GetPosCenterTarget();
 
-                m_flState.angle = UpdateForPolarDrive(currentPose, goalPose, m_frontLeftLocation, chassisSpeeds);
-                m_frState.angle = UpdateForPolarDrive(currentPose, goalPose, m_frontRightLocation, chassisSpeeds);
-                m_blState.angle = UpdateForPolarDrive(currentPose, goalPose, m_backLeftLocation, chassisSpeeds);
-                m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, m_backRightLocation, chassisSpeeds);
+                Rotation2d yaw = units::degree_t(m_pigeon->GetYaw());
+                Rotation2d testingZero = units::degree_t(0.0);
+
+                m_flState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, testingZero), chassisSpeeds);
+                m_frState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontRightLocation, testingZero), chassisSpeeds);
+                m_blState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backLeftLocation, testingZero), chassisSpeeds);
+                m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, testingZero), chassisSpeeds);
            }
 
             m_frontLeft.get()->SetDesiredState(m_flState);
@@ -270,16 +308,40 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
 (
     Pose2d              robotPose,
     Pose2d              goalPose,
-    Translation2d       wheelLoc,
+    Transform2d       wheelLoc,
     ChassisSpeeds       speeds
 )
 {
+    //Change angle to change direction of wheel
+    if (m_targetFinder.GetFieldQuadrant(robotPose) == 1)
+    {
+        
+    }
+
     Rotation2d ninety {units::angle::degree_t(90.0)};
-    Transform2d relativeWheelPosition(wheelLoc, Rotation2d());
+    Transform2d relativeWheelPosition = wheelLoc;
+    //This wheel pose may not be accurate, may need to do manually using trig functions
     auto WheelPose = robotPose + relativeWheelPosition;
     auto wheelToGoalTrans = WheelPose - goalPose;
-    auto radialAngle = wheelToGoalTrans.Rotation().Degrees();
-    auto orbitAngle = wheelToGoalTrans.Rotation().Degrees() + ninety.Degrees();
+
+    auto wheelDeltaX = WheelPose.X() - goalPose.X();
+    auto wheelDeltaY = WheelPose.Y() - goalPose.Y();
+
+    units::angle::radian_t triangleThetaRads = units::angle::radian_t(atan(wheelDeltaY.to<double>() / wheelDeltaX.to<double>()));
+    units::angle::degree_t thetaDeg = triangleThetaRads;
+
+    //Debugging
+    Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "WheelPoseX (Meters)", WheelPose.X().to<double>());
+    Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "WheelPoseY (Meters)", WheelPose.Y().to<double>());
+    Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "WheelDeltaX (Meters)", wheelDeltaX.to<double>());
+    Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "WheelDeltaY (Meters)", wheelDeltaY.to<double>());
+    Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Triangle Theta", thetaDeg.to<double>());
+
+    auto radialAngle = thetaDeg;
+    auto orbitAngle = thetaDeg + ninety.Degrees();
+
+    Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Orbit Angle (Degrees)", orbitAngle.to<double>());
+    Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Radial Angle (Degrees)", radialAngle.to<double>());
 
     auto hasRadialComp = (abs(speeds.vx.to<double>()) > 0.1);
     auto hasOrbitComp = (abs(speeds.vy.to<double>()) > 0.1);
@@ -365,9 +427,18 @@ void SwerveChassis::AdjustRotToMaintainHeading
     }
     else
     {
-        m_storedYaw = units::angle::degree_t(m_pigeon->GetYaw());
+        //m_storedYaw = units::angle::degree_t(m_pigeon->GetYaw());
+        m_storedYaw = GetPose().Rotation().Degrees();
     }
-    rot -= m_yawCorrection;
+
+    if (DriverStation::IsAutonomousEnabled())
+    {
+        rot -= m_yawCorrection;
+    }
+    else
+    {
+        rot += m_yawCorrection;
+    }
 }
 
 void SwerveChassis::AdjustRotToPointTowardGoal
@@ -389,13 +460,31 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     // double dDist2TargetHYP = m_targetFinder.GetDistance2TargetHyp(myPose);
     // double dDistX2Target = m_targetFinder.GetDistance2TargetXYR(myPose).X().to<double>();
     // double dDistY2Target = m_targetFinder.GetDistance2TargetXYR(myPose).Y().to<double>();
-    auto dTargetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
 
-    //Debugging
-    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", dTargetAngle.to<double>()); 
+    if (DriverStation::IsAutonomousEnabled())
+    {
+        auto dTargetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
 
-    CalcHeadingCorrection(dTargetAngle, kPGoalHeadingControl);
-    rot -= m_yawCorrection;
+        //Debugging
+        Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", dTargetAngle.to<double>());
+        Logger::GetLogger()->LogError(string("TurnToGoal Angle: "), to_string(dTargetAngle.to<double>())); 
+
+        CalcHeadingCorrection(dTargetAngle, kPAutonGoalHeadingControl);
+
+        rot -= m_yawCorrection;
+        Logger::GetLogger()->LogError(string("TurnToGoal New ZSpeed: "), to_string(rot.to<double>()));
+    }
+    else
+    {
+        auto dTargetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
+
+        //Debugging
+        Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", dTargetAngle.to<double>()); 
+
+        CalcHeadingCorrection(dTargetAngle, kPGoalHeadingControl);
+
+        rot += m_yawCorrection;
+    }
 }
 
 
@@ -419,7 +508,7 @@ units::angle::degree_t SwerveChassis::GetYaw() const
 void SwerveChassis::UpdateOdometry() 
 {
     units::degree_t yaw{m_pigeon->GetYaw()};
-    Rotation2d rot2d {yaw+m_offsetPoseAngle};
+    Rotation2d rot2d {yaw}; //used to add m_offsetAngle but now we update pigeon yaw in ResetPosition.cpp
     Rotation2d realAngle {yaw};
 
     if (m_poseOpt == PoseEstimatorEnum::WPI)
@@ -513,10 +602,17 @@ void SwerveChassis::ResetPosition
 )
 {
     m_poseEstimator.ResetPosition(pose, angle);
+    SetEncodersToZero();
     auto trans = pose - m_pose;
     m_pose = m_pose + trans;
 
-    m_offsetPoseAngle = units::angle::degree_t(m_pigeon->GetYaw()) - angle.Degrees();
+    auto pigeon = PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
+
+    pigeon->ReZeroPigeon(angle.Degrees().to<double>(), 0);
+
+    m_storedYaw = angle.Degrees();
+
+    //m_offsetPoseAngle = units::angle::degree_t(m_pigeon->GetYaw()) - angle.Degrees();
 
     Transform2d t_fl {m_frontLeftLocation,angle};
     auto flPose = pose + t_fl;
@@ -541,8 +637,8 @@ void SwerveChassis::ResetPosition
     const Pose2d&       pose
 )
 {
-    units::degree_t yaw{m_pigeon->GetYaw()};
-    Rotation2d angle {yaw};
+    Rotation2d angle = pose.Rotation();
+
     ResetPosition(pose, angle);
 }
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE auton SYSTEM "auton.dtd">
+<auton>
+    <primitive id="RESET_POSITION"
+			   pathname="CalibrationTerminal.wpilib.json"/>
+    <primitive id="DRIVE_PATH"
+               pathname="CalibrationTerminal.wpilib.json"/>
+    <primitive id="DO_NOTHING"
+                headingOption="TOWARD_GOAL"/>
+</auton>

@@ -39,10 +39,10 @@ DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChas
                          m_timer(make_unique<Timer>()),
                          m_currentChassisPosition(m_chassis.get()->GetPose()),
                          m_trajectory(),
-                         m_runHoloController(false),
+                         m_runHoloController(true),
                          m_ramseteController(),
-                         m_holoController(frc2::PIDController{0, 0, 0},
-                                          frc2::PIDController{0, 0, 0},
+                         m_holoController(frc2::PIDController{0.2, 0, 0},
+                                          frc2::PIDController{0.2, 0, 0},
                                           frc::ProfiledPIDController<units::radian>{0, 0, 0,
                                                                                     frc::TrapezoidProfile<units::radian>::Constraints{0_rad_per_s, 0_rad_per_s / 1_s}}),
                          //max velocity of 1 rotation per second and a max acceleration of 180 degrees per second squared.
@@ -66,6 +66,10 @@ void DrivePath::Init(PrimitiveParams *params)
     m_headingOption = params->GetHeadingOption();
     m_heading = params->GetHeading();
 
+    Logger::GetLogger()->LogError(string("DrivePathInit"), string(m_pathname));
+
+    Logger::GetLogger()->LogError(string("DrivePathInit"), string(m_pathname));
+
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Initialized", "False");
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Running", "False");
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Done", "False");
@@ -81,6 +85,8 @@ void DrivePath::Init(PrimitiveParams *params)
     GetTrajectory(params->GetPathName());  //Parses path from json file based on path name given in xml
     
     Logger::GetLogger()->ToNtTable(m_pathname + "Trajectory", "Time", m_trajectory.TotalTime().to<double>());// Debugging
+
+    Logger::GetLogger()->LogError(string("DrivePathInit"), to_string(m_trajectoryStates.size()));
     
     if (!m_trajectoryStates.empty()) // only go if path name found
     {
@@ -201,8 +207,8 @@ bool DrivePath::IsDone() //Default primitive function to determine if the primit
                 // or because we went past the target (in this case, we are done)
                 // Assume that once we get within a tenth of a meter (just under 4 inches), if we get
                 // farther away we are passing the target, so we should stop.  Otherwise, keep trying.
-                isDone = ((abs(m_deltaX) < 0.1 && abs(m_deltaY) < 0.1));
-                if ((abs(m_deltaX) < 0.1 && abs(m_deltaY) < 0.1))
+                isDone = ((abs(m_deltaX) < 0.2 && abs(m_deltaY) < 0.2));  //These values were updated to .2 from .1
+                if ((abs(m_deltaX) < 0.2 && abs(m_deltaY) < 0.2))
                 {
                     whyDone = "Within 4 inches of target or getting farther away from target";
                 }
@@ -284,14 +290,19 @@ void DrivePath::GetTrajectory //Parses pathweaver json to create a series of poi
     	auto deployDir = frc::filesystem::GetDeployDirectory();
         deployDir += "/paths/" + path;
 
+        m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);
+
         Logger::GetLogger()->LogError(string("Deploy path is "), deployDir.c_str()); //Debugging
         
+        //This doesn't work, gives parsing error
         m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);  //Creates a trajectory or path that can be used in the code, parsed from pathweaver json
+        //m_trajectory = frc::TrajectoryUtil::FromPathweaverJson("/home/lvuser/deploy/paths/5Ball1.wpilib.json"); //This is a temporary fix
         m_trajectoryStates = m_trajectory.States();  //Creates a vector of all the states or "waypoints" the robot needs to get to
         
         Logger::GetLogger()->LogError(string("DrivePath - Loaded = "), path);
         Logger::GetLogger()->ToNtTable("DrivePathValues", "TrajectoryTotalTime", m_trajectory.TotalTime().to<double>());
     }
+
 }
 
 void DrivePath::CalcCurrentAndDesiredStates()
@@ -308,7 +319,7 @@ void DrivePath::CalcCurrentAndDesiredStates()
     Logger::GetLogger()->ToNtTable("DrivePathValues", "DesiredPoseOmega", m_desiredState.pose.Rotation().Degrees().to<double>());
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosX", m_currentChassisPosition.X().to<double>());
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosY", m_currentChassisPosition.Y().to<double>());
-    Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosOmega", m_desiredState.pose.Rotation().Degrees().to<double>());
+    Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosOmega", m_currentChassisPosition.Rotation().Degrees().to<double>());
     Logger::GetLogger()->ToNtTable("DeltaValues", "DeltaX", m_desiredState.pose.X().to<double>() - m_currentChassisPosition.X().to<double>());
     Logger::GetLogger()->ToNtTable("DeltaValues", "DeltaY", m_desiredState.pose.Y().to<double>() - m_currentChassisPosition.Y().to<double>());
 
