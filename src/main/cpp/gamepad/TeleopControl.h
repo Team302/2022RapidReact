@@ -61,6 +61,7 @@ class TeleopControl
             FINDTARGET,         //Rotate to point to target center
             CLIMBER_MAN_UP,     //Button Mapped needs calls at mgrs
             CLIMBER_MAN_DOWN,   //Button Mapped needs calls to mgrs
+            CLIMBER_MAN_ROTATE,
             CLIMB_AUTO,         //Button Mapped needs calls to mgrs
             MANUAL_SHOOT,       //Button Mapped needs calls to mgrs
             MAN_KICKER,         //Button Mapped needs calls to mgrs

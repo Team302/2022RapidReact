@@ -97,13 +97,14 @@ void BallTransferStateMgr::CheckForStateTransition()
         auto isManualKicker  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MAN_KICKER) : false;
         auto isAutoShootHigh = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH) : false;
         auto isAutoShootLow  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW) : false;
+        Logger::GetLogger()->ToNtTable(m_nt, string("Shooter at target"), to_string(m_shooterStateMgr->AtTarget()));
 
         auto targetState = currentState;
         if (isBallPresent && (isAutoShootHigh || isAutoShootLow))
         {
-            if (currentState == BALL_TRANSFER_STATE::HOLD)
+            if (currentState == BALL_TRANSFER_STATE::HOLD || 
+                currentState == BALL_TRANSFER_STATE::OFF)
             {
-                Logger::GetLogger()->ToNtTable(m_nt, string("Shooter at target"), to_string(m_shooterStateMgr->AtTarget()));
                 if (m_shooterStateMgr != nullptr && m_shooterStateMgr->AtTarget())
                 {
                     targetState = BALL_TRANSFER_STATE::FEED;

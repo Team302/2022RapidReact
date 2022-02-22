@@ -45,7 +45,6 @@ void Robot::RobotInit()
     m_rightIntakeStateMgr = m_rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
     
     m_ballTransfer = mechFactory->GetBallTransfer();
-    //m_ballTransfer = nullptr;
     m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
 
     m_shooter = m_ballTransfer != nullptr ? mechFactory->GetShooter() : nullptr;

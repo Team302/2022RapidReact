@@ -146,11 +146,7 @@ void Mech2MotorState::Run()
     if ( m_mechanism != nullptr )
     {
         m_mechanism->Update();
-        auto ntName = m_mechanism->GetNetworkTableName();
-        Logger::GetLogger()->ToNtTable(string(ntName), string("Primary Target"), GetPrimaryTarget());
-        Logger::GetLogger()->ToNtTable(string(ntName), string("Secondary Target"), GetSecondaryTarget());
-        Logger::GetLogger()->ToNtTable(string(ntName), string("Primary Speed"), GetPrimaryRPS());
-        Logger::GetLogger()->ToNtTable(string(ntName), string("Secondary Speed"), GetSecondaryRPS());
+        m_mechanism->LogData();
     }
 }
 
