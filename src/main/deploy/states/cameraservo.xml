@@ -5,12 +5,12 @@
 	             mode="POSITION_DEGREES"/>
 	<mechanismTarget stateIdentifier="CAMERASERVOLEFT"
 	                 controlDataIdentifier="openloop"
-					 value="120.0"/>
+					 value="0"/>
 	<mechanismTarget stateIdentifier="CAMERASERVORIGHT"
 	                 controlDataIdentifier="openloop"
-					 value="60.0"/>
+					 value="180.0"/>
     <mechanismTarget stateIdentifier="CAMERASERVOSCAN"
                      controlDataIdentifier="openloop"
-                     value="180.0"/>
+                     value="30.0"/>
 
 </statedata>
