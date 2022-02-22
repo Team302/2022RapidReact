@@ -141,9 +141,9 @@ class MechanismFactory
 
 		Intake* 		m_leftIntake;
 		Intake* 		m_rightIntake;
-		BallTransfer* 		m_ballTransfer;
+		BallTransfer*	m_ballTransfer;
 		Shooter* 		m_shooter;
-		Climber*        	m_climber;
+		Climber*		m_climber;
 
 		
 

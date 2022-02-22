@@ -38,14 +38,18 @@ BallTransfer::BallTransfer
     string controlFileName,
     shared_ptr<IDragonMotorController> spinMotor, 
     shared_ptr<IDragonMotorController> liftMotor,
-    shared_ptr<DragonDigitalInput>     ballPresentSw
+    shared_ptr<DragonDigitalInput>     ballPresentSw,
+    shared_ptr<DragonDigitalInput>     liftForwardSw
 ) : Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER, 
                    controlFileName, 
                    networkTableName, 
                    spinMotor, 
                    liftMotor),
-    m_ballPresentSw(ballPresentSw)
+    m_ballPresentSw(ballPresentSw),
+    m_liftForwardSw(liftForwardSw)
 {
+    spinMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
+    liftMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
 }
 
 bool BallTransfer::IsBallPresent() const
@@ -53,6 +57,15 @@ bool BallTransfer::IsBallPresent() const
     if (m_ballPresentSw.get() != nullptr)
     {
         return m_ballPresentSw.get()->Get();
+    }
+    return false;
+}
+
+bool BallTransfer::IsLiftForward() const
+{
+    if (m_liftForwardSw.get() != nullptr)
+    {
+        return m_liftForwardSw.get()->Get();
     }
     return false;
 }

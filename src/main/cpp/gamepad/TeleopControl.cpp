@@ -132,17 +132,6 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 
 		m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
 		m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::A_BUTTON;
-
-		// TODO Decide on the following Geo3 I think leave as is.
-		m_controllerIndex[DRIVE_FULL] 		= ctrlNo;
-		m_buttonIDs[DRIVE_FULL] 			= IDragonGamePad::POV_0;	
-		m_controllerIndex[DRIVE_75PERCENT] 	= ctrlNo;
-		m_buttonIDs[DRIVE_75PERCENT] 		= IDragonGamePad::POV_90;	
-		m_controllerIndex[DRIVE_50PERCENT] 	= ctrlNo;
-		m_buttonIDs[DRIVE_50PERCENT] 		= IDragonGamePad::POV_270;	
-		m_controllerIndex[DRIVE_25PERCENT] 	= ctrlNo;
-		m_buttonIDs[DRIVE_25PERCENT] 		= IDragonGamePad::POV_180;	
-
     }
     else
     {
@@ -183,13 +172,13 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_buttonIDs[AUTO_SHOOT_LOW] 			= IDragonGamePad::X_BUTTON;	
 
 		m_controllerIndex[MANUAL_SHOOT] 		= ctrlNo;  
-		m_buttonIDs[MANUAL_SHOOT] 			= IDragonGamePad::Y_BUTTON;	
-		m_controllerIndex[MAN_KICKER] 		= ctrlNo;
-		m_buttonIDs[MAN_KICKER] 			= IDragonGamePad::B_BUTTON;	
-		m_controllerIndex[SHOOTER_MTR_ON] 	= ctrlNo;
- 		m_buttonIDs[SHOOTER_MTR_ON] 		= IDragonGamePad::POV_180;	
- 		m_controllerIndex[SHOOTER_OFF] 		= ctrlNo;
- 		m_buttonIDs[SHOOTER_OFF]			= IDragonGamePad::START_BUTTON;	
+		m_buttonIDs[MANUAL_SHOOT] 				= IDragonGamePad::Y_BUTTON;	
+		m_controllerIndex[MAN_KICKER] 			= ctrlNo;
+		m_buttonIDs[MAN_KICKER] 				= IDragonGamePad::B_BUTTON;	
+		m_controllerIndex[SHOOTER_MTR_ON] 		= ctrlNo;
+ 		m_buttonIDs[SHOOTER_MTR_ON] 			= IDragonGamePad::POV_180;	
+ 		m_controllerIndex[SHOOTER_OFF] 			= ctrlNo;
+ 		m_buttonIDs[SHOOTER_OFF]				= IDragonGamePad::START_BUTTON;	
  	
 
 	 	m_controllerIndex[SHOOTER_HOOD_MAN]	= ctrlNo;

@@ -39,6 +39,7 @@
 // Team 302 includes
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/SwerveChassis.h>
+#include <utils/Logger.h>
 
 // Third Party Includes
 #include <ctre/phoenix/sensors/CANCoder.h>
@@ -91,9 +92,6 @@ SwerveChassis::SwerveChassis
     m_pigeon(PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)),
     m_accel(BuiltInAccelerometer()),
     m_isMoving(false),
-    m_scale(1.0),
-    m_boost(0.0),
-    m_brake(0.0),
     m_runWPI(true),
     m_poseOpt(PoseEstimatorEnum::WPI),
     m_pose(),
@@ -127,33 +125,6 @@ void SwerveChassis::ZeroAlignSwerveModules()
     m_frontRight.get()->ZeroAlignModule();
     m_backLeft.get()->ZeroAlignModule();
     m_backRight.get()->ZeroAlignModule();
-}
-
-void SwerveChassis::SetDriveScaleFactor( double scale )
-{
-    m_scale = scale;
-    m_frontLeft.get()->SetDriveScale(m_scale);
-    m_frontRight.get()->SetDriveScale(m_scale);
-    m_backLeft.get()->SetDriveScale(m_scale);
-    m_backRight.get()->SetDriveScale(m_scale);
-}
-
-void SwerveChassis::SetBoost( double boost )
-{
-    m_boost = boost;
-    m_frontLeft.get()->SetBoost(m_boost);
-    m_frontRight.get()->SetBoost(m_boost);
-    m_backLeft.get()->SetBoost(m_boost);
-    m_backRight.get()->SetBoost(m_boost);
-}
-
-void SwerveChassis::SetBrake( double brake )
-{
-    m_brake = brake;
-    m_frontLeft.get()->SetBrake(m_brake);
-    m_frontRight.get()->SetBrake(m_brake);
-    m_backLeft.get()->SetBrake(m_brake);
-    m_backRight.get()->SetBrake(m_brake);
 }
 
 void SwerveChassis::CalcHeadingCorrection
@@ -218,7 +189,6 @@ void SwerveChassis::Drive
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "YSpeed", ySpeed.to<double>() );
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "ZSpeed", rot.to<double>() );
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "yaw", m_pigeon->GetYaw() );
-    Logger::GetLogger()->ToNtTable("Swerve Chassis", "scale", m_scale );
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "angle error Degrees Per Second", m_yawCorrection.to<double>());
 
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "Current X", GetPose().X().to<double>());
@@ -244,9 +214,9 @@ void SwerveChassis::Drive
     }
     else
     {   
-        m_drive = units::velocity::meters_per_second_t(xSpeed*(m_scale+m_boost));
-        m_steer = units::velocity::meters_per_second_t(ySpeed*(m_scale+m_boost));
-        m_rotate = units::angular_velocity::radians_per_second_t(rot*(m_scale+m_boost));
+        m_drive = units::velocity::meters_per_second_t(xSpeed);
+        m_steer = units::velocity::meters_per_second_t(ySpeed);
+        m_rotate = units::angular_velocity::radians_per_second_t(rot);
 
         if ( m_runWPI )
         {
@@ -437,11 +407,6 @@ void SwerveChassis::Drive
         speeds.vy = steer*maxSpeed;
         speeds.omega = rotate*maxRotation;
         Drive(speeds, mode, headingOption);
-        // units::velocity::meters_per_second_t            driveSpeed = drive * maxSpeed;
-        // units::velocity::meters_per_second_t            steerSpeed = steer * maxSpeed;
-        // units::angular_velocity::radians_per_second_t   rotateSpeed = rotate * maxRotation;
-
-        // Drive( driveSpeed, steerSpeed, rotateSpeed, mode, headingOption);
     }
 }
 
@@ -542,11 +507,6 @@ units::angle::degree_t SwerveChassis::GetYaw() const
 /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
 void SwerveChassis::UpdateOdometry() 
 {
-   // if ( !IsMoving() )  // not moving, so odometry isn't changing
-   // {
-   //    return;
-   // }
-
     units::degree_t yaw{m_pigeon->GetYaw()};
     Rotation2d rot2d {yaw}; //used to add m_offsetAngle but now we update pigeon yaw in ResetPosition.cpp
     Rotation2d realAngle {yaw};
@@ -605,25 +565,7 @@ void SwerveChassis::UpdateOdometry()
         Pose2d currPose{chassisX, chassisY, rot2d};
         auto trans = currPose - m_pose;
         m_pose = m_pose + trans;
-
-
-        // Get the swerve modules the correct position from the resolved pose
-        /**
-        Transform2d t_fl {m_frontLeftLocation,realAngle};
-        flPose = m_pose + t_fl;
-        m_frontLeft.get()->UpdateCurrPose(flPose.X(), flPose.Y());
-        Transform2d t_fr {m_frontRightLocation,realAngle};
-        frPose = m_pose + t_fr;
-        m_frontRight.get()->UpdateCurrPose(frPose.X(), frPose.Y());
-        Transform2d t_bl {m_backLeftLocation,realAngle};
-        blPose = m_pose + t_bl;
-        m_backLeft.get()->UpdateCurrPose(blPose.X(), blPose.Y());
-        Transform2d t_br {m_backRightLocation,realAngle};
-        brPose = m_pose + t_br;
-        m_backRight.get()->UpdateCurrPose(brPose.X(), brPose.Y());
-        **/
     }
-    
 }
 
 /// @brief set all of the encoders to zero

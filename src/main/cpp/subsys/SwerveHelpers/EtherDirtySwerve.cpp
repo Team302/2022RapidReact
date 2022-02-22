@@ -29,6 +29,7 @@
 #include <hw/DragonPigeon.h>
 #include <subsys/SwerveChassis.h>
 #include <subsys/SwerveHelpers/EtherDirtySwerve.h>
+#include <utils/Logger.h>
 
 // Third Party Includes
 

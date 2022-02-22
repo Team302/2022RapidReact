@@ -109,11 +109,11 @@ vector<MechanismTargetData*> StateDataDefn::ParseXML
                     {
                         if (strcmp(child.name(), "controlData") == 0)
                         {
-                            controlDataVector.push_back( controlDataXML->ParseXML( child ) );
+                            controlDataVector.push_back( controlDataXML.get()->ParseXML( child ) );
                         }
                         else if (strcmp(child.name(), "mechanismTarget") == 0)
                         {
-                            targetDataVector.push_back( mechanismTargetXML->ParseXML( child ) );
+                            targetDataVector.push_back( mechanismTargetXML.get()->ParseXML( child ) );
                         }
                         else
                         {
@@ -123,7 +123,7 @@ vector<MechanismTargetData*> StateDataDefn::ParseXML
                         }
                     }
                 }
-
+                
                 for ( auto td : targetDataVector )
                 {
                     td->Update( controlDataVector );

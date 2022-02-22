@@ -111,10 +111,6 @@ class SwerveModule
         ModuleID GetType() {return m_type;}
         units::length::inch_t GetWheelDiameter() const {return m_wheelDiameter;}
 
-        void SetDriveScale(double scale) { m_scale = scale; }
-        void SetBoost(double boost) { m_boost=boost;}
-        void SetBrake(double brake) { m_brake=brake;}
-
         void StopMotors();
 
         frc::Pose2d GetCurrentPose(PoseEstimatorEnum opt);
@@ -153,14 +149,9 @@ class SwerveModule
         frc::Pose2d                                         m_currentPose;
         units::angular_velocity::revolutions_per_minute_t   m_currentSpeed;
         double                                              m_currentRotations;
-        //frc2::Timer                                         m_timer;
 
 
 
         units::velocity::meters_per_second_t                m_maxVelocity;
-
-        double                                              m_scale;
-        double                                              m_boost;
-        double                                              m_brake;
         bool                                                m_runClosedLoopDrive;
 };

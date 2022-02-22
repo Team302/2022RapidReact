@@ -5,16 +5,17 @@
             type="REV"/>
        <pigeon canId="50"
                usage="SHOOTER_CENTER"
+               type="pigeon1"
                rotation="0.0"/>
        <pigeon canId="0"
                usage="CENTER_OF_ROTATION"
+               type="pigeon2"
                rotation="0.0"/>
 
-       <!-- 
        <limelight tablename="limelight"
             mountingheight="41.0"
             horizontaloffset="0.0"
-            mountingangle="15.0"
+            mountingangle="49.3"
             rotation="0.0"
             targetheight="104.0"
             targetheight2="0.0"
@@ -26,7 +27,7 @@
             crosshairy="0.5"
             secondcrosshairx="0.25"
             secondcrosshairy="0.25" />
-  -->
+
  <!-- ====================================================
      Chassis
      ====================================================  -->
@@ -38,7 +39,7 @@
               wheelSpeedCalcOption="ETHER"
               poseEstimationOption="WPI"
               odometryComplianceCoefficient="1.3"
-              maxVelocity="162"
+              maxVelocity="162.0"
               maxAngularVelocity="1591.2"
               maxAcceleration="118.11"
               maxAngularAcceleration="24"
@@ -339,13 +340,12 @@
      Ball Transfer
      ====================================================  -->
 
-    <!--
-    <mechanism type="BALLTRANSFER"
+    <mechanism type="BALL_TRANSFER"
                networkTable="BallTransferNT"
                controlFile="balltransfer.xml">
        <motor usage="BALL_TRANSFER_SPIN"
-              canId="14"
-              pdpID="14"
+              canId="3"
+              pdpID="3"
               type="TALONSRX"
               inverted="true"
               sensorInverted="false"
@@ -362,40 +362,42 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
        <motor usage="BALL_TRANSFER_LIFT"
-              canId="14"
-              pdpID="14"
+              canId="4"
+              pdpID="4"
               type="TALONSRX"
-              inverted="true"
+              inverted="false"
               sensorInverted="false"
               feedbackDevice="NONE"
               countsPerRev="0"
               gearRatio="1.0"
-              brakeMode="false"
+              brakeMode="true"
               peakCurrentDuration="50"
               continuousCurrentLimit="30"
               peakCurrentLimit="40"
               currentLimiting="true" 
-              forwardlimitswitch="false"
+              forwardlimitswitch="true"
               forwardlimitswitchopen="true"
-              reverselimitswitch="false"
+              reverselimitswitch="true"
               reverselimitswitchopen="true"/>      
        <digitalInput usage="BALL_PRESENT"
                      digitalId="0"  
-                     reversed="false"/>      
-       </mechanism>
-              -->
+                     reversed="true"/>      
+       <digitalInput usage="BALL_TRANSFER_FORWARD"
+                     digitalId="1"  
+                     reversed="true"/>      
+    </mechanism>
 
 <!-- ====================================================
      Shooter
      ====================================================  -->
-       <mechanism type="SHOOTER"
+    <mechanism type="SHOOTER"
                networkTable="shooterNT"
                controlFile="shooter.xml">
        <motor usage="SHOOTER"
               canId="14"
               pdpID="14"
               type="FALCON"
-              inverted="true"
+              inverted="false"
               sensorInverted="false"
               feedbackDevice="NONE"
               countsPerRev="2048"
@@ -414,7 +416,7 @@
               canId="7"
               pdpID="7"
               type="TALONSRX"
-              inverted="true"
+              inverted="false"
               sensorInverted="false"
               feedbackDevice="NONE"
               countsPerRev="0"
@@ -433,7 +435,7 @@
 <!-- ====================================================
      Climber
      ====================================================  -->
-       <mechanism type="CLIMBER"
+   <mechanism type="CLIMBER"
                networkTable="climberNT"
                controlFile="climber.xml">
        <motor usage="CLIMBER_LIFT"
@@ -473,6 +475,6 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
-    </mechanism>
+   </mechanism>
 
 </robot>

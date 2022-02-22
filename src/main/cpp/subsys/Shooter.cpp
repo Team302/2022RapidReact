@@ -29,10 +29,12 @@ using namespace std;
 
 Shooter::Shooter
 (
-  std::string                                 controlFileName,
-  std::string                                 networkTableName,
-  std::shared_ptr<IDragonMotorController>          primaryMotor,
-  std::shared_ptr<IDragonMotorController>          secondaryMotor
-) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::SHOOTER,  controlFileName, networkTableName, primaryMotor, secondaryMotor)
+  std::string                                       controlFileName,
+  std::string                                       networkTableName,
+  std::shared_ptr<IDragonMotorController>           flywheelMotor,
+  std::shared_ptr<IDragonMotorController>           hoodMotor
+) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::SHOOTER,  controlFileName, networkTableName, flywheelMotor, hoodMotor)
 {
+    flywheelMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::HIGH);
+    hoodMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
 }

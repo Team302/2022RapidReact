@@ -50,6 +50,10 @@ DragonPigeon::DragonPigeon
         m_pigeon2 = new WPI_Pigeon2(canID);
         m_pigeon2->ConfigFactoryDefault();
         m_pigeon2->SetYaw(rotation);
+
+        m_pigeon->SetStatusFramePeriod( PigeonIMU_StatusFrame::PigeonIMU_BiasedStatus_4_Mag, 120, 0);
+        m_pigeon->SetStatusFramePeriod( PigeonIMU_StatusFrame::PigeonIMU_CondStatus_11_GyroAccum, 120, 0);
+        m_pigeon->SetStatusFramePeriod( PigeonIMU_StatusFrame::PigeonIMU_BiasedStatus_6_Accel, 120, 0); // using fused heading not yaw
     }
 }
 

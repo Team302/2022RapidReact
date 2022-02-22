@@ -30,8 +30,6 @@
 // FRC Includes
 
 // Team 302 Includes
-#include <utils/HardwareIDValidation.h>
-#include <utils/Logger.h>
 
 // Third Party Includes
 

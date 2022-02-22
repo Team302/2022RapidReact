@@ -11,16 +11,16 @@
 	<mechanismTarget stateIdentifier="BALLTRANSFER_LOAD"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="-1.0"/>
+					 value="1.0"
+					 secondValue="0.0"/>
 	<mechanismTarget stateIdentifier="BALLTRANSFER_HOLD"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="1.0"/>
+					 value="-1.0"
+					 secondValue="0.0"/>
 	<mechanismTarget stateIdentifier="BALLTRANSFER_SHOOT"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
-					 value="1.0"
-					 secondValue="1.0"/>
+					 value="-1.0"
+					 secondValue="-1.0"/>
 </statedata>

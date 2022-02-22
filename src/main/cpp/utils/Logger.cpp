@@ -101,8 +101,8 @@ void Logger::LogError
     const string&   message                 
 )
 {
-    if ( level <= m_level )
-    {
+    //if ( level <= m_level )
+    //{
         auto display = true;
         if ( level%2 == 1 )
         {
@@ -132,7 +132,7 @@ void Logger::LogError
 
             }
         }
-    }
+    //}
 }
 
 /// @brief Write a message to the dashboard
@@ -220,6 +220,7 @@ void Logger::ToNtTable
 }
 
 Logger::Logger() : m_option( LOGGER_OPTION::CONSOLE ), 
+
                    m_level( LOGGER_LEVEL::PRINT ),
                    m_alreadyDisplayed()
 {

@@ -157,12 +157,8 @@ class SwerveChassis : public IChassis
         inline IChassis::CHASSIS_TYPE GetType() const override {return IChassis::CHASSIS_TYPE::SWERVE;};
         inline void Initialize() override {};
 
-        void SetDriveScaleFactor( double scale );
-        void SetBoost( double boost );
-        void SetBrake( double brake );
         void RunWPIAlgorithm(bool runWPI ) { m_runWPI = runWPI; }
         void SetPoseEstOption(PoseEstimatorEnum opt ) { m_poseOpt = opt; }
-        double GetScaleFactor() const {return m_scale;}
         bool IsMoving() const { return m_isMoving;}
         double GetodometryComplianceCoefficient() const { return m_odometryComplianceCoefficient; }
         void SetTargetHeading(units::angle::degree_t targetYaw) override;
@@ -227,14 +223,11 @@ class SwerveChassis : public IChassis
         DragonPigeon*                                               m_pigeon;
         frc::BuiltInAccelerometer                                   m_accel;
         bool                                                        m_isMoving;
-        double                                                      m_scale;
-        double                                                      m_boost;
-        double                                                      m_brake;
         bool                                                        m_runWPI;
-        PoseEstimatorEnum                                        m_poseOpt;
+        PoseEstimatorEnum                                           m_poseOpt;
         frc::Pose2d                                                 m_pose;
         units::angle::degree_t                                      m_offsetPoseAngle;
-        frc::Timer                                                 m_timer;
+        frc::Timer                                                  m_timer;
         units::velocity::meters_per_second_t                        m_drive;
         units::velocity::meters_per_second_t                        m_steer;
         units::angular_velocity::radians_per_second_t               m_rotate;

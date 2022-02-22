@@ -42,6 +42,8 @@ Intake::Intake
                    spinMotor, 
                    extendMotor)
 {
+    spinMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
+    extendMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
 }
 
 bool Intake::StopIfFullyExtended() const

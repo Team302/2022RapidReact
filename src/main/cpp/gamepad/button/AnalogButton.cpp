@@ -13,13 +13,12 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
+#include <string>
 
 #include <gamepad/axis/AnalogAxis.h>
 #include <gamepad/button/AnalogButton.h>
 #include <gamepad/IDragonGamePad.h>
 
-#include <utils/Logger.h>
-#include <string>
 
 using namespace std;
 

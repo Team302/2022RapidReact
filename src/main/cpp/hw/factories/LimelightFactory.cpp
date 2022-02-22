@@ -18,7 +18,6 @@
 
 #include "hw/factories/LimelightFactory.h"
 #include <hw/DragonLimelight.h>
-#include <utils/Logger.h>
 
 
 using namespace std;

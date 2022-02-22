@@ -33,6 +33,7 @@
 #include <states/StateStruc.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
+#include <subsys/Shooter.h>
 #include <hw/DragonLimelight.h>
 #include <hw/factories/LimelightFactory.h>
 
@@ -54,7 +55,9 @@ ShooterStateMgr* ShooterStateMgr::GetInstance()
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-ShooterStateMgr::ShooterStateMgr() : StateMgr()
+ShooterStateMgr::ShooterStateMgr() : StateMgr(),
+                                     m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter()),
+                                     m_nt()
 {
     map<string, StateStruc> stateMap;
     stateMap["SHOOTER_OFF"] = m_offState;
@@ -68,7 +71,16 @@ ShooterStateMgr::ShooterStateMgr() : StateMgr()
     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
     
 
-    Init(MechanismFactory::GetMechanismFactory()->GetShooter(), stateMap);
+    Init(m_shooter, stateMap);
+    if (m_shooter != nullptr)
+    {
+        auto ntName = m_shooter->GetNetworkTableName();
+        m_nt = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
+    }
+    else
+    {
+        m_nt = nt::NetworkTableInstance::GetDefault().GetTable("shooter");
+    }
 }   
 
 
@@ -80,13 +92,14 @@ bool ShooterStateMgr::AtTarget() const
 void ShooterStateMgr::CheckForStateTransition()
 {
 
-    if ( MechanismFactory::GetMechanismFactory()->GetShooter() != nullptr )
+    if ( m_shooter != nullptr )
     {    
+        auto currentState = static_cast<SHOOTER_STATE>(GetCurrentState());
+        auto targetState = currentState;
+
         auto controller = TeleopControl::GetInstance();
         if ( controller != nullptr )
         {
-            auto currentState = static_cast<SHOOTER_STATE>(GetCurrentState());
-
             auto isShootHighSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH);
             auto isShootLowSelected  = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW);
             auto isManualShootSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT);
@@ -95,43 +108,51 @@ void ShooterStateMgr::CheckForStateTransition()
             auto shooterHoodAdjust = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_HOOD_MAN);
             if (isShootHighSelected && m_dragonLimeLight != nullptr)
             {
+                Logger::GetLogger()->ToNtTable(m_nt, string("horizontal angle "), m_dragonLimeLight->GetTargetHorizontalOffset().to<double>());
                 if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 10.0_deg)
                 {
-                    if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET) && currentState != SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR)
+                Logger::GetLogger()->ToNtTable(m_nt, string("distance "), m_dragonLimeLight->EstimateTargetDistance().to<double>());
+                if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET) && currentState != SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR)
                     {
-                        SetCurrentState(SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR, true);
+                        targetState = SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
                     }
                     else if (currentState != SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE)
                     {
-                        SetCurrentState(SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE, true);
+                        targetState = SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE;
                     }
                 }
             }
             else if (isShootLowSelected)
             {
-                SetCurrentState(SHOOTER_STATE::SHOOT_LOW_GOAL, true);
+                targetState = SHOOTER_STATE::SHOOT_LOW_GOAL;
             }
             else if (isPrepareToShootSelected)
             {
-                SetCurrentState(SHOOTER_STATE::PREPARE_TO_SHOOT, true);
+                targetState = SHOOTER_STATE::PREPARE_TO_SHOOT;
             }
             else if (isManualShootSelected)
             {
-                SetCurrentState(SHOOTER_STATE::SHOOT_MANUAL, true);
+                targetState = SHOOTER_STATE::SHOOT_MANUAL;
             }
             else if (abs(shooterHoodAdjust) > 0.05) 
             {
-                SetCurrentState(SHOOTER_STATE::SHOOTER_HOOD_ADJUST, true);
+                targetState = SHOOTER_STATE::SHOOTER_HOOD_ADJUST;
             }
             else if (isShooterOffSelected)
             {
-                SetCurrentState(SHOOTER_STATE::OFF, true);
+                targetState = SHOOTER_STATE::OFF;
             }
             else if (currentState != SHOOTER_STATE::OFF)
             {
-                SetCurrentState(SHOOTER_STATE::PREPARE_TO_SHOOT, true);
+                targetState = SHOOTER_STATE::PREPARE_TO_SHOOT;
             }
 
+        }
+
+        if (targetState != currentState)
+        {
+            Logger::GetLogger()->ToNtTable(m_nt, string("Changing Shooter State"), targetState);
+            SetCurrentState(targetState, true);
         }
     }
 }

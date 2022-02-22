@@ -39,9 +39,7 @@ using namespace frc;
 SwerveDrive::SwerveDrive() : IState(),
                              m_chassis(ChassisFactory::GetChassisFactory()->GetSwerveChassis()),
                              m_controller(TeleopControl::GetInstance()),
-                             m_usePWLinearProfile(false),
-                             m_lastUp(false),
-                             m_lastDown(false)
+                             m_usePWLinearProfile(false)
 {
     if (m_controller == nullptr)
     {
@@ -65,20 +63,17 @@ void SwerveDrive::Init()
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, profile);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
         controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, -1.0);
-        // controller->SetSlewRateLimiter(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, 3.0);
+//        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, -0.85);
 
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, profile);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
         controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, -1.0);
-        // controller->SetSlewRateLimiter(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, 3.0);
+ //       controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, -0.85);
 
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, profile);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
-        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 0.5);
-        // controller->SetSlewRateLimiter(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 3.0);
-
-        controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::DRIVE_TURBO, IDragonGamePad::AXIS_PROFILE::LINEAR);
-        controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::DRIVE_BRAKE, IDragonGamePad::AXIS_PROFILE::LINEAR);
+        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 0.25);
+//        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 0.2125);
 
         m_chassis.get()->RunWPIAlgorithm(false);
     }
@@ -88,9 +83,6 @@ void SwerveDrive::Init()
 /// @return void
 void SwerveDrive::Run()
 {
-    double drive = 0.0;
-    double steer = 0.0;
-    double rotate = 0.0;
     auto controller = GetController();
     if (controller != nullptr)
     {
@@ -107,81 +99,15 @@ void SwerveDrive::Run()
             auto m_pigeon = factory->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
             m_pigeon->ReZeroPigeon(0, 0);
             m_chassis.get()->ZeroAlignSwerveModules();
-            m_lastUp = false;
-            m_lastDown = false;
-        }
-        else if (controller->IsButtonPressed(TeleopControl::DRIVE_FULL))
-        {
-            m_chassis->SetDriveScaleFactor(1.0);
-            m_lastUp = false;
-            m_lastDown = false;
-        }
-        else if (controller->IsButtonPressed(TeleopControl::DRIVE_75PERCENT))
-        {
-            m_chassis->SetDriveScaleFactor(0.75);
-            m_lastUp = false;
-            m_lastDown = false;
-        }
-        else if (controller->IsButtonPressed(TeleopControl::DRIVE_50PERCENT))
-        {
-            m_chassis->SetDriveScaleFactor(0.50);
-            m_lastUp = false;
-            m_lastDown = false;
-        }
-        else if (controller->IsButtonPressed(TeleopControl::DRIVE_25PERCENT))
-        {
-            m_chassis->SetDriveScaleFactor(0.25);
-            m_lastUp = false;
-            m_lastDown = false;
-        }
-        else if (controller->IsButtonPressed(TeleopControl::DRIVE_SHIFT_UP))
-        {
-            if (!m_lastUp)
-            {
-                auto scale = m_chassis->GetScaleFactor();
-                scale += 0.25;
-                auto newscale = clamp(scale, 0.25, 1.0);
-                m_chassis->SetDriveScaleFactor(newscale);
-            }
-            m_lastUp = true;
-        }
-        else if (controller->IsButtonPressed(TeleopControl::DRIVE_SHIFT_DOWN))
-        {
-            if (!m_lastDown)
-            {
-                auto scale = m_chassis->GetScaleFactor();
-                scale -= 0.25;
-                auto newscale = clamp(scale, 0.25, 1.0);
-                m_chassis->SetDriveScaleFactor(newscale);
-            }
-            m_lastDown = true;
-        }
-        else
-        {
-            m_lastUp = false;
-            m_lastDown = false;
         }
 
-        drive = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE);
-        steer = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER);
-        rotate = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE);
+        auto drive = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE);
+        auto steer = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER);
+        auto rotate = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE);
         rotate = abs(rotate) < 0.1 ? 0.0 : rotate;
 
-        auto boost = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::DRIVE_TURBO);
-        boost *= 0.50;
-        boost = clamp(boost, 0.0, 0.50);
-        m_chassis->SetBoost(boost);
-
-        auto brake = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::DRIVE_BRAKE);
-        brake *= 0.25;
-        brake = clamp(brake, 0.0, 0.25);
-        m_chassis->SetBrake(brake);
-
         m_chassis->Drive(drive, steer, rotate, mode, headingOpt);
-
     }
-       
-     
 }
 
 /// @brief indicates that we are not at our target

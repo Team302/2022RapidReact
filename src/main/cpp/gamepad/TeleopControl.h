@@ -41,14 +41,6 @@ class TeleopControl
             SWERVE_DRIVE_DRIVE,
             SWERVE_DRIVE_ROTATE,
             SWERVE_DRIVE_STEER,
-            DRIVE_FULL,
-            DRIVE_75PERCENT,
-            DRIVE_50PERCENT,
-            DRIVE_25PERCENT,
-            DRIVE_SHIFT_UP,             //not mapped to controller 2.13.22
-            DRIVE_SHIFT_DOWN,           //not mapped to controller 
-            DRIVE_TURBO,                //not mapped to controller
-            DRIVE_BRAKE,                //not mapped to controller
             REZERO_PIGEON,
             ROTATE_TO_GOAL,             //not used maybe same as FINDTARGET
             DRIVE_POLAR,

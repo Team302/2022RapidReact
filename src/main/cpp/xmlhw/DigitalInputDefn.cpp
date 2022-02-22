@@ -24,6 +24,7 @@
 #include <hw/DragonDigitalInput.h>
 #include <hw/usages/DigitalInputUsage.h>
 #include <utils/HardwareIDValidation.h>
+#include <utils/Logger.h>
 #include <xmlhw/DigitalInputDefn.h>
 
 // Third Party includes
@@ -58,20 +59,27 @@ shared_ptr<DragonDigitalInput> DigitalInputDefn::ParseXML
     // Parse/validate the XML
     for (pugi::xml_attribute attr = DigitalNode.first_attribute(); attr; attr = attr.next_attribute())
     {
-        if ( strcmp( attr.name(), "usage" ) == 0 )
+        string attrName (attr.name());
+        if (attrName.compare("usage") == 0)
         {
             auto usageString = string(attr.value());
             usage = DigitalInputUsage::GetInstance()->GetUsage(usageString );
         }
-        else if ( strcmp( attr.name(), "digitalId" ) == 0 )
+        else if (attrName.compare("digitalId") == 0)
         {
             digitalID = attr.as_int();
             hasError = HardwareIDValidation::ValidateDIOID( digitalID, string( "DigitalInputDefn::ParseXML(digital Input pin)" ) );
         }
-        else if ( strcmp( attr.name(), "reversed" ) == 0 )
+        else if (attrName.compare("reversed" ) == 0)
         {
             reversed = attr.as_bool();
 
+        }
+        else
+        {
+            string msg = "unknown attribute ";
+            msg += attr.name();
+            Logger::GetLogger()->LogError( string("DigitalInputDefn "), msg );
         }
     }
 
