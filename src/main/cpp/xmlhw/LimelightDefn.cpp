@@ -161,28 +161,28 @@ DragonLimelight* LimelightDefn::ParseXML(pugi::xml_node    limelightNode)
             Logger::GetLogger()->LogError( "LimelightDefn::ParseXML", msg );
             hasError = true;
         }
+    }
 
-        if(!hasError)
-        {
-            limelight = LimelightFactory::GetLimelightFactory()->CreateLimelight
-            (
-                tableName,
-                mountingHeight,
-                horizontalOffset,
-                rotation,
-                mountingAngle,
-                targetHeight,
-                targetHeight2,
-                ledMode,
-                camMode,
-                streamMode,
-                snapMode,
-                defaultXHairX,
-                defaultXHairY,
-                secXHairX,
-                secXHairY
-            );
-        }
+    if(!hasError)
+    {
+        limelight = LimelightFactory::GetLimelightFactory()->CreateLimelight
+        (
+            tableName,
+            mountingHeight,
+            horizontalOffset,
+            rotation,
+            mountingAngle,
+            targetHeight,
+            targetHeight2,
+            ledMode,
+            camMode,
+            streamMode,
+            snapMode,
+            defaultXHairX,
+            defaultXHairY,
+            secXHairX,
+            secXHairY
+        );
     }
     return limelight;
 }
