@@ -147,6 +147,10 @@ void Robot::TeleopInit()
     {
         m_liftStateMgr->RunCurrentState();
     }
+        if (m_cameraServo != nullptr && m_cameraServoStateMgr != nullptr)
+    {
+        m_cameraServoStateMgr->RunCurrentState();
+    }
 }
 
 void Robot::TeleopPeriodic() 

@@ -54,28 +54,18 @@ class TeleopControl
             INTAKE_RETRACT_RIGHT,
             LOOK_RIGHT,
             LOOK_LEFT,
-            AUTO_SHOOT_HIGH,  
-            AUTO_SHOOT_LOW,   
-            AUTO_CLIMB_TRAVERSE,        //not used
-            LIMELIGHT_FEED_TO_DASH,     //not used
-            STOP_LIMELIGHT_FEED_TO_DASH,  //not used
-            CAMERA_FEED_TO_DASH,        //not used
-            STOP_CAMERA_FEED_TO_DASH,   //not used
-
-            // added 2022 Geo3 2.13.22
-            FINDTARGET,         //Rotate to point to target center
-            CLIMBER_MAN_UP,     //Button Mapped needs calls at mgrs
-            CLIMBER_MAN_DOWN,   //Button Mapped needs calls to mgrs
-            CLIMBER_MAN_ROTATE,
-            CLIMB_AUTO,         //Button Mapped needs calls to mgrs
-            MANUAL_SHOOT,       //Button Mapped needs calls to mgrs
-            MAN_KICKER,         //Button Mapped needs calls to mgrs
-            SHOOTER_OFF,        //Button Mapped needs calls to mgrs
-            SHOOTER_MTR_ON,     //Button Mapped needs calls to mgrs
-            //Shooter hood manual
-            SHOOTER_HOOD_MAN,   //Button Mapped needs calls to mgrs
-            SELECT_CLIMBER_ARM, //Button Mapped needs calls to mgrs
-
+            SCAN,
+            AUTO_SHOOT_HIGH,
+            AUTO_SHOOT_LOW,
+            CLIMBER_REACH,
+            CLIMBER_ROTATE,
+            AUTO_CLIMB_TRAVERSE,
+            LIMELIGHT_FEED_TO_DASH,
+            STOP_LIMELIGHT_FEED_TO_DASH,
+            CAMERA_FEED_TO_DASH,
+            STOP_CAMERA_FEED_TO_DASH,
+            
+            FINDTARGET,    //Rotate to point to target center
             MAX_FUNCTIONS
         };
 

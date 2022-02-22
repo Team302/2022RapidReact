@@ -36,6 +36,13 @@ class CameraServoStateMgr : public StateMgr
             LOOK_RIGHT,
             LOOK_LEFT,
             SCAN,
+            SCAN_0,
+            SCAN_30,
+            SCAN_60,
+            SCAN_90,
+            SCAN_120,
+            SCAN_150,
+            SCAN_180,
             MAX_CAMERA_SERVO_STATES
         };
 
@@ -55,4 +62,17 @@ class CameraServoStateMgr : public StateMgr
         const StateStruc  m_rightState = {CAMERA_SERVO_STATE::LOOK_RIGHT, StateType::CAMERA_SERVO, true};
         const StateStruc  m_leftState = {CAMERA_SERVO_STATE::LOOK_LEFT, StateType::CAMERA_SERVO, false};
         const StateStruc  m_scanState = {CAMERA_SERVO_STATE::SCAN, StateType::CAMERA_SERVO, false};
+        const StateStruc  m_0State = {CAMERA_SERVO_STATE::SCAN_0, StateType::CAMERA_SERVO, false};
+        const StateStruc  m_30State = {CAMERA_SERVO_STATE::SCAN_30, StateType::CAMERA_SERVO, false};
+        const StateStruc  m_60State = {CAMERA_SERVO_STATE::SCAN_60, StateType::CAMERA_SERVO, false};
+        const StateStruc  m_90State = {CAMERA_SERVO_STATE::SCAN_90, StateType::CAMERA_SERVO, false};
+        const StateStruc  m_120State = {CAMERA_SERVO_STATE::SCAN_120, StateType::CAMERA_SERVO, false};
+        const StateStruc  m_150State = {CAMERA_SERVO_STATE::SCAN_150, StateType::CAMERA_SERVO, false};
+        const StateStruc  m_180State = {CAMERA_SERVO_STATE::SCAN_180, StateType::CAMERA_SERVO, false};
+
+        double m_increment = 30;
+
+        CameraServo* m_camera;
+
+        bool HasBall() const;
 };
