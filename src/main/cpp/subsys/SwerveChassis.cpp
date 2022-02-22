@@ -32,6 +32,8 @@
 #include <frc/geometry/Transform2d.h>
 #include <frc/geometry/Translation2d.h>
 
+#include <frc/DriverStation.h>
+
 #include <wpi/numbers>
 
 // Team 302 includes
@@ -193,7 +195,7 @@ void SwerveChassis::Drive
             break;
 
         case HEADING_OPTION::SPECIFIED_ANGLE:
-            CalcHeadingCorrection(m_targetHeading, kPMaintainHeadingControl);
+            CalcHeadingCorrection(m_targetHeading, kPAutonSpecifiedHeading);
             Logger::GetLogger()->LogError("Specified Angle (Degrees): ", to_string(m_targetHeading.to<double>()));
             Logger::GetLogger()->LogError("Yaw correction (DPS): ", to_string(m_yawCorrection.to<double>()));
             rot -= m_yawCorrection;
@@ -457,7 +459,15 @@ void SwerveChassis::AdjustRotToMaintainHeading
     {
         m_storedYaw = units::angle::degree_t(m_pigeon->GetYaw());
     }
-    rot -= m_yawCorrection;
+
+    if (DriverStation::IsAutonomousEnabled())
+    {
+        rot -= m_yawCorrection;
+    }
+    else
+    {
+        rot += m_yawCorrection;
+    }
 }
 
 void SwerveChassis::AdjustRotToPointTowardGoal
@@ -479,13 +489,29 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     // double dDist2TargetHYP = m_targetFinder.GetDistance2TargetHyp(myPose);
     // double dDistX2Target = m_targetFinder.GetDistance2TargetXYR(myPose).X().to<double>();
     // double dDistY2Target = m_targetFinder.GetDistance2TargetXYR(myPose).Y().to<double>();
-    auto dTargetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
 
-    //Debugging
-    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", dTargetAngle.to<double>()); 
+    if (DriverStation::IsAutonomousEnabled())
+    {
+        auto dTargetAngle = -units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
 
-    CalcHeadingCorrection(dTargetAngle, kPGoalHeadingControl);
-    rot -= m_yawCorrection;
+        //Debugging
+        Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", dTargetAngle.to<double>()); 
+
+        CalcHeadingCorrection(dTargetAngle, kPAutonGoalHeadingControl);
+
+        rot -= m_yawCorrection;
+    }
+    else
+    {
+        auto dTargetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
+
+        //Debugging
+        Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", dTargetAngle.to<double>()); 
+
+        CalcHeadingCorrection(dTargetAngle, kPGoalHeadingControl);
+
+        rot += m_yawCorrection;
+    }
 }
 
 

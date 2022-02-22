@@ -50,13 +50,9 @@ void ResetPosition::Init(PrimitiveParams* params)
 
         m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);
 
-        frc::Rotation2d StartAngle;
-        //StartAngle = m_trajectory.InitialPose().Rotation();
-        StartAngle.Degrees() = m_chassis->GetYaw();
 
         //m_chassis->SetEncodersToZero();
 
-        //m_chassis->ResetPosition(m_trajectory.InitialPose(), StartAngle);
         m_chassis->ResetPosition(m_trajectory.InitialPose());
 
         Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::PRINT, "ResetPosX", to_string(m_chassis.get()->GetPose().X().to<double>()));
