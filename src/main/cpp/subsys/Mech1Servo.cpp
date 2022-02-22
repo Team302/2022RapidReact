@@ -93,7 +93,14 @@ void Mech1Servo::SetAngle
         m_servo->SetAngle( angle );
     }
 }
-
+double Mech1Servo::GetAngle() const
+{
+    if (m_servo != nullptr)
+    {
+        return m_servo->GetAngle();
+    }
+    return 0;
+}
 
 
 

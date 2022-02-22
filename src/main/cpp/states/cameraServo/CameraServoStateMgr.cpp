@@ -55,16 +55,20 @@ CameraServoStateMgr* CameraServoStateMgr::GetInstance()
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-CameraServoStateMgr::CameraServoStateMgr()
+CameraServoStateMgr::CameraServoStateMgr() : m_camera((MechanismFactory::GetMechanismFactory()->GetCameraServo()))
 {
     map<string, StateStruc> stateMap;
     stateMap["LOOKRIGHT"] = m_rightState;
     stateMap["LOOKLEFT"] = m_leftState;
     stateMap["SCAN"] = m_scanState;
 
-    Init(MechanismFactory::GetMechanismFactory()->GetCameraServo(), stateMap);
+    Init(m_camera, stateMap);
 }   
 
+bool CameraServoStateMgr::HasBall() const
+{
+    return false; 
+}
 
 /// @brief  run the current state
 /// @return void
@@ -74,6 +78,7 @@ void CameraServoStateMgr::CheckForStateTransition()
     {
         // process teleop/manual interrupts
         auto currentState = static_cast<CAMERA_SERVO_STATE>(GetCurrentState());
+        //auto targetState
     
         auto controller = TeleopControl::GetInstance();
         if ( controller != nullptr )
@@ -81,6 +86,9 @@ void CameraServoStateMgr::CheckForStateTransition()
             auto rightPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::LOOK_RIGHT);
             auto leftPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::LOOK_LEFT);
             auto scanPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SCAN);
+            
+            
+            
             if (rightPressed  &&  currentState != CAMERA_SERVO_STATE::LOOK_RIGHT )
             {
                 SetCurrentState( CAMERA_SERVO_STATE::LOOK_RIGHT, true );
@@ -89,9 +97,25 @@ void CameraServoStateMgr::CheckForStateTransition()
             {
                 SetCurrentState( CAMERA_SERVO_STATE::LOOK_LEFT, true );
             }
-            else if ((scanPressed && currentState != CAMERA_SERVO_STATE::LOOK_RIGHT) && currentState != CAMERA_SERVO_STATE::LOOK_LEFT)
+            else if (scanPressed && currentState != CAMERA_SERVO_STATE::SCAN)
             {
-                SetCurrentState( CAMERA_SERVO_STATE::SCAN, true);
+                if(!HasBall())
+                {
+                    
+                    if (m_camera != nullptr)
+                    {
+                        auto currentAngle = m_camera->GetAngle();
+                        currentAngle += m_increment;
+                        
+                        if(currentAngle > 180 || currentAngle < 0)
+                        {
+                            m_increment *= -1;
+                            currentAngle += m_increment;
+                        }
+                        m_camera->SetAngle(currentAngle);
+                    }
+                        
+                }
             }
         }
     }

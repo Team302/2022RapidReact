@@ -70,6 +70,8 @@ class Mech1Servo : public IMech1Servo
             double angle       
         ) override;
 
+        double GetAngle() const;
+
 
     private:
         DragonServo*                                m_servo;
