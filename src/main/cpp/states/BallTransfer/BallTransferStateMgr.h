@@ -25,6 +25,7 @@
 #include <states/StateMgr.h>
 #include <states/StateStruc.h>
 #include <subsys/BallTransfer.h>
+#include <subsys/Shooter.h>
 
 
 // Third Party Includes
@@ -39,6 +40,7 @@ class BallTransferStateMgr : public StateMgr
             LOAD,
             HOLD,
             FEED,
+            SHOOT,
             MAX_BALL_TRANSFER_STATES
         };
 
@@ -52,7 +54,10 @@ class BallTransferStateMgr : public StateMgr
     private:
         BallTransfer*                           m_transfer;
         ShooterStateMgr*                        m_shooterStateMgr;
+        Shooter*                                m_shooter;
+        double                                  m_shooterRPS;
         BALL_TRANSFER_STATE                     m_lastManualState;
+        BALL_TRANSFER_STATE                     m_lastAutoState;
         std::shared_ptr<nt::NetworkTable>       m_nt;     
 
 
@@ -66,4 +71,5 @@ class BallTransferStateMgr : public StateMgr
         const StateStruc  m_loadState = {BALL_TRANSFER_STATE::LOAD, StateType::BALL_TRANSFER, false};
         const StateStruc  m_holdState = {BALL_TRANSFER_STATE::HOLD, StateType::BALL_TRANSFER, false};
         const StateStruc  m_feedState = {BALL_TRANSFER_STATE::FEED, StateType::BALL_TRANSFER, false};
+        const StateStruc  m_shootState = {BALL_TRANSFER_STATE::SHOOT, StateType::BALL_TRANSFER, false};
 };
