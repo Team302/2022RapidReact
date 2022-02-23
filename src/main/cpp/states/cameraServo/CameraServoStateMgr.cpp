@@ -58,9 +58,9 @@ CameraServoStateMgr* CameraServoStateMgr::GetInstance()
 CameraServoStateMgr::CameraServoStateMgr() : m_camera((MechanismFactory::GetMechanismFactory()->GetCameraServo()))
 {
     map<string, StateStruc> stateMap;
-    stateMap["LOOKRIGHT"] = m_rightState;
-    stateMap["LOOKLEFT"] = m_leftState;
-    stateMap["SCAN"] = m_scanState;
+    stateMap["CAMERASERVOLOOKRIGHT"] = m_rightState;
+    stateMap["CAMERASERVOLOOKLEFT"] = m_leftState;
+    stateMap["CAMERASERVOSCAN"] = m_scanState;
 
     Init(m_camera, stateMap);
 }   
@@ -74,10 +74,12 @@ bool CameraServoStateMgr::HasBall() const
 /// @return void
 void CameraServoStateMgr::CheckForStateTransition()
 {
+    Logger::GetLogger()->ToNtTable(string("Sierra"), string("CheckForStateTransition"), string("true"));
     if ( MechanismFactory::GetMechanismFactory()->GetCameraServo() != nullptr )
     {
         // process teleop/manual interrupts
         auto currentState = static_cast<CAMERA_SERVO_STATE>(GetCurrentState());
+         Logger::GetLogger()->ToNtTable(string("Sierra"), string("Current"), currentState);
         //auto targetState
     
         auto controller = TeleopControl::GetInstance();
@@ -91,14 +93,17 @@ void CameraServoStateMgr::CheckForStateTransition()
             
             if (rightPressed  &&  currentState != CAMERA_SERVO_STATE::LOOK_RIGHT )
             {
+                Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::LOOK_RIGHT);
                 SetCurrentState( CAMERA_SERVO_STATE::LOOK_RIGHT, true );
             }
             else if (leftPressed && currentState != CAMERA_SERVO_STATE::LOOK_LEFT )
             {
+                 Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::LOOK_LEFT);
                 SetCurrentState( CAMERA_SERVO_STATE::LOOK_LEFT, true );
             }
             else if (scanPressed && currentState != CAMERA_SERVO_STATE::SCAN)
             {
+                 Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::SCAN);
                 if(!HasBall())
                 {
                     

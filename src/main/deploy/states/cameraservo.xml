@@ -3,10 +3,10 @@
 <statedata>
 	<controlData identifier="openloop" 
 	             mode="POSITION_DEGREES"/>
-	<mechanismTarget stateIdentifier="CAMERASERVOLEFT"
+	<mechanismTarget stateIdentifier="CAMERASERVOLOOKRIGHT"
 	                 controlDataIdentifier="openloop"
 					 value="0"/>
-	<mechanismTarget stateIdentifier="CAMERASERVORIGHT"
+	<mechanismTarget stateIdentifier="CAMERASERVOLOOKLEFT"
 	                 controlDataIdentifier="openloop"
 					 value="180.0"/>
     <mechanismTarget stateIdentifier="CAMERASERVOSCAN"

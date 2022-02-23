@@ -213,13 +213,13 @@ void Logger::ToNtTable
     double                              value 
 )
 {
-    if (m_option != Logger::LOGGER_OPTION::EAT_IT)
+    if (m_option != Logger::LOGGER_OPTION::CONSOLE)
     {
 	    ntable.get()->PutNumber(identifier, value);
     }
 }
 
-Logger::Logger() : m_option( LOGGER_OPTION::EAT_IT ), 
+Logger::Logger() : m_option( LOGGER_OPTION::CONSOLE ), 
                    m_level( LOGGER_LEVEL::PRINT ),
                    m_alreadyDisplayed()
 {
