@@ -86,6 +86,7 @@ ShooterStateMgr::ShooterStateMgr() : StateMgr(),
 
 bool ShooterStateMgr::AtTarget() const
 {
+    Logger::GetLogger()->ToNtTable(m_nt, string("At Target"), GetCurrentStatePtr()->AtTarget() ? "true" : "false");
     return GetCurrentStatePtr()->AtTarget();
 }
 

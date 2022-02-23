@@ -27,12 +27,12 @@
 #include <gamepad/TeleopControl.h>
 #include <states/balltransfer/BallTransferState.h>
 #include <states/balltransfer/BallTransferStateMgr.h>
-#include <states/shooter/ShooterStateMgr.h>
 #include <states/IState.h>
+#include <states/shooter/ShooterStateMgr.h>
 #include <states/StateMgr.h>
 #include <states/StateStruc.h>
 #include <subsys/MechanismFactory.h>
-//#include <subsys/MechanismTypes.h>
+#include <subsys/Shooter.h>
 #include <utils/Logger.h>
 #include <xmlmechdata/StateDataDefn.h>
 
@@ -57,7 +57,10 @@ BallTransferStateMgr* BallTransferStateMgr::GetInstance()
 BallTransferStateMgr::BallTransferStateMgr() : StateMgr(),
                                                m_transfer(MechanismFactory::GetMechanismFactory()->GetBallTransfer()),
                                                m_shooterStateMgr(ShooterStateMgr::GetInstance()),
+                                               m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter()),
+                                               m_shooterRPS(0.0),
                                                m_lastManualState(BALL_TRANSFER_STATE::LOAD),
+                                               m_lastAutoState(BALL_TRANSFER_STATE::LOAD),
                                                m_nt()
 {
     if (m_transfer != nullptr)
@@ -74,7 +77,8 @@ BallTransferStateMgr::BallTransferStateMgr() : StateMgr(),
     stateMap["BALLTRANSFER_OFF"] = m_offState;
     stateMap["BALLTRANSFER_LOAD"] = m_loadState;
     stateMap["BALLTRANSFER_HOLD"] = m_holdState;
-    stateMap["BALLTRANSFER_SHOOT"] = m_feedState;
+    stateMap["BALLTRANSFER_FEED"] = m_feedState;
+    stateMap["BALLTRANSFER_SHOOT"] = m_shootState;
     Init(m_transfer, stateMap);
 }
 
@@ -86,6 +90,7 @@ void BallTransferStateMgr::CheckForStateTransition()
     {
         auto isBallPresent = m_transfer->IsBallPresent();
         auto isLiftForward = m_transfer->IsLiftForward();
+        auto shooterRPS = m_shooter != nullptr ? m_shooter->GetPrimarySpeed() : 0.0;
         Logger::GetLogger()->ToNtTable(m_nt, string("Ball Present Sensor"), to_string(isBallPresent));
         Logger::GetLogger()->ToNtTable(m_nt, string("Lift Forward Sensor"), to_string(isLiftForward));
 
@@ -99,36 +104,56 @@ void BallTransferStateMgr::CheckForStateTransition()
         auto isAutoShootLow  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW) : false;
 
         auto targetState = currentState;
-        if (isBallPresent && (isAutoShootHigh || isAutoShootLow))
+    //    if ((m_lastAutoState == BALL_TRANSFER_STATE::FEED  || 
+    //         m_lastAutoState == BALL_TRANSFER_STATE::SHOOT ||
+    //         m_lastAutoState == BALL_TRANSFER_STATE::OFF)  && 
+        if ((m_lastAutoState == BALL_TRANSFER_STATE::FEED  || 
+             m_lastAutoState == BALL_TRANSFER_STATE::SHOOT )  && 
+            (isAutoShootLow || isAutoShootHigh))
         {
-            if (currentState == BALL_TRANSFER_STATE::HOLD)
+            targetState = isLiftForward ? BALL_TRANSFER_STATE::LOAD : BALL_TRANSFER_STATE::SHOOT;
+            m_lastAutoState = targetState;
+        }
+        else if (isBallPresent && (isAutoShootLow || isAutoShootHigh))
+        {
+            if (currentState == BALL_TRANSFER_STATE::HOLD || 
+                currentState == BALL_TRANSFER_STATE::OFF)
             {
-                Logger::GetLogger()->ToNtTable(m_nt, string("Shooter at target"), to_string(m_shooterStateMgr->AtTarget()));
                 if (m_shooterStateMgr != nullptr && m_shooterStateMgr->AtTarget())
                 {
                     targetState = BALL_TRANSFER_STATE::FEED;
+                    m_shooterRPS = shooterRPS;
+                    m_lastAutoState = targetState;
                 }
                 else if (isLiftForward)
                 {
                     targetState = BALL_TRANSFER_STATE::OFF;
+                    m_lastAutoState = targetState;
                 }
             }
             else if (!isLiftForward)
             {
                 targetState = BALL_TRANSFER_STATE::HOLD;
+                m_lastAutoState = targetState;
             }
         }
         else if (isManualShoot)
         {
             targetState = BALL_TRANSFER_STATE::FEED;
+            m_shooterRPS = shooterRPS;
         }
         else if (isManualKicker)
         {
             if (currentState == BALL_TRANSFER_STATE::LOAD)
             {
                 targetState = BALL_TRANSFER_STATE::FEED;
+                m_shooterRPS = shooterRPS;
             }
-            else
+            else if (currentState == BALL_TRANSFER_STATE::FEED)
+            {
+                targetState = BALL_TRANSFER_STATE::SHOOT;
+            }
+            else if (shooterRPS < m_shooterRPS)
             {
                 targetState = BALL_TRANSFER_STATE::LOAD;
             }

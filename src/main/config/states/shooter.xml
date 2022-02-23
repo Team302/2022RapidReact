@@ -27,9 +27,9 @@
 					 secondValue="0.0"/> <!-- 1.0 -->
 
 	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
-	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier="closedloop2"
 	                 controlDataIdentifier2="openloop"
-					 value="0.6"
+					 value="20"
 					 secondValue="0.0"/>
 
 	<mechanismTarget stateIdentifier="ADJUSTHOOD"
@@ -47,14 +47,14 @@
  	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
 	                 controlDataIdentifier="closedloop2"
 					 controlDataIdentifier2="openloop"
-					 value="40"
+					 value="20"
 					 secondValue="0.0"/> <!-- 1.0 -->
 
 
  	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
 	                 controlDataIdentifier="closedloop2"
 					 controlDataIdentifier2="openloop"
-					 value="40"
+					 value="20"
 					 secondValue="0.0"/> <!-- -1.0 -->
 					  <!-- 8ft from hub <mechanismTarget stateIdentifier="SHOOTERON"
 	                 controlDataIdentifier="closedloop"

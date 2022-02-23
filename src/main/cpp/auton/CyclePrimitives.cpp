@@ -49,13 +49,19 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
 									 m_timer( make_unique<Timer>()),
 									 m_maxTime( 0.0 ),
 									 m_isDone( false ),
-									 //m_leftIntake(LeftIntakeStateMgr::GetInstance()),
-									 //m_rightIntake(RightIntakeStateMgr::GetInstance()),
-									 //m_shooter(ShooterStateMgr::GetInstance())
 									 m_leftIntake(nullptr),
 									 m_rightIntake(nullptr),
 									 m_shooter(nullptr)
 {
+    auto mechFactory = MechanismFactory::GetMechanismFactory();
+    auto leftIntake = mechFactory->GetLeftIntake();
+    m_leftIntake = leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
+
+    auto rightIntake = mechFactory->GetRightIntake();
+    m_rightIntake = rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
+    
+    auto shooter = mechFactory->GetShooter();
+    m_shooter = shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
 }
 
 void CyclePrimitives::Init()

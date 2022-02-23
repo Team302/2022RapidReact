@@ -96,7 +96,7 @@ DragonTalon::DragonTalon
 		Logger::GetLogger()->LogError(prompt, string("ConfigNominalOutputReverse error"));
 		error = ErrorCode::OKAY;
 	}
-	error = m_talon.get()->ConfigOpenloopRamp(1.0, 0);
+	error = m_talon.get()->ConfigOpenloopRamp(0.0, 0);
 	if ( error != ErrorCode::OKAY )
 	{
 		Logger::GetLogger()->LogError(prompt, string("ConfigOpenloopRamp error"));
