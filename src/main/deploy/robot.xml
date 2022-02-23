@@ -2,14 +2,12 @@
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
 
-       <!-- -->
        <pdp canId="1"
             type="REV"/>
-       <!-- -->
-       <!-- -->
+
        <pigeon canId="50"
             rotation="0.0"/>
-       <!-- -->
+
        <!--
        <limelight tablename="limelight"
                      mountingheight="31.5"
@@ -434,9 +432,9 @@
     </mechanism>  
               -->
     <mechanism type="CAMERASERVO">
-       <servo usage="CAMERASERVO"
-              pwmId="0"
+       <servo usage="RELEASE_SERVO"
+              pwmId="2"
               minAngle="0.0"
-              maxAngle="360.0" />
+              maxAngle="180.0" />
     </mechanism>    
 </robot>

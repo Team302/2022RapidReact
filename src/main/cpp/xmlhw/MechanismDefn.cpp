@@ -104,6 +104,10 @@ void MechanismDefn::ParseXML
             {
                 type = MechanismTypes::MECHANISM_TYPE::CLIMBER;
             }
+            else if (typeStr.compare("CAMERASERVO") == 0)
+            {
+                type = MechanismTypes::MECHANISM_TYPE::CAMERA_SERVO;
+            }
             else
             {
                     string msg = "unknown Mechanism type ";

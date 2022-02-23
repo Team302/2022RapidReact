@@ -23,6 +23,7 @@
 #include <states/ShooterStateMgr.h>
 #include <states/cameraServo/CameraServoStateMgr.h>
 #include <subsys/CameraServo.h>
+#include <utils/Logger.h>
 
 #include <subsys/Shooter.h>
 
@@ -56,7 +57,15 @@ void Robot::RobotInit()
 
     m_cameraServo = mechFactory->GetCameraServo();
     m_cameraServoStateMgr= m_cameraServo != nullptr ? CameraServoStateMgr::GetInstance() : nullptr;
-    
+    if (m_cameraServo != nullptr)
+    {
+        Logger::GetLogger()->ToNtTable(std::string("Sierra"), std::string("get camera servo"), std::string("true"));
+    }
+    else
+    {
+        Logger::GetLogger()->ToNtTable(std::string("Sierra"), std::string("get camera servo"), std::string("false"));
+    }
+
     m_cyclePrims = new CyclePrimitives();
 }
 
@@ -124,7 +133,8 @@ void Robot::TeleopInit()
     }
         if (m_cameraServo != nullptr && m_cameraServoStateMgr != nullptr)
     {
-        m_cameraServoStateMgr->RunCurrentState();
+        m_cameraServoStateMgr->SetCurrentState(CameraServoStateMgr::LOOK_RIGHT, true);
+        //m_cameraServoStateMgr->RunCurrentState();
     }
 }
 
