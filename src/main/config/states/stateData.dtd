@@ -18,7 +18,7 @@
 <!ELEMENT mechanismTarget EMPTY>
 <!ATTLIST mechanismTarget 
           stateIdentifier               ( INTAKE_OFF | INTAKE_ON | INTAKE_EXPEL |
-                                          BALLTRANSFER_OFF | BALLTRANSFER_LOAD | BALLTRANSFER_HOLD | BALLTRANSFER_SHOOT |
+                                          BALLTRANSFER_OFF | BALLTRANSFER_LOAD | BALLTRANSFER_HOLD | BALLTRANSFER_FEED || BALLTRANSFER_SHOOT | 
                                           SHOOTER_OFF | SHOOT_LOWGOAL | MANUAL_SHOOT | ADJUSTHOOD | PREPARETOSHOOT | SHOOT_HIGHGOAL_CLOSE | SHOOT_HIGHGOAL_FAR | 
                                           UNKNOWN ) "UNKNOWN"
           controlDataIdentifier         CDATA #REQUIRED
