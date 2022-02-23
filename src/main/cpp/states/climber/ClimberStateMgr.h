@@ -40,6 +40,7 @@ class ClimberStateMgr : public StateMgr
         enum CLIMBER_STATE
         {
             OFF,
+            MANUAL,
             INITIAL_REACH,
             RETRACT,
             RELEASE,
@@ -65,6 +66,7 @@ class ClimberStateMgr : public StateMgr
 		static ClimberStateMgr*	m_instance;
 
         const StateStruc    m_offState = {CLIMBER_STATE::OFF, StateType::CLIMBER, true};
+        const StateStruc    m_manualState = {CLIMBER_STATE::MANUAL, StateType::CLIMBER, false};
         const StateStruc    m_initialReachState = {CLIMBER_STATE::INITIAL_REACH, StateType::CLIMBER, false};
         const StateStruc    m_retractState = {CLIMBER_STATE::RETRACT, StateType::CLIMBER, false};
         const StateStruc    m_releaseState = {CLIMBER_STATE::RELEASE, StateType::CLIMBER, false};

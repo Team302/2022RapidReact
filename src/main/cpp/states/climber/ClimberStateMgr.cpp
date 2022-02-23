@@ -87,13 +87,23 @@ void ClimberStateMgr::CheckForStateTransition()
     {
         // process teleop/manual interrupts
         auto currentState = static_cast<CLIMBER_STATE>(GetCurrentState());
+        auto targetState = currentState;
         Logger::GetLogger()->ToNtTable(m_nt, string("Current climber State"), currentState);
         auto controller = TeleopControl::GetInstance();
-        auto isArmDown   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_DOWN) : false;
-        auto isArmUp     = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_UP) : false;
-        auto isClimbMode = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SELECT_CLIMBER_ARM) : false;
+        auto isClimbMode  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SELECT_CLIMBER_ARM) : false;
+        if (isClimbMode)
+        {
+            auto armDownSpeed = controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_DOWN) : 0.0;
+            auto armUpSpeed   = controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_UP) : 0.0;
+            auto armRotateSpeed = controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_ROTATE) : 0.0;
 
-        auto targetState = currentState;
+            auto isManual = abs(armDownSpeed) > 0.1 || abs(armUpSpeed) > 0.1 || abs(armRotateSpeed) > 0.1;
+            targetState = isManual ? CLIMBER_STATE::MANUAL : CLIMBER_STATE::OFF;
+        }
+        else
+        {
+            targetState = CLIMBER_STATE::OFF;
+        }
 
         if (targetState != currentState)
         {
