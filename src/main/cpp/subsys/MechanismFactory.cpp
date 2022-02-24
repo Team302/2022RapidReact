@@ -396,6 +396,12 @@ IMech* MechanismFactory::GetMechanism
 			return GetShooter();
 			break;
 
+/*
+		case MechanismTypes::MECHANISM_TYPE::CAMERA_SERVO:
+			return GetServo();
+			break;
+*/
+
 		default:
 			return nullptr;
 			break;
@@ -438,7 +444,7 @@ DragonServo* MechanismFactory::GetServo
 	ServoUsage::SERVO_USAGE							usage
 )
 {
-	DragonServo* servo = nullptr;
+	DragonServo* servo; //= nullptr;
 	auto it = servos.find( usage );
 	if ( it != servos.end() )  // found it
 	{

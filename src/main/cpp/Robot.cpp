@@ -61,7 +61,8 @@ void Robot::RobotInit()
     m_climberStateMgr = ClimberStateMgr::GetInstance();
 
     m_cameraServo = mechFactory->GetCameraServo();
-    m_cameraServoStateMgr= m_cameraServo != nullptr ? CameraServoStateMgr::GetInstance() : nullptr;
+    //m_cameraServoStateMgr= m_cameraServo != nullptr ? CameraServoStateMgr::GetInstance() : nullptr;
+    m_cameraServoStateMgr = CameraServoStateMgr::GetInstance();
     if (m_cameraServo != nullptr)
     {
         Logger::GetLogger()->ToNtTable(std::string("Sierra"), std::string("get camera servo"), std::string("true"));
@@ -156,11 +157,15 @@ void Robot::TeleopInit()
     {
         m_liftStateMgr->RunCurrentState();
     }
-        if (m_cameraServo != nullptr && m_cameraServoStateMgr != nullptr)
+    if (m_cameraServoStateMgr != nullptr && m_cameraServo != nullptr)
+    {
+        m_cameraServoStateMgr->SetCurrentState(CameraServoStateMgr::LOOK_LEFT , true);
+    }
+       /* if (m_cameraServo != nullptr && m_cameraServoStateMgr != nullptr)
     {
         m_cameraServoStateMgr->SetCurrentState(CameraServoStateMgr::LOOK_RIGHT, true);
         //m_cameraServoStateMgr->RunCurrentState();
-    }
+    }*/
 }
 
 void Robot::TeleopPeriodic() 

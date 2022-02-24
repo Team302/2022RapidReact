@@ -5,7 +5,7 @@
 	             mode="POSITION_DEGREES"/>
 	<mechanismTarget stateIdentifier="CAMERASERVOLOOKRIGHT"
 	                 controlDataIdentifier="openloop"
-					 value="0"/>
+					 value="0.0"/>
 	<mechanismTarget stateIdentifier="CAMERASERVOLOOKLEFT"
 	                 controlDataIdentifier="openloop"
 					 value="180.0"/>
