@@ -40,7 +40,7 @@ ServoUsage* ServoUsage::GetInstance()
 
 ServoUsage::ServoUsage()
 {
-    //m_usageMap["BALLRELEASE"]  = SERVO_USAGE::RELEASE_SERVO;
+    m_usageMap["BALLRELEASE"]  = SERVO_USAGE::RELEASE_SERVO;
 }
 
 

@@ -431,7 +431,7 @@
               maxAngle="360.0" />
     </mechanism>  
               -->
-    <mechanism type="CAMERASERVO">
+    <mechanism type="CAMERA_SERVO">
        <servo usage="RELEASE_SERVO"
               pwmId="2"
               minAngle="0.0"

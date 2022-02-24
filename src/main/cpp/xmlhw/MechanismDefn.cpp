@@ -104,7 +104,7 @@ void MechanismDefn::ParseXML
             {
                 type = MechanismTypes::MECHANISM_TYPE::CLIMBER;
             }
-            else if (typeStr.compare("CAMERASERVO") == 0)
+            else if (typeStr.compare("CAMERA_SERVO") == 0)
             {
                 type = MechanismTypes::MECHANISM_TYPE::CAMERA_SERVO;
             }
