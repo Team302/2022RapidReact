@@ -62,6 +62,7 @@ DragonFalcon::DragonFalcon
 	m_gearRatio(gearRatio),
 	m_diameter( 1.0 )
 {
+	m_motorType = motorType;
 	// for all calls if we get an error log it; for key items try again
 	auto prompt = string("Dragon Falcon");
 	prompt += to_string(deviceID);
@@ -377,7 +378,10 @@ void DragonFalcon::SetFramePeriodPriority
 
 	}
 }
-
+DragonFalcon::MOTOR_TYPE DragonFalcon::GetMotorType() const
+{
+	return m_motorType;
+}
 void DragonFalcon::Set(std::shared_ptr<nt::NetworkTable> nt, double value)
 {
 	Logger::GetLogger()->ToNtTable(nt, string("motor id"), m_talon.get()->GetDeviceID());

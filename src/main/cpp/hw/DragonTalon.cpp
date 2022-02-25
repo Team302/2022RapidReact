@@ -66,6 +66,7 @@ DragonTalon::DragonTalon
 	m_gearRatio(gearRatio),
 	m_diameter( 1.0 )
 {
+	m_motorType = motorType;
 	// for all calls if we get an error log it; for key items try again
 	auto prompt = string("Dragon Talon");
 	prompt += to_string(deviceID);
@@ -303,7 +304,10 @@ double DragonTalon::GetCurrent() const
 	//PowerDistributionPanel* pdp = DragonPDP::GetInstance()->GetPDP();
     //return ( pdp != nullptr ) ? pdp->GetCurrent( m_pdp ) : 0.0;
 }
-
+DragonTalon::MOTOR_TYPE DragonTalon::GetMotorType() const
+{
+	return m_motorType;
+}
 void DragonTalon::UpdateFramePeriods
 (
 	ctre::phoenix::motorcontrol::StatusFrameEnhanced	frame,

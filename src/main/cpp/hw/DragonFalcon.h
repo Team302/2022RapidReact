@@ -64,6 +64,8 @@ class DragonFalcon : public IDragonMotorController
         int GetID() const override;
         std::shared_ptr<frc::MotorController> GetSpeedController() const override;
         double GetCurrent() const override;
+        IDragonMotorController::MOTOR_TYPE GetMotorType() const override;
+
 
         // Setters (override)
         void SetControlMode(ControlModes::CONTROL_TYPE mode) override; //:D
@@ -150,6 +152,7 @@ class DragonFalcon : public IDragonMotorController
         int m_tickOffset;
         double m_gearRatio;
 		double m_diameter;
+        IDragonMotorController::MOTOR_TYPE m_motorType;
 
 };
 
