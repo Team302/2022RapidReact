@@ -34,4 +34,11 @@ class Climber : public Mech2IndMotors
 
         Climber() = delete;
         virtual ~Climber() = default;
+
+        double GetMinReach() const {return m_reachMin;}
+        double GetMinRotate() const {return m_rotateMin;}
+
+    private:
+        double m_reachMin;
+        double m_rotateMin;
 };

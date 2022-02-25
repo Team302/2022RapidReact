@@ -30,7 +30,9 @@ Climber::Climber
 (
     shared_ptr<IDragonMotorController> motor1,
     shared_ptr<IDragonMotorController> motor2
-) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::CLIMBER,  string("climber.xml"),  string("ClimberNT"), motor1, motor2 )
+) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::CLIMBER,  string("climber.xml"),  string("ClimberNT"), motor1, motor2 ),
+    m_reachMin(motor1.get()->GetRotations()),
+    m_rotateMin(motor2.get()->GetRotations())
 {
     motor1.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
     motor2.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);

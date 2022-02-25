@@ -7,11 +7,13 @@
 #include <auton/CyclePrimitives.h>
 #include <gamepad/TeleopControl.h>
 #include <states/chassis/SwerveDrive.h>
+#include <states/climber/ClimberStateMgr.h>
 #include <states/Intake/LeftIntakeStateMgr.h>
 #include <states/Intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <subsys/BallTransfer.h>
 #include <subsys/ChassisFactory.h>
+#include <subsys/Climber.h>
 #include <subsys/Intake.h>
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/MechanismFactory.h>
@@ -50,6 +52,9 @@ void Robot::RobotInit()
     m_shooter = m_ballTransfer != nullptr ? mechFactory->GetShooter() : nullptr;
     m_shooterStateMgr = m_shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
     
+    m_climber = mechFactory->GetClimber();
+    m_climberStateMgr = m_climber != nullptr ? ClimberStateMgr::GetInstance() : nullptr;
+
     m_cyclePrims = new CyclePrimitives();
 }
 
@@ -111,16 +116,18 @@ void Robot::TeleopInit()
     {
         m_rightIntakeStateMgr->RunCurrentState();
     }
+    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
+    {
+        m_ballTransferStateMgr->RunCurrentState();
+    }
     if (m_shooterStateMgr != nullptr && m_shooter != nullptr)
     {
         m_shooterStateMgr->RunCurrentState();
     }
-    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
+    if (m_climberStateMgr != nullptr && m_climber != nullptr)
     {
-        m_ballTransferStateMgr->RunCurrentState();
-//        m_ballTransferStateMgr->SetCurrentState(BallTransferStateMgr::BALL_TRANSFER_STATE::LOAD, true);
+        m_climberStateMgr->RunCurrentState();
     }
-
 
 }
 
@@ -143,12 +150,14 @@ void Robot::TeleopPeriodic()
     {
         m_ballTransferStateMgr->RunCurrentState();
     }
-    
     if (m_shooter != nullptr && m_shooterStateMgr != nullptr)
     {
         m_shooterStateMgr->RunCurrentState();
     }
-
+    if (m_climberStateMgr != nullptr && m_climber != nullptr)
+    {
+        m_climberStateMgr->RunCurrentState();
+    }
 }
 
 void Robot::DisabledInit() 
