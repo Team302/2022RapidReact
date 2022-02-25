@@ -39,6 +39,7 @@
 #include <ctre/phoenix/motorcontrol/LimitSwitchType.h>
 
 
+
 using namespace frc;
 using namespace std;
 using namespace ctre::phoenix;
@@ -46,13 +47,15 @@ using namespace ctre::phoenix::motorcontrol;
 using namespace ctre::phoenix::motorcontrol::can;
 
 
+
 DragonTalon::DragonTalon
 (
 	MotorControllerUsage::MOTOR_CONTROLLER_USAGE deviceType, 
 	int deviceID, 
-        int pdpID, 
+    int pdpID, 
 	int countsPerRev, 
-	double gearRatio 
+	double gearRatio,
+	MOTOR_TYPE motorType 
 ) : m_talon( make_shared<WPI_TalonSRX>(deviceID)),
 	m_controlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT),
 	m_type(deviceType),

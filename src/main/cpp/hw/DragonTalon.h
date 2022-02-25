@@ -25,6 +25,8 @@
 #include <controllers/ControlModes.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/MotorControllerUsage.h>
+#include <hw/interfaces/IDragonMotorController.h>
+#
 
 // Third Party Includes
 #include <ctre/phoenix/motorcontrol/RemoteSensorSource.h>
@@ -44,7 +46,8 @@ class DragonTalon : public IDragonMotorController
             int deviceID, 
             int pdpID, 
             int countsPerRev, 
-            double gearRatio
+            double gearRatio,
+            MOTOR_TYPE motorType
         );
         virtual ~DragonTalon() = default;
 

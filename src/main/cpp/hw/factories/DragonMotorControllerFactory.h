@@ -96,6 +96,7 @@ class DragonMotorControllerFactory
 			bool											reverseLimitSwitchNormallyOpen,
 			IDragonMotorController::MOTOR_TYPE				motorType
 		);
+		
 
 	private:
 

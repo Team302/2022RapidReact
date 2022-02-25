@@ -30,12 +30,13 @@
 #include <hw/DragonFalcon.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/MotorControllerUsage.h>
-
+#include <hw/interfaces/IDragonMotorController.h>
 
 // Third Party Includes
 #include <ctre/phoenix/motorcontrol/RemoteSensorSource.h>
 #include <ctre/phoenix/ErrorCode.h>
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonFX.h>
+
 
 
 class DragonFalcon : public IDragonMotorController
@@ -49,7 +50,9 @@ class DragonFalcon : public IDragonMotorController
             int deviceID, 
             int pdpID, 
             int countsPerRev, 
-            double gearRatio
+            double gearRatio,
+            IDragonMotorController::MOTOR_TYPE motortype
+            
         );
         virtual ~DragonFalcon() = default;
 

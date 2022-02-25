@@ -47,10 +47,11 @@ using namespace ctre::phoenix::motorcontrol::can;
 DragonFalcon::DragonFalcon
 (
 	MotorControllerUsage::MOTOR_CONTROLLER_USAGE deviceType, 
-	int deviceID, 
+	int deviceID,
     int pdpID, 
 	int countsPerRev, 
-	double gearRatio 
+	double gearRatio,
+	IDragonMotorController::MOTOR_TYPE motorType
 ) : m_talon( make_shared<WPI_TalonFX>(deviceID)),
 	m_controlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT),
 	m_type(deviceType),
