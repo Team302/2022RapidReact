@@ -106,9 +106,10 @@ void CameraServoStateMgr::CheckForStateTransition()
                  Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::SCAN);
                 if(!HasBall())
                 {
-                    
+                    Logger::GetLogger()->ToNtTable(std::string("Sierra"), std::string("has ball"), std::string("false"));
                     if (m_camera != nullptr)
                     {
+                        Logger::GetLogger()->ToNtTable(std::string("Sierra"), std::string("camera servo nullptr?"), std::string("false"));
                         auto currentAngle = m_camera->GetAngle();
                         currentAngle += m_increment;
                         
@@ -120,6 +121,10 @@ void CameraServoStateMgr::CheckForStateTransition()
                         m_camera->SetAngle(currentAngle);
                     }
                         
+                }
+                else 
+                {
+                    Logger::GetLogger()->ToNtTable(std::string("Sierra"), std::string("has ball"), std::string("true"));
                 }
             }
         }
