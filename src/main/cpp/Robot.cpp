@@ -134,7 +134,7 @@ void Robot::TeleopInit()
     }
     if (m_cameraServoStateMgr != nullptr && m_cameraServo != nullptr)
     {
-        m_cameraServoStateMgr->SetCurrentState(CameraServoStateMgr::LOOK_LEFT , true);
+        m_cameraServoStateMgr->SetCurrentState(CameraServoStateMgr::SCAN , true);
     }
        /* if (m_cameraServo != nullptr && m_cameraServoStateMgr != nullptr)
     {

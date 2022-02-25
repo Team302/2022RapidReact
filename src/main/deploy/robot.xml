@@ -431,8 +431,10 @@
               maxAngle="360.0" />
     </mechanism>  
               -->
-    <mechanism type="CAMERA_SERVO">
-       <servo usage="RELEASE_SERVO"
+    <mechanism type="CAMERA_SERVO"
+              networkTable="CameraServoNT"
+              controlFile="cameraservo.xml">
+       <servo usage="BALLRELEASE"
               pwmId="2"
               minAngle="0.0"
               maxAngle="180.0" />

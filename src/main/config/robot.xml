@@ -2,14 +2,11 @@
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
 
-       <!-- -->
        <pdp canId="1"
             type="REV"/>
-       <!-- -->
-       <!-- -->
+
        <pigeon canId="50"
             rotation="0.0"/>
-       <!-- -->
        <!--
        <limelight tablename="limelight"
                      mountingheight="31.5"

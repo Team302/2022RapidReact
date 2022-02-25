@@ -278,11 +278,10 @@ IMech* MechanismFactory::GetMechanism
 			return GetShooter();
 			break;
 
-/*
 		case MechanismTypes::MECHANISM_TYPE::CAMERA_SERVO:
-			return GetServo();
+			return GetCameraServo();
 			break;
-*/
+
 
 		default:
 			return nullptr;
