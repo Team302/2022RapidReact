@@ -135,7 +135,10 @@ void BallTransferStateMgr::CheckForStateTransition()
              m_lastAutoState == BALL_TRANSFER_STATE::SHOOT )  && 
             (isAutoShootLow || isAutoShootHigh))
         {
-            targetState = isLiftForward ? BALL_TRANSFER_STATE::LOAD : BALL_TRANSFER_STATE::SHOOT;
+           // targetState = isLiftForward ? BALL_TRANSFER_STATE::LOAD : BALL_TRANSFER_STATE::SHOOT;
+            targetState = (shooterRPS < m_shooterRPS) ? BALL_TRANSFER_STATE::LOAD : BALL_TRANSFER_STATE::SHOOT;
+             
+
             m_lastAutoState = targetState;
         }
         else if (isBallPresent && (isAutoShootLow || isAutoShootHigh))

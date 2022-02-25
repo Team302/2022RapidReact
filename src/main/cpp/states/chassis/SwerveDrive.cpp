@@ -106,6 +106,11 @@ void SwerveDrive::Run()
         auto rotate = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE);
         rotate = abs(rotate) < 0.1 ? 0.0 : rotate;
 
+        //Bandaid fix for time being
+        drive *= 0.8;
+        steer *= 0.8;
+        rotate *= 0.50;
+
         m_chassis->Drive(drive, steer, rotate, mode, headingOpt);
     }
 }
