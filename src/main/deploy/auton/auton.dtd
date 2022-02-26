@@ -20,7 +20,7 @@
           pathname          CDATA #IMPLIED
           leftIntake        ( OFF | INTAKE | EXPEL ) "OFF"
           rightIntake       ( OFF | INTAKE | EXPEL ) "OFF"
-          shooter           ( OFF | AUTO_SHOOT_HIGH_GOAL_FAR | AUTO_SHOOT_HIGH_GOAL_CLOSE | SHOOT_LOW_GOAL | PREPARE_TO_SHOOT ) "PREPARE_TO_SHOOT"
+          shooter           ( OFF | AUTO_SHOOT_HIGH_GOAL_FAR | AUTO_SHOOT_HIGH_GOAL_CLOSE | SHOOT_LOW_GOAL | PREPARE_TO_SHOOT | MANUAL_SHOOT) "PREPARE_TO_SHOOT"
 >
 
 

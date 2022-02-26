@@ -23,6 +23,7 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
+#include <states/BallTransfer/BallTransferStateMgr.h>
 #include <states/intake/LeftIntakeStateMgr.h>
 #include <states/intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
@@ -67,6 +68,7 @@ class CyclePrimitives : public IState
 		bool							m_isDone;
 		LeftIntakeStateMgr*             m_leftIntake;
 		RightIntakeStateMgr*			m_rightIntake;
+		BallTransferStateMgr*			m_ballTransfer;
 		ShooterStateMgr*				m_shooter;
 };
 

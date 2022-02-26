@@ -51,6 +51,7 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
 									 m_isDone( false ),
 									 m_leftIntake(nullptr),
 									 m_rightIntake(nullptr),
+									 m_ballTransfer(nullptr),
 									 m_shooter(nullptr)
 {
     auto mechFactory = MechanismFactory::GetMechanismFactory();
@@ -60,6 +61,9 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
     auto rightIntake = mechFactory->GetRightIntake();
     m_rightIntake = rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
     
+	auto balltransfer = mechFactory->GetBallTransfer();
+	m_ballTransfer = balltransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
+
     auto shooter = mechFactory->GetShooter();
     m_shooter = shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
 }
@@ -94,6 +98,10 @@ void CyclePrimitives::Run()
 			if (m_shooter != nullptr)
 			{
 				m_shooter->RunCurrentState();
+			}
+			if (m_ballTransfer != nullptr)
+			{
+				m_ballTransfer->RunCurrentState();
 			}
 
 			if (m_currentPrim->IsDone())
@@ -141,6 +149,10 @@ void CyclePrimitives::GetNextPrim()
 		{
 			m_shooter->SetCurrentState(currentPrimParam->GetShooterState(), true);
 		}
+		if (m_ballTransfer != nullptr)
+		{
+			m_ballTransfer->RunCurrentState();
+		}
 		m_maxTime = currentPrimParam->GetTime();
 		m_timer->Reset();
 		m_timer->Start();
@@ -153,7 +165,8 @@ void CyclePrimitives::RunDoNothing()
 {
 	if (m_doNothing == nullptr)
 	{	
-		auto time = DriverStation::GetMatchTime();
+		auto time = DriverStation::GetMatchType() != DriverStation::MatchType::kNone ? 
+							 DriverStation::GetMatchTime() : 15.0;
 		auto params = new PrimitiveParams( DO_NOTHING,          // identifier
 		                                   time,              	// time
 		                                   0.0,                 // distance
