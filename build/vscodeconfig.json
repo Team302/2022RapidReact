@@ -14,10 +14,13 @@
     "systemCMacros": [],
     "systemCArgs": [],
     "allLibFiles": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
 =======
 >>>>>>> Added nullptr checks
+=======
+>>>>>>> VisionML
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\47a7ea2f706e62a5be870ed40114146c\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c9aaee0968b5842f6deb1bd3767dcdd7\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\b975060d99dfbfe1a809809ab9a387ad\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -52,7 +55,10 @@
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\607aaac70e3604f867e1107471514452\\transformed\\cameraserver-cpp-2022.3.1-sources\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\7eac816f3f57d3ddb21a8e1c9710c0ce\\transformed\\cscore-cpp-2022.3.1-sources\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\eae53d227d89d0574829342933550be5\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+<<<<<<< HEAD
 <<<<<<< main
+=======
+>>>>>>> VisionML
     ],
     "allLibSources": [
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\2261f9ee69f8cd30884f182972683287\\transformed\\wpilibNewCommands-cpp-2022.3.1-sources\\",
@@ -246,10 +252,13 @@
           }
         ],
         "libHeaders": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
 =======
 >>>>>>> Added nullptr checks
+=======
+>>>>>>> VisionML
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\47a7ea2f706e62a5be870ed40114146c\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c9aaee0968b5842f6deb1bd3767dcdd7\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\b975060d99dfbfe1a809809ab9a387ad\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -400,10 +409,13 @@
     "systemCMacros": [],
     "systemCArgs": [],
     "allLibFiles": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
 =======
 >>>>>>> Added nullptr checks
+=======
+>>>>>>> VisionML
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\47a7ea2f706e62a5be870ed40114146c\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c9aaee0968b5842f6deb1bd3767dcdd7\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\b975060d99dfbfe1a809809ab9a387ad\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -438,6 +450,7 @@
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\607aaac70e3604f867e1107471514452\\transformed\\cameraserver-cpp-2022.3.1-sources\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\7eac816f3f57d3ddb21a8e1c9710c0ce\\transformed\\cscore-cpp-2022.3.1-sources\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\eae53d227d89d0574829342933550be5\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+<<<<<<< HEAD
 <<<<<<< main
     ],
     "allLibSources": [
@@ -514,6 +527,8 @@
       "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\eae53d227d89d0574829342933550be5\\transformed\\opencv-cpp-4.5.2-1-sources\\"
 =======
 >>>>>>> Added nullptr checks
+=======
+>>>>>>> VisionML
     ],
     "allLibSources": [
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\2261f9ee69f8cd30884f182972683287\\transformed\\wpilibNewCommands-cpp-2022.3.1-sources\\",
@@ -527,6 +542,7 @@
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\eae53d227d89d0574829342933550be5\\transformed\\opencv-cpp-4.5.2-1-sources\\"
     ],
     "allLibHeaders": [
+<<<<<<< HEAD
 <<<<<<< main
       "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\07102907b57d70cc1ab6519c9cee00f8\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
       "C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\9c2b882d28c9ffa98afbce44041f09ad\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
@@ -555,6 +571,8 @@
       "D:\\Github\\2022RapidReact\\src\\main\\thirdparty\\"
 >>>>>>> Added network table reader
 =======
+=======
+>>>>>>> VisionML
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\47a7ea2f706e62a5be870ed40114146c\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c9aaee0968b5842f6deb1bd3767dcdd7\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
       "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\b975060d99dfbfe1a809809ab9a387ad\\transformed\\api-cpp-5.20.0-beta-2-headers\\",
@@ -631,10 +649,13 @@
           }
         ],
         "libHeaders": [
+<<<<<<< HEAD
 <<<<<<< main
 <<<<<<< main
 =======
 >>>>>>> Added nullptr checks
+=======
+>>>>>>> VisionML
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\47a7ea2f706e62a5be870ed40114146c\\transformed\\wpilibNewCommands-cpp-2022.3.1-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\c9aaee0968b5842f6deb1bd3767dcdd7\\transformed\\wpiapi-cpp-5.20.0-beta-2-headers\\",
           "C:\\Users\\darth\\.gradle\\caches\\transforms-3\\b975060d99dfbfe1a809809ab9a387ad\\transformed\\api-cpp-5.20.0-beta-2-headers\\",

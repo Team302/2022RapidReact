@@ -9,16 +9,23 @@ C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgr
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\1amli2v3mva3l3jryoalukeqx\\MechanismFactory.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\1hgoh7jq976q56rqsgsl3bn99\\Mech1IndMotorSolenoid.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\1huuy4m2tkwi5ii7xsw7ir7n3\\PigeonDefn.o
+<<<<<<< HEAD
 <<<<<<< main
 =======
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\1i5fvojiqamczogj45262u7d7\\ShooterState.o
 >>>>>>> Added nullptr checks
+=======
+C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\1i5fvojiqamczogj45262u7d7\\ShooterState.o
+>>>>>>> VisionML
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\1p424q5zuv4lmrbxzt4126l2m\\PrimitiveParser.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\1s68jbzvq2z7sr00hlo9matwp\\DragonMotorControllerFactory.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\1y9fffj170cichs7gz77obmxf\\ScaledAxis.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\21m8488i5xtf1ha93uxeks23\\EtherFieldSwerve.o
+<<<<<<< HEAD
 <<<<<<< main
 =======
+=======
+>>>>>>> VisionML
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\24br8uaci9gzds7ysfyxql13e\\NetworkTableReader.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\24mnmett5u0fzvp2gdvd66yb\\FieldDefn.o
 >>>>>>> Added nullptr checks
@@ -55,10 +62,14 @@ C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgr
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\60o4dbya9e11qjpuxkm5lrnv5\\ChassisDefn.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\62oyperjnbhv9z1wtq1n8zwhr\\SwerveModuleDefn.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\6431qee3cu31ue5gehphef3dx\\DigitalInputDefn.o
+<<<<<<< HEAD
 <<<<<<< main
 =======
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\67s1epct1cg8am3ws93q9tj92\\ShooterStateMgr.o
 >>>>>>> Added nullptr checks
+=======
+C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\67s1epct1cg8am3ws93q9tj92\\ShooterStateMgr.o
+>>>>>>> VisionML
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\67z1ivihufy6hagck8zm4m9uc\\ClimberStateMgr.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\67zu1k47856lxxigl5fmnbchg\\DriveToTarget.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\6empmihwzaslmtqb9rmgetfb8\\Logger.o
@@ -82,10 +93,13 @@ C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgr
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\81w12uzniy95vm8ntcer3hhuk\\SquaredProfile.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\8b189cvjb0j0gtflu0md4i3g4\\DragonServoFactory.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\8bxpmi61mzm6nv5gdpwtu0r5f\\TurnToAngle.o
+<<<<<<< HEAD
 <<<<<<< main
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\8dd1eboren1bdxsnuxs6obwnu\\ShooterStateManual.o
 =======
 >>>>>>> Added nullptr checks
+=======
+>>>>>>> VisionML
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\8dqgag86b43vxq22e7oc0oirq\\DebouncedButton.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\8h428rmz7we4y0376tgxsdrfa\\Mech1Servo.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\8hils9bepixfa1l6zt73ooheo\\DragonXBox.o
@@ -129,10 +143,14 @@ C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgr
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\cqthcykl8fu8ra9mcmm70wj3y\\StateMgr.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\csjxy9oxu85jfz46yv5psm2n6\\MechanismTargetData.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\cz1j69hlv8nbn6eetbb2z3ggl\\Mech1Solenoid.o
+<<<<<<< HEAD
 <<<<<<< main
 =======
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\d3khvmcdmpa94dkpbhzvhs7xk\\IntakeStateMgr.o
 >>>>>>> Added nullptr checks
+=======
+C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\d3khvmcdmpa94dkpbhzvhs7xk\\IntakeStateMgr.o
+>>>>>>> VisionML
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\d3vsbutbrsgfqaupg075mapic\\DragonTargetFinder.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\dfywfqigykkc34olb1r5nhkmf\\HardwareIDValidation.o
 C:\\GitRepos\\2022RapidReact\\build\\objs\\frcUserProgram\\release\\frcUserProgramCpp\\dq5r63afp6itvzowf3oekzvuw\\TeleopControl.o
@@ -167,7 +185,10 @@ C:\\Users\\darth\\.gradle\\caches\\transforms-3\\48f17b3efc5282a89bd5fa44483506f
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\182b675e5182ac08c5970e5646822487\\transformed\\wpiapi-cpp-5.20.0-beta-2-linuxathena\\linux\\athena\\shared\\libCTRE_Phoenix_WPI.so
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\fe26f43d18741629300bed67e79f0724\\transformed\\api-cpp-5.20.0-beta-2-linuxathena\\linux\\athena\\shared\\libCTRE_Phoenix.so
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\f2d958782c728fa4cd61e8f5abf92239\\transformed\\cci-5.20.0-beta-2-linuxathena\\linux\\athena\\shared\\libCTRE_PhoenixCCI.so
+<<<<<<< HEAD
 >>>>>>> Added nullptr checks
+=======
+>>>>>>> VisionML
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\b30821d1ad18f728e5f9679a60e596e0\\transformed\\wpilibc-cpp-2022.3.1-linuxathena\\linux\\athena\\shared\\libwpilibc.so
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\ce9bf45b70b44c1afabe9ada7f71498b\\transformed\\ntcore-cpp-2022.3.1-linuxathena\\linux\\athena\\shared\\libntcore.so
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\04cc5ab19a4edfac36c74333e85cd67c\\transformed\\hal-cpp-2022.3.1-linuxathena\\linux\\athena\\shared\\libwpiHal.so
@@ -194,6 +215,7 @@ C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6b35d4060e0bd3fd9d3ead070df18e7
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6b35d4060e0bd3fd9d3ead070df18e78\\transformed\\opencv-cpp-4.5.2-1-linuxathena\\linux\\athena\\shared\\libopencv_stitching.so.4.5
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6b35d4060e0bd3fd9d3ead070df18e78\\transformed\\opencv-cpp-4.5.2-1-linuxathena\\linux\\athena\\shared\\libopencv_video.so.4.5
 C:\\Users\\darth\\.gradle\\caches\\transforms-3\\6b35d4060e0bd3fd9d3ead070df18e78\\transformed\\opencv-cpp-4.5.2-1-linuxathena\\linux\\athena\\shared\\libopencv_videoio.so.4.5
+<<<<<<< HEAD
 <<<<<<< main
 =======
 D:\\Github\\2022RapidReact\\build\\exe\\frcUserProgram\\release\\frcUserProgram
@@ -345,6 +367,8 @@ C:\\Users\\Nick\\.gradle\\caches\\transforms-3\\6b35d4060e0bd3fd9d3ead070df18e78
 >>>>>>> Added network table reader
 =======
 >>>>>>> Added nullptr checks
+=======
+>>>>>>> VisionML
 -rdynamic
 -pthread
 -ldl

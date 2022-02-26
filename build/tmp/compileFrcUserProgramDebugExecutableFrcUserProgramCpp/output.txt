@@ -17,6 +17,7 @@ compiling DriveTime.cpp successful.
 
 compiling DriveToTarget.cpp successful.
 
+<<<<<<< HEAD
 Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.
 =======
 compiling AutonSelector.cpp successful.
@@ -37,6 +38,8 @@ compiling DriveTime.cpp successful.
 
 compiling DriveToTarget.cpp successful.
 
+=======
+>>>>>>> VisionML
 compiling HoldPosition.cpp successful.
 
 compiling DriveToWall.cpp successful.
