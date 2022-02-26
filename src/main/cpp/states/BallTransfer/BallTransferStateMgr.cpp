@@ -16,6 +16,7 @@
 #include <map>
 #include <memory>
 #include <vector>
+#include <iostream>
 
 // FRC includes
 #include <networktables/NetworkTableInstance.h>
@@ -99,9 +100,12 @@ void BallTransferStateMgr::CheckForStateTransition()
         Logger::GetLogger()->ToNtTable(m_nt, string("Current BallTransfer State"), currentState);
         auto controller = TeleopControl::GetInstance();
         auto isManualShoot   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT) : false;
+        isManualShoot = !isManualShoot ? ShooterStateMgr::GetInstance()->GetCurrentState() == ShooterStateMgr::SHOOT_MANUAL: isManualShoot;
         auto isManualKicker  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MAN_KICKER) : false;
         auto isAutoShootHigh = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH) : false;
         auto isAutoShootLow  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW) : false;
+
+        cout << "Manual shoot state: " << to_string(isManualShoot) << endl;
 
         auto targetState = currentState;
     //    if ((m_lastAutoState == BALL_TRANSFER_STATE::FEED  || 

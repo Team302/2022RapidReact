@@ -51,7 +51,8 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
 									 m_isDone( false ),
 									 m_leftIntake(nullptr),
 									 m_rightIntake(nullptr),
-									 m_shooter(nullptr)
+									 m_shooter(nullptr),
+									 m_ballTransfer(nullptr)
 {
     auto mechFactory = MechanismFactory::GetMechanismFactory();
     auto leftIntake = mechFactory->GetLeftIntake();
@@ -62,6 +63,9 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
     
     auto shooter = mechFactory->GetShooter();
     m_shooter = shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
+
+	auto ballTransfer = mechFactory->GetBallTransfer();
+	m_ballTransfer = ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr; 
 }
 
 void CyclePrimitives::Init()
@@ -94,6 +98,11 @@ void CyclePrimitives::Run()
 			if (m_shooter != nullptr)
 			{
 				m_shooter->RunCurrentState();
+			}
+
+			if(m_ballTransfer != nullptr)
+			{
+				m_ballTransfer->RunCurrentState();
 			}
 
 			if (m_currentPrim->IsDone())
@@ -141,6 +150,7 @@ void CyclePrimitives::GetNextPrim()
 		{
 			m_shooter->SetCurrentState(currentPrimParam->GetShooterState(), true);
 		}
+		
 		m_maxTime = currentPrimParam->GetTime();
 		m_timer->Reset();
 		m_timer->Start();

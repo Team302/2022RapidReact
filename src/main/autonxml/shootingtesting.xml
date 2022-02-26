@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE auton SYSTEM "auton.dtd">
+<auton>
+    <primitive id="DO_NOTHING"
+                time="2.0"
+                shooter="PREPARE_TO_SHOOT"/>
+    <primitive id="DO_NOTHING"
+                shooter="AUTO_SHOOT_HIGH_GOAL_CLOSE"/>
+</auton>

@@ -89,6 +89,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
     shooterStateMap["AUTO_SHOOT_HIGH_GOAL_CLOSE"] = ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE;
     shooterStateMap["SHOOT_LOW_GOAL"] = ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL;
     shooterStateMap["PREPARE_TO_SHOOT"] = ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT;
+    shooterStateMap["SHOOT_MANUAL"] = ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL;
 
     xml_document doc;
     xml_parse_result result = doc.load_file( fulldirfile.c_str() );
