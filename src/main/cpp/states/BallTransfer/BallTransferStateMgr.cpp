@@ -96,17 +96,41 @@ void BallTransferStateMgr::CheckForStateTransition()
 
         // process teleop/manual interrupts
         auto currentState = static_cast<BALL_TRANSFER_STATE>(GetCurrentState());
-        Logger::GetLogger()->ToNtTable(m_nt, string("Current BallTransfer State"), currentState);
-        auto controller = TeleopControl::GetInstance();
-        auto isManualShoot   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT) : false;
-        auto isManualKicker  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MAN_KICKER) : false;
-        auto isAutoShootHigh = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH) : false;
-        auto isAutoShootLow  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW) : false;
-
         auto targetState = currentState;
-    //    if ((m_lastAutoState == BALL_TRANSFER_STATE::FEED  || 
-    //         m_lastAutoState == BALL_TRANSFER_STATE::SHOOT ||
-    //         m_lastAutoState == BALL_TRANSFER_STATE::OFF)  && 
+        Logger::GetLogger()->ToNtTable(m_nt, string("Current BallTransfer State"), currentState);
+
+        auto isManualShoot      = false;
+        auto isManualKicker     = false;
+        auto isAutoShootHigh    = false;
+        auto isAutoShootLow     = false;
+    
+        auto controller = TeleopControl::GetInstance();
+        if (controller != nullptr)
+        {
+            isManualShoot   = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT);
+            isManualKicker  = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MAN_KICKER);
+            isAutoShootHigh = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH);
+            isAutoShootLow  = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW);
+        }
+
+        if (m_shooterStateMgr != nullptr)
+        {
+            auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
+            if (!isManualShoot)
+            {
+                isManualShoot = shooterState == ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL;
+            } 
+            else if (!isAutoShootHigh)
+            {
+                isAutoShootHigh = shooterState == ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE ||
+                                  shooterState == ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
+            } 
+            else if (!isAutoShootLow)
+            {
+                isAutoShootLow = shooterState == ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL;
+            }
+        }
+
         if ((m_lastAutoState == BALL_TRANSFER_STATE::FEED  || 
              m_lastAutoState == BALL_TRANSFER_STATE::SHOOT )  && 
             (isAutoShootLow || isAutoShootHigh))
