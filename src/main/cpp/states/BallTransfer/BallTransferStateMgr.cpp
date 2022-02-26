@@ -16,6 +16,7 @@
 #include <map>
 #include <memory>
 #include <vector>
+#include <iostream>
 
 // FRC includes
 #include <networktables/NetworkTableInstance.h>

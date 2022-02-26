@@ -66,6 +66,9 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
 
     auto shooter = mechFactory->GetShooter();
     m_shooter = shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
+
+	auto ballTransfer = mechFactory->GetBallTransfer();
+	m_ballTransfer = ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr; 
 }
 
 void CyclePrimitives::Init()
@@ -100,6 +103,11 @@ void CyclePrimitives::Run()
 				m_shooter->RunCurrentState();
 			}
 			if (m_ballTransfer != nullptr)
+			{
+				m_ballTransfer->RunCurrentState();
+			}
+
+			if(m_ballTransfer != nullptr)
 			{
 				m_ballTransfer->RunCurrentState();
 			}
