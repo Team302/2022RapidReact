@@ -71,6 +71,5 @@ class CyclePrimitives : public IState
 		RightIntakeStateMgr*			m_rightIntake;
 		BallTransferStateMgr*			m_ballTransfer;
 		ShooterStateMgr*				m_shooter;
-		BallTransferStateMgr*			m_ballTransfer;
 };
 
