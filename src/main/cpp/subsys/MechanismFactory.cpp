@@ -192,12 +192,11 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_climber == nullptr)
 			{
-				auto motor1 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_LIFT );
-				auto motor2 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_ROTATE);
-				if ( motor1.get() != nullptr && motor2.get() != nullptr )
+				auto liftMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_LIFT );
+				auto rotateMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_ROTATE);
+				if ( liftMotor.get() != nullptr && rotateMotor.get() != nullptr )
 				{
-					m_climber = new Climber(motor1, motor2);
-					//m_climber = make_shared<Climber>(motor1, motor2);
+					m_climber = new Climber(liftMotor, rotateMotor);
 				}
 				else
 				{

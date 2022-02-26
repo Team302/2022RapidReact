@@ -132,8 +132,8 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_controllerIndex[SELECT_CLIMBER_ARM]			= ctrlNo;  
 		m_buttonIDs[SELECT_CLIMBER_ARM]	 				= IDragonGamePad::START_BUTTON;
 
-		m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
-		m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::A_BUTTON;
+		//m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
+		//m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::A_BUTTON;
     }
     else
     {

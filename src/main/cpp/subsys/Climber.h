@@ -28,8 +28,8 @@ class Climber : public Mech2IndMotors
     public:
         Climber
         (
-            std::shared_ptr<IDragonMotorController> motor1,
-            std::shared_ptr<IDragonMotorController> motor2
+            std::shared_ptr<IDragonMotorController> reachMotor,
+            std::shared_ptr<IDragonMotorController> rotateMotor
         );
 
         Climber() = delete;

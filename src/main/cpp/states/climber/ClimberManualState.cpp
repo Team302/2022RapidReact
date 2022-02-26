@@ -76,7 +76,8 @@ void ClimberManualState::Init()
 
         m_climber->SetControlConstants(0, m_controlDataUpDown);
         m_climber->SetSecondaryControlConstants(0, m_controlDataRotate);
-        m_climber->UpdateTargets(m_upDownMax, m_rotateMax);
+        //m_climber->UpdateTargets(m_upDownMin, m_rotateMin);
+        m_climber->UpdateTargets(m_upDownMin, 0.0);
     }
 }
 
@@ -103,6 +104,7 @@ void ClimberManualState::Run()
         }
 
 
+        /**
         auto armRotatePercent = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_ROTATE);
         auto currentRotate = m_rotate.get()->GetRotations();
 
@@ -117,11 +119,13 @@ void ClimberManualState::Run()
             auto rangeLeft = currentRotate - m_rotateMin;
             rotateTarget = currentRotate + armRotatePercent * rangeLeft;
         }
+        **/
         /**
         auto upDownTarget = upDownPercent * m_upDownMax;
         auto rotateTarget = armRotatePercent * m_rotateMax; 
         m_climber->UpdateTargets(upDowntarget, rotateTarget);
         **/
+       auto rotateTarget = 0.0;
 
         m_climber->UpdateTargets(upDownTarget, rotateTarget);
         m_climber->Update();
