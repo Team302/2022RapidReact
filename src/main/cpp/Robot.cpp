@@ -118,7 +118,6 @@ void Robot::TeleopInit()
     if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
     {
         m_ballTransferStateMgr->RunCurrentState();
-//        m_ballTransferStateMgr->SetCurrentState(BallTransferStateMgr::BALL_TRANSFER_STATE::LOAD, true);
     }
 
 

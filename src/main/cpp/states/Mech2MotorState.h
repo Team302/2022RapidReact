@@ -45,6 +45,14 @@ class Mech2MotorState : public IState
         double GetSecondaryRPS() const {return m_mechanism->GetSecondarySpeed();}
 
     private:
+        static bool IsPositionBased
+        (
+            ControlModes::CONTROL_TYPE  mode
+        );
+        static bool IsSpeedBased
+        (
+            ControlModes::CONTROL_TYPE  mode
+        );
 
         IMech2IndMotors*                m_mechanism;
         ControlData*                    m_control;

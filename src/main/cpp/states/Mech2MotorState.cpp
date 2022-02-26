@@ -68,66 +68,28 @@ Mech2MotorState::Mech2MotorState
     {
         auto mode = control->GetMode();
         auto mode2 = control2->GetMode();
-        if ( mode == mode2)
-        {
-            switch (mode)
-            {
-                case ControlModes::CONTROL_TYPE::PERCENT_OUTPUT:
-                    m_positionBased = false;
-                    m_speedBased = false;
-                    break;
-
-                case ControlModes::CONTROL_TYPE::VOLTAGE:
-                    m_positionBased = false;
-                    m_speedBased = false;
-                    break;
-
-                case ControlModes::CONTROL_TYPE::POSITION_DEGREES:
-                case ControlModes::CONTROL_TYPE::POSITION_INCH:
-                    m_positionBased = true;
-                    m_speedBased = false;
-                    break;
-                
-                case ControlModes::CONTROL_TYPE::VELOCITY_DEGREES:
-                case ControlModes::CONTROL_TYPE::VELOCITY_INCH:
-                case ControlModes::CONTROL_TYPE::VELOCITY_RPS:
-                    m_positionBased = false;
-                    m_speedBased = true;
-                    break;
-
-                case ControlModes::CONTROL_TYPE::CURRENT:
-                    m_positionBased = false;
-                    m_speedBased = false;
-                    break;
-
-                case ControlModes::CONTROL_TYPE::MOTION_PROFILE:
-                    m_positionBased = false;
-                    m_speedBased = false;
-                    break;
-
-                case ControlModes::CONTROL_TYPE::MOTION_PROFILE_ARC:
-                    m_positionBased = false;
-                    m_speedBased = false;
-                    break;
-
-                case ControlModes::CONTROL_TYPE::TRAPEZOID:
-                    m_positionBased = false;
-                    m_speedBased = false;
-                    break;
-
-                default:
-                    m_positionBased = false;
-                    m_speedBased = false;
-                    break;
-            }
-        }
-        else
-        {
-            Logger::GetLogger()->LogError( string("Mech2MotorState::Mech2MotorState"), string("inconsistent control modes"));
-        }
-        
+        m_positionBased = IsPositionBased(mode) || IsPositionBased(mode2);
+        m_speedBased = IsSpeedBased(mode) || IsSpeedBased(mode2);        
     }
-    
+}
+
+bool Mech2MotorState::IsPositionBased
+(
+    ControlModes::CONTROL_TYPE  mode
+) 
+{
+    return mode == ControlModes::CONTROL_TYPE::POSITION_DEGREES ||
+           mode == ControlModes::CONTROL_TYPE::POSITION_INCH;
+}
+
+bool Mech2MotorState::IsSpeedBased
+(
+    ControlModes::CONTROL_TYPE  mode
+) 
+{
+    return mode == ControlModes::CONTROL_TYPE::VELOCITY_DEGREES ||
+           mode == ControlModes::CONTROL_TYPE::VELOCITY_INCH ||
+           mode == ControlModes::CONTROL_TYPE::VELOCITY_RPS;
 }
 
 void Mech2MotorState::Init()
