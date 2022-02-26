@@ -3,6 +3,9 @@
 <auton>
     <primitive id="RESET_POSITION"
 			   pathname="5Ball1.wpilib.json"/>
+    <primitive id="DO_NOTHING"
+                headingOption="SPECIFIED_ANGLE"
+                heading="70"/> <!--Have to check angle-->
     <primitive id="DRIVE_PATH"
                 pathname="5Ball1.wpilib.json"/> <!--Backup and intake ball #1-->
     <primitive id="DRIVE_PATH"
