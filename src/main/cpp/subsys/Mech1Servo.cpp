@@ -90,6 +90,7 @@ void Mech1Servo::SetAngle
 {
     if ( m_servo != nullptr )
     {
+        Logger::GetLogger()->ToNtTable(string("Sierra"), string("m_servo angle"), angle);
         m_servo->SetAngle( angle );
     }
 }

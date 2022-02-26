@@ -79,9 +79,10 @@ void CameraServoStateMgr::CheckForStateTransition()
     {
         // process teleop/manual interrupts
         auto currentState = static_cast<CAMERA_SERVO_STATE>(GetCurrentState());
+        auto targetState = currentState;
          Logger::GetLogger()->ToNtTable(string("Sierra"), string("Current"), currentState);
         //auto targetState
-    
+        
         auto controller = TeleopControl::GetInstance();
         if ( controller != nullptr )
         {
@@ -93,43 +94,65 @@ void CameraServoStateMgr::CheckForStateTransition()
             
             if (rightPressed  &&  currentState != CAMERA_SERVO_STATE::LOOK_RIGHT )
             {
-                Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::LOOK_RIGHT);
-                SetCurrentState( CAMERA_SERVO_STATE::LOOK_RIGHT, true );
+                targetState = CAMERA_SERVO_STATE::LOOK_RIGHT;
+                //Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::LOOK_RIGHT);
+                //SetCurrentState( CAMERA_SERVO_STATE::LOOK_RIGHT, true );
             }
             else if (leftPressed && currentState != CAMERA_SERVO_STATE::LOOK_LEFT )
             {
-                 Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::LOOK_LEFT);
-                SetCurrentState( CAMERA_SERVO_STATE::LOOK_LEFT, true );
+                targetState = CAMERA_SERVO_STATE::LOOK_LEFT;
+                 //Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::LOOK_LEFT);
+                //SetCurrentState( CAMERA_SERVO_STATE::LOOK_LEFT, true );
             }
             else if (scanPressed && currentState != CAMERA_SERVO_STATE::SCAN)
             {
-                 Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::SCAN);
-                if(!HasBall())
+                targetState = CAMERA_SERVO_STATE::SCAN;
+                //Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::SCAN);
+
+                // while(HasBall() == true)
+                // {
+                //     if (m_camera != nullptr)
+                //     {
+                //         auto currentAngle = m_camera->GetAngle();
+                //         currentAngle += m_increment;
+                        
+                //         if (currentAngle > 180 || currentAngle < 0)
+                //         {
+                //             m_increment *= -1;
+                //             currentAngle += m_increment;
+                //         }
+                //         m_camera->SetAngle(currentAngle);
+                //     } 
+                                         
+                // }
+
+            }
+        }
+        if (targetState != currentState && targetState != CAMERA_SERVO_STATE::SCAN)
+        {
+            SetCurrentState( targetState, true );
+        }
+        if (targetState == CAMERA_SERVO_STATE::SCAN)
+        {
+            //while(!HasBall())
+            if (!HasBall())
+            {
+                if (m_camera != nullptr)
                 {
-                    Logger::GetLogger()->ToNtTable(std::string("Sierra"), std::string("has ball"), std::string("false"));
-                    if (m_camera != nullptr)
+                    auto currentAngle = m_camera->GetAngle();
+                    currentAngle += m_increment;
+                    
+                    if (currentAngle > 180 || currentAngle < 0)
                     {
-                        Logger::GetLogger()->ToNtTable(std::string("Sierra"), std::string("camera servo nullptr?"), std::string("false"));
-                        auto currentAngle = m_camera->GetAngle();
+                        m_increment *= -1;
                         currentAngle += m_increment;
-                        
-                        if(currentAngle > 180 || currentAngle < 0)
-                        {
-                            m_increment *= -1;
-                            currentAngle += m_increment;
-                        }
-                        m_camera->SetAngle(currentAngle);
                     }
-                        
-                }
-                else 
-                {
-                    Logger::GetLogger()->ToNtTable(std::string("Sierra"), std::string("has ball"), std::string("true"));
-                }
+                    m_camera->SetAngle(currentAngle);
+                } 
+                                        
             }
         }
     }
-
 }
 
 
