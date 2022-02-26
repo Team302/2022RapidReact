@@ -99,13 +99,33 @@ void BallTransferStateMgr::CheckForStateTransition()
         auto currentState = static_cast<BALL_TRANSFER_STATE>(GetCurrentState());
         Logger::GetLogger()->ToNtTable(m_nt, string("Current BallTransfer State"), currentState);
         auto controller = TeleopControl::GetInstance();
-        auto isManualShoot   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT) : false;
-        isManualShoot = !isManualShoot ? ShooterStateMgr::GetInstance()->GetCurrentState() == ShooterStateMgr::SHOOT_MANUAL: isManualShoot;
+        auto isManualShoot  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT) : false;
+        isManualShoot = !isManualShoot ? m_shooterStateMgr->GetCurrentState() == ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL : isManualShoot;
+        //auto isManualShoot = false;
+        //if (controller != nullptr)
+        //{
+        //    isManualShoot = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT);
+        //    if (!isManualShoot)
+        //    {
+        //        isManualShoot = (m_shooterStateMgr->GetCurrentState() == ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL);
+        //    }
+        //}
+        //else
+        //{
+        //    isManualShoot = (m_shooterStateMgr->GetCurrentState() == ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL);
+        //}
+
+        //std::cout << "IsManualShoot: " << to_string(isManualShoot) << std::endl;
+        //std::cout << "Shooter state true: " << to_string(m_shooterStateMgr->GetCurrentState() == ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL) << std::endl;
+        //std::cout << "Actual shooter state: " << to_string(m_shooterStateMgr->GetCurrentState());
+
         auto isManualKicker  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MAN_KICKER) : false;
         auto isAutoShootHigh = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH) : false;
         auto isAutoShootLow  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW) : false;
 
-        cout << "Manual shoot state: " << to_string(isManualShoot) << endl;
+        //cout << "Manual shoot state: " << to_string(isManualShoot) << endl;
+        //cout << "Shooter current state: " << to_string(m_shooterStateMgr->GetCurrentState());
+        //cout << "Is shooter state shoot manual? " << to_string(m_shooterStateMgr->GetCurrentState() == ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL); 
 
         auto targetState = currentState;
     //    if ((m_lastAutoState == BALL_TRANSFER_STATE::FEED  || 

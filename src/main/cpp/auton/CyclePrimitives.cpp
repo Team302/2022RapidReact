@@ -100,7 +100,7 @@ void CyclePrimitives::Run()
 				m_shooter->RunCurrentState();
 			}
 
-			if(m_ballTransfer != nullptr)
+			if (m_ballTransfer != nullptr)
 			{
 				m_ballTransfer->RunCurrentState();
 			}

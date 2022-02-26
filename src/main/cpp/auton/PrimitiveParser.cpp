@@ -14,6 +14,7 @@
 //====================================================================================================================================================
 
 #include <map>
+#include <iostream>
 
 #include <frc/Filesystem.h>
 
@@ -106,6 +107,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
 
                     for (xml_attribute attr = primitiveNode.first_attribute(); attr; attr = attr.next_attribute())
                     {
+                        std::cout << "PrimParser atribute name: " << attr.name() << std::endl;
                         if ( strcmp( attr.name(), "id" ) == 0 )
                         {
                             auto paramStringToEnumItr = primStringToEnumMap.find( attr.value() );
@@ -193,9 +195,12 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                         else if ( strcmp( attr.name(), "shooter" ) == 0 )
                         {
                             auto shootItr = shooterStateMap.find( attr.value() );
+                            std::cout << "ShootItr second: " << to_string(shootItr->second) << endl;
+                            std::cout << "ShootItr first: " << shootItr->first << endl;
                             if ( shootItr != shooterStateMap.end() )
                             {
                                 shooterState = shootItr->second;
+                                std::cout << "PrimParser State: " << to_string(shooterState) << std::endl;
                             }
                             else
                             {
