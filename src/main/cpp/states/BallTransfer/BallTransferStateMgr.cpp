@@ -117,6 +117,7 @@ void BallTransferStateMgr::CheckForStateTransition()
         if (m_shooterStateMgr != nullptr)
         {
             auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
+            //std::cout << "Shooter State" << to_string(shooterState) << std::endl;
             if (!isManualShoot)
             {
                 isManualShoot = shooterState == ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL;
