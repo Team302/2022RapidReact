@@ -406,6 +406,12 @@ void SwerveChassis::Drive
         speeds.vx = drive*maxSpeed;
         speeds.vy = steer*maxSpeed;
         speeds.omega = rotate*maxRotation;
+
+        //Just in case we get messed up speeds
+        speeds.vx = speeds.vx > maxSpeed ? maxSpeed : speeds.vx;
+        speeds.vy = speeds.vy > maxSpeed ? maxSpeed : speeds.vy;
+        speeds.omega = speeds.omega > maxRotation ? maxRotation : speeds.omega;
+
         Drive(speeds, mode, headingOption);
     }
 }
@@ -509,7 +515,6 @@ void SwerveChassis::UpdateOdometry()
 {
     units::degree_t yaw{m_pigeon->GetYaw()};
     Rotation2d rot2d {yaw}; //used to add m_offsetAngle but now we update pigeon yaw in ResetPosition.cpp
-    Rotation2d realAngle {yaw};
 
     if (m_poseOpt == PoseEstimatorEnum::WPI)
     {

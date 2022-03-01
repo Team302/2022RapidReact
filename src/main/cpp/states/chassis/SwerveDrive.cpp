@@ -72,10 +72,8 @@ void SwerveDrive::Init()
 
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, profile);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
-        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 0.25);
+        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, -0.6);
 //        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 0.2125);
-
-        m_chassis.get()->RunWPIAlgorithm(false);
     }
 }
 
@@ -104,12 +102,6 @@ void SwerveDrive::Run()
         auto drive = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE);
         auto steer = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER);
         auto rotate = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE);
-        rotate = abs(rotate) < 0.1 ? 0.0 : rotate;
-
-        //Bandaid fix for time being
-        drive *= 0.8;
-        steer *= 0.8;
-        rotate *= 0.50;
 
         m_chassis->Drive(drive, steer, rotate, mode, headingOpt);
     }
