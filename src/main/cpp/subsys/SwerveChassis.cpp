@@ -86,16 +86,16 @@ SwerveChassis::SwerveChassis
     m_track(track),
     m_odometryComplianceCoefficient(odometryComplianceCoefficient),
     m_maxSpeed(maxSpeed),
-    m_maxAngularSpeed(maxAngularSpeed),
-    m_maxAcceleration(maxAcceleration),
-    m_maxAngularAcceleration(maxAngularAcceleration),
+    m_maxAngularSpeed(maxAngularSpeed), //Not used at the moment
+    m_maxAcceleration(maxAcceleration), //Not used at the moment
+    m_maxAngularAcceleration(maxAngularAcceleration), //Not used at the moment
     m_pigeon(PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)),
     m_accel(BuiltInAccelerometer()),
     m_isMoving(false),
     m_runWPI(true),
     m_poseOpt(PoseEstimatorEnum::WPI),
     m_pose(),
-    m_offsetPoseAngle(0_deg),
+    m_offsetPoseAngle(0_deg),  //not used at the moment
     m_timer(),
     m_drive(units::velocity::meters_per_second_t(0.0)),
     m_steer(units::velocity::meters_per_second_t(0.0)),
@@ -137,7 +137,13 @@ void SwerveChassis::CalcHeadingCorrection
     auto currentAngle = GetPose().Rotation().Degrees();
     //auto errorAngle = remainder((targetAngle.to<double>() - currentAngle.to<double>()), 360.0);
     auto errorAngle = remainder((currentAngle.to<double>() - targetAngle.to<double>()), 360.0);
+    
     m_yawCorrection = units::angular_velocity::degrees_per_second_t(errorAngle*kP);
+
+    //Debugging
+    Logger::GetLogger()->ToNtTable("Yaw Correction", "Current Angle (Degrees): ", currentAngle.to<double>());
+    Logger::GetLogger()->ToNtTable("Yaw Correction", "Error Angle (Degrees???): ", errorAngle);
+    Logger::GetLogger()->ToNtTable("Yaw Correction", "Yaw Correction (Degrees Per Second): ", m_yawCorrection.to<double>());
 }
 
 /// @brief Drive the chassis
@@ -169,7 +175,6 @@ void SwerveChassis::Drive
         case HEADING_OPTION::SPECIFIED_ANGLE:
             CalcHeadingCorrection(m_targetHeading, kPAutonSpecifiedHeading);
             Logger::GetLogger()->LogError("Specified Angle (Degrees): ", to_string(m_targetHeading.to<double>()));
-            Logger::GetLogger()->LogError("Yaw correction (DPS): ", to_string(m_yawCorrection.to<double>()));
             rot -= m_yawCorrection;
             break;
 
@@ -197,7 +202,7 @@ void SwerveChassis::Drive
     
     if ( (abs(xSpeed.to<double>()) < m_deadband) && 
          (abs(ySpeed.to<double>()) < m_deadband) && 
-         (abs(rot.to<double>())    < m_angularDeadband.to<double>()) )
+         (abs(rot.to<double>())    < m_angularDeadband.to<double>()))  //our angular deadband, only used once, equates to 10 degrees per second
     {
         m_frontLeft.get()->StopMotors();
         m_frontRight.get()->StopMotors();
@@ -206,9 +211,6 @@ void SwerveChassis::Drive
         m_drive = units::velocity::meters_per_second_t(0.0);
         m_steer = units::velocity::meters_per_second_t(0.0);
         m_rotate = units::angular_velocity::radians_per_second_t(0.0);
-        
-        //Debugging
-        Logger::GetLogger()->LogError(string("SwerveChassisDriveDeadband"), string("Rotate is set to 0"));
 
         m_isMoving = false;
     }
@@ -312,13 +314,6 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
     ChassisSpeeds       speeds
 )
 {
-    //Change angle to change direction of wheel
-    if (m_targetFinder.GetFieldQuadrant(robotPose) == 1)
-    {
-        
-    }
-
-    Rotation2d ninety {units::angle::degree_t(90.0)};
     Transform2d relativeWheelPosition = wheelLoc;
     //This wheel pose may not be accurate, may need to do manually using trig functions
     auto WheelPose = robotPose + relativeWheelPosition;
@@ -326,6 +321,18 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
 
     auto wheelDeltaX = WheelPose.X() - goalPose.X();
     auto wheelDeltaY = WheelPose.Y() - goalPose.Y();
+
+    Rotation2d ninety {units::angle::degree_t(0.0)};
+
+    //Change angle to change direction of wheel
+    if (m_targetFinder.GetFieldQuadrant(WheelPose) == 1 || m_targetFinder.GetFieldQuadrant(WheelPose) == 3)
+    {
+        ninety = units::angle::degree_t(90.0);
+    }
+    else if (m_targetFinder.GetFieldQuadrant(WheelPose) == 2 || m_targetFinder.GetFieldQuadrant(WheelPose) == 4)
+    {
+        ninety = units::angle::degree_t(-90.0);
+    }
 
     units::angle::radian_t triangleThetaRads = units::angle::radian_t(atan(wheelDeltaY.to<double>() / wheelDeltaX.to<double>()));
     units::angle::degree_t thetaDeg = triangleThetaRads;
@@ -385,7 +392,7 @@ void SwerveChassis::Drive
 {
     if ( abs(drive)  < m_deadband && 
          abs(steer)  < m_deadband && 
-         abs(rotate) < m_angularDeadband.to<double>() )
+         abs(rotate) < m_deadband)
     {
         // feed the motors
         m_frontLeft.get()->StopMotors();
@@ -398,9 +405,6 @@ void SwerveChassis::Drive
         // scale joystick values to velocities using max chassis values
         auto maxSpeed = GetMaxSpeed();
         auto maxRotation = GetMaxAngularSpeed();
-
-        Logger::GetLogger()->ToNtTable("Swerve Chassis", "MaxSpeed", maxSpeed.to<double>() );
-        Logger::GetLogger()->ToNtTable("Swerve Chassis", "maxRotation", maxRotation.to<double>() );
 
         ChassisSpeeds speeds;
         speeds.vx = drive*maxSpeed;
@@ -443,7 +447,7 @@ void SwerveChassis::AdjustRotToMaintainHeading
     }
     else
     {
-        rot += m_yawCorrection;
+        rot -= m_yawCorrection; //was negative
     }
 }
 
@@ -489,7 +493,7 @@ void SwerveChassis::AdjustRotToPointTowardGoal
 
         CalcHeadingCorrection(dTargetAngle, kPGoalHeadingControl);
 
-        rot += m_yawCorrection;
+        rot -= m_yawCorrection; //was positive
     }
 }
 
@@ -780,3 +784,7 @@ void SwerveChassis::SetTargetHeading(units::angle::degree_t targetYaw)
     m_targetHeading = targetYaw;
 }
 
+void SwerveChassis::ReZero()
+{
+    m_storedYaw = units::angle::degree_t(0.0);
+}

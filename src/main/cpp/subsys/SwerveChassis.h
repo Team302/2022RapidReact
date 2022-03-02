@@ -163,6 +163,8 @@ class SwerveChassis : public IChassis
         double GetodometryComplianceCoefficient() const { return m_odometryComplianceCoefficient; }
         void SetTargetHeading(units::angle::degree_t targetYaw) override;
 
+        void ReZero();
+
     private:
         frc::ChassisSpeeds GetFieldRelativeSpeeds
         (
@@ -233,7 +235,7 @@ class SwerveChassis : public IChassis
         units::angular_velocity::radians_per_second_t               m_rotate;
 
         const double                                                m_deadband = 0.1;
-        const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.008);
+        const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.175);
         
         frc::Translation2d m_frontLeftLocation;
         frc::Translation2d m_frontRightLocation;
@@ -253,10 +255,10 @@ class SwerveChassis : public IChassis
                                                            {0.1, 0.1, 0.1},   // state standard deviations
                                                            {0.05},            // local measurement standard deviations
                                                            {0.1, 0.1, 0.1} }; // vision measurement standard deviations
-        const double kPMaintainHeadingControl = 0.0; //4.0
+        const double kPMaintainHeadingControl = 3.0; //4.0
         const double kPAutonSpecifiedHeading = 4.0;
         const double kPAutonGoalHeadingControl = 4.0;
-        const double kPGoalHeadingControl = 0.0; //10.0
+        const double kPGoalHeadingControl = 7.0; //10.0
         const double kIHeadingControl = 0.0; //not being used
         const double kDHeadingControl = 0.0; //not being used
         const double kFHeadingControl = 0.0; //not being used
