@@ -58,14 +58,14 @@ class IDragonMotorController
             PRO775,
             ANDYMARK9015,
             ANDYMARKNEVEREST,
-            ANDYMARKRS775125, 
-            TETRIXMAXTORQUENADOMOTOR,
-            ANDYMARKREDLINEA,
+            ANDYMARKRS775125,
+            ANDYMARKREDLINEA, 
             REVROBOTICSHDHEXMOTOR,
             BANEBOTSRS77518V,
             BANEBOTSRS550,
             MODERNROBOTICS12VDCMOTOR,
             JOHNSONELECTRICALGEARMOTOR,
+            TETRIXMAXTORQUENADOMOTOR,
             NONE
         };
 
