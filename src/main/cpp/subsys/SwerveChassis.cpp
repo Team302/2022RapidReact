@@ -230,7 +230,7 @@ void SwerveChassis::Drive
                                             ChassisSpeeds{xSpeed, ySpeed, rot};
 
             auto goalPose = m_targetFinder.GetPosCenterTarget();
-            Translation2d* goalTranslation = new Translation2d(goalPose.X(), goalPose.Y());
+            Translation2d goalTranslation = {goalPose.X(), goalPose.Y()};
 
             auto states = mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE ? m_kinematics.ToSwerveModuleStates(chassisSpeeds, goalTranslation) : m_kinematics.ToSwerveModuleStates(chassisSpeeds);
             //auto states = m_kinematics.ToSwerveModuleStates(chassisSpeeds);
