@@ -40,6 +40,7 @@
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/SwerveChassis.h>
 #include <utils/Logger.h>
+#include <gamepad/TeleopControl.h>
 
 // Third Party Includes
 #include <ctre/phoenix/sensors/CANCoder.h>
@@ -227,32 +228,35 @@ void SwerveChassis::Drive
             ChassisSpeeds chassisSpeeds = mode==IChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED ? 
                                             ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rot, currentOrientation) : 
                                             ChassisSpeeds{xSpeed, ySpeed, rot};
-            auto states = m_kinematics.ToSwerveModuleStates(chassisSpeeds);
+
+            auto goalPose = m_targetFinder.GetPosCenterTarget();
+            Translation2d* goalTranslation = new Translation2d(goalPose.X(), goalPose.Y());
+
+            auto states = mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE ? m_kinematics.ToSwerveModuleStates(chassisSpeeds, goalTranslation) : m_kinematics.ToSwerveModuleStates(chassisSpeeds);
+            //auto states = m_kinematics.ToSwerveModuleStates(chassisSpeeds);
 
             m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
 
             auto [fl, fr, bl, br] = states;
 
-
+            /*
             // adjust wheel angles
             if (mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE)
             {
                 auto currentPose = GetPose();
                 auto goalPose = m_targetFinder.GetPosCenterTarget();
 
-                Rotation2d yaw = units::degree_t(m_pigeon->GetYaw());
-                Rotation2d testingZero = units::degree_t(0.0);
+                fr.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontRightLocation, fr.angle), chassisSpeeds);
+                bl.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backLeftLocation, bl.angle), chassisSpeeds);
+                br.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, br.angle), chassisSpeeds);
+                fl.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, fl.angle), chassisSpeeds);
 
-                fl.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, testingZero), chassisSpeeds);
-                fr.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontRightLocation, testingZero), chassisSpeeds);
-                bl.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backLeftLocation, testingZero), chassisSpeeds);
-                br.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, testingZero), chassisSpeeds);
-
-                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Front Left Angle", fl.angle.Degrees().to<double>());
-                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Front Right Angle", fr.angle.Degrees().to<double>());
-                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Back Left Angle", bl.angle.Degrees().to<double>());
-                Logger::GetLogger()->ToNtTable("Swerve Chassis", "Back Right Angle", br.angle.Degrees().to<double>());
+                Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Front Left Angle", fl.angle.Degrees().to<double>());
+                Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Front Right Angle", fr.angle.Degrees().to<double>());
+                Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Back Left Angle", bl.angle.Degrees().to<double>());
+                Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Back Right Angle", br.angle.Degrees().to<double>());
            }
+           */
         
             m_frontLeft.get()->SetDesiredState(fl);
             m_frontRight.get()->SetDesiredState(fr);
@@ -282,13 +286,10 @@ void SwerveChassis::Drive
                 auto currentPose = GetPose();
                 auto goalPose = m_targetFinder.GetPosCenterTarget();
 
-                Rotation2d yaw = units::degree_t(m_pigeon->GetYaw());
-                Rotation2d testingZero = units::degree_t(0.0);
-
-                m_flState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, testingZero), chassisSpeeds);
-                m_frState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontRightLocation, testingZero), chassisSpeeds);
-                m_blState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backLeftLocation, testingZero), chassisSpeeds);
-                m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, testingZero), chassisSpeeds);
+                m_flState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, m_flState.angle), chassisSpeeds);
+                m_frState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontRightLocation, m_frState.angle), chassisSpeeds);
+                m_blState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backLeftLocation, m_blState.angle), chassisSpeeds);
+                m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, m_brState.angle), chassisSpeeds);
            }
 
             m_frontLeft.get()->SetDesiredState(m_flState);
@@ -322,17 +323,30 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
     auto wheelDeltaX = WheelPose.X() - goalPose.X();
     auto wheelDeltaY = WheelPose.Y() - goalPose.Y();
 
-    Rotation2d ninety {units::angle::degree_t(0.0)};
+    Rotation2d ninety {units::angle::degree_t(-90.0)};
 
-    //Change angle to change direction of wheel
-    if (m_targetFinder.GetFieldQuadrant(WheelPose) == 1 || m_targetFinder.GetFieldQuadrant(WheelPose) == 3)
+    TeleopControl* controller = TeleopControl::GetInstance();
+
+    if (controller->GetAxisValue(TeleopControl::SWERVE_DRIVE_STEER) > 0)
     {
-        ninety = units::angle::degree_t(90.0);
+        ninety.Degrees() = units::angle::degree_t(ninety.Degrees().to<double>() * -1.0);
     }
-    else if (m_targetFinder.GetFieldQuadrant(WheelPose) == 2 || m_targetFinder.GetFieldQuadrant(WheelPose) == 4)
-    {
-        ninety = units::angle::degree_t(-90.0);
-    }
+
+    //Change angle to change direction of wheel based on quadrant
+    //if (m_targetFinder.GetFieldQuadrant(WheelPose) == 1 || m_targetFinder.GetFieldQuadrant(WheelPose) == 3)
+    //{
+    //    ninety.Degrees() = units::angle::degree_t(90.0); //Might have to switch signs
+    //}
+    //else if (m_targetFinder.GetFieldQuadrant(WheelPose) == 2 || m_targetFinder.GetFieldQuadrant(WheelPose) == 4)
+    //{
+    //    ninety.Degrees() = units::angle::degree_t(-90.0);
+    //}
+
+    //Change angle to change direction of wheel based  on direction
+    //if (controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER) < 0.0)
+    //{
+    //    ninety.Degrees() = units::angle::degree_t(ninety.Degrees().to<double>() * -1.0);
+    //}
 
     units::angle::radian_t triangleThetaRads = units::angle::radian_t(atan(wheelDeltaY.to<double>() / wheelDeltaX.to<double>()));
     units::angle::degree_t thetaDeg = triangleThetaRads;
@@ -343,6 +357,8 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
     Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "WheelDeltaX (Meters)", wheelDeltaX.to<double>());
     Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "WheelDeltaY (Meters)", wheelDeltaY.to<double>());
     Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Triangle Theta", thetaDeg.to<double>());
+    Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Ninety (Degrees)", ninety.Degrees().to<double>());
+    Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Field Quadrant", m_targetFinder.GetFieldQuadrant(WheelPose));
 
     auto radialAngle = thetaDeg;
     auto orbitAngle = thetaDeg + ninety.Degrees();
