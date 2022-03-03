@@ -33,6 +33,7 @@
 #include <xmlmechdata/StateDataDefn.h>
 #include <states/intake/IntakeState.h>
 #include <states/shooter/ShooterState.h>
+#include <states/shooter/ShooterStateAutoHigh.h>
 #include <states/shooter/ShooterStateManual.h>
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
@@ -121,6 +122,10 @@ void StateMgr::Init
 
                     	        case StateType::SHOOTER_MANUAL:
                        		    thisState = new ShooterStateManual();
+                       		    break;
+
+                    	        case StateType::SHOOTER_AUTO:
+                       		    thisState = new ShooterStateAutoHigh(controlData, controlData2, target, secondaryTarget);
                        		    break;
 
                                 case StateType::CLIMBER:

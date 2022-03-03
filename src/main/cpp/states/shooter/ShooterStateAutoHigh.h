@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 /// Copyright 2022 Lake Orion Robotics FIRST Team 302 
 ///
@@ -13,46 +12,28 @@
 /// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
-
 #pragma once
 
-#include <subsys/interfaces/IMech2IndMotors.h>
-#include <states/IState.h>
-#include <controllers/ControlData.h>
-#include <controllers/MechanismTargetData.h>
+#include <hw/DragonLimelight.h>
+#include <states/shooter/ShooterState.h>
+#include <subsys/Shooter.h>
 
-class Mech2MotorState : public IState
+class ShooterStateAutoHigh : public ShooterState
 {
     public:
 
-        Mech2MotorState
+        ShooterStateAutoHigh() = delete;
+        ShooterStateAutoHigh
         (
-            IMech2IndMotors*                mechanism,
-            ControlData*                    control,
+            ControlData*                    control, 
             ControlData*                    control2,
             double                          primaryTarget,
             double                          secondaryTarget
         );
-        Mech2MotorState() = delete;
-        ~Mech2MotorState() = default;
-
+        ~ShooterStateAutoHigh() = default;
         void Init() override;
-        void Run() override;
-        bool AtTarget() const override;
-        double GetPrimaryTarget() const {return m_primaryTarget;}
-        double GetSecondaryTarget() const {return m_secondaryTarget;}
-        double GetPrimaryRPS() const {return m_mechanism->GetPrimarySpeed();}
-        double GetSecondaryRPS() const {return m_mechanism->GetSecondarySpeed();}
-        ControlData* GetPrimaryControlData() const {return m_control;}
-        ControlData* GetSecondaryControlData() const {return m_control2;}
-
+    
     private:
-
-        IMech2IndMotors*                m_mechanism;
-        ControlData*                    m_control;
-        ControlData*                    m_control2;
-        double                          m_primaryTarget;
-        double                          m_secondaryTarget;
-        bool                            m_positionBased;
-        bool                            m_speedBased;
+        DragonLimelight*    m_dragonLimeLight;
+        double              m_shooterTarget;
 };

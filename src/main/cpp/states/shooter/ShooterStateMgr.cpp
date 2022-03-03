@@ -110,17 +110,17 @@ void ShooterStateMgr::CheckForStateTransition()
             if (isShootHighSelected && m_dragonLimeLight != nullptr)
             {
                 Logger::GetLogger()->ToNtTable(m_nt, string("horizontal angle "), m_dragonLimeLight->GetTargetHorizontalOffset().to<double>());
-                if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 10.0_deg)
+                if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 3.0_deg)
                 {
-                Logger::GetLogger()->ToNtTable(m_nt, string("distance "), m_dragonLimeLight->EstimateTargetDistance().to<double>());
-                if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET) && currentState != SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR)
-                    {
+                    Logger::GetLogger()->ToNtTable(m_nt, string("distance "), m_dragonLimeLight->EstimateTargetDistance().to<double>());
+                    //if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET) && currentState != SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR)
+                    //{
                         targetState = SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
-                    }
-                    else if (currentState != SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE)
-                    {
-                        targetState = SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE;
-                    }
+                    //}
+                    //else if (currentState != SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE)
+                    //{
+                    //    targetState = SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE;
+                    //}
                 }
             }
             else if (isShootLowSelected)

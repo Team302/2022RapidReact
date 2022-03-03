@@ -131,72 +131,70 @@ void BallTransferStateMgr::CheckForStateTransition()
             }
         }
 
-        if ((m_lastAutoState == BALL_TRANSFER_STATE::FEED  || 
-             m_lastAutoState == BALL_TRANSFER_STATE::SHOOT )  && 
-            (isAutoShootLow || isAutoShootHigh))
+        switch (currentState)
         {
-            targetState = isLiftForward ? BALL_TRANSFER_STATE::LOAD : BALL_TRANSFER_STATE::SHOOT;
-            m_lastAutoState = targetState;
-        }
-        else if (isBallPresent && (isAutoShootLow || isAutoShootHigh))
-        {
-            if (currentState == BALL_TRANSFER_STATE::HOLD || 
-                currentState == BALL_TRANSFER_STATE::OFF)
-            {
-                if (m_shooterStateMgr != nullptr && m_shooterStateMgr->AtTarget())
+            case BALL_TRANSFER_STATE::OFF:
+                m_shooterRPS = shooterRPS;
+                if (!isBallPresent)
+                {
+                    targetState = BALL_TRANSFER_STATE::LOAD;
+                }
+                else if (isManualShoot)
                 {
                     targetState = BALL_TRANSFER_STATE::FEED;
-                    m_shooterRPS = shooterRPS;
-                    m_lastAutoState = targetState;
                 }
-                else if (isLiftForward)
+                else if ((isAutoShootHigh || isAutoShootLow))
                 {
-                    targetState = BALL_TRANSFER_STATE::OFF;
-                    m_lastAutoState = targetState;
+                    if (m_shooterStateMgr != nullptr && m_shooterStateMgr->AtTarget())
+                    {
+                        targetState = BALL_TRANSFER_STATE::FEED;
+                    }
                 }
-            }
-            else if (!isLiftForward)
-            {
-                targetState = BALL_TRANSFER_STATE::HOLD;
-                m_lastAutoState = targetState;
-            }
-        }
-        else if (isManualShoot)
-        {
-            targetState = BALL_TRANSFER_STATE::FEED;
-            m_shooterRPS = shooterRPS;
-        }
-        else if (isManualKicker)
-        {
-            if (currentState == BALL_TRANSFER_STATE::LOAD)
-            {
-                targetState = BALL_TRANSFER_STATE::FEED;
+                else if (isBallPresent && !isLiftForward)
+                {
+                    targetState = BALL_TRANSFER_STATE::HOLD;
+                }
+                break;
+
+            case BALL_TRANSFER_STATE::LOAD:
                 m_shooterRPS = shooterRPS;
-            }
-            else if (currentState == BALL_TRANSFER_STATE::FEED)
-            {
-                targetState = BALL_TRANSFER_STATE::SHOOT;
-            }
-            else if (shooterRPS < m_shooterRPS)
-            {
-                targetState = BALL_TRANSFER_STATE::LOAD;
-            }
+                if (isBallPresent || isManualKicker)
+                {
+                    targetState = BALL_TRANSFER_STATE::HOLD;
+                }
+                break;
+
+            case BALL_TRANSFER_STATE::HOLD:
+                m_shooterRPS = shooterRPS;
+                if (isLiftForward)
+                {
+                    targetState = BALL_TRANSFER_STATE::OFF; // don't waste energy
+                }
+                else if (isManualShoot || isManualKicker)
+                {
+                    targetState = BALL_TRANSFER_STATE::FEED;
+                }
+                break;
+
+            case BALL_TRANSFER_STATE::FEED:
+                m_shooterRPS = shooterRPS;
+                if (isManualKicker || isManualShoot || !isBallPresent)
+                {
+                    targetState = BALL_TRANSFER_STATE::SHOOT;
+                }
+                break;
+
+            case BALL_TRANSFER_STATE::SHOOT:
+                if (shooterRPS < m_shooterRPS)
+                {
+                    targetState = BALL_TRANSFER_STATE::LOAD;
+                }
+                break;
+
+            default:
+                break;
         }
-        else if (isBallPresent)
-        {
-            if (isLiftForward)
-            {
-                targetState = BALL_TRANSFER_STATE::OFF;
-            }
-            else
-            {
-                targetState = BALL_TRANSFER_STATE::HOLD;
-            }
-        }
-        else 
-        {
-            targetState = BALL_TRANSFER_STATE::LOAD;
-        }
+
         if (targetState != currentState)
         {
             Logger::GetLogger()->ToNtTable(m_nt, string("Changing BallTransfer State"), targetState);
