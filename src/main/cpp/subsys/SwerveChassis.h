@@ -35,6 +35,7 @@
 #include <units/length.h>
 #include <units/velocity.h>
 
+#include <hw/DragonLimelight.h>
 #include <hw/factories/PigeonFactory.h>
 #include <hw/DragonPigeon.h>
 #include <subsys/SwerveModule.h>
@@ -265,6 +266,7 @@ class SwerveChassis : public IChassis
 
         DragonTargetFinder m_targetFinder;
         units::angle::degree_t m_targetHeading;
+        DragonLimelight*        m_limelight;
 
 
 };
