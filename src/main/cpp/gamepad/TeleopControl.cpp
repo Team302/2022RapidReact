@@ -130,7 +130,7 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		// used to enable climber and disable what right-stick Y might be mapped to.
 		// used with CLIMBER_MAN_UP and CLIMBER_MAN_DOWN
 		m_controllerIndex[SELECT_CLIMBER_ARM]			= ctrlNo;  
-		m_buttonIDs[SELECT_CLIMBER_ARM]	 				= IDragonGamePad::SELECT_BUTTON;
+		m_buttonIDs[SELECT_CLIMBER_ARM]	 				= IDragonGamePad::START_BUTTON;
 
 		m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
 		m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::A_BUTTON;
