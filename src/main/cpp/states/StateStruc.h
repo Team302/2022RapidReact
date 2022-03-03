@@ -23,6 +23,7 @@ enum StateType
     BALL_TRANSFER,
     SHOOTER,
     SHOOTER_MANUAL,
+    SHOOTER_AUTO,
     CLIMBER,
     MAX_STATE_TYPES
 };
