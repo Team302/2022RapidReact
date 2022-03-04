@@ -41,6 +41,7 @@
 #include <hw/factories/LimelightFactory.h>
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/SwerveChassis.h>
+#include <utils/AngleUtils.h>
 #include <utils/Logger.h>
 #include <gamepad/TeleopControl.h>
 
@@ -89,7 +90,7 @@ SwerveChassis::SwerveChassis
     m_track(track),
     m_odometryComplianceCoefficient(odometryComplianceCoefficient),
     m_maxSpeed(maxSpeed),
-    m_maxAngularSpeed(maxAngularSpeed), //Not used at the moment
+    m_maxAngularSpeed(maxAngularSpeed), 
     m_maxAcceleration(maxAcceleration), //Not used at the moment
     m_maxAngularAcceleration(maxAngularAcceleration), //Not used at the moment
     m_pigeon(PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)),
@@ -141,7 +142,7 @@ void SwerveChassis::CalcHeadingCorrection
     auto currentAngle = GetPose().Rotation().Degrees();
     //auto errorAngle = remainder((targetAngle.to<double>() - currentAngle.to<double>()), 360.0);
     auto errorAngle = remainder((currentAngle.to<double>() - targetAngle.to<double>()), 360.0);
-    
+    errorAngle = AngleUtils::GetEquivAngle(units::angle::degree_t(errorAngle)).to<double>();
     m_yawCorrection = units::angular_velocity::degrees_per_second_t(errorAngle*kP);
 
     //Debugging
@@ -491,21 +492,39 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     // double dDistY2Target = m_targetFinder.GetDistance2TargetXYR(myPose).Y().to<double>();
 
     auto targetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
+    //Debugging
+    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", targetAngle.to<double>());
 
+    /**
     if (m_limelight != nullptr)
     {
         if (m_limelight->HasTarget())
         {
             targetAngle = -1.0 * m_limelight->GetTargetHorizontalOffset();
+            //Debugging
+            Logger::GetLogger()->ToNtTable("Limelight Toward Goal", "TargetAngle(Degrees)", targetAngle.to<double>());
         }
     }
+    **/
+   
     //Debugging
-    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", targetAngle.to<double>());
     Logger::GetLogger()->LogError(string("TurnToGoal Angle: "), to_string(targetAngle.to<double>())); 
 
-    auto yawCorrection = (DriverStation::IsAutonomousEnabled()) ? -1.0 * kPAutonGoalHeadingControl : kPGoalHeadingControl;
-    CalcHeadingCorrection(targetAngle, yawCorrection);
-    rot += m_yawCorrection;
+    double correctionFactor = kPGoalHeadingControl;
+    if (DriverStation::IsAutonomousEnabled())
+    {
+        CalcHeadingCorrection(targetAngle, kPAutonGoalHeadingControl);
+        rot -= m_yawCorrection;
+    }
+    else
+    {
+        CalcHeadingCorrection(targetAngle, kPGoalHeadingControl);
+        rot += m_yawCorrection;
+    }
+
+    //auto yawCorrection = (DriverStation::IsAutonomousEnabled()) ? -1.0 * kPAutonGoalHeadingControl : kPGoalHeadingControl;
+    //CalcHeadingCorrection(targetAngle, yawCorrection);
+    //rot += m_yawCorrection;
     Logger::GetLogger()->LogError(string("TurnToGoal New ZSpeed: "), to_string(rot.to<double>()));
 }
 
