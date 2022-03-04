@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE statedata SYSTEM "stateData.dtd">
+<statedata>
+	<controlData identifier="openloop" 
+	             mode="PERCENT_OUTPUT"/>
+	<mechanismTarget stateIdentifier="INDEXER_INDEX"
+	                 controlDataIdentifier="openloop"
+					 value="1.0"/>
+    <mechanismTarget stateIdentifier="INDEXER_EXPEL"
+                     controlDataIdentifier="openloop"
+                     value="-1.0"/>
+    <mechanismTarget stateIdentifier="INDEXER_OFF"
+                     controlDataIdentifier="openloop"
+                     value="0.0"/>
+</statedata>
