@@ -3,15 +3,13 @@
 <auton>
     <primitive id="RESET_POSITION"
 			   pathname="5Ball1.wpilib.json"/>
+    <primitive id="DO_NOTHING"
+                headingOption="SPECIFIED_ANGLE"
+                heading="70"/> <!--Have to check angle-->
     <primitive id="DRIVE_PATH"
-                pathname="5Ball1.wpilib.json"/>
+                pathname="5Ball1.wpilib.json"/> <!--Backup and intake ball #1-->
     <primitive id="DRIVE_PATH"
-                pathname="5Ball2.wpilib.json"/>
-    <primitive id="DRIVE_PATH"
-                pathname="5Ball3.wpilib.json"/>
-                <!--
-                shooter="PREPARE_TO_SHOOT"
-                -->
+                pathname="5Ball2.wpilib.json"/> <!--Curve around pillar to ball #2-->
     <primitive id="DO_NOTHING"
                 time="2.0"
                 headingOption="TOWARD_GOAL"/>
@@ -21,7 +19,7 @@
                 shooter="AUTO_SHOOT_HIGH_GOAL_CLOSE"
                 -->
     <primitive id="DRIVE_PATH"
-                pathname="5Ball4.wpilib.json"
+                pathname="5Ball3.wpilib.json"
                 headingOption="SPECIFIED_HEADING"
-                heading="45"/>
+                heading="45"/> <!--Drive to terminal for ball #3 and #4-->  
 </auton>

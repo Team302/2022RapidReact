@@ -27,6 +27,7 @@
 #include <states/intake/LeftIntakeStateMgr.h>
 #include <states/intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
 
 // Third Party Includes
 
