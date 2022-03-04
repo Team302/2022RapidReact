@@ -26,7 +26,6 @@
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
 
-#include <utils/Logger.h>
 
 // Third Party Includes
 
@@ -45,10 +44,7 @@ RightIndexerStateMgr* RightIndexerStateMgr::GetInstance()
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-RightIndexerStateMgr::RightIndexerStateMgr() : IndexerStates(),
-                                                m_indexer(MechanismFactory::GetMechanismFactory()->GetRightIndexer()),
-                                                m_shooterStateMgr(ShooterStateMgr::GetInstance()),
-                                                m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter())
+RightIndexerStateMgr::RightIndexerStateMgr() : IndexerStates()
 {
     map<string, StateStruc> stateMap;
     stateMap["INDEXER_OFF"] = m_offState;
@@ -63,55 +59,8 @@ RightIndexerStateMgr::RightIndexerStateMgr() : IndexerStates(),
 /// @return void
 void RightIndexerStateMgr::CheckForStateTransition()
 {
-    if ( m_indexer != nullptr )
+    if ( MechanismFactory::GetMechanismFactory()->GetRightIndexer() != nullptr )
     {
-        auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
-        auto targetState = currentState;
-
-        Logger::GetLogger()->LogError(string("LiftStateMgr"), string("Current state is: ") + to_string(currentState));
-
-        if (m_shooterStateMgr != nullptr)
-        {
-            auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
-            if (m_shooter != nullptr)
-            {
-                //auto isAtSpeed = m_shooterStateMgr->AtTarget();
-                //if (isAtSpeed)
-                //{
-                    switch (shooterState)
-                    {
-                        case ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL:
-                            [[fallthrough]]; //intentional fallthrough
-
-                        case ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE:
-                            [[fallthrough]]; //intentional fallthrough
-
-                        case ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR:
-                            [[fallthrough]]; //intentional fallthrough
-
-                        case ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL:
-                            targetState = INDEXER_STATE::INDEX;
-                            break;
-
-                        case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
-                            targetState = INDEXER_STATE::OFF;
-                            break;
-
-                        default:
-                            targetState = INDEXER_STATE::OFF;
-                            break;
-                    }
-                //}
-            }
-            else
-            {
-                targetState = INDEXER_STATE::OFF;
-            }
-
-            if (targetState != currentState)
-            {
-                SetCurrentState(targetState, true);
-            }
-        }
+        
     }    
 }
