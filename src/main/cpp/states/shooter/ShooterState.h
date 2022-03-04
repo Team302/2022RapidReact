@@ -15,6 +15,7 @@
 #pragma once
 
 #include <states/Mech2MotorState.h>
+#include <subsys/Shooter.h>
 
 class ControlData;
 
@@ -31,4 +32,10 @@ class ShooterState : public Mech2MotorState
             double                          secondaryTarget
         );
         ~ShooterState() = default;
+
+        bool AtTarget() const override;
+        Shooter* GetShooter() const {return m_shooter;}
+
+    private:
+        Shooter*        m_shooter;
 };
