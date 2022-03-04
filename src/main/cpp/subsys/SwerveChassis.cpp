@@ -37,6 +37,8 @@
 #include <wpi/numbers>
 
 // Team 302 includes
+#include <hw/DragonLimelight.h>
+#include <hw/factories/LimelightFactory.h>
 #include <subsys/PoseEstimatorEnum.h>
 #include <subsys/SwerveChassis.h>
 #include <utils/Logger.h>
@@ -106,7 +108,8 @@ SwerveChassis::SwerveChassis
     m_backRightLocation(-1.0*wheelBase/2.0, -1.0*track/2.0),
     m_storedYaw(m_pigeon->GetYaw()),
     m_yawCorrection(units::angular_velocity::degrees_per_second_t(0.0)),
-    m_targetHeading(units::angle::degree_t(0))
+    m_targetHeading(units::angle::degree_t(0)),
+    m_limelight(LimelightFactory::GetLimelightFactory()->GetLimelight())
 {
     m_timer.Reset();
     m_timer.Start();
@@ -308,7 +311,7 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
 (
     Pose2d              robotPose,
     Pose2d              goalPose,
-    Transform2d       wheelLoc,
+    Transform2d         wheelLoc,
     ChassisSpeeds       speeds
 )
 {
@@ -461,30 +464,23 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     // double dDistX2Target = m_targetFinder.GetDistance2TargetXYR(myPose).X().to<double>();
     // double dDistY2Target = m_targetFinder.GetDistance2TargetXYR(myPose).Y().to<double>();
 
-    if (DriverStation::IsAutonomousEnabled())
+    auto targetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
+
+    if (m_limelight != nullptr)
     {
-        auto dTargetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
-
-        //Debugging
-        Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", dTargetAngle.to<double>());
-        Logger::GetLogger()->LogError(string("TurnToGoal Angle: "), to_string(dTargetAngle.to<double>())); 
-
-        CalcHeadingCorrection(dTargetAngle, kPAutonGoalHeadingControl);
-
-        rot -= m_yawCorrection;
-        Logger::GetLogger()->LogError(string("TurnToGoal New ZSpeed: "), to_string(rot.to<double>()));
+        if (m_limelight->HasTarget())
+        {
+            targetAngle = -1.0 * m_limelight->GetTargetHorizontalOffset();
+        }
     }
-    else
-    {
-        auto dTargetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
+    //Debugging
+    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", targetAngle.to<double>());
+    Logger::GetLogger()->LogError(string("TurnToGoal Angle: "), to_string(targetAngle.to<double>())); 
 
-        //Debugging
-        Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", dTargetAngle.to<double>()); 
-
-        CalcHeadingCorrection(dTargetAngle, kPGoalHeadingControl);
-
-        rot += m_yawCorrection;
-    }
+    auto yawCorrection = (DriverStation::IsAutonomousEnabled()) ? -1.0 * kPAutonGoalHeadingControl : kPGoalHeadingControl;
+    CalcHeadingCorrection(targetAngle, yawCorrection);
+    rot += m_yawCorrection;
+    Logger::GetLogger()->LogError(string("TurnToGoal New ZSpeed: "), to_string(rot.to<double>()));
 }
 
 

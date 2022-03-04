@@ -233,8 +233,10 @@ class SwerveChassis : public IChassis
         units::velocity::meters_per_second_t                        m_steer;
         units::angular_velocity::radians_per_second_t               m_rotate;
 
-        const double                                                m_deadband = 0.05;
-        const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.008);
+      //  const double                                                m_deadband = 0.05;
+        const double                                                m_deadband = 0.0;
+    //    const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.008);
+        const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.00);
         
         frc::Translation2d m_frontLeftLocation;
         frc::Translation2d m_frontRightLocation;
