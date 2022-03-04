@@ -74,7 +74,10 @@ MechanismFactory::MechanismFactory() : m_leftIntake(nullptr),
 				       m_rightIntake(nullptr),
 				       m_ballTransfer(nullptr),
  				       m_shooter(nullptr),
- 				       m_climber(nullptr)
+ 				       m_climber(nullptr),
+					   m_leftIndexer(nullptr),
+					   m_rightIndexer(nullptr),
+					   m_lift(nullptr)
 {
 }
 
@@ -150,6 +153,78 @@ void MechanismFactory::CreateIMechanism
 			else
 			{
 				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Right Intake already exists") );
+			}
+		}
+		break;
+
+		case MechanismTypes::LEFT_INDEXER:
+		{
+			if (m_leftIndexer == nullptr)
+			{
+				auto indexerMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INDEXER);
+				if (indexerMotor.get() != nullptr)
+				{
+					m_leftIndexer = new Indexer(MechanismTypes::MECHANISM_TYPE::LEFT_INDEXER,
+												controlFileName,
+												networkTableName,
+												indexerMotor);
+				}
+				else
+				{
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Left indexer motor missing in XML"));
+				}
+			}
+			else
+			{
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Left indexer already exists") );
+			}
+		}
+		break;
+
+		case MechanismTypes::RIGHT_INDEXER:
+		{
+			if (m_rightIndexer == nullptr)
+			{
+				auto indexerMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INDEXER);
+				if (indexerMotor.get() != nullptr)
+				{
+					m_rightIndexer = new Indexer(MechanismTypes::MECHANISM_TYPE::RIGHT_INDEXER,
+												controlFileName,
+												networkTableName,
+												indexerMotor);
+				}
+				else
+				{
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Right indexer motor missing in XML"));
+				}
+			}
+			else
+			{
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Right indexer already exists") );
+			}
+		}
+		break;
+
+		case MechanismTypes::LIFT:
+		{
+			if (m_lift == nullptr)
+			{
+				auto liftMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::LIFT);
+				if (liftMotor.get() != nullptr)
+				{
+					m_lift = new Lift(MechanismTypes::MECHANISM_TYPE::LIFT,
+										controlFileName,
+										networkTableName,
+										liftMotor);
+				}
+				else
+				{
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Lift motor is missing in XML") );
+				}
+			}
+			else
+			{
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Lift motor already exists") );
 			}
 		}
 		break;
@@ -272,6 +347,18 @@ IMech* MechanismFactory::GetMechanism
 			
 		case MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER:
 			return GetBallTransfer();
+			break;
+
+		case MechanismTypes::MECHANISM_TYPE::LEFT_INDEXER:
+			return GetLeftIndexer();
+			break;
+
+		case MechanismTypes::MECHANISM_TYPE::RIGHT_INDEXER:
+			return GetRightIndexer();
+			break;
+		
+		case MechanismTypes::MECHANISM_TYPE::LIFT:
+			return GetLift();
 			break;
 	
 		case MechanismTypes::MECHANISM_TYPE::SHOOTER:

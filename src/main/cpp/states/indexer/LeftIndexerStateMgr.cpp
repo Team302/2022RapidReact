@@ -14,26 +14,53 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    RIGHT_INTAKE,
-    LEFT_INDEXER,
-    RIGHT_INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    CLIMBER,
-    MAX_STATE_TYPES
-};
+// C++ Includes
+#include <map>
+
+// FRC includes
+
+// Team 302 includes
+#include <gamepad/TeleopControl.h>
+#include <states/indexer/LeftIndexerStateMgr.h>
+#include <states/StateStruc.h>
+#include <subsys/MechanismFactory.h>
+#include <subsys/MechanismTypes.h>
 
 
-struct StateStruc
+// Third Party Includes
+
+using namespace std;
+
+
+LeftIndexerStateMgr* LeftIndexerStateMgr::m_instance = nullptr;
+LeftIndexerStateMgr* LeftIndexerStateMgr::GetInstance()
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
-};
+	if ( LeftIndexerStateMgr::m_instance == nullptr )
+	{
+		LeftIndexerStateMgr::m_instance = new LeftIndexerStateMgr();
+	}
+	return LeftIndexerStateMgr::m_instance;
+}
+
+
+/// @brief    initialize the state manager, parse the configuration file and create the states.
+LeftIndexerStateMgr::LeftIndexerStateMgr() : IndexerStates()
+{
+    map<string, StateStruc> stateMap;
+    stateMap["INDEXER_OFF"] = m_offState;
+    stateMap["INDEXER_INDEX"]  = m_indexState;
+    stateMap["INDEXER_EXPEL"] = m_expelState;
+
+    Init(MechanismFactory::GetMechanismFactory()->GetLeftIndexer(), stateMap);
+}   
+
+
+/// @brief  run the current state
+/// @return void
+void LeftIndexerStateMgr::CheckForStateTransition()
+{
+    if ( MechanismFactory::GetMechanismFactory()->GetLeftIndexer() != nullptr )
+    {
+
+    }    
+}

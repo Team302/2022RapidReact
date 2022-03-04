@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
@@ -15,25 +14,29 @@
 //====================================================================================================================================================
 
 #pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    RIGHT_INTAKE,
-    LEFT_INDEXER,
-    RIGHT_INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    CLIMBER,
-    MAX_STATE_TYPES
-};
 
+//C++ Includes
+#include <memory>
+#include <string>
 
-struct StateStruc
+//FRC Includes
+
+//Team 302 Includes
+#include <subsys/Mech1IndMotor.h>
+
+class IDragonMotorController;
+
+class Indexer : public Mech1IndMotor
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
+    public: 
+        Indexer
+        (
+            MechanismTypes::MECHANISM_TYPE          type,
+            std::string                             controlFileName,
+            std::string                             ntName,
+            std::shared_ptr<IDragonMotorController> indexerMotor
+        );
+
+        Indexer() = delete;
+        virtual ~Indexer() = default;
 };

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE statedata SYSTEM "stateData.dtd">
+<statedata>
+	<controlData identifier="openloop" 
+	             mode="PERCENT_OUTPUT"/>
+	<mechanismTarget stateIdentifier="LIFT_LIFT"
+	                 controlDataIdentifier="openloop"
+					 value="1.0"/>
+    <mechanismTarget stateIdentifier="LIFT_LOWER"
+                     controlDataIdentifier="openloop"
+                     value="-1.0"/>
+    <mechanismTarget stateIdentifier="LIFT_OFF"
+                     controlDataIdentifier="openloop"
+                     value="0.0"/>
+</statedata>

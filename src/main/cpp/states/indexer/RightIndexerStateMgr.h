@@ -15,25 +15,38 @@
 //====================================================================================================================================================
 
 #pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    RIGHT_INTAKE,
-    LEFT_INDEXER,
-    RIGHT_INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    CLIMBER,
-    MAX_STATE_TYPES
-};
+
+// C++ Includes
+
+// FRC includes
+
+// Team 302 includes
+#include <states/indexer/IndexerStates.h>
+#include <states/StateStruc.h>
 
 
-struct StateStruc
+
+// Third Party Includes
+
+class RightIndexerStateMgr : public IndexerStates
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
+    public:
+		/// @brief  Find or create the state manmanager
+		/// @return RightIntakeStateMgr* pointer to the state manager
+		static RightIndexerStateMgr* GetInstance();
+        void CheckForStateTransition() override;
+
+    protected:
+        const StateStruc  m_offState = {INDEXER_STATE::OFF, StateType::RIGHT_INDEXER, true};
+        const StateStruc  m_indexState = {INDEXER_STATE::INDEX, StateType::RIGHT_INDEXER, false};
+        const StateStruc  m_expelState = {INDEXER_STATE::EXPEL, StateType::RIGHT_INDEXER, false};
+
+
+    private:
+        RightIndexerStateMgr();
+        ~RightIndexerStateMgr() = default;
+
+		static RightIndexerStateMgr*	m_instance;
+
+
 };

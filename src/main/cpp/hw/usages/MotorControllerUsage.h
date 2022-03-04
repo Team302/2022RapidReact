@@ -49,6 +49,8 @@ class MotorControllerUsage
             INTAKE_EXTEND,
             BALL_TRANSFER_SPIN,
             BALL_TRANSFER_LIFT,
+            INDEXER,
+            LIFT,
             SHOOTER,
             SHOOTER_HOOD,
             CLIMBER_LIFT,

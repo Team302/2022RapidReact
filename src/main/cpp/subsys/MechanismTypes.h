@@ -34,6 +34,9 @@ class MechanismTypes
             LEFT_INTAKE,
             RIGHT_INTAKE,
             BALL_TRANSFER,
+            LEFT_INDEXER,
+            RIGHT_INDEXER,
+            LIFT,
             SHOOTER,
             CLIMBER,                 
             MAX_MECHANISM_TYPES

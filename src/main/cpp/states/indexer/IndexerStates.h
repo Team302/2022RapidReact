@@ -15,25 +15,33 @@
 //====================================================================================================================================================
 
 #pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    RIGHT_INTAKE,
-    LEFT_INDEXER,
-    RIGHT_INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    CLIMBER,
-    MAX_STATE_TYPES
-};
+
+// C++ Includes
+
+// FRC includes
+
+// Team 302 includes
+#include <states/StateMgr.h>
+#include <states/StateStruc.h>
 
 
-struct StateStruc
+
+// Third Party Includes
+
+class IndexerStates : public StateMgr
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
+    public:
+        /// @enum the various states of the Intake
+        enum INDEXER_STATE
+        {
+            OFF,
+            INDEX,
+            EXPEL,
+            MAX_INDEXER_STATES
+        };
+
+    protected:
+
+        IndexerStates() = default;
+        ~IndexerStates() = default;
 };
