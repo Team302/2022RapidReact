@@ -44,7 +44,8 @@ LeftIndexerStateMgr* LeftIndexerStateMgr::GetInstance()
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-LeftIndexerStateMgr::LeftIndexerStateMgr() : IndexerStates()
+LeftIndexerStateMgr::LeftIndexerStateMgr() : IndexerStates(),
+                                            m_indexer(MechanismFactory::GetMechanismFactory()->GetLeftIndexer())
 {
     map<string, StateStruc> stateMap;
     stateMap["INDEXER_OFF"] = m_offState;
@@ -59,8 +60,25 @@ LeftIndexerStateMgr::LeftIndexerStateMgr() : IndexerStates()
 /// @return void
 void LeftIndexerStateMgr::CheckForStateTransition()
 {
-    if ( MechanismFactory::GetMechanismFactory()->GetLeftIndexer() != nullptr )
+    if ( m_indexer != nullptr )
     {
+        auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
+        auto targetState = currentState;
+
+        auto controller = TeleopControl::GetInstance();
+
+        if (controller != nullptr)
+        {
+            if (controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH) )
+            {
+                targetState = INDEXER_STATE::INDEX;
+            }
+        }
+
+        if (targetState != currentState)
+        {
+            SetCurrentState(targetState, true);
+        }
 
     }    
 }
