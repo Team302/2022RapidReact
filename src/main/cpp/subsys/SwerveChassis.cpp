@@ -96,7 +96,7 @@ SwerveChassis::SwerveChassis
     m_pigeon(PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)),
     m_accel(BuiltInAccelerometer()),
     m_isMoving(false),
-    m_runWPI(true),
+    m_runWPI(false),
     m_poseOpt(PoseEstimatorEnum::WPI),
     m_pose(),
     m_offsetPoseAngle(0_deg),  //not used at the moment
@@ -132,7 +132,7 @@ void SwerveChassis::ZeroAlignSwerveModules()
     m_backRight.get()->ZeroAlignModule();
 }
 
-void SwerveChassis::CalcHeadingCorrection
+units::angular_velocity::degrees_per_second_t SwerveChassis::CalcHeadingCorrection
 (
     units::angle::degree_t  targetAngle,
     double                  kP
@@ -143,12 +143,14 @@ void SwerveChassis::CalcHeadingCorrection
     //auto errorAngle = remainder((targetAngle.to<double>() - currentAngle.to<double>()), 360.0);
     auto errorAngle = remainder((currentAngle.to<double>() - targetAngle.to<double>()), 360.0);
     errorAngle = AngleUtils::GetEquivAngle(units::angle::degree_t(errorAngle)).to<double>();
-    m_yawCorrection = units::angular_velocity::degrees_per_second_t(errorAngle*kP);
+    auto correction = units::angular_velocity::degrees_per_second_t(errorAngle*kP);
 
     //Debugging
     Logger::GetLogger()->ToNtTable("Yaw Correction", "Current Angle (Degrees): ", currentAngle.to<double>());
     Logger::GetLogger()->ToNtTable("Yaw Correction", "Error Angle (Degrees???): ", errorAngle);
     Logger::GetLogger()->ToNtTable("Yaw Correction", "Yaw Correction (Degrees Per Second): ", m_yawCorrection.to<double>());
+
+    return correction;
 }
 
 /// @brief Drive the chassis
@@ -170,7 +172,7 @@ void SwerveChassis::Drive
         case HEADING_OPTION::MAINTAIN:
              [[fallthrough]]; // intentional fallthrough 
         case HEADING_OPTION::POLAR_HEADING:
-           AdjustRotToMaintainHeading(xSpeed, ySpeed, rot);
+            AdjustRotToMaintainHeading(xSpeed, ySpeed, rot);
             break;
 
         case HEADING_OPTION::TOWARD_GOAL:
@@ -178,9 +180,8 @@ void SwerveChassis::Drive
             break;
 
         case HEADING_OPTION::SPECIFIED_ANGLE:
-            CalcHeadingCorrection(m_targetHeading, kPAutonSpecifiedHeading);
+            rot -= CalcHeadingCorrection(m_targetHeading, kPAutonSpecifiedHeading);
             Logger::GetLogger()->LogError("Specified Angle (Degrees): ", to_string(m_targetHeading.to<double>()));
-            rot -= m_yawCorrection;
             break;
 
         case HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL:
@@ -447,12 +448,13 @@ void SwerveChassis::AdjustRotToMaintainHeading
     units::radians_per_second_t& rot 
 )
 {
+    units::angular_velocity::degrees_per_second_t correction = units::angular_velocity::degrees_per_second_t(0.0);
     if (abs(rot.to<double>()) < m_deadband) //this doesn't use angular deadband b/c it's a fix
     {
         rot = units::radians_per_second_t(0.0);
         if (abs(xspeed.to<double>()) > 0.0 || abs(yspeed.to<double>() > 0.0))
         {
-            CalcHeadingCorrection(m_storedYaw, kPMaintainHeadingControl);
+            correction = CalcHeadingCorrection(m_storedYaw, kPMaintainHeadingControl);
         }
     }
     else
@@ -463,11 +465,11 @@ void SwerveChassis::AdjustRotToMaintainHeading
 
     if (DriverStation::IsAutonomousEnabled())
     {
-        rot -= m_yawCorrection;
+        rot -= correction;
     }
     else
     {
-        rot -= m_yawCorrection; //was negative
+        rot -= correction; //was negative
     }
 }
 
@@ -495,7 +497,6 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     //Debugging
     Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", targetAngle.to<double>());
 
-    /**
     if (m_limelight != nullptr)
     {
         if (m_limelight->HasTarget())
@@ -505,7 +506,6 @@ void SwerveChassis::AdjustRotToPointTowardGoal
             Logger::GetLogger()->ToNtTable("Limelight Toward Goal", "TargetAngle(Degrees)", targetAngle.to<double>());
         }
     }
-    **/
    
     //Debugging
     Logger::GetLogger()->LogError(string("TurnToGoal Angle: "), to_string(targetAngle.to<double>())); 
@@ -513,13 +513,11 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     double correctionFactor = kPGoalHeadingControl;
     if (DriverStation::IsAutonomousEnabled())
     {
-        CalcHeadingCorrection(targetAngle, kPAutonGoalHeadingControl);
-        rot -= m_yawCorrection;
+        rot -= CalcHeadingCorrection(targetAngle, kPAutonGoalHeadingControl);;
     }
     else
     {
-        CalcHeadingCorrection(targetAngle, kPGoalHeadingControl);
-        rot += m_yawCorrection;
+        rot += CalcHeadingCorrection(targetAngle, kPGoalHeadingControl);;
     }
 
     //auto yawCorrection = (DriverStation::IsAutonomousEnabled()) ? -1.0 * kPAutonGoalHeadingControl : kPGoalHeadingControl;
