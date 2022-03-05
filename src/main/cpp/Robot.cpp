@@ -176,6 +176,7 @@ void Robot::TeleopPeriodic()
     if (m_rightIndexer != nullptr && m_rightIndexerStateMgr != nullptr)
     {
         m_rightIndexerStateMgr->RunCurrentState();
+        m_rightIndexerStateMgr->SetCurrentState(RightIndexerStateMgr::INDEXER_STATE::INDEX, true);
     }
     if (m_leftIndexer != nullptr && m_leftIndexerStateMgr != nullptr)
     {
@@ -183,8 +184,10 @@ void Robot::TeleopPeriodic()
     }
     if (m_lift != nullptr && m_liftStateMgr != nullptr)
     {
+        m_liftStateMgr->SetCurrentState(LiftStateMgr::LIFT_STATE::LIFT, true);
         m_liftStateMgr->RunCurrentState();
     }
+    
 }
 
 void Robot::DisabledInit() 

@@ -168,6 +168,7 @@ void MechanismFactory::CreateIMechanism
 												controlFileName,
 												networkTableName,
 												indexerMotor);
+					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Left Indexer mechanism"));
 				}
 				else
 				{
@@ -192,6 +193,7 @@ void MechanismFactory::CreateIMechanism
 												controlFileName,
 												networkTableName,
 												indexerMotor);
+					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Right Indexer mechanism"));
 				}
 				else
 				{
@@ -216,6 +218,7 @@ void MechanismFactory::CreateIMechanism
 										controlFileName,
 										networkTableName,
 										liftMotor);
+					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Lift mechanism"));
 				}
 				else
 				{

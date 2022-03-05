@@ -65,7 +65,7 @@ LiftStateMgr::LiftStateMgr() : StateMgr(),
 /// @brief  run the current state
 /// @return void
 void LiftStateMgr::CheckForStateTransition()
-{
+{/*
     if (m_lift != nullptr)
     {
         auto currentState = static_cast<LIFT_STATE>(GetCurrentState());
@@ -110,5 +110,7 @@ void LiftStateMgr::CheckForStateTransition()
         {
             SetCurrentState(targetState, true);
         }
-    } 
+    }*/
+    auto targetState = LIFT_STATE::LIFT;
+    SetCurrentState(targetState, true);
 }
