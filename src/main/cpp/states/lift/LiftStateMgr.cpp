@@ -20,8 +20,6 @@
 // FRC includes
 
 // Team 302 includes
-#include <gamepad/TeleopControl.h>
-
 #include <states/lift/LiftStateMgr.h>
 #include <states/lift/LiftState.h>
 #include <states/StateStruc.h>
@@ -71,22 +69,6 @@ void LiftStateMgr::CheckForStateTransition()
         auto currentState = static_cast<LIFT_STATE>(GetCurrentState());
         auto targetState = currentState;
 
-        auto controller = TeleopControl::GetInstance();
-
-        if (controller != nullptr)
-        {
-            if (controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH) )
-            {
-                targetState = LIFT_STATE::LIFT;
-            }
-        }
-
-        /*
-        auto currentState = static_cast<LIFT_STATE>(GetCurrentState());
-        auto targetState = currentState; 
-
-        Logger::GetLogger()->LogError(string("LiftStateMgr"), string("Current state is: ") + to_string(currentState));
-
         if (m_shooterStateMgr != nullptr)
         {
             auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
@@ -119,7 +101,7 @@ void LiftStateMgr::CheckForStateTransition()
             targetState = LIFT_STATE::OFF;
             Logger::GetLogger()->LogError(string("LiftStateMgr"), string("No shooter state mgr"));
         }
-    */
+    
         if (targetState != currentState)
         {
             SetCurrentState(targetState, true);

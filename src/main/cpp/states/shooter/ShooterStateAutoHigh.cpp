@@ -15,7 +15,8 @@
 
 
 // C++ Includes
-
+#include <iostream>
+#include <string>
 // FRC includes
 
 // Team 302 includes
@@ -49,8 +50,10 @@ void ShooterStateAutoHigh::Init()
         {
             auto distance = m_dragonLimeLight->EstimateTargetDistance();
             inches = distance.to<double>();
+            std::cout << "Distance (Inches): " << std::to_string(inches) << std::endl;
         }
         m_shooterTarget = 0.0021 * inches*inches - 0.3585 * inches + 72.867;
+        std::cout << "Shooter Target: " << std::to_string(m_shooterTarget) << std::endl;
         GetShooter()->UpdateTarget(m_shooterTarget);
     }
 }

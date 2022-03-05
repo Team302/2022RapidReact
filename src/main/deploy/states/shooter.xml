@@ -6,12 +6,12 @@
 				 
 	<controlData identifier="closedloop"
 				 mode="POSITION_DEGREES"
-				 proportional="0.155"
+				 proportional="0.1"
 				 />
 
 	<controlData identifier="closedloop2"
 				 mode="VELOCITY_RPS"
-				 proportional="0.155"
+				 proportional="0.1"
 				 feedforward="0.045"/>
 
 	<mechanismTarget stateIdentifier="SHOOTER_OFF"
