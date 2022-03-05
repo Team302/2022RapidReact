@@ -434,24 +434,6 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
-       <motor usage="SHOOTER_HOOD"
-              canId="8"
-              pdpID="8"
-              type="FALCON"
-              inverted="false"
-              sensorInverted="false"
-              feedbackDevice="NONE"
-              countsPerRev="2048"
-              gearRatio="1.0"
-              brakeMode="false"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="false"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="false"
-              reverselimitswitchopen="true"/>
     </mechanism>
 
 <!-- ====================================================
