@@ -98,8 +98,8 @@ SwerveModule::SwerveModule
     auto motor = m_driveMotor.get()->GetSpeedController();
     auto fx = dynamic_cast<WPI_TalonFX*>(motor.get());
 
-    fx->ConfigOpenloopRamp(0.4, 0);
-    fx->ConfigClosedloopRamp(0.4, 0);
+    //fx->ConfigOpenloopRamp(0.4, 0);
+    //fx->ConfigClosedloopRamp(0.4, 0);
 
     fx->ConfigSelectedFeedbackSensor( ctre::phoenix::motorcontrol::FeedbackDevice::IntegratedSensor, 0, 10 );
     fx->ConfigIntegratedSensorInitializationStrategy(BootToZero);
