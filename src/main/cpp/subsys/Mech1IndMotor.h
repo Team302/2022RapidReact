@@ -97,7 +97,6 @@ class Mech1IndMotor : public IMech1IndMotor
             ControlData*                                pid                 
         ) override;
 
-    protected:
         double GetTarget() const { return m_target; }
         std::shared_ptr<IDragonMotorController> GetMotor() const {return m_motor;}
 

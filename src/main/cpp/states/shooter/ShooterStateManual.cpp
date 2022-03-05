@@ -42,11 +42,6 @@ void ShooterStateManual::Run()
     if (m_controller != nullptr && m_shooter != nullptr)
     {
         auto shooterHoodAdjust = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_HOOD_MAN);
-        auto hoodMotor = m_shooter->GetSecondaryMotor();
-        if (hoodMotor.get() != nullptr)
-        {
-            hoodMotor.get()->Set(shooterHoodAdjust);
-        }
     }
 }
 bool ShooterStateManual::AtTarget() const 

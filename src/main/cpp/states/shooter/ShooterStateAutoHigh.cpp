@@ -32,11 +32,8 @@
 ShooterStateAutoHigh::ShooterStateAutoHigh
 (
     ControlData*                    control, 
-    ControlData*                    control2,
-    double                          primaryTarget,
-    double                          secondaryTarget
-
-) : ShooterState(control, control2, primaryTarget, secondaryTarget), 
+    double                          primaryTarget
+) : ShooterState(control, primaryTarget), 
     m_dragonLimeLight(LimelightFactory::GetLimelightFactory()->GetLimelight()), 
     m_shooterTarget(primaryTarget)
 {
@@ -46,8 +43,7 @@ void ShooterStateAutoHigh::Init()
 {
     if (GetShooter() != nullptr)
     {
-        GetShooter()->SetControlConstants( 0, GetPrimaryControlData() );
-        GetShooter()->SetSecondaryControlConstants( 0, GetSecondaryControlData() );
+        GetShooter()->SetControlConstants( 0, GetControlData() );
         double inches = 75.0;
         if (m_dragonLimeLight != nullptr)
         {
@@ -55,6 +51,6 @@ void ShooterStateAutoHigh::Init()
             inches = distance.to<double>();
         }
         m_shooterTarget = 0.0021 * inches*inches - 0.3585 * inches + 72.867;
-        GetShooter()->UpdateTargets(m_shooterTarget, GetSecondaryTarget());
+        GetShooter()->UpdateTarget(m_shooterTarget);
     }
 }
