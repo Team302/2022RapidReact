@@ -35,9 +35,6 @@
 #include <states/intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <subsys/MechanismFactory.h>
-#include <subsys/Intake.h>
-#include <subsys/BallTransfer.h>
-#include <subsys/Shooter.h>
 #include <utils/Logger.h>
 
 // Third Party Includes
