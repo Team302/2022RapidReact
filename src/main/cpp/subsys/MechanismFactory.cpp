@@ -70,14 +70,14 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 
 }
 
-MechanismFactory::MechanismFactory() : m_leftIntake(nullptr),
-				       m_rightIntake(nullptr),
-				       m_ballTransfer(nullptr),
- 				       m_shooter(nullptr),
- 				       m_climber(nullptr),
-					   m_leftIndexer(nullptr),
-					   m_rightIndexer(nullptr),
-					   m_lift(nullptr)
+MechanismFactory::MechanismFactory() : 	m_leftIntake(nullptr),
+										m_rightIntake(nullptr),
+										m_ballTransfer(nullptr),
+										m_shooter(nullptr),
+										m_climber(nullptr),
+										m_leftIndexer(nullptr),
+										m_rightIndexer(nullptr),
+										m_lift(nullptr)
 {
 }
 

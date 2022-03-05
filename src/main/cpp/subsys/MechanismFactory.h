@@ -151,7 +151,7 @@ class MechanismFactory
 		Climber*		m_climber;
 		Indexer* 		m_leftIndexer;
 		Indexer* 		m_rightIndexer;
-		Lift* 		m_lift;
+		Lift* 			m_lift;
 		
 
 };
