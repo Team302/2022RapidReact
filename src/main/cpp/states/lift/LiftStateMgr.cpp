@@ -30,6 +30,8 @@
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
 
+#include <utils/Logger.h>
+
 
 // Third Party Includes
 
@@ -69,6 +71,8 @@ void LiftStateMgr::CheckForStateTransition()
         auto currentState = static_cast<LIFT_STATE>(GetCurrentState());
         auto targetState = currentState; 
 
+        Logger::GetLogger()->LogError(string("LiftStateMgr"), string("Current state is: ") + to_string(currentState));
+
         if (m_shooterStateMgr != nullptr)
         {
             auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
@@ -99,6 +103,7 @@ void LiftStateMgr::CheckForStateTransition()
         else
         {
             targetState = LIFT_STATE::OFF;
+            Logger::GetLogger()->LogError(string("LiftStateMgr"), string("No shooter state mgr"));
         }
 
         if (targetState != currentState)

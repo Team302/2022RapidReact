@@ -18,6 +18,10 @@
 #include <subsys/Intake.h>
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/Shooter.h>
+#include <subsys/Lift.h>
+#include <states/lift/LiftStateMgr.h>
+#include <subsys/Indexer.h>
+#include <states/indexer/IndexerStates.h>
 
 
 
@@ -53,4 +57,13 @@ class Robot : public frc::TimedRobot
 
   ShooterStateMgr*      m_shooterStateMgr;
   Shooter*              m_shooter;
+
+  IndexerStates*        m_leftIndexerStateMgr;
+  Indexer*              m_leftIndexer;
+
+  IndexerStates*        m_rightIndexerStateMgr;
+  Indexer*              m_rightIndexer;
+
+  LiftStateMgr*         m_liftStateMgr;
+  Lift*                 m_lift;
 };
