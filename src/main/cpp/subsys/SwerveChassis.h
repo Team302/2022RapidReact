@@ -35,6 +35,7 @@
 #include <units/length.h>
 #include <units/velocity.h>
 
+#include <hw/DragonLimelight.h>
 #include <hw/factories/PigeonFactory.h>
 #include <hw/DragonPigeon.h>
 #include <subsys/SwerveModule.h>
@@ -173,7 +174,7 @@ class SwerveChassis : public IChassis
             units::radians_per_second_t rot        
         );
 
-        void CalcHeadingCorrection
+        units::angular_velocity::degrees_per_second_t CalcHeadingCorrection
         (
             units::angle::degree_t  targetAngle,
             double                  kP
@@ -234,8 +235,10 @@ class SwerveChassis : public IChassis
         units::velocity::meters_per_second_t                        m_steer;
         units::angular_velocity::radians_per_second_t               m_rotate;
 
-        const double                                                m_deadband = 0.1;
-        const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.175);
+      //  const double                                                m_deadband = 0.05;
+        const double                                                m_deadband = 0.0;
+    //    const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.008);
+        const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.00);
         
         frc::Translation2d m_frontLeftLocation;
         frc::Translation2d m_frontRightLocation;
@@ -255,10 +258,10 @@ class SwerveChassis : public IChassis
                                                            {0.1, 0.1, 0.1},   // state standard deviations
                                                            {0.05},            // local measurement standard deviations
                                                            {0.1, 0.1, 0.1} }; // vision measurement standard deviations
-        const double kPMaintainHeadingControl = 3.0; //4.0
-        const double kPAutonSpecifiedHeading = 4.0;
-        const double kPAutonGoalHeadingControl = 4.0;
-        const double kPGoalHeadingControl = 7.0; //10.0
+        const double kPMaintainHeadingControl = 1.5; //4.0, 3.0
+        const double kPAutonSpecifiedHeading = 2.0;  // 4.0
+        const double kPAutonGoalHeadingControl = 2.0;  // 2.0
+        const double kPGoalHeadingControl = 3.5; //10.0, 7.0
         const double kIHeadingControl = 0.0; //not being used
         const double kDHeadingControl = 0.0; //not being used
         const double kFHeadingControl = 0.0; //not being used
@@ -267,6 +270,7 @@ class SwerveChassis : public IChassis
 
         DragonTargetFinder m_targetFinder;
         units::angle::degree_t m_targetHeading;
+        DragonLimelight*        m_limelight;
 
 
 };
