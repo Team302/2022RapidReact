@@ -23,6 +23,10 @@
 // Team 302 includes
 #include <states/indexer/IndexerStates.h>
 #include <states/StateStruc.h>
+#include <states/shooter/ShooterStateMgr.h>
+
+#include <subsys/Shooter.h>
+#include <subsys/Indexer.h>
 
 
 
@@ -47,6 +51,9 @@ class RightIndexerStateMgr : public IndexerStates
         ~RightIndexerStateMgr() = default;
 
 		static RightIndexerStateMgr*	m_instance;
+        Indexer*                        m_indexer;
+        ShooterStateMgr*                m_shooterStateMgr;
+        Shooter*                        m_shooter;
 
 
 };
