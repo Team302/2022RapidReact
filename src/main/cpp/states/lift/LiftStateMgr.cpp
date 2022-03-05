@@ -69,6 +69,20 @@ void LiftStateMgr::CheckForStateTransition()
     if (m_lift != nullptr)
     {
         auto currentState = static_cast<LIFT_STATE>(GetCurrentState());
+        auto targetState = currentState;
+
+        auto controller = TeleopControl::GetInstance();
+
+        if (controller != nullptr)
+        {
+            if (controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH) )
+            {
+                targetState = LIFT_STATE::LIFT;
+            }
+        }
+
+        /*
+        auto currentState = static_cast<LIFT_STATE>(GetCurrentState());
         auto targetState = currentState; 
 
         Logger::GetLogger()->LogError(string("LiftStateMgr"), string("Current state is: ") + to_string(currentState));
@@ -105,10 +119,10 @@ void LiftStateMgr::CheckForStateTransition()
             targetState = LIFT_STATE::OFF;
             Logger::GetLogger()->LogError(string("LiftStateMgr"), string("No shooter state mgr"));
         }
-
+    */
         if (targetState != currentState)
         {
             SetCurrentState(targetState, true);
         }
-    } 
+    }
 }

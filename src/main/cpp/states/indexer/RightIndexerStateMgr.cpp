@@ -68,8 +68,16 @@ void RightIndexerStateMgr::CheckForStateTransition()
         auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
         auto targetState = currentState;
 
-        Logger::GetLogger()->LogError(string("LiftStateMgr"), string("Current state is: ") + to_string(currentState));
+        auto controller = TeleopControl::GetInstance();
 
+        if (controller != nullptr)
+        {
+            if (controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH) )
+            {
+                targetState = INDEXER_STATE::INDEX;
+            }
+        }
+        /*
         if (m_shooterStateMgr != nullptr)
         {
             auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
@@ -107,11 +115,14 @@ void RightIndexerStateMgr::CheckForStateTransition()
             {
                 targetState = INDEXER_STATE::OFF;
             }
+            
 
-            if (targetState != currentState)
+            
+        }
+        */
+        if (targetState != currentState)
             {
                 SetCurrentState(targetState, true);
             }
-        }
     }    
 }

@@ -144,7 +144,6 @@ void Robot::TeleopInit()
     if (m_rightIndexer != nullptr && m_rightIndexerStateMgr != nullptr)
     {
         m_rightIndexerStateMgr->RunCurrentState();
-        m_rightIndexerStateMgr->SetCurrentState(RightIndexerStateMgr::INDEXER_STATE::INDEX, true);
     }
     if (m_leftIndexer != nullptr && m_leftIndexerStateMgr != nullptr)
     {
@@ -153,7 +152,6 @@ void Robot::TeleopInit()
     if (m_lift != nullptr && m_liftStateMgr != nullptr)
     {
         m_liftStateMgr->RunCurrentState();
-        m_liftStateMgr->SetCurrentState(LiftStateMgr::LIFT_STATE::LIFT, true);
     }
 }
 

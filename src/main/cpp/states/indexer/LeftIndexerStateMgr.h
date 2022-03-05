@@ -23,6 +23,7 @@
 // Team 302 includes
 #include <states/indexer/IndexerStates.h>
 #include <states/StateStruc.h>
+#include <subsys/Indexer.h>
 
 
 
@@ -46,4 +47,5 @@ class LeftIndexerStateMgr : public IndexerStates
         ~LeftIndexerStateMgr() = default;
 
 		static LeftIndexerStateMgr*	m_instance;
+        Indexer*                    m_indexer;
 };
