@@ -26,9 +26,7 @@ class ShooterStateAutoHigh : public ShooterState
         ShooterStateAutoHigh
         (
             ControlData*                    control, 
-            ControlData*                    control2,
-            double                          primaryTarget,
-            double                          secondaryTarget
+            double                          primaryTarget
         );
         ~ShooterStateAutoHigh() = default;
         void Init() override;
