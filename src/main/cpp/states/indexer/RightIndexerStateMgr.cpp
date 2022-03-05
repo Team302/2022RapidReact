@@ -26,6 +26,7 @@
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
 
+#include <utils/Logger.h>
 
 // Third Party Includes
 
@@ -67,14 +68,16 @@ void RightIndexerStateMgr::CheckForStateTransition()
         auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
         auto targetState = currentState;
 
+        Logger::GetLogger()->LogError(string("LiftStateMgr"), string("Current state is: ") + to_string(currentState));
+
         if (m_shooterStateMgr != nullptr)
         {
             auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
             if (m_shooter != nullptr)
             {
-                auto isAtSpeed = m_shooterStateMgr->AtTarget();
-                if (isAtSpeed)
-                {
+                //auto isAtSpeed = m_shooterStateMgr->AtTarget();
+                //if (isAtSpeed)
+                //{
                     switch (shooterState)
                     {
                         case ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL:
@@ -98,7 +101,7 @@ void RightIndexerStateMgr::CheckForStateTransition()
                             targetState = INDEXER_STATE::OFF;
                             break;
                     }
-                }
+                //}
             }
             else
             {
