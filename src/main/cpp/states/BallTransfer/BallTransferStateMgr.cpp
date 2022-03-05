@@ -91,7 +91,7 @@ void BallTransferStateMgr::CheckForStateTransition()
     {
         auto isBallPresent = m_transfer->IsBallPresent();
         auto isLiftForward = m_transfer->IsLiftForward();
-        auto shooterRPS = m_shooter != nullptr ? m_shooter->GetPrimarySpeed() : 0.0;
+        auto shooterRPS = m_shooter != nullptr ? m_shooter->GetSpeed() : 0.0;
         Logger::GetLogger()->ToNtTable(m_nt, string("Ball Present Sensor"), to_string(isBallPresent));
         Logger::GetLogger()->ToNtTable(m_nt, string("Lift Forward Sensor"), to_string(isLiftForward));
 

@@ -119,7 +119,7 @@ void StateMgr::Init
                         	    break;
                     
                     	        case StateType::SHOOTER:
-                       		    thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
+                       		    thisState = new ShooterState(controlData, target);
                        		    break;
 
                     	        case StateType::SHOOTER_MANUAL:
@@ -127,7 +127,7 @@ void StateMgr::Init
                        		    break;
 
                     	        case StateType::SHOOTER_AUTO:
-                       		    thisState = new ShooterStateAutoHigh(controlData, controlData2, target, secondaryTarget);
+                       		    thisState = new ShooterStateAutoHigh(controlData, target);
                        		    break;
 
                                 case StateType::CLIMBER:
