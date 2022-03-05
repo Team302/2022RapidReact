@@ -41,12 +41,9 @@ class LeftIndexerStateMgr : public IndexerStates
         const StateStruc  m_indexState = {INDEXER_STATE::INDEX, StateType::LEFT_INDEXER, false};
         const StateStruc  m_expelState = {INDEXER_STATE::EXPEL, StateType::LEFT_INDEXER, false};
 
-
     private:
         LeftIndexerStateMgr();
         ~LeftIndexerStateMgr() = default;
 
 		static LeftIndexerStateMgr*	m_instance;
-
-
 };
