@@ -20,7 +20,6 @@
 // FRC includes
 
 // Team 302 includes
-#include <gamepad/TeleopControl.h>
 #include <states/indexer/RightIndexerStateMgr.h>
 #include <states/StateStruc.h>
 #include <subsys/MechanismFactory.h>
@@ -68,24 +67,15 @@ void RightIndexerStateMgr::CheckForStateTransition()
         auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
         auto targetState = currentState;
 
-        auto controller = TeleopControl::GetInstance();
-
-        if (controller != nullptr)
-        {
-            if (controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH) )
-            {
-                targetState = INDEXER_STATE::INDEX;
-            }
-        }
-        /*
+        
         if (m_shooterStateMgr != nullptr)
         {
             auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
             if (m_shooter != nullptr)
             {
-                //auto isAtSpeed = m_shooterStateMgr->AtTarget();
-                //if (isAtSpeed)
-                //{
+                auto isAtSpeed = m_shooterStateMgr->AtTarget();
+                if (isAtSpeed)
+                {
                     switch (shooterState)
                     {
                         case ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL:
@@ -109,20 +99,17 @@ void RightIndexerStateMgr::CheckForStateTransition()
                             targetState = INDEXER_STATE::OFF;
                             break;
                     }
-                //}
+                }
+                else
+                {
+                    targetState = INDEXER_STATE::OFF;
+                }
             }
-            else
-            {
-                targetState = INDEXER_STATE::OFF;
-            }
-            
-
-            
         }
-        */
+        
         if (targetState != currentState)
-            {
-                SetCurrentState(targetState, true);
-            }
+        {
+            SetCurrentState(targetState, true);
+        }
     }    
 }

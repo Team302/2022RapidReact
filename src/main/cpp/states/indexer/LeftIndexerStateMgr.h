@@ -24,6 +24,8 @@
 #include <states/indexer/IndexerStates.h>
 #include <states/StateStruc.h>
 #include <subsys/Indexer.h>
+#include <subsys/Shooter.h>
+#include <states/shooter/ShooterStateMgr.h>
 
 
 
@@ -48,4 +50,6 @@ class LeftIndexerStateMgr : public IndexerStates
 
 		static LeftIndexerStateMgr*	m_instance;
         Indexer*                    m_indexer;
+        Shooter*                    m_shooter;
+        ShooterStateMgr*            m_shooterStateMgr;
 };

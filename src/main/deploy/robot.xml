@@ -15,7 +15,7 @@
        <limelight tablename="limelight"
             mountingheight="40.5"
             horizontaloffset="0.0"
-            mountingangle="39.41"
+            mountingangle="31.034"
             rotation="0.0"
             targetheight="104.0"
             targetheight2="0.0"
@@ -94,7 +94,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="17"
-                            offset="-172.002 "/>
+                            offset="-172.002"/>
         </swervemodule>
 
        
@@ -197,7 +197,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="13"
-                            offset="-170.990"/>
+                            offset="-170.99"/>
         </swervemodule>
         <swervemodule type="LEFT_FRONT"
                       turn_p="0.1"
@@ -247,7 +247,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="10"
-                            offset="174.990"/>
+                            offset="174.99"/>
         </swervemodule>
 
        </chassis>  
