@@ -155,7 +155,7 @@
 <!-- ========================================================================================================================================== -->
 <!ELEMENT mechanism (motor*, solenoid*, servo*, analogInput*, digitalInput*, cancoder*, colorsensor?)>
 <!ATTLIST mechanism
-          type              ( LEFT_INTAKE | RIGHT_INTAKE | BALL_TRANSFER | SHOOTER | CLIMBER ) "SHOOTER"
+          type              ( LEFT_INTAKE | RIGHT_INTAKE | BALL_TRANSFER | SHOOTER | CLIMBER | LEFT_INDEXER | RIGHT_INDEXER | LIFT) "SHOOTER"
           networkTable      CDATA #IMPLIED
           controlFile       CDATA #IMPLIED
 >
