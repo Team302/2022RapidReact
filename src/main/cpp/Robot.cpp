@@ -59,7 +59,7 @@ void Robot::RobotInit()
     m_ballTransfer = mechFactory->GetBallTransfer();
     m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
 
-    m_shooter = m_ballTransfer != nullptr ? mechFactory->GetShooter() : nullptr;
+    m_shooter = mechFactory->GetShooter();
     m_shooterStateMgr = m_shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
 
     m_lift = mechFactory->GetLift();
