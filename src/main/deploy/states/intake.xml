@@ -17,5 +17,5 @@
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
 					 value="-1.0"
-					 secondValue="1.0"/>
+					 secondValue="0.0"/>
 </statedata>

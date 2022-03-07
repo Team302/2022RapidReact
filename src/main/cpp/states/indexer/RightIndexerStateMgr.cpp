@@ -47,7 +47,9 @@ RightIndexerStateMgr* RightIndexerStateMgr::GetInstance()
 RightIndexerStateMgr::RightIndexerStateMgr() : IndexerStates(),
                                                 m_indexer(MechanismFactory::GetMechanismFactory()->GetRightIndexer()),
                                                 m_shooterStateMgr(ShooterStateMgr::GetInstance()),
-                                                m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter())
+                                                m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter()),
+                                                m_rightIntakeStateMgr(RightIntakeStateMgr::GetInstance())
+
 {
     map<string, StateStruc> stateMap;
     stateMap["INDEXER_OFF"] = m_offState;
@@ -105,6 +107,15 @@ void RightIndexerStateMgr::CheckForStateTransition()
                     targetState = INDEXER_STATE::OFF;
                 }
             }
+        }
+        if (m_rightIntakeStateMgr != nullptr)
+        {
+            auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_rightIntakeStateMgr->GetCurrentState());
+            targetState = intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE ? INDEXER_STATE::INDEX : INDEXER_STATE::OFF;
+        }
+        else
+        {
+            targetState = INDEXER_STATE::OFF;
         }
         
         if (targetState != currentState)
