@@ -26,6 +26,7 @@
 #include <subsys/Indexer.h>
 #include <subsys/Shooter.h>
 #include <states/shooter/ShooterStateMgr.h>
+#include <states/Intake/LeftIntakeStateMgr.h>
 
 
 
@@ -52,4 +53,5 @@ class LeftIndexerStateMgr : public IndexerStates
         Indexer*                    m_indexer;
         Shooter*                    m_shooter;
         ShooterStateMgr*            m_shooterStateMgr;
+        LeftIntakeStateMgr*         m_leftIntakeStateMgr;
 };

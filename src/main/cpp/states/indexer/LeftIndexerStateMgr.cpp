@@ -46,7 +46,8 @@ LeftIndexerStateMgr* LeftIndexerStateMgr::GetInstance()
 LeftIndexerStateMgr::LeftIndexerStateMgr() : IndexerStates(),
                                             m_indexer(MechanismFactory::GetMechanismFactory()->GetLeftIndexer()),
                                             m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter()),
-                                            m_shooterStateMgr(ShooterStateMgr::GetInstance())
+                                            m_shooterStateMgr(ShooterStateMgr::GetInstance()),
+                                            m_leftIntakeStateMgr(LeftIntakeStateMgr::GetInstance())
 {
     map<string, StateStruc> stateMap;
     stateMap["INDEXER_OFF"] = m_offState;
@@ -69,6 +70,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
         if (m_shooterStateMgr != nullptr)
         {
             auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
+
             if (m_shooter != nullptr)
             {
                 auto isAtSpeed = m_shooterStateMgr->AtTarget();
@@ -88,7 +90,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                         case ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL:
                             targetState = INDEXER_STATE::INDEX;
                             break;
-
+                    
                         case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
                             targetState = INDEXER_STATE::OFF;
                             break;
@@ -104,7 +106,16 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                 }
             }
         }
-
+        
+        if (m_leftIntakeStateMgr != nullptr)
+        {
+            auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
+            targetState = intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE ? INDEXER_STATE::INDEX : INDEXER_STATE::OFF;
+        }
+        else
+        {
+            targetState = INDEXER_STATE::OFF;
+        }
         if (targetState != currentState)
         {
             SetCurrentState(targetState, true);
