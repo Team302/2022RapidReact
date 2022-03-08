@@ -19,6 +19,7 @@
 // C++ Includes
 
 // FRC includes
+#include <frc/Timer.h>
 
 // Team 302 includes
 #include <states/indexer/IndexerStates.h>
@@ -27,6 +28,7 @@
 #include <subsys/Shooter.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <states/Intake/LeftIntakeStateMgr.h>
+#include <states/indexer/RightIndexerStateMgr.h>
 
 
 
@@ -39,6 +41,7 @@ class LeftIndexerStateMgr : public IndexerStates
 		/// @return RightIntakeStateMgr* pointer to the state manager
 		static LeftIndexerStateMgr* GetInstance();
         void CheckForStateTransition() override;
+        void ShooterDelay();
 
     protected:
         const StateStruc  m_offState = {INDEXER_STATE::OFF, StateType::LEFT_INDEXER, true};
@@ -54,4 +57,7 @@ class LeftIndexerStateMgr : public IndexerStates
         Shooter*                    m_shooter;
         ShooterStateMgr*            m_shooterStateMgr;
         LeftIntakeStateMgr*         m_leftIntakeStateMgr;
+        frc::Timer                  m_timer;
+        RightIndexerStateMgr        m_rightIndexerStateMgr;
+        bool                        m_delay = false;
 };
