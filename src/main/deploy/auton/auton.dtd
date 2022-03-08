@@ -14,13 +14,10 @@
           enddrivespeed     CDATA "0.0"
           xloc				CDATA "0.0"
           yloc				CDATA "0.0"
-          runIntake         ( TRUE | FALSE ) "FALSE"
-          armMovement       ( UP | DOWN | HOLD ) "HOLD"
-          release           ( TRUE | FALSE ) "FALSE"
           pathname          CDATA #IMPLIED
-          leftIntake        ( OFF | INTAKE | EXPEL ) "OFF"
-          rightIntake       ( OFF | INTAKE | EXPEL ) "OFF"
-          shooter           ( OFF | AUTO_SHOOT_HIGH_GOAL_FAR | AUTO_SHOOT_HIGH_GOAL_CLOSE | SHOOT_LOW_GOAL | PREPARE_TO_SHOOT | MANUAL_SHOOT) "PREPARE_TO_SHOOT"
+          leftIntake        CDATA "OFF"
+          rightIntake       CDATA "OFF"
+          shooter           CDATA "PREPARE_TO_SHOOT"
 >
 
 

@@ -23,6 +23,10 @@
 #include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
 #include <auton/primitives/IPrimitive.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
+#include <states/Intake/IntakeStateMgr.h>
+#include <states/Intake/LeftIntakeStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
 #include <utils/Logger.h>
 
 #include <pugixml/pugixml.hpp>
@@ -79,18 +83,13 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
     headingOptionMap["RIGHT_INTAKE_TOWARD_BALL"] = IChassis::HEADING_OPTION::RIGHT_INTAKE_TOWARD_BALL;
     headingOptionMap["SPECIFIED_ANGLE"] = IChassis::HEADING_OPTION::SPECIFIED_ANGLE;
     
-    map<string, IntakeStateMgr::INTAKE_STATE> intakeStateMap;
-    intakeStateMap["OFF"] = IntakeStateMgr::INTAKE_STATE::OFF;
-    intakeStateMap["INTAKE"] = IntakeStateMgr::INTAKE_STATE::INTAKE;
-    intakeStateMap["EXPEL"] = IntakeStateMgr::INTAKE_STATE::EXPEL;  
+    map<string, IntakeStateMgr::INTAKE_STATE> emptyIntakeMap;
+    auto leftStateMgr = LeftIntakeStateMgr::GetInstance();
+    auto intakeStateMap = leftStateMgr != nullptr ? leftStateMgr->m_intakeStringEnumMap : emptyIntakeMap;
 
-    map<string, ShooterStateMgr::SHOOTER_STATE> shooterStateMap;
-    shooterStateMap["OFF"] = ShooterStateMgr::SHOOTER_STATE::OFF;
-    shooterStateMap["AUTO_SHOOT_HIGH_GOAL_FAR"] = ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
-    shooterStateMap["AUTO_SHOOT_HIGH_GOAL_CLOSE"] = ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE;
-    shooterStateMap["SHOOT_LOW_GOAL"] = ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL;
-    shooterStateMap["PREPARE_TO_SHOOT"] = ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT;
-    shooterStateMap["MANUAL_SHOOT"] = ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL;
+    map<string, ShooterStateMgr::SHOOTER_STATE> emptyShooterMap;
+    auto shooterStateMgr = ShooterStateMgr::GetInstance();
+    auto shooterStateMap = shooterStateMgr != nullptr ? shooterStateMgr->m_intakeStringEnumMap : emptyShooterMap;
 
     xml_document doc;
     xml_parse_result result = doc.load_file( fulldirfile.c_str() );

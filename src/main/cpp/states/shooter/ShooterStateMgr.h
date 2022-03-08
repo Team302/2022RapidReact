@@ -16,6 +16,8 @@
 #pragma once
 
 // C++ Includes
+#include <map>
+#include <string>
 
 // FRC includes
 #include <networktables/NetworkTable.h>
@@ -46,6 +48,25 @@ class ShooterStateMgr : public StateMgr
             PREPARE_TO_SHOOT
         };
 
+        // these are the strings in the XML files
+        const std::string SHOOTER_STATE_OFF_STRING = std::string("SHOOTER_OFF");
+        const std::string SHOOTER_STATE_HIGH_FAR_STRING = std::string("SHOOT_HIGHGOAL_CLOSE");
+        const std::string SHOOTER_STATE_HIGH_CLOSE_STRING = std::string("SHOOT_HIGHGOAL_FAR");
+        const std::string SHOOTER_STATE_LOW_STRING = std::string("SHOOT_LOWGOAL");
+        const std::string SHOOTER_STATE_MANUAL_STRING = std::string("MANUAL_SHOOT");
+        const std::string SHOOTER_STATE_HOOD_STRING = std::string("ADJUSTHOOD");
+        const std::string SHOOTER_STATE_PREPARE_STRING = std::string("PREPARETOSHOOT");
+
+        const std::map<std::string, SHOOTER_STATE> m_intakeStringEnumMap
+        {
+            {SHOOTER_STATE_OFF_STRING, SHOOTER_STATE::OFF},
+            {SHOOTER_STATE_HIGH_FAR_STRING, SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR},
+            {SHOOTER_STATE_HIGH_CLOSE_STRING, SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE},
+            {SHOOTER_STATE_LOW_STRING, SHOOTER_STATE::SHOOT_LOW_GOAL},
+            {SHOOTER_STATE_MANUAL_STRING, SHOOTER_STATE::SHOOT_MANUAL},
+            {SHOOTER_STATE_HOOD_STRING, SHOOTER_STATE::SHOOTER_HOOD_ADJUST},
+            {SHOOTER_STATE_PREPARE_STRING, SHOOTER_STATE::PREPARE_TO_SHOOT}
+        };
         
 		/// @brief  Find or create the state manmanager
 		/// @return IntakeStateMgr* pointer to the state manager
@@ -61,14 +82,25 @@ class ShooterStateMgr : public StateMgr
         Shooter*                                m_shooter;
         std::shared_ptr<nt::NetworkTable>       m_nt;     
 
+        const StateStruc m_shooterOffState = {SHOOTER_STATE::OFF, StateType::SHOOTER, true};
+        const StateStruc m_shooterShootFarState = {SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR, StateType::SHOOTER_AUTO, false};
+        const StateStruc m_shooterShootCloseState = {SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE, StateType::SHOOTER_AUTO, false};
+        const StateStruc m_shooterShootLowState = {SHOOTER_STATE::SHOOT_LOW_GOAL, StateType::SHOOTER, false};
+        const StateStruc m_shooterManualShootState = {SHOOTER_STATE::SHOOT_MANUAL, StateType::SHOOTER, false};
+        const StateStruc m_shooterHoodAdjust = {SHOOTER_STATE::SHOOTER_HOOD_ADJUST, StateType::SHOOTER_MANUAL, false};
+        const StateStruc m_shooterPrepareToShoot = {SHOOTER_STATE::PREPARE_TO_SHOOT, StateType::SHOOTER, false};
+
+        const std::map<std::string, StateStruc> m_shooterStateMap
+        {
+            {SHOOTER_STATE_OFF_STRING, m_shooterOffState},
+            {SHOOTER_STATE_HIGH_CLOSE_STRING, m_shooterShootCloseState},
+            {SHOOTER_STATE_HIGH_FAR_STRING, m_shooterShootFarState},
+            {SHOOTER_STATE_LOW_STRING, m_shooterShootLowState},
+            {SHOOTER_STATE_MANUAL_STRING, m_shooterManualShootState},
+            {SHOOTER_STATE_HOOD_STRING, m_shooterHoodAdjust},
+            {SHOOTER_STATE_PREPARE_STRING, m_shooterPrepareToShoot}
+        };
 
         const double m_CHANGE_STATE_TARGET = 120.0; 
 		static ShooterStateMgr*	m_instance;
-        const StateStruc m_offState = {SHOOTER_STATE::OFF, StateType::SHOOTER, true};
-        const StateStruc m_shootFarState = {SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR, StateType::SHOOTER_AUTO, false};
-        const StateStruc m_shootCloseState = {SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE, StateType::SHOOTER_AUTO, false};
-        const StateStruc m_shootLowState = {SHOOTER_STATE::SHOOT_LOW_GOAL, StateType::SHOOTER, false};
-        const StateStruc m_manualShootState = {SHOOTER_STATE::SHOOT_MANUAL, StateType::SHOOTER, false};
-        const StateStruc m_shooterHoodAdjust = {SHOOTER_STATE::SHOOTER_HOOD_ADJUST, StateType::SHOOTER_MANUAL, false};
-        const StateStruc m_prepareToShoot = {SHOOTER_STATE::PREPARE_TO_SHOOT, StateType::SHOOTER, false};
 };

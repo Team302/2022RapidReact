@@ -17,6 +17,8 @@
 #pragma once
 
 // C++ Includes
+#include <map>
+#include <string>
 
 // FRC includes
 
@@ -38,9 +40,16 @@ class RightIntakeStateMgr : public IntakeStateMgr
         void CheckForStateTransition() override;
 
     protected:
-        const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::RIGHT_INTAKE, true};
-        const StateStruc  m_intakeState = {INTAKE_STATE::INTAKE, StateType::RIGHT_INTAKE, false};
-        const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::RIGHT_INTAKE, false};
+        const StateStruc  m_rightIntakeOffState = {INTAKE_STATE::OFF, StateType::RIGHT_INTAKE, true};
+        const StateStruc  m_rightIntakeIntakeState = {INTAKE_STATE::INTAKE, StateType::RIGHT_INTAKE, false};
+        const StateStruc  m_rightIntakeExpelState = {INTAKE_STATE::EXPEL, StateType::RIGHT_INTAKE, false};
+
+        const std::map<std::string, StateStruc> m_rightIntakeStateMap
+        {
+            {INTAKE_STATE_OFF_STRING, m_rightIntakeOffState},
+            {INTAKE_STATE_INTAKE_STRING, m_rightIntakeIntakeState},
+            {INTAKE_STATE_EXPEL_STRING, m_rightIntakeExpelState}
+        };
 
 
     private:

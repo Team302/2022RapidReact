@@ -76,32 +76,17 @@ void MechanismDefn::ParseXML
             string typeStr = attr.as_string();
             for_each( typeStr.begin(), typeStr.end(), [](char & c){c = ::toupper(c);});
 
-            if ( typeStr.compare( "LEFT_INTAKE") == 0 )
+            auto it = MechanismTypes::m_mechanismTypeMap.find(typeStr);
+            if (it != MechanismTypes::m_mechanismTypeMap.end())
             {
-                type = MechanismTypes::MECHANISM_TYPE::LEFT_INTAKE;
-            }
-            else if ( typeStr.compare( "RIGHT_INTAKE") == 0 )
-            {
-                type = MechanismTypes::MECHANISM_TYPE::RIGHT_INTAKE;
-            }
-            else if (typeStr.compare( "BALL_TRANSFER") == 0)
-            {
-                type = MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER;
-            }
-            else if (typeStr.compare( "SHOOTER") == 0)
-            {
-                type = MechanismTypes::MECHANISM_TYPE::SHOOTER;
-            }
-            else if (typeStr.compare( "CLIMBER") == 0)
-            {
-                type = MechanismTypes::MECHANISM_TYPE::CLIMBER;
+                type = it->second;
             }
             else
             {
-                    string msg = "unknown Mechanism type ";
-                    msg += attr.value();
-                    Logger::GetLogger()->LogError( "MechanismDefn::ParseXML", msg );
-                    hasError = true;
+                string msg = "unknown Mechanism type ";
+                msg += attr.value();
+                Logger::GetLogger()->LogError( "MechanismDefn::ParseXML", msg );
+                hasError = true;
             }
         }
         else if ( attrName.compare("networkTable") == 0 )

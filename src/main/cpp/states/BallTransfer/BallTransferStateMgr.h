@@ -16,6 +16,8 @@
 #pragma once
 
 // C++ Includes
+#include <map>
+#include <string>
 
 // FRC includes
 #include <networktables/NetworkTable.h>
@@ -44,6 +46,21 @@ class BallTransferStateMgr : public StateMgr
             MAX_BALL_TRANSFER_STATES
         };
 
+        // these are the strings in the XML files
+        const std::string BALL_TRANSFER_STATE_OFF_STRING = std::string("BALLTRANSFER_OFF");
+        const std::string BALL_TRANSFER_STATE_LOAD_STRING = std::string("BALLTRANSFER_LOAD");
+        const std::string BALL_TRANSFER_STATE_HOLD_STRING = std::string("BALLTRANSFER_HOLD");
+        const std::string BALL_TRANSFER_STATE_FEED_STRING = std::string("BALLTRANSFER_FEED");
+        const std::string BALL_TRANSFER_STATE_SHOOT_STRING = std::string("BALLTRANSFER_SHOOT");
+
+        const std::map<std::string, BALL_TRANSFER_STATE> m_ballTransferStringEnumMap
+        {
+            {BALL_TRANSFER_STATE_OFF_STRING, BALL_TRANSFER_STATE::OFF},
+            {BALL_TRANSFER_STATE_LOAD_STRING, BALL_TRANSFER_STATE::LOAD},
+            {BALL_TRANSFER_STATE_HOLD_STRING, BALL_TRANSFER_STATE::HOLD},
+            {BALL_TRANSFER_STATE_FEED_STRING, BALL_TRANSFER_STATE::FEED},
+            {BALL_TRANSFER_STATE_SHOOT_STRING, BALL_TRANSFER_STATE::SHOOT}
+        };
         
 		/// @brief  Find or create the state manmanager
 		/// @return BallTransferStateMgr* pointer to the state manager
@@ -61,15 +78,23 @@ class BallTransferStateMgr : public StateMgr
         std::shared_ptr<nt::NetworkTable>       m_nt;     
 
 
+        const StateStruc  m_balltransferOffState = {BALL_TRANSFER_STATE::OFF, StateType::BALL_TRANSFER, true};
+        const StateStruc  m_balltransferLoadState = {BALL_TRANSFER_STATE::LOAD, StateType::BALL_TRANSFER, false};
+        const StateStruc  m_balltransferHoldState = {BALL_TRANSFER_STATE::HOLD, StateType::BALL_TRANSFER, false};
+        const StateStruc  m_balltransferFeedState = {BALL_TRANSFER_STATE::FEED, StateType::BALL_TRANSFER, false};
+        const StateStruc  m_balltransferShootState = {BALL_TRANSFER_STATE::SHOOT, StateType::BALL_TRANSFER, false};
+
+        const std::map<std::string, StateStruc> m_ballTransferStateMap
+        {
+            {BALL_TRANSFER_STATE_OFF_STRING, m_balltransferOffState},
+            {BALL_TRANSFER_STATE_LOAD_STRING, m_balltransferLoadState},
+            {BALL_TRANSFER_STATE_HOLD_STRING, m_balltransferHoldState},
+            {BALL_TRANSFER_STATE_FEED_STRING, m_balltransferFeedState},
+            {BALL_TRANSFER_STATE_SHOOT_STRING, m_balltransferShootState}
+        };
 
         BallTransferStateMgr();
         ~BallTransferStateMgr() = default;
 
 		static BallTransferStateMgr*	m_instance;
-
-        const StateStruc  m_offState = {BALL_TRANSFER_STATE::OFF, StateType::BALL_TRANSFER, true};
-        const StateStruc  m_loadState = {BALL_TRANSFER_STATE::LOAD, StateType::BALL_TRANSFER, false};
-        const StateStruc  m_holdState = {BALL_TRANSFER_STATE::HOLD, StateType::BALL_TRANSFER, false};
-        const StateStruc  m_feedState = {BALL_TRANSFER_STATE::FEED, StateType::BALL_TRANSFER, false};
-        const StateStruc  m_shootState = {BALL_TRANSFER_STATE::SHOOT, StateType::BALL_TRANSFER, false};
 };

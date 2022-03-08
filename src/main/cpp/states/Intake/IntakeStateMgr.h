@@ -17,6 +17,8 @@
 #pragma once
 
 // C++ Includes
+#include <map>
+#include <string>
 
 // FRC includes
 
@@ -38,6 +40,18 @@ class IntakeStateMgr : public StateMgr
             INTAKE,
             EXPEL,
             MAX_INTAKE_STATES
+        };
+
+        // these are the strings in the XML files
+        const std::string INTAKE_STATE_OFF_STRING = std::string("INTAKE_OFF");
+        const std::string INTAKE_STATE_INTAKE_STRING = std::string("INTAKE_ON");
+        const std::string INTAKE_STATE_EXPEL_STRING = std::string("INTAKE_EXPEL");
+
+        const std::map<std::string, INTAKE_STATE> m_intakeStringEnumMap
+        {
+            {INTAKE_STATE_OFF_STRING, INTAKE_STATE::OFF},
+            {INTAKE_STATE_INTAKE_STRING, INTAKE_STATE::INTAKE},
+            {INTAKE_STATE_EXPEL_STRING, INTAKE_STATE::EXPEL}
         };
 
     protected:

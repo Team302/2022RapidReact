@@ -46,12 +46,7 @@ LeftIntakeStateMgr* LeftIntakeStateMgr::GetInstance()
 /// @brief    initialize the state manager, parse the configuration file and create the states.
 LeftIntakeStateMgr::LeftIntakeStateMgr() : IntakeStateMgr()
 {
-    map<string, StateStruc> stateMap;
-    stateMap["INTAKE_OFF"] = m_offState;
-    stateMap["INTAKE_ON"]  = m_intakeState;
-    stateMap["INTAKE_EXPEL"] = m_expelState;
-
-    Init(MechanismFactory::GetMechanismFactory()->GetLeftIntake(), stateMap);
+    Init(MechanismFactory::GetMechanismFactory()->GetLeftIntake(), m_leftIntakeStateMap);
 }   
 
 

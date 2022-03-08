@@ -18,6 +18,7 @@
 
 // C++ Includes
 #include <map>
+#include <string>
 #include <vector>
 
 // FRC includes
@@ -65,16 +66,29 @@ class ClimberStateMgr : public StateMgr
 
 		static ClimberStateMgr*	m_instance;
 
-        const StateStruc    m_offState = {CLIMBER_STATE::OFF, StateType::CLIMBER, true};
-        const StateStruc    m_manualState = {CLIMBER_STATE::MANUAL, StateType::CLIMBER, false};
-        const StateStruc    m_initialReachState = {CLIMBER_STATE::INITIAL_REACH, StateType::CLIMBER, false};
-        const StateStruc    m_retractState = {CLIMBER_STATE::RETRACT, StateType::CLIMBER, false};
-        const StateStruc    m_releaseState = {CLIMBER_STATE::RELEASE, StateType::CLIMBER, false};
-        const StateStruc    m_reachToBarState = {CLIMBER_STATE::REACH_TO_BAR, StateType::CLIMBER, false};
-        const StateStruc    m_rotateOutState = {CLIMBER_STATE::ROTATE_OUT, StateType::CLIMBER, false};
-        const StateStruc    m_rotateInState = {CLIMBER_STATE::ROTATE_IN, StateType::CLIMBER, false};
-        const StateStruc    m_holdState = {CLIMBER_STATE::HOLD, StateType::CLIMBER, false};
+        const StateStruc    m_climberOffState = {CLIMBER_STATE::OFF, StateType::CLIMBER, true};
+        const StateStruc    m_climberManualState = {CLIMBER_STATE::MANUAL, StateType::CLIMBER, false};
+        const StateStruc    m_climberInitialReachState = {CLIMBER_STATE::INITIAL_REACH, StateType::CLIMBER, false};
+        const StateStruc    m_climberRetractState = {CLIMBER_STATE::RETRACT, StateType::CLIMBER, false};
+        const StateStruc    m_climberReleaseState = {CLIMBER_STATE::RELEASE, StateType::CLIMBER, false};
+        const StateStruc    m_climberReachToBarState = {CLIMBER_STATE::REACH_TO_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_climberRotateOutState = {CLIMBER_STATE::ROTATE_OUT, StateType::CLIMBER, false};
+        const StateStruc    m_climberRotateInState = {CLIMBER_STATE::ROTATE_IN, StateType::CLIMBER, false};
+        const StateStruc    m_climberHoldState = {CLIMBER_STATE::HOLD, StateType::CLIMBER, false};
 
+
+        const std::map<std::string, StateStruc> m_climberStateMap
+        {
+            {std::string("CLIMBEROFF"), m_climberOffState},
+            {std::string("CLIMBERMANUAL"), m_climberManualState},
+            {std::string("CLIMBERINITIALREACH"), m_climberInitialReachState},
+            {std::string("CLIMBERRETRACT"), m_climberRetractState},
+            {std::string("CLIMBERRELEASE"), m_climberReleaseState},
+            {std::string("CLIMBERREACHTOBAR"), m_climberReachToBarState},
+            {std::string("CLIMBERROTATEOUT"), m_climberRotateOutState},
+            {std::string("CLIMBERROTATEIN"), m_climberRotateInState},
+            {std::string("CLIMBERHOLD"), m_climberHoldState}
+        };
         ClimberStateMgr();
         ~ClimberStateMgr() = default;
 };

@@ -16,6 +16,9 @@
 
 #pragma once
 
+#include <map>
+#include <string>
+
 //========================================================================================================
 ///	 @class			MechanismTypes
 ///  @brief      	This contains the enum for the mechanism types
@@ -37,5 +40,21 @@ class MechanismTypes
             SHOOTER,
             CLIMBER,                 
             MAX_MECHANISM_TYPES
+        };
+
+        // these are the strings in the XML files
+        inline static const std::string MECH_LEFT_INTAKE_STRING = std::string("LEFT_INTAKE");
+        inline static const std::string MECH_RIGHT_INTAKE_STRING = std::string("RIGHT_INTAKE");
+        inline static const std::string MECH_BALL_TRANSFER_STRING = std::string("BALL_TRANSFER");
+        inline static const std::string MECH_SHOOTER_STRING = std::string("SHOOTER");
+        inline static const std::string MECH_CLIMBER_STRING = std::string("CLIMBER");
+
+        inline static const std::map<std::string, MECHANISM_TYPE> m_mechanismTypeMap
+        {
+            {MECH_LEFT_INTAKE_STRING, LEFT_INTAKE},
+            {MECH_RIGHT_INTAKE_STRING, RIGHT_INTAKE},
+            {MECH_BALL_TRANSFER_STRING, BALL_TRANSFER},
+            {MECH_SHOOTER_STRING, SHOOTER},
+            {MECH_CLIMBER_STRING, CLIMBER}
         };
 };

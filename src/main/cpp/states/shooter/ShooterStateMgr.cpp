@@ -59,19 +59,10 @@ ShooterStateMgr::ShooterStateMgr() : StateMgr(),
                                      m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter()),
                                      m_nt()
 {
-    map<string, StateStruc> stateMap;
-    stateMap["SHOOTER_OFF"] = m_offState;
-    stateMap["SHOOT_HIGHGOAL_CLOSE"] = m_shootFarState;
-    stateMap["SHOOT_HIGHGOAL_FAR"] = m_shootCloseState;
-    stateMap["SHOOT_LOWGOAL"] = m_shootLowState;
-    stateMap["MANUAL_SHOOT"] = m_manualShootState;
-    stateMap["ADJUSTHOOD"] = m_shooterHoodAdjust;
-    stateMap["PREPARETOSHOOT"] = m_prepareToShoot;
+     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight(); 
 
-    m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
+    Init(m_shooter, m_shooterStateMap);
     
-
-    Init(m_shooter, stateMap);
     if (m_shooter != nullptr)
     {
         auto ntName = m_shooter->GetNetworkTableName();

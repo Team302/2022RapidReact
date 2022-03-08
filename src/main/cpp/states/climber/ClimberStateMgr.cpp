@@ -65,18 +65,7 @@ ClimberStateMgr::ClimberStateMgr() : m_climber(MechanismFactory::GetMechanismFac
         m_nt = nt::NetworkTableInstance::GetDefault().GetTable("climber");
     }    
     
-    // initialize the xml string to state map
-    map<string, StateStruc> stateMap;
-    stateMap["CLIMBEROFF"] = m_offState;
-    stateMap["CLIMBERINITIALREACH"] = m_initialReachState;
-    stateMap["CLIMBERRETRACT"] = m_retractState;
-    stateMap["CLIMBERRELEASE"] = m_releaseState;
-    stateMap["CLIMBERREACHTOBAR"] = m_reachToBarState;
-    stateMap["CLIMBERROTATEOUT"] = m_rotateOutState;
-    stateMap["CLIMBERROTATEIN"] = m_rotateInState;
-    stateMap["CLIMBERHOLD"] = m_holdState;
-
-    Init(m_climber, stateMap);
+    Init(m_climber, m_climberStateMap);
 }
 
 /// @brief run the current state

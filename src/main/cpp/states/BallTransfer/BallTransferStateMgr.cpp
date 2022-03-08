@@ -73,14 +73,7 @@ BallTransferStateMgr::BallTransferStateMgr() : StateMgr(),
     {
         m_nt = nt::NetworkTableInstance::GetDefault().GetTable("transfer");
     }
-
-    map<string, StateStruc> stateMap;
-    stateMap["BALLTRANSFER_OFF"] = m_offState;
-    stateMap["BALLTRANSFER_LOAD"] = m_loadState;
-    stateMap["BALLTRANSFER_HOLD"] = m_holdState;
-    stateMap["BALLTRANSFER_FEED"] = m_feedState;
-    stateMap["BALLTRANSFER_SHOOT"] = m_shootState;
-    Init(m_transfer, stateMap);
+    Init(m_transfer, m_ballTransferStateMap);
 }
 
 /// @brief  run the current state
