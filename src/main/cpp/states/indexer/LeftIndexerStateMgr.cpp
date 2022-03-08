@@ -24,7 +24,8 @@
 #include <states/StateStruc.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
-
+#include <gamepad/TeleopControl.h>
+#include <states/indexer/RightIndexerStateMgr.h>
 
 // Third Party Includes
 
@@ -47,7 +48,9 @@ LeftIndexerStateMgr::LeftIndexerStateMgr() : IndexerStates(),
                                             m_indexer(MechanismFactory::GetMechanismFactory()->GetLeftIndexer()),
                                             m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter()),
                                             m_shooterStateMgr(ShooterStateMgr::GetInstance()),
-                                            m_leftIntakeStateMgr(LeftIntakeStateMgr::GetInstance())
+                                            m_leftIntakeStateMgr(LeftIntakeStateMgr::GetInstance()),
+                                            m_timer(new frc::Timer()),
+                                            m_rightIndexerStateMgr(RightIndexerStateMgr::GetInstance())
 {
     map<string, StateStruc> stateMap;
     stateMap["INDEXER_OFF"] = m_offState;
@@ -67,6 +70,8 @@ void LeftIndexerStateMgr::CheckForStateTransition()
         auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
         auto targetState = currentState;
 
+        auto controller = TeleopControl::GetInstance();
+
         if (m_shooterStateMgr != nullptr)
         {
             auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
@@ -76,6 +81,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                 auto isAtSpeed = m_shooterStateMgr->AtTarget();
                 if (isAtSpeed)
                 {
+                    ShooterDelay(); //may stay up here, may not, might change location depending on where m_timer needs to be reset
                     switch (shooterState)
                     {
                         case ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL:
@@ -88,11 +94,53 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                             [[fallthrough]]; //intentional fallthrough
 
                         case ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL:
-                            targetState = INDEXER_STATE::INDEX;
+                            //ShooterDelay();
+                            if (m_delay)
+                            {
+                                if (m_timer->HasElapsed(units::second_t(0.125)))
+                                {
+                                    targetState = INDEXER_STATE::INDEX;
+                                    if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
+                                    {
+                                        auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
+                                        targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                targetState = INDEXER_STATE::INDEX;
+                                if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
+                                {
+                                    auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
+                                    targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState;
+                                }  
+                            }                            
                             break;
                     
                         case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
-                            targetState = INDEXER_STATE::OFF;
+                            //ShooterDelay();
+                            if (m_delay)
+                            {
+                                if (m_timer->HasElapsed(units::second_t(0.125)))
+                                {
+                                    targetState = INDEXER_STATE::OFF;
+                                    if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
+                                    {
+                                        auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
+                                        targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                targetState = INDEXER_STATE::OFF;
+                                if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
+                                {
+                                    auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
+                                    targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState;
+                                } 
+                            }
                             break;
 
                         default:
@@ -100,26 +148,27 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                             break;
                     }
                 }
-                else
-                {
-                    targetState = INDEXER_STATE::OFF;
-                }
             }
         }
         
-        if (m_leftIntakeStateMgr != nullptr)
-        {
-            auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
-            targetState = intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE ? INDEXER_STATE::INDEX : INDEXER_STATE::OFF;
-        }
-        else
-        {
-            targetState = INDEXER_STATE::OFF;
-        }
         if (targetState != currentState)
         {
             SetCurrentState(targetState, true);
         }
 
     }    
+}
+
+void LeftIndexerStateMgr::ShooterDelay()
+{
+    m_timer->Restart();
+    if (m_rightIndexerStateMgr->GetCurrentState() == RightIndexerStateMgr::INDEXER_STATE::INDEX )
+    {
+        m_timer->Start();
+        m_delay = true;
+    }
+    else
+    {
+        m_delay = false;
+    }
 }

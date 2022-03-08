@@ -501,7 +501,7 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     {
         if (m_limelight->HasTarget())
         {
-            targetAngle = 1.0 * m_limelight->GetTargetHorizontalOffset();
+            targetAngle = -1.0 * m_limelight->GetTargetHorizontalOffset();
             //Debugging
             Logger::GetLogger()->ToNtTable("Limelight Toward Goal", "TargetAngle(Degrees)", targetAngle.to<double>());
         }

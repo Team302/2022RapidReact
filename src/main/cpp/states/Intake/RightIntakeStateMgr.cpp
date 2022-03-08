@@ -66,7 +66,7 @@ void RightIntakeStateMgr::CheckForStateTransition()
         auto controller = TeleopControl::GetInstance();
         if ( controller != nullptr )
         {
-            auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT);
+            auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT) || controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT_OLD);
             auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL_RIGHT);
             if (intakePressed  &&  currentState != INTAKE_STATE::INTAKE )
             {

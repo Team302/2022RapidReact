@@ -26,7 +26,6 @@
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
 
-
 // Third Party Includes
 
 using namespace std;
@@ -50,6 +49,7 @@ LeftIntakeStateMgr::LeftIntakeStateMgr() : IntakeStateMgr()
     stateMap["INTAKE_OFF"] = m_offState;
     stateMap["INTAKE_ON"]  = m_intakeState;
     stateMap["INTAKE_EXPEL"] = m_expelState;
+    
 
     Init(MechanismFactory::GetMechanismFactory()->GetLeftIntake(), stateMap);
 }   
@@ -66,7 +66,7 @@ void LeftIntakeStateMgr::CheckForStateTransition()
         auto controller = TeleopControl::GetInstance();
         if ( controller != nullptr )
         {
-            auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT);
+            auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) || controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT_OLD);
             auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL_LEFT);
             if (intakePressed  &&  currentState != INTAKE_STATE::INTAKE )
             {
@@ -76,9 +76,9 @@ void LeftIntakeStateMgr::CheckForStateTransition()
             {
                 SetCurrentState( INTAKE_STATE::EXPEL, true );
             }           
-            else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF )
+            else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF)
             {
-                SetCurrentState( INTAKE_STATE::OFF, true );
+                    SetCurrentState( INTAKE_STATE::OFF, true );
             }
             auto intake = MechanismFactory::GetMechanismFactory()->GetLeftIntake();
             auto stopped = intake->StopIfFullyExtended();
