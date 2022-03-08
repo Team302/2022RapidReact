@@ -3,5 +3,5 @@
 <auton>
     <primitive id="DO_NOTHING"
                 time="4.0"
-                shooter="SHOOT_MANUAL"/>
+                shooter="MANUAL_SHOOT"/>
 </auton>
