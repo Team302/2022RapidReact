@@ -295,6 +295,7 @@
               reverselimitswitch="true"
               reverselimitswitchopen="true"/>
     </mechanism>
+    
     <mechanism type="RIGHT_INTAKE"
                networkTable="RightIntakeNT"
                controlFile="intake.xml">
