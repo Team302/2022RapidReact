@@ -237,14 +237,14 @@ void SwerveChassis::Drive
             auto goalPose = m_targetFinder.GetPosCenterTarget();
             Translation2d goalTranslation = {goalPose.X(), goalPose.Y()};
 
-            auto states = mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE ? m_kinematics.ToSwerveModuleStates(chassisSpeeds, goalTranslation) : m_kinematics.ToSwerveModuleStates(chassisSpeeds);
-            //auto states = m_kinematics.ToSwerveModuleStates(chassisSpeeds);
+            //auto states = mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE ? m_kinematics.ToSwerveModuleStates(chassisSpeeds, goalTranslation) : m_kinematics.ToSwerveModuleStates(chassisSpeeds);
+            auto states = m_kinematics.ToSwerveModuleStates(chassisSpeeds);
 
             m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
 
             auto [fl, fr, bl, br] = states;
 
-            /*
+            
             // adjust wheel angles
             if (mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE)
             {
@@ -261,7 +261,6 @@ void SwerveChassis::Drive
                 Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Back Left Angle", bl.angle.Degrees().to<double>());
                 Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Back Right Angle", br.angle.Degrees().to<double>());
            }
-           */
         
             m_frontLeft.get()->SetDesiredState(fl);
             m_frontRight.get()->SetDesiredState(fr);
@@ -332,29 +331,23 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
 
     TeleopControl* controller = TeleopControl::GetInstance();
 
-    if (controller->GetAxisValue(TeleopControl::SWERVE_DRIVE_STEER) > 0)
-    {
-        ninety.Degrees() = units::angle::degree_t(ninety.Degrees().to<double>() * -1.0);
-    }
-
-    //Change angle to change direction of wheel based on quadrant
-    //if (m_targetFinder.GetFieldQuadrant(WheelPose) == 1 || m_targetFinder.GetFieldQuadrant(WheelPose) == 3)
-    //{
-    //    ninety.Degrees() = units::angle::degree_t(90.0); //Might have to switch signs
-    //}
-    //else if (m_targetFinder.GetFieldQuadrant(WheelPose) == 2 || m_targetFinder.GetFieldQuadrant(WheelPose) == 4)
-    //{
-    //    ninety.Degrees() = units::angle::degree_t(-90.0);
-    //}
-
-    //Change angle to change direction of wheel based  on direction
-    //if (controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER) < 0.0)
+    //if (controller->GetAxisValue(TeleopControl::SWERVE_DRIVE_STEER) > 0)
     //{
     //    ninety.Degrees() = units::angle::degree_t(ninety.Degrees().to<double>() * -1.0);
     //}
 
+        //Change angle to change direction of wheel based on quadrant
+    if (m_targetFinder.GetFieldQuadrant(WheelPose) == 1 || m_targetFinder.GetFieldQuadrant(WheelPose) == 3)
+    {
+        ninety.Degrees() = units::angle::degree_t(90.0); //Might have to switch signs
+    }
+    else if (m_targetFinder.GetFieldQuadrant(WheelPose) == 2 || m_targetFinder.GetFieldQuadrant(WheelPose) == 4)
+    {
+        ninety.Degrees() = units::angle::degree_t(-90.0);
+    }
+
     units::angle::radian_t triangleThetaRads = units::angle::radian_t(atan(wheelDeltaY.to<double>() / wheelDeltaX.to<double>()));
-    units::angle::degree_t thetaDeg = triangleThetaRads;
+    units::angle::degree_t thetaDeg = triangleThetaRads - robotPose.Rotation().Degrees(); //Subtract robot pose to "normalize" wheels, zero for the wheels is the robot angle
 
     //Debugging
     Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "WheelPoseX (Meters)", WheelPose.X().to<double>());

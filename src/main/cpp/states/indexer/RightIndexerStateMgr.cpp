@@ -69,7 +69,6 @@ void RightIndexerStateMgr::CheckForStateTransition()
     {
         auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
         auto targetState = currentState;
-
         
         if (m_shooterStateMgr != nullptr)
         {

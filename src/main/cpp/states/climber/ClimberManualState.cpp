@@ -90,6 +90,7 @@ void ClimberManualState::Run()
         auto armUpPercent   = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_UP);
         auto upDownPercent = armUpPercent - armDownPercent;
 
+        /**
         auto currentUpDown = m_reach.get()->GetRotations();
         auto upDownTarget = currentUpDown;
         if (upDownPercent > 0.05)
@@ -104,7 +105,7 @@ void ClimberManualState::Run()
         }
 
 
-        /**
+        
         auto armRotatePercent = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_ROTATE);
         auto currentRotate = m_rotate.get()->GetRotations();
 
@@ -126,8 +127,13 @@ void ClimberManualState::Run()
         m_climber->UpdateTargets(upDowntarget, rotateTarget);
         **/
        auto rotateTarget = 0.0;
+       auto testingZero = 0.0;
 
-        m_climber->UpdateTargets(upDownTarget, rotateTarget);
+        Logger::GetLogger()->LogError(string("Climber Manual State"), string("Down Percent: " + to_string(armDownPercent)));
+        Logger::GetLogger()->LogError(string("Climber Manual State"), string("Up Percent: " + to_string(armUpPercent)));
+        Logger::GetLogger()->LogError(string("Climber Manual State"), string("UpDown Percent: " + to_string(upDownPercent)));
+        //m_climber->UpdateTargets(upDownPercent, rotateTarget);
+        m_climber->UpdateTargets(testingZero, rotateTarget);
         m_climber->Update();
         m_climber->LogData();
     }

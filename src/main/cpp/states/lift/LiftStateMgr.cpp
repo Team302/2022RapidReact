@@ -71,29 +71,34 @@ void LiftStateMgr::CheckForStateTransition()
 
         if (m_shooterStateMgr != nullptr)
         {
-            auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
-            switch (shooterState)
+            bool isAtSpeed = m_shooterStateMgr->AtTarget();
+
+            if (isAtSpeed)
             {
-                case ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL:
-                    [[fallthrough]]; //intentional fallthrough
+                auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
+                switch (shooterState)
+                {
+                    case ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL:
+                        [[fallthrough]]; //intentional fallthrough
 
-                case ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE:
-                    [[fallthrough]]; //intentional fallthrough
+                    case ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE:
+                        [[fallthrough]]; //intentional fallthrough
 
-                case ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR:
-                    [[fallthrough]]; //intentional fallthrough
+                    case ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR:
+                        [[fallthrough]]; //intentional fallthrough
 
-                case ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL:
-                    targetState = LIFT_STATE::LIFT;
-                    break;
+                    case ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL:
+                        targetState = LIFT_STATE::LIFT;
+                        break;
 
-                case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
-                    targetState = LIFT_STATE::OFF;
-                    break;
+                    case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
+                        targetState = LIFT_STATE::OFF;
+                        break;
 
-                default:
-                    targetState = LIFT_STATE::OFF;
-                    break;
+                    default:
+                        targetState = LIFT_STATE::OFF;
+                        break;
+                }
             }
         }
         else
