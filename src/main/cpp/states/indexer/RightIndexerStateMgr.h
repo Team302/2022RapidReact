@@ -40,6 +40,9 @@ class RightIndexerStateMgr : public IndexerStates
 		static RightIndexerStateMgr* GetInstance();
         void CheckForStateTransition() override;
 
+        RightIndexerStateMgr();
+        ~RightIndexerStateMgr() = default;
+
     protected:
         const StateStruc  m_offState = {INDEXER_STATE::OFF, StateType::RIGHT_INDEXER, true};
         const StateStruc  m_indexState = {INDEXER_STATE::INDEX, StateType::RIGHT_INDEXER, false};
@@ -47,9 +50,6 @@ class RightIndexerStateMgr : public IndexerStates
 
 
     private:
-        RightIndexerStateMgr();
-        ~RightIndexerStateMgr() = default;
-
 		static RightIndexerStateMgr*	m_instance;
         Indexer*                        m_indexer;
         ShooterStateMgr*                m_shooterStateMgr;

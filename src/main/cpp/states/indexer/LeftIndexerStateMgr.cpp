@@ -97,7 +97,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                             //ShooterDelay();
                             if (m_delay)
                             {
-                                if (m_timer->HasElapsed(units::second_t(0.125)))
+                                if (m_timer->HasElapsed(units::second_t(0.25)))
                                 {
                                     targetState = INDEXER_STATE::INDEX;
                                     if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
@@ -119,10 +119,10 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                             break;
                     
                         case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
-                            //ShooterDelay();
+                            m_timer->Reset();
                             if (m_delay)
                             {
-                                if (m_timer->HasElapsed(units::second_t(0.125)))
+                                if (m_timer->HasElapsed(units::second_t(0.25)))
                                 {
                                     targetState = INDEXER_STATE::OFF;
                                     if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
@@ -145,6 +145,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
 
                         default:
                             targetState = INDEXER_STATE::OFF;
+                            m_timer->Reset();
                             break;
                     }
                 }
@@ -161,7 +162,6 @@ void LeftIndexerStateMgr::CheckForStateTransition()
 
 void LeftIndexerStateMgr::ShooterDelay()
 {
-    m_timer->Restart();
     if (m_rightIndexerStateMgr->GetCurrentState() == RightIndexerStateMgr::INDEXER_STATE::INDEX )
     {
         m_timer->Start();

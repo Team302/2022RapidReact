@@ -57,7 +57,7 @@ class LeftIndexerStateMgr : public IndexerStates
         Shooter*                    m_shooter;
         ShooterStateMgr*            m_shooterStateMgr;
         LeftIntakeStateMgr*         m_leftIntakeStateMgr;
-        frc::Timer                  m_timer;
-        RightIndexerStateMgr        m_rightIndexerStateMgr;
+        frc::Timer*                  m_timer;
+        RightIndexerStateMgr*        m_rightIndexerStateMgr;
         bool                        m_delay = false;
 };
