@@ -15,9 +15,11 @@
 //====================================================================================================================================================
 
 #pragma once
+#include <memory>
 
 #include <controllers/ControlData.h>
 #include <gamepad/TeleopControl.h>
+#include <hw/interfaces/IDragonMotorController.h>
 #include <subsys/Climber.h>
 #include <states/IState.h>
 
@@ -31,8 +33,8 @@ class ClimberManualState : public IState
         (
             ControlData*                    controlData,
             ControlData*                    controlData2,
-            double                          maxSpeedUpDown,
-            double                          maxSpeedRotate,
+            double                          maxRotationsUpDown,
+            double                          maxRotationsRotate,
             Climber*                        climber
         );
         ClimberManualState() = delete;
@@ -43,10 +45,14 @@ class ClimberManualState : public IState
         bool AtTarget() const override;
 
     private:
-        Climber*                        m_climber;
-        TeleopControl*                  m_controller;
-        ControlData*                    m_controlDataUpDown;
-        ControlData*                    m_controlDataRotate;
-        double                          m_upDownMax;
-        double                          m_rotateMax;
+        Climber*                                    m_climber;
+        TeleopControl*                              m_controller;
+        ControlData*                                m_controlDataUpDown;
+        ControlData*                                m_controlDataRotate;
+        std::shared_ptr<IDragonMotorController>     m_reach;
+        std::shared_ptr<IDragonMotorController>     m_rotate;
+        double                                      m_upDownMin;
+        double                                      m_upDownMax;
+        double                                      m_rotateMin;
+        double                                      m_rotateMax;
 };

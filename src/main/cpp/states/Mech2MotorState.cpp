@@ -132,7 +132,7 @@ Mech2MotorState::Mech2MotorState
 
 void Mech2MotorState::Init()
 {
-    if ( m_mechanism != nullptr && m_control != nullptr )
+    if ( m_mechanism != nullptr && m_control != nullptr && m_control2 != nullptr )
     {
         m_mechanism->SetControlConstants( 0, m_control );
         m_mechanism->SetSecondaryControlConstants( 0, m_control2 );

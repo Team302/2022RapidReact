@@ -28,10 +28,17 @@ class Climber : public Mech2IndMotors
     public:
         Climber
         (
-            std::shared_ptr<IDragonMotorController> motor1,
-            std::shared_ptr<IDragonMotorController> motor2
+            std::shared_ptr<IDragonMotorController> reachMotor,
+            std::shared_ptr<IDragonMotorController> rotateMotor
         );
 
         Climber() = delete;
         virtual ~Climber() = default;
+
+        double GetMinReach() const {return m_reachMin;}
+        double GetMinRotate() const {return m_rotateMin;}
+
+    private:
+        double m_reachMin;
+        double m_rotateMin;
 };

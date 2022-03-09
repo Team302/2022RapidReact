@@ -67,14 +67,15 @@ ClimberStateMgr::ClimberStateMgr() : m_climber(MechanismFactory::GetMechanismFac
     
     // initialize the xml string to state map
     map<string, StateStruc> stateMap;
-    stateMap["CLIMBEROFF"] = m_offState;
-    stateMap["CLIMBERINITIALREACH"] = m_initialReachState;
-    stateMap["CLIMBERRETRACT"] = m_retractState;
-    stateMap["CLIMBERRELEASE"] = m_releaseState;
-    stateMap["CLIMBERREACHTOBAR"] = m_reachToBarState;
-    stateMap["CLIMBERROTATEOUT"] = m_rotateOutState;
-    stateMap["CLIMBERROTATEIN"] = m_rotateInState;
-    stateMap["CLIMBERHOLD"] = m_holdState;
+    stateMap["CLIMBER_OFF"] = m_offState;
+    stateMap["CLIMBER_MANUAL"] = m_manualState;
+    stateMap["CLIMBER_INITIALREACH"] = m_initialReachState;
+    stateMap["CLIMBER_RETRACT"] = m_retractState;
+    stateMap["CLIMBER_RELEASE"] = m_releaseState;
+    stateMap["CLIMBER_REACHTOBAR"] = m_reachToBarState;
+    stateMap["CLIMBER_ROTATEOUT"] = m_rotateOutState;
+    stateMap["CLIMBER_ROTATEIN"] = m_rotateInState;
+    stateMap["CLIMBER_HOLD"] = m_holdState;
 
     Init(m_climber, stateMap);
 }
@@ -93,12 +94,13 @@ void ClimberStateMgr::CheckForStateTransition()
         auto isClimbMode  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SELECT_CLIMBER_ARM) : false;
         if (isClimbMode)
         {
-            auto armDownSpeed = controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_DOWN) : 0.0;
-            auto armUpSpeed   = controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_UP) : 0.0;
-            auto armRotateSpeed = controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_ROTATE) : 0.0;
+            //auto armDownSpeed = controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_DOWN) : 0.0;
+            //auto armUpSpeed   = controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_UP) : 0.0;
+            //auto armRotateSpeed = controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_ROTATE) : 0.0;
 
-            auto isManual = abs(armDownSpeed) > 0.1 || abs(armUpSpeed) > 0.1 || abs(armRotateSpeed) > 0.1;
-            targetState = isManual ? CLIMBER_STATE::MANUAL : CLIMBER_STATE::OFF;
+            //auto isManual = abs(armDownSpeed) > 0.1 || abs(armUpSpeed) > 0.1 || abs(armRotateSpeed) > 0.1;
+            //targetState = isManual ? CLIMBER_STATE::MANUAL : CLIMBER_STATE::OFF;
+            targetState = CLIMBER_STATE::MANUAL;
         }
         else
         {

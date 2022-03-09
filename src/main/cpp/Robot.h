@@ -11,10 +11,12 @@
 #include <auton/CyclePrimitives.h>
 #include <gamepad/TeleopControl.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
+#include <states/climber/ClimberStateMgr.h>
 #include <states/chassis/SwerveDrive.h>
 #include <states/intake/IntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <subsys/BallTransfer.h>
+#include <subsys/Climber.h>
 #include <subsys/Intake.h>
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/Shooter.h>
@@ -53,4 +55,7 @@ class Robot : public frc::TimedRobot
 
   ShooterStateMgr*      m_shooterStateMgr;
   Shooter*              m_shooter;
+
+  ClimberStateMgr*      m_climberStateMgr;
+  Climber*              m_climber;
 };

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE statedata SYSTEM "stateData.dtd">
+<statedata>
+	<controlData identifier="openloop" 
+	             mode="PERCENT_OUTPUT"/>
+				 
+	<controlData identifier="closedloop"
+				 mode="POSITION_DEGREES"
+				 proportional="0.155"/>
+
+	<controlData identifier="closedloop2"
+				 mode="VELOCITY_RPS"
+				 proportional="0.155"
+				 feedforward="0.045"/>
+
+	<mechanismTarget stateIdentifier="CLIMBER_OFF"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
+
+	<mechanismTarget stateIdentifier="CLIMBER_MANUAL"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="312.5"
+					 secondValue="312.5"/>
+
+	<mechanismTarget stateIdentifier="CLIMBER_INITIALREACH"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
+
+	<mechanismTarget stateIdentifier="CLIMBER_RETRACT"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
+                     
+	<mechanismTarget stateIdentifier="CLIMBER_RELEASE"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
+
+	<mechanismTarget stateIdentifier="CLIMBER_REACHTOBAR"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
+                     
+	<mechanismTarget stateIdentifier="CLIMBER_ROTATEOUT"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
+
+	<mechanismTarget stateIdentifier="CLIMBER_ROTATEIN"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
+
+	<mechanismTarget stateIdentifier="CLIMBER_HOLD"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
+
+</statedata> 
