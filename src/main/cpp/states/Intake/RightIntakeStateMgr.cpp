@@ -50,6 +50,7 @@ RightIntakeStateMgr::RightIntakeStateMgr() : IntakeStateMgr()
     stateMap["INTAKE_OFF"] = m_offState;
     stateMap["INTAKE_ON"]  = m_intakeState;
     stateMap["INTAKE_EXPEL"] = m_expelState;
+    stateMap["INTAKE_RETRACT"] = m_expelState;
 
     Init(MechanismFactory::GetMechanismFactory()->GetRightIntake(), stateMap);
 }   
