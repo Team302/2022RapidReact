@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
@@ -15,26 +14,24 @@
 //====================================================================================================================================================
 
 #pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    RIGHT_INTAKE,
-    LEFT_INDEXER,
-    RIGHT_INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    SHOOTER_AUTO,
-    CLIMBER,
-    MAX_STATE_TYPES
-};
+#include <states/Mech1MotorState.h>
 
+class ControlData;
+class Lift;
 
-struct StateStruc
+class LiftState : public Mech1MotorState
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
+    public:
+
+        LiftState() = delete;
+        LiftState
+        (
+            Lift*      lift,
+            ControlData* control,
+            double       target
+        );
+        ~LiftState() = default;
+
+    private:
+        Lift*     m_lift;
 };

@@ -159,13 +159,17 @@ TeleopControl::TeleopControl() : m_axisIDs(),
     {
 
 		m_controllerIndex[INTAKE_LEFT] 		= ctrlNo;
-		m_buttonIDs[INTAKE_LEFT]			= IDragonGamePad::LEFT_BUMPER;	
+		m_buttonIDs[INTAKE_LEFT]			= IDragonGamePad::LEFT_TRIGGER_PRESSED;	
 		m_controllerIndex[INTAKE_RIGHT] 	= ctrlNo;
-		m_buttonIDs[INTAKE_RIGHT]			= IDragonGamePad::RIGHT_BUMPER;	
+		m_buttonIDs[INTAKE_RIGHT]			= IDragonGamePad::RIGHT_TRIGGER_PRESSED;	
 		m_controllerIndex[EXPEL_LEFT] 		= ctrlNo;
 		m_buttonIDs[EXPEL_LEFT] 			= IDragonGamePad::POV_270;	
 		m_controllerIndex[EXPEL_RIGHT] 		= ctrlNo;
-		m_buttonIDs[EXPEL_RIGHT] 			= IDragonGamePad::POV_90;	
+		m_buttonIDs[EXPEL_RIGHT] 			= IDragonGamePad::POV_90;
+		m_controllerIndex[INTAKE_LEFT_OLD]	= ctrlNo;
+		m_buttonIDs[INTAKE_LEFT_OLD]		= IDragonGamePad::LEFT_BUMPER;
+		m_controllerIndex[INTAKE_RIGHT_OLD]	= ctrlNo;
+		m_buttonIDs[INTAKE_RIGHT_OLD]		= IDragonGamePad::RIGHT_BUMPER;
 
         //TODO needs hook for States
 		m_controllerIndex[AUTO_SHOOT_HIGH] 		= ctrlNo;

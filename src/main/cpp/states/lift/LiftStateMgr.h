@@ -15,26 +15,52 @@
 //====================================================================================================================================================
 
 #pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    RIGHT_INTAKE,
-    LEFT_INDEXER,
-    RIGHT_INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    SHOOTER_AUTO,
-    CLIMBER,
-    MAX_STATE_TYPES
-};
+
+// C++ Includes
+
+// FRC includes
+
+// Team 302 includes
+#include <states/StateStruc.h>
+#include <states/shooter/ShooterStateMgr.h>
+#include <states/StateMgr.h>
+
+#include <subsys/Shooter.h>
+#include <subsys/Lift.h>
 
 
-struct StateStruc
+// Third Party Includes
+
+class LiftStateMgr : public StateMgr
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
+    public:
+        /// @enum the various states of the BallTransfer
+        enum LIFT_STATE
+        {
+            OFF,
+            LIFT,
+            LOWER,
+            MAX_BALL_TRANSFER_STATES
+        };
+
+		/// @brief  Find or create the state manmanager
+		/// @return RightIntakeStateMgr* pointer to the state manager
+		static LiftStateMgr* GetInstance();
+        void CheckForStateTransition() override;
+
+    protected:
+        const StateStruc  m_offState = {LIFT_STATE::OFF, StateType::LIFT, true};
+        const StateStruc  m_liftState = {LIFT_STATE::LIFT, StateType::LIFT, false};
+        const StateStruc  m_lowerState = {LIFT_STATE::LOWER, StateType::LIFT, false};
+
+
+    private:
+        LiftStateMgr();
+        ~LiftStateMgr() = default;
+
+		static LiftStateMgr*	m_instance;
+        ShooterStateMgr*        m_shooterStateMgr;
+        Shooter*                m_shooter;
+        Lift*                   m_lift;
+
 };

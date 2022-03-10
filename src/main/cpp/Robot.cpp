@@ -19,6 +19,10 @@
 #include <subsys/MechanismFactory.h>
 #include <subsys/Shooter.h>
 #include <xmlhw/RobotDefn.h>
+#include <subsys/Indexer.h>
+#include <subsys/Lift.h>
+#include <states/indexer/LeftIndexerStateMgr.h>
+#include <states/indexer/RightIndexerStateMgr.h>
 
 
 void Robot::RobotInit() 
@@ -45,12 +49,21 @@ void Robot::RobotInit()
 
     m_rightIntake = mechFactory->GetRightIntake();
     m_rightIntakeStateMgr = m_rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
+
+    m_leftIndexer = mechFactory->GetLeftIndexer();
+    m_leftIndexerStateMgr = m_leftIndexer != nullptr ? LeftIndexerStateMgr::GetInstance() : nullptr;
+
+    m_rightIndexer = mechFactory->GetRightIndexer();
+    m_rightIndexerStateMgr = m_rightIndexer != nullptr ? RightIndexerStateMgr::GetInstance() : nullptr;
     
     m_ballTransfer = mechFactory->GetBallTransfer();
     m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
 
-    m_shooter = m_ballTransfer != nullptr ? mechFactory->GetShooter() : nullptr;
+    m_shooter = mechFactory->GetShooter();
     m_shooterStateMgr = m_shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
+
+    m_lift = mechFactory->GetLift();
+    m_liftStateMgr = m_lift != nullptr ? LiftStateMgr::GetInstance() : nullptr;
     
     m_climber = mechFactory->GetClimber();
     m_climberStateMgr = m_climber != nullptr ? ClimberStateMgr::GetInstance() : nullptr;
@@ -128,7 +141,18 @@ void Robot::TeleopInit()
     {
         m_climberStateMgr->RunCurrentState();
     }
-
+    if (m_rightIndexer != nullptr && m_rightIndexerStateMgr != nullptr)
+    {
+        m_rightIndexerStateMgr->RunCurrentState();
+    }
+    if (m_leftIndexer != nullptr && m_leftIndexerStateMgr != nullptr)
+    {
+        m_leftIndexerStateMgr->RunCurrentState();
+    }
+    if (m_lift != nullptr && m_liftStateMgr != nullptr)
+    {
+        m_liftStateMgr->RunCurrentState();
+    }
 }
 
 void Robot::TeleopPeriodic() 
@@ -157,6 +181,18 @@ void Robot::TeleopPeriodic()
     if (m_climberStateMgr != nullptr && m_climber != nullptr)
     {
         m_climberStateMgr->RunCurrentState();
+    }
+    if (m_rightIndexer != nullptr && m_rightIndexerStateMgr != nullptr)
+    {
+        m_rightIndexerStateMgr->RunCurrentState();
+    }
+    if (m_leftIndexer != nullptr && m_leftIndexerStateMgr != nullptr)
+    {
+        m_leftIndexerStateMgr->RunCurrentState();
+    }
+    if (m_lift != nullptr && m_liftStateMgr != nullptr)
+    {
+        m_liftStateMgr->RunCurrentState();
     }
 }
 

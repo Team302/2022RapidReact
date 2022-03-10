@@ -15,7 +15,8 @@
 
 
 // C++ Includes
-
+#include <iostream>
+#include <string>
 // FRC includes
 
 // Team 302 includes
@@ -32,11 +33,8 @@
 ShooterStateAutoHigh::ShooterStateAutoHigh
 (
     ControlData*                    control, 
-    ControlData*                    control2,
-    double                          primaryTarget,
-    double                          secondaryTarget
-
-) : ShooterState(control, control2, primaryTarget, secondaryTarget), 
+    double                          primaryTarget
+) : ShooterState(control, primaryTarget), 
     m_dragonLimeLight(LimelightFactory::GetLimelightFactory()->GetLimelight()), 
     m_shooterTarget(primaryTarget)
 {
@@ -46,15 +44,16 @@ void ShooterStateAutoHigh::Init()
 {
     if (GetShooter() != nullptr)
     {
-        GetShooter()->SetControlConstants( 0, GetPrimaryControlData() );
-        GetShooter()->SetSecondaryControlConstants( 0, GetSecondaryControlData() );
+        GetShooter()->SetControlConstants( 0, GetControlData() );
         double inches = 75.0;
         if (m_dragonLimeLight != nullptr)
         {
             auto distance = m_dragonLimeLight->EstimateTargetDistance();
             inches = distance.to<double>();
+            std::cout << "Distance (Inches): " << std::to_string(inches) << std::endl;
         }
         m_shooterTarget = 0.0021 * inches*inches - 0.3585 * inches + 72.867;
-        GetShooter()->UpdateTargets(m_shooterTarget, GetSecondaryTarget());
+        std::cout << "Shooter Target: " << std::to_string(m_shooterTarget) << std::endl;
+        GetShooter()->UpdateTarget(m_shooterTarget);
     }
 }

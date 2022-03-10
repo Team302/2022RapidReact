@@ -6,66 +6,41 @@
 				 
 	<controlData identifier="closedloop"
 				 mode="POSITION_DEGREES"
-				 proportional="0.155"
+				 proportional="0.08"
 				 />
 
 	<controlData identifier="closedloop2"
 				 mode="VELOCITY_RPS"
-				 proportional="0.155"
+				 proportional="0.1415"
+				 integral="0.001"
 				 feedforward="0.045"/>
 
 	<mechanismTarget stateIdentifier="SHOOTER_OFF"
 	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
+					 value="0.0"/>
 
 	<mechanismTarget stateIdentifier="SHOOT_LOWGOAL"
 	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.5"
-					 secondValue="0.0"/> <!-- 1.0 -->
+					 value="0.5"/> 
 
 	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
 	                 controlDataIdentifier="closedloop2"
-	                 controlDataIdentifier2="openloop"
-					 value="20"
-					 secondValue="0.0"/>
+					 value="58.7"/>
 
 	<mechanismTarget stateIdentifier="ADJUSTHOOD"
 	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.2"/>
+					 value="0.0"/>
 
 	<mechanismTarget stateIdentifier="PREPARETOSHOOT"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.35"
-					 secondValue="0.0"/>
+	                 controlDataIdentifier="closedloop2"
+					 value="38"/>
 
  	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
 	                 controlDataIdentifier="closedloop2"
-					 controlDataIdentifier2="openloop"
-					 value="58.7"
-					 secondValue="0.0"/> <!-- 1.0 -->
+					 value="58.7"/> 
 
 
  	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
 	                 controlDataIdentifier="closedloop2"
-					 controlDataIdentifier2="openloop"
-					 value="58.7"
-					 secondValue="0.0"/> <!-- -1.0 -->
-					  <!-- 8ft from hub <mechanismTarget stateIdentifier="SHOOTERON"
-	                 controlDataIdentifier="closedloop"
-					 value="55.0"/> -->
-
-
-					 <!--changed the angle-->
-				<!--12.5ft from hub- <mechanismTarget stateIdentifier="SHOOTERON"
-	                 controlDataIdentifier="closedloop"
-					 value="70.0"/>	  -->
-
-
-					 
+					 value="58.7"/> 
 </statedata>

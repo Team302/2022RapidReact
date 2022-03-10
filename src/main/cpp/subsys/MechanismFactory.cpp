@@ -70,11 +70,14 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 
 }
 
-MechanismFactory::MechanismFactory() : m_leftIntake(nullptr),
-				       m_rightIntake(nullptr),
-				       m_ballTransfer(nullptr),
- 				       m_shooter(nullptr),
- 				       m_climber(nullptr)
+MechanismFactory::MechanismFactory() : 	m_leftIntake(nullptr),
+										m_rightIntake(nullptr),
+										m_ballTransfer(nullptr),
+										m_shooter(nullptr),
+										m_climber(nullptr),
+										m_leftIndexer(nullptr),
+										m_rightIndexer(nullptr),
+										m_lift(nullptr)
 {
 }
 
@@ -154,6 +157,81 @@ void MechanismFactory::CreateIMechanism
 		}
 		break;
 
+		case MechanismTypes::LEFT_INDEXER:
+		{
+			if (m_leftIndexer == nullptr)
+			{
+				auto indexerMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INDEXER);
+				if (indexerMotor.get() != nullptr)
+				{
+					m_leftIndexer = new Indexer(MechanismTypes::MECHANISM_TYPE::LEFT_INDEXER,
+												controlFileName,
+												networkTableName,
+												indexerMotor);
+					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Left Indexer mechanism"));
+				}
+				else
+				{
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Left indexer motor missing in XML"));
+				}
+			}
+			else
+			{
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Left indexer already exists") );
+			}
+		}
+		break;
+
+		case MechanismTypes::RIGHT_INDEXER:
+		{
+			if (m_rightIndexer == nullptr)
+			{
+				auto indexerMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INDEXER);
+				if (indexerMotor.get() != nullptr)
+				{
+					m_rightIndexer = new Indexer(MechanismTypes::MECHANISM_TYPE::RIGHT_INDEXER,
+												controlFileName,
+												networkTableName,
+												indexerMotor);
+					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Right Indexer mechanism"));
+				}
+				else
+				{
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Right indexer motor missing in XML"));
+				}
+			}
+			else
+			{
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Right indexer already exists") );
+			}
+		}
+		break;
+
+		case MechanismTypes::LIFT:
+		{
+			if (m_lift == nullptr)
+			{
+				auto liftMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::LIFT);
+				if (liftMotor.get() != nullptr)
+				{
+					m_lift = new Lift(MechanismTypes::MECHANISM_TYPE::LIFT,
+										controlFileName,
+										networkTableName,
+										liftMotor);
+					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Lift mechanism"));
+				}
+				else
+				{
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Lift motor is missing in XML") );
+				}
+			}
+			else
+			{
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Lift motor already exists") );
+			}
+		}
+		break;
+
 		case MechanismTypes::BALL_TRANSFER:
 		{
 			if (m_ballTransfer == nullptr)
@@ -175,10 +253,9 @@ void MechanismFactory::CreateIMechanism
 			if (m_shooter == nullptr)
 			{
 				auto shooterMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER);
-				auto shooterHoodMotor = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER_HOOD);
-				if ( shooterMotor.get() != nullptr && shooterHoodMotor.get() != nullptr)
+				if ( shooterMotor.get() != nullptr)
 				{
-					m_shooter = new Shooter(controlFileName, networkTableName, shooterMotor, shooterHoodMotor);
+					m_shooter = new Shooter(controlFileName, networkTableName, shooterMotor);
 				}
 				else
 				{
@@ -271,6 +348,18 @@ IMech* MechanismFactory::GetMechanism
 			
 		case MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER:
 			return GetBallTransfer();
+			break;
+
+		case MechanismTypes::MECHANISM_TYPE::LEFT_INDEXER:
+			return GetLeftIndexer();
+			break;
+
+		case MechanismTypes::MECHANISM_TYPE::RIGHT_INDEXER:
+			return GetRightIndexer();
+			break;
+		
+		case MechanismTypes::MECHANISM_TYPE::LIFT:
+			return GetLift();
 			break;
 	
 		case MechanismTypes::MECHANISM_TYPE::SHOOTER:

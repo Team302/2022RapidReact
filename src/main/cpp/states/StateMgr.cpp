@@ -40,6 +40,8 @@
 #include <states/BallTransfer/BallTransferState.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
 #include <subsys/BallTransfer.h>
+#include <states/indexer/IndexerState.h>
+#include <states/lift/LiftState.h>
 
 // Third Party Includes
 
@@ -117,7 +119,7 @@ void StateMgr::Init
                         	    break;
                     
                     	        case StateType::SHOOTER:
-                       		    thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
+                       		    thisState = new ShooterState(controlData, target);
                        		    break;
 
                     	        case StateType::SHOOTER_MANUAL:
@@ -125,11 +127,23 @@ void StateMgr::Init
                        		    break;
 
                     	        case StateType::SHOOTER_AUTO:
-                       		    thisState = new ShooterStateAutoHigh(controlData, controlData2, target, secondaryTarget);
+                       		    thisState = new ShooterStateAutoHigh(controlData, target);
                        		    break;
 
                                 case StateType::CLIMBER:
                                     thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
+                                    break;
+
+                                case StateType::LEFT_INDEXER:
+                                    thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetLeftIndexer(), controlData, target);
+                                    break;
+
+                                case StateType::RIGHT_INDEXER:
+                                    thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetRightIndexer(), controlData, target);
+                                    break;
+                                
+                                case StateType::LIFT:
+                                    thisState = new LiftState(MechanismFactory::GetMechanismFactory()->GetLift(), controlData, target);
                                     break;
 
                     	    default:

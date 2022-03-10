@@ -14,27 +14,22 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    RIGHT_INTAKE,
-    LEFT_INDEXER,
-    RIGHT_INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    SHOOTER_AUTO,
-    CLIMBER,
-    MAX_STATE_TYPES
-};
+#include <states/lift/LiftState.h>
+#include <states/Mech1MotorState.h>
+#include <subsys/MechanismFactory.h>
+#include <controllers/ControlData.h>
+#include <subsys/interfaces/IMech1IndMotor.h>
+#include <subsys/Lift.h>
 
-
-struct StateStruc
+LiftState::LiftState
+(
+    Lift*      lift,
+    ControlData* control,
+    double       target
+) : Mech1MotorState (lift, 
+                     control,
+                     target),
+    m_lift(lift)
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
-};
+}
+

@@ -44,6 +44,8 @@
 #include <subsys/Shooter.h>
 #include <subsys/Climber.h>
 #include <subsys/BallTransfer.h>
+#include <subsys/Lift.h>
+#include <subsys/Indexer.h>
 
 // Third Party Includes
 
@@ -94,6 +96,9 @@ class MechanismFactory
 		inline Intake* GetLeftIntake() const { return m_leftIntake;};
 		inline Intake* GetRightIntake() const { return m_rightIntake;};
 		inline Shooter* GetShooter() const { return m_shooter;};
+		inline Indexer* GetLeftIndexer() const { return m_leftIndexer;};
+		inline Indexer* GetRightIndexer() const { return m_rightIndexer;};
+		inline Lift* GetLift() const { return m_lift;};
 
 		IMech* GetMechanism
 		(
@@ -144,7 +149,9 @@ class MechanismFactory
 		BallTransfer*	m_ballTransfer;
 		Shooter* 		m_shooter;
 		Climber*		m_climber;
-
+		Indexer* 		m_leftIndexer;
+		Indexer* 		m_rightIndexer;
+		Lift* 			m_lift;
 		
 
 };

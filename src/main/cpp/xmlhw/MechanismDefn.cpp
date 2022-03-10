@@ -96,6 +96,18 @@ void MechanismDefn::ParseXML
             {
                 type = MechanismTypes::MECHANISM_TYPE::CLIMBER;
             }
+            else if (typeStr.compare( "LIFT") == 0)
+            {
+                type = MechanismTypes::MECHANISM_TYPE::LIFT;
+            }
+            else if (typeStr.compare( "LEFT_INDEXER") == 0)
+            {
+                type = MechanismTypes::MECHANISM_TYPE::LEFT_INDEXER;
+            }
+            else if (typeStr.compare( "RIGHT_INDEXER") == 0)
+            {
+                type = MechanismTypes::MECHANISM_TYPE::RIGHT_INDEXER;
+            }
             else
             {
                     string msg = "unknown Mechanism type ";
