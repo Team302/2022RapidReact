@@ -32,6 +32,8 @@
 #include <utils/Logger.h>
 #include <xmlmechdata/StateDataDefn.h>
 #include <states/intake/IntakeState.h>
+#include <states/intake/ManualLeftIntakeState.h>
+#include <states/intake/ManualRightIntakeState.h>
 #include <states/shooter/ShooterState.h>
 #include <states/shooter/ShooterStateAutoHigh.h>
 #include <states/shooter/ShooterStateManual.h>
@@ -106,12 +108,28 @@ void StateMgr::Init
                                                             secondaryTarget);
                         	    break;
 
+                            case StateType::LEFT_INTAKE_MANUAL:
+                        	    thisState = new ManualLeftIntakeState(MechanismFactory::GetMechanismFactory()->GetLeftIntake(),
+                                                                                                controlData,
+                                                                                                controlData2, 
+                                                                                                target, 
+                                                                                                secondaryTarget);
+                        	    break;
+
                             case StateType::RIGHT_INTAKE:
                         	    thisState = new IntakeState(MechanismFactory::GetMechanismFactory()->GetRightIntake(),
                                                             controlData,
                                                             controlData2, 
                                                             target, 
                                                             secondaryTarget);
+                        	    break;
+
+                            case StateType::RIGHT_INTAKE_MANUAL:
+                        	    thisState = new ManualRightIntakeState(MechanismFactory::GetMechanismFactory()->GetRightIntake(),
+                                                                                                controlData,
+                                                                                                controlData2, 
+                                                                                                target, 
+                                                                                                secondaryTarget);
                         	    break;
                         	    
                     	    case StateType::BALL_TRANSFER:

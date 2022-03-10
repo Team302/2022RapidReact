@@ -36,6 +36,7 @@ class IntakeState : public Mech2MotorState
         ~IntakeState() = default;
 
         bool StopExtendingOrRetracting() const;
+        inline Intake* GetIntake() const {return m_intake;}
 
     private:
         Intake*     m_intake;

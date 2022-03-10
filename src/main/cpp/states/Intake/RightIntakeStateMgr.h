@@ -41,6 +41,7 @@ class RightIntakeStateMgr : public IntakeStateMgr
         const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::RIGHT_INTAKE, true};
         const StateStruc  m_intakeState = {INTAKE_STATE::INTAKE, StateType::RIGHT_INTAKE, false};
         const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::RIGHT_INTAKE, false};
+        const StateStruc  m_extend = {INTAKE_STATE::EXTEND, StateType::RIGHT_INTAKE_MANUAL, false };
 
 
     private:

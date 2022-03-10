@@ -14,39 +14,45 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
+#include <hw/interfaces/IDragonMotorController.h>
+#include <states/intake/IntakeState.h>
+#include <states/intake/ManualRightIntakeState.h>
+#include <controllers/ControlData.h>
+#include <subsys/Intake.h>
+#include <gamepad/TeleopControl.h>
 
-// C++ Includes
-
-// FRC includes
-
-// Team 302 includes
-#include <states/intake/IntakeStateMgr.h>
-#include <states/StateStruc.h>
-
-
-
-// Third Party Includes
-
-class LeftIntakeStateMgr : public IntakeStateMgr
+ManualRightIntakeState::ManualRightIntakeState
+(
+    Intake*      intake,
+    ControlData* controlSpin,
+    ControlData* controlExtend, 
+    double       spinTarget,
+    double       extendTarget
+) : IntakeState(intake, controlSpin, controlExtend, spinTarget, extendTarget),
+    m_controller(TeleopControl::GetInstance())
 {
-    public:
-		/// @brief  Find or create the state manmanager
-		/// @return RightIntakeStateMgr* pointer to the state manager
-		static LeftIntakeStateMgr* GetInstance();
-        void CheckForStateTransition() override;
-
-    protected:
-        const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::LEFT_INTAKE, true};
-        const StateStruc  m_intakeState = {INTAKE_STATE::INTAKE, StateType::LEFT_INTAKE, false};
-        const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::LEFT_INTAKE, false};
-        const StateStruc  m_extend = {INTAKE_STATE::EXTEND, StateType::LEFT_INTAKE_MANUAL, false };
-
-    private:
-        LeftIntakeStateMgr();
-        ~LeftIntakeStateMgr() = default;
-
-		static LeftIntakeStateMgr*	m_instance;
+}
 
 
-};
+void ManualRightIntakeState::Init()
+{
+}
+
+
+void ManualRightIntakeState::Run()           
+{
+    auto intake = GetIntake();
+    if ( m_controller != nullptr && intake != nullptr )
+    {
+        auto percent  = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_RIGHT);
+        auto motor = intake->GetSecondaryMotor();
+        motor.get()->Set(percent);
+    }    
+}
+
+bool ManualRightIntakeState::AtTarget() const
+{
+    return true;
+}
+
+

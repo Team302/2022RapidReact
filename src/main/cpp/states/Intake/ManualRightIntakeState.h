@@ -15,38 +15,32 @@
 //====================================================================================================================================================
 
 #pragma once
+#include <states/intake/IntakeState.h>
 
-// C++ Includes
+class ControlData;
+class Intake;
+class TeleopControl;
 
-// FRC includes
-
-// Team 302 includes
-#include <states/intake/IntakeStateMgr.h>
-#include <states/StateStruc.h>
-
-
-
-// Third Party Includes
-
-class LeftIntakeStateMgr : public IntakeStateMgr
+class ManualRightIntakeState : public IntakeState
 {
     public:
-		/// @brief  Find or create the state manmanager
-		/// @return RightIntakeStateMgr* pointer to the state manager
-		static LeftIntakeStateMgr* GetInstance();
-        void CheckForStateTransition() override;
 
-    protected:
-        const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::LEFT_INTAKE, true};
-        const StateStruc  m_intakeState = {INTAKE_STATE::INTAKE, StateType::LEFT_INTAKE, false};
-        const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::LEFT_INTAKE, false};
-        const StateStruc  m_extend = {INTAKE_STATE::EXTEND, StateType::LEFT_INTAKE_MANUAL, false };
+        ManualRightIntakeState() = delete;
+        ManualRightIntakeState
+        (
+            Intake*      intake,
+            ControlData* controlSpin,
+            ControlData* controlExtend, 
+            double       spinTarget,
+            double       extendTarget
+        );
+        ~ManualRightIntakeState() = default;
+        void Init() override;
+        void Run() override;
+        bool AtTarget() const override;
+        
+        bool StopExtendingOrRetracting() const;
 
     private:
-        LeftIntakeStateMgr();
-        ~LeftIntakeStateMgr() = default;
-
-		static LeftIntakeStateMgr*	m_instance;
-
-
+        TeleopControl*      m_controller;
 };

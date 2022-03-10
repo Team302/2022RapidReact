@@ -161,7 +161,11 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_controllerIndex[INTAKE_LEFT] 		= ctrlNo;
 		m_buttonIDs[INTAKE_LEFT]			= IDragonGamePad::LEFT_TRIGGER_PRESSED;	
 		m_controllerIndex[INTAKE_RIGHT] 	= ctrlNo;
-		m_buttonIDs[INTAKE_RIGHT]			= IDragonGamePad::RIGHT_TRIGGER_PRESSED;	
+		m_buttonIDs[INTAKE_RIGHT]			= IDragonGamePad::RIGHT_BUMPER;	
+		m_controllerIndex[INTAKE_RETRACT_LEFT] = ctrlNo;
+		m_axisIDs[INTAKE_RETRACT_LEFT]		= IDragonGamePad::LEFT_TRIGGER;	
+		m_controllerIndex[INTAKE_RETRACT_RIGHT] = ctrlNo;
+		m_axisIDs[INTAKE_RETRACT_RIGHT]		= IDragonGamePad::RIGHT_TRIGGER;	
 		m_controllerIndex[EXPEL_LEFT] 		= ctrlNo;
 		m_buttonIDs[EXPEL_LEFT] 			= IDragonGamePad::POV_270;	
 		m_controllerIndex[EXPEL_RIGHT] 		= ctrlNo;

@@ -51,6 +51,8 @@ class TeleopControl
             INTAKE_RIGHT_OLD,
             EXPEL_LEFT,
             EXPEL_RIGHT,
+            INTAKE_RETRACT_LEFT,
+            INTAKE_RETRACT_RIGHT,
             AUTO_SHOOT_HIGH,  
             AUTO_SHOOT_LOW,   
             AUTO_CLIMB_TRAVERSE,        //not used
