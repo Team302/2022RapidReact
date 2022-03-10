@@ -321,7 +321,9 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
 {
     Transform2d relativeWheelPosition = wheelLoc;
     //This wheel pose may not be accurate, may need to do manually using trig functions
-    auto WheelPose = robotPose + relativeWheelPosition;
+    auto tempRobotPose = robotPose;
+    tempRobotPose.Rotation().Degrees() - units::degree_t(0.0);
+    auto WheelPose = tempRobotPose + relativeWheelPosition;
     auto wheelToGoalTrans = WheelPose - goalPose;
 
     auto wheelDeltaX = WheelPose.X() - goalPose.X();
@@ -329,7 +331,7 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
 
     Rotation2d ninety {units::angle::degree_t(-90.0)};
 
-    TeleopControl* controller = TeleopControl::GetInstance();
+    //TeleopControl* controller = TeleopControl::GetInstance();
 
     //if (controller->GetAxisValue(TeleopControl::SWERVE_DRIVE_STEER) > 0)
     //{
@@ -347,7 +349,7 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
     }
 
     units::angle::radian_t triangleThetaRads = units::angle::radian_t(atan(wheelDeltaY.to<double>() / wheelDeltaX.to<double>()));
-    units::angle::degree_t thetaDeg = triangleThetaRads - robotPose.Rotation().Degrees(); //Subtract robot pose to "normalize" wheels, zero for the wheels is the robot angle
+    units::angle::degree_t thetaDeg = triangleThetaRads; //- robotPose.Rotation().Degrees(); Subtract robot pose to "normalize" wheels, zero for the wheels is the robot angle
 
     //Debugging
     Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "WheelPoseX (Meters)", WheelPose.X().to<double>());
