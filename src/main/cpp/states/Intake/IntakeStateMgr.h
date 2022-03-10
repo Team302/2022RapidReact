@@ -37,7 +37,7 @@ class IntakeStateMgr : public StateMgr
             OFF,
             INTAKE,
             EXPEL,
-            EXTEND,
+            RETRACT,
             MAX_INTAKE_STATES
         };
 

@@ -47,8 +47,6 @@ class TeleopControl
             DRIVE_POLAR_INTAKE,         //not used yet?? 2.13.22
             INTAKE_LEFT,
             INTAKE_RIGHT,
-            INTAKE_LEFT_OLD,
-            INTAKE_RIGHT_OLD,
             EXPEL_LEFT,
             EXPEL_RIGHT,
             INTAKE_RETRACT_LEFT,

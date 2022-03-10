@@ -66,19 +66,24 @@ void RightIntakeStateMgr::CheckForStateTransition()
         auto controller = TeleopControl::GetInstance();
         if ( controller != nullptr )
         {
-            auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT) || controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT_OLD);
+            auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT);
             auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL_RIGHT);
-            if (intakePressed  &&  currentState != INTAKE_STATE::INTAKE )
+            auto extend  = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_RIGHT);
+            if (intakePressed && currentState != INTAKE_STATE::INTAKE)
             {
                 SetCurrentState( INTAKE_STATE::INTAKE, true );
             }
-            else if (expelPressed && currentState != INTAKE_STATE::EXPEL )
+            else if (expelPressed && currentState != INTAKE_STATE::EXPEL)
             {
-                SetCurrentState( INTAKE_STATE::EXPEL, true );
+                SetCurrentState(INTAKE_STATE::EXPEL, true);
             }           
-            else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF )
+            else if (extend > 0.1)
             {
-                SetCurrentState( INTAKE_STATE::OFF, true );
+                SetCurrentState(INTAKE_STATE::EXTEND, true);
+            }          
+            else if (currentState != INTAKE_STATE::OFF)
+            {
+                SetCurrentState(INTAKE_STATE::OFF, true);
             }
             auto intake = MechanismFactory::GetMechanismFactory()->GetRightIntake();
             auto stopped = intake->StopIfFullyExtended();
