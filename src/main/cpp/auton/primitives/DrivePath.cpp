@@ -155,6 +155,8 @@ void DrivePath::Run()
             m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
         }
 
+        Logger::GetLogger()->ToNtTable("DrivePathValues", "heading option", m_heading);
+
         m_chassis->Drive(refChassisSpeeds,
                          IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
 						 m_headingOption);
