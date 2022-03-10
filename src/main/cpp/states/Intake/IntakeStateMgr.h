@@ -40,6 +40,16 @@ class IntakeStateMgr : public StateMgr
             MAX_INTAKE_STATES
         };
 
+        const std::string m_intakeOffXmlString = "INTAKE_OFF";
+        const std::string m_intakeIntakeXmlString = "INTAKE_ON";
+        const std::string m_intakeExpelXmlString = "INTAKE_EXPEL";
+        
+        const std::map<const std::string, INTAKE_STATE> m_intakeXmlStringToStateEnumMap
+        {   {m_intakeOffXmlString, INTAKE_STATE::OFF},
+            {m_intakeIntakeXmlString, INTAKE_STATE::INTAKE},
+            {m_intakeExpelXmlString, INTAKE_STATE::EXPEL}
+        };
+
     protected:
 
         IntakeStateMgr() = default;
