@@ -60,13 +60,13 @@ ShooterStateMgr::ShooterStateMgr() : StateMgr(),
                                      m_nt()
 {
     map<string, StateStruc> stateMap;
-    stateMap["SHOOTER_OFF"] = m_offState;
-    stateMap["SHOOT_HIGHGOAL_CLOSE"] = m_shootFarState;
-    stateMap["SHOOT_HIGHGOAL_FAR"] = m_shootCloseState;
-    stateMap["SHOOT_LOWGOAL"] = m_shootLowState;
-    stateMap["MANUAL_SHOOT"] = m_manualShootState;
-    stateMap["ADJUSTHOOD"] = m_shooterHoodAdjust;
-    stateMap["PREPARETOSHOOT"] = m_prepareToShoot;
+    stateMap[m_shooterOffXmlString] = m_offState;
+    stateMap[m_shooterHighGoalCloseXmlString] = m_shootFarState;
+    stateMap[m_shooterHighGoalFarXmlString] = m_shootCloseState;
+    stateMap[m_shooterLowGoalXmlString] = m_shootLowState;
+    stateMap[m_shooterManualXmlString] = m_manualShootState;
+    stateMap[m_shooterHoodXmlString] = m_shooterHoodAdjust;
+    stateMap[m_shooterPrepareXmlString] = m_prepareToShoot;
 
     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
     
