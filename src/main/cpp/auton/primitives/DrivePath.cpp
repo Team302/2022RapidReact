@@ -144,7 +144,7 @@ void DrivePath::Run()
         auto refChassisSpeeds = m_runHoloController ? m_holoController.Calculate(m_currentChassisPosition, m_desiredState, m_desiredState.pose.Rotation()) :
                                                       m_ramseteController.Calculate(m_currentChassisPosition, m_desiredState);
 
-        //refChassisSpeeds.omega = units::angular_velocity::degrees_per_second_t(0.0);  // see if this is messing with desired heading
+        refChassisSpeeds.omega = units::angular_velocity::degrees_per_second_t(0.0);  // see if this is messing with desired heading
 
         // debugging
         Logger::GetLogger()->ToNtTable("DrivePathValues", "ChassisSpeedsX", refChassisSpeeds.vx());
@@ -156,6 +156,7 @@ void DrivePath::Run()
         {
             m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
         }
+
 
         Logger::GetLogger()->ToNtTable("DrivePathValues", "heading option", m_heading);
 
