@@ -30,9 +30,14 @@
 #include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
 #include <auton/primitives/IPrimitive.h>
-#include <states/intake/IntakeStateMgr.h>
+#include <states/balltransfer/BallTransferStateMgr.h>
+#include <states/intake/LeftIntakeStateMgr.h>
+#include <states/intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <subsys/MechanismFactory.h>
+#include <subsys/Intake.h>
+#include <subsys/BallTransfer.h>
+#include <subsys/Shooter.h>
 #include <utils/Logger.h>
 
 // Third Party Includes
@@ -49,56 +54,8 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
 									 m_autonSelector( new AutonSelector()) ,
 									 m_timer( make_unique<Timer>()),
 									 m_maxTime( 0.0 ),
-									 m_isDone( false ),
-									 m_leftIntake(nullptr),
-									 m_rightIntake(nullptr),
-									 m_ballTransfer(nullptr),
-									 m_shooter(nullptr)
+									 m_isDone( false )
 {
-    auto mechFactory = MechanismFactory::GetMechanismFactory();
-    auto leftIntake = mechFactory->GetLeftIntake();
-    m_leftIntake = leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
-	if (m_leftIntake != nullptr)
-	{
-		Logger::GetLogger()->ToNtTable(string("auton"), string("m_leftIntake"), string("not null"));
-	}
-	else
-	{
-		Logger::GetLogger()->ToNtTable(string("auton"), string("m_leftIntake"), string("is null"));
-	}
-
-    auto rightIntake = mechFactory->GetRightIntake();
-    m_rightIntake = rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
-	if (m_rightIntake != nullptr)
-	{
-		Logger::GetLogger()->ToNtTable(string("auton"), string("m_rightIntake"), string("not null"));
-	}
-	else
-	{
-		Logger::GetLogger()->ToNtTable(string("auton"), string("m_rightIntake"), string("is null"));
-	}
-    
-	auto ballTransfer = mechFactory->GetBallTransfer();
-	m_ballTransfer = ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
-		if (m_ballTransfer != nullptr)
-	{
-		Logger::GetLogger()->ToNtTable(string("auton"), string("m_ballTransfer"), string("not null"));
-	}
-	else
-	{
-		Logger::GetLogger()->ToNtTable(string("auton"), string("m_ballTransfer"), string("is null"));
-	}
-
-    auto shooter = mechFactory->GetShooter();
-    m_shooter = shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
-		if (m_shooter != nullptr)
-	{
-		Logger::GetLogger()->ToNtTable(string("auton"), string("m_shooter"), string("not null"));
-	}
-	else
-	{
-		Logger::GetLogger()->ToNtTable(string("auton"), string("m_shooter"), string("is null"));
-	}
 }
 
 void CyclePrimitives::Init()
@@ -116,46 +73,57 @@ void CyclePrimitives::Init()
 void CyclePrimitives::Run()
 {
 	Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("cycle primitives"));
-	//if (DriverStation::IsAutonomousEnabled())
-	//{
-		if (m_currentPrim != nullptr)
-		{
-			m_currentPrim->Run();
-			Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("start"));
-			if (m_leftIntake != nullptr)
-			{
-				Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("left intake"));
-				m_leftIntake->RunCurrentState();
-			}
-			if (m_rightIntake != nullptr)
-			{
-				Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("right intake"));
-				m_rightIntake->RunCurrentState();
-			}
-			if (m_shooter != nullptr)
-			{
-				Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("shooter"));
-				m_shooter->RunCurrentState();
-			}
-			if (m_ballTransfer != nullptr)
-			{
-				Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("ball transfer"));
-				m_ballTransfer->RunCurrentState();
-			}
+	if (m_currentPrim != nullptr)
+	{
+		m_currentPrim->Run();
+		Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("start"));
+		
+		auto mechFactory = MechanismFactory::GetMechanismFactory();
+		auto leftIntake = mechFactory->GetLeftIntake();
+		auto leftIntakeStateMgr = leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
 
-			if (m_currentPrim->IsDone())
-			{
-				GetNextPrim();
-			}
-		}
-		else
+		auto rightIntake = mechFactory->GetRightIntake();
+		auto rightIntakeStateMgr = rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
+
+		auto ballTransfer = mechFactory->GetBallTransfer();
+		auto ballTransferStateMgr = ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
+
+		auto shooter = mechFactory->GetShooter();
+		auto shooterStateMgr = shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
+		
+		if (leftIntakeStateMgr != nullptr)
 		{
-			m_isDone = true;
-			m_primParams.clear();	// clear the primitive params vector
-			m_currentPrimSlot = 0;  //Reset current prim slot
-			RunDoNothing();
+			Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("left intake"));
+			leftIntakeStateMgr->RunCurrentState();
 		}
-	//}
+		if (rightIntakeStateMgr != nullptr)
+		{
+			Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("right intake"));
+			rightIntakeStateMgr->RunCurrentState();
+		}
+		if (shooterStateMgr != nullptr)
+		{
+			Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("shooter"));
+			shooterStateMgr->RunCurrentState();
+		}
+		if (ballTransferStateMgr != nullptr)
+		{
+			Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("ball transfer"));
+			ballTransferStateMgr->RunCurrentState();
+		}
+
+		if (m_currentPrim->IsDone())
+		{
+			GetNextPrim();
+		}
+	}
+	else
+	{
+		m_isDone = true;
+		m_primParams.clear();	// clear the primitive params vector
+		m_currentPrimSlot = 0;  //Reset current prim slot
+		RunDoNothing();
+	}
 }
 
 bool CyclePrimitives::AtTarget() const
@@ -171,21 +139,34 @@ void CyclePrimitives::GetNextPrim()
 	if (m_currentPrim != nullptr)
 	{
 		m_currentPrim->Init(currentPrimParam);
-		if (m_leftIntake != nullptr)
+		auto mechFactory = MechanismFactory::GetMechanismFactory();
+		auto leftIntake = mechFactory->GetLeftIntake();
+		auto leftIntakeStateMgr = leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
+
+		auto rightIntake = mechFactory->GetRightIntake();
+		auto rightIntakeStateMgr = rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
+
+		auto ballTransfer = mechFactory->GetBallTransfer();
+		auto ballTransferStateMgr = ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
+
+		auto shooter = mechFactory->GetShooter();
+		auto shooterStateMgr = shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
+
+		if (leftIntakeStateMgr != nullptr)
 		{
-			m_leftIntake->SetCurrentState(currentPrimParam->GetLeftIntakeState(), true);
+			leftIntakeStateMgr->SetCurrentState(currentPrimParam->GetLeftIntakeState(), true);
 		}
-		if (m_rightIntake != nullptr)
+		if (rightIntakeStateMgr != nullptr)
 		{
-			m_rightIntake->SetCurrentState(currentPrimParam->GetRightIntakeState(), true);
+			rightIntakeStateMgr->SetCurrentState(currentPrimParam->GetRightIntakeState(), true);
 		}
-		if (m_shooter != nullptr)
+		if (shooterStateMgr != nullptr)
 		{
-			m_shooter->SetCurrentState(currentPrimParam->GetShooterState(), true);
+			shooterStateMgr->SetCurrentState(currentPrimParam->GetShooterState(), true);
 		}
-		if (m_ballTransfer != nullptr)
+		if (ballTransferStateMgr != nullptr)
 		{
-			m_ballTransfer->RunCurrentState();
+			ballTransferStateMgr->RunCurrentState();
 		}
 		m_maxTime = currentPrimParam->GetTime();
 		m_timer->Reset();
