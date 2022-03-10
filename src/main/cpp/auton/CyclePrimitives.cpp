@@ -35,6 +35,9 @@
 #include <states/intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <subsys/MechanismFactory.h>
+#include <subsys/Intake.h>
+#include <subsys/BallTransfer.h>
+#include <subsys/Shooter.h>
 #include <utils/Logger.h>
 
 // Third Party Includes
@@ -69,10 +72,12 @@ void CyclePrimitives::Init()
 
 void CyclePrimitives::Run()
 {
+	Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("cycle primitives"));
 	if (m_currentPrim != nullptr)
 	{
 		m_currentPrim->Run();
-	
+		Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("start"));
+		
 		auto mechFactory = MechanismFactory::GetMechanismFactory();
 		auto leftIntake = mechFactory->GetLeftIntake();
 		auto leftIntakeStateMgr = leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
@@ -88,18 +93,22 @@ void CyclePrimitives::Run()
 		
 		if (leftIntakeStateMgr != nullptr)
 		{
+			Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("left intake"));
 			leftIntakeStateMgr->RunCurrentState();
 		}
 		if (rightIntakeStateMgr != nullptr)
 		{
+			Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("right intake"));
 			rightIntakeStateMgr->RunCurrentState();
 		}
 		if (shooterStateMgr != nullptr)
 		{
+			Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("shooter"));
 			shooterStateMgr->RunCurrentState();
 		}
 		if (ballTransferStateMgr != nullptr)
 		{
+			Logger::GetLogger()->ToNtTable(string("auton"), string("run primitive"), string("ball transfer"));
 			ballTransferStateMgr->RunCurrentState();
 		}
 
