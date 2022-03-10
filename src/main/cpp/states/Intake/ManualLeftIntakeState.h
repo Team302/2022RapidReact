@@ -39,8 +39,6 @@ class ManualLeftIntakeState : public IntakeState
         void Run() override;
         bool AtTarget() const override;
         
-        bool StopExtendingOrRetracting() const;
-
     private:
         TeleopControl*      m_controller;
 };

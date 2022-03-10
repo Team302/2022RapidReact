@@ -49,7 +49,7 @@ LeftIntakeStateMgr::LeftIntakeStateMgr() : IntakeStateMgr()
     stateMap["INTAKE_OFF"] = m_offState;
     stateMap["INTAKE_ON"]  = m_intakeState;
     stateMap["INTAKE_EXPEL"] = m_expelState;
-    
+    stateMap["INTAKE_RETRACT"] = m_retractState;
 
     Init(MechanismFactory::GetMechanismFactory()->GetLeftIntake(), stateMap);
 }   
@@ -68,7 +68,7 @@ void LeftIntakeStateMgr::CheckForStateTransition()
         {
             auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT);
             auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL_LEFT);
-            auto extend  = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_LEFT);
+            auto retractIntake  = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_LEFT);
             if (intakePressed  &&  currentState != INTAKE_STATE::INTAKE)
             {
                 SetCurrentState(INTAKE_STATE::INTAKE, true);
@@ -77,9 +77,9 @@ void LeftIntakeStateMgr::CheckForStateTransition()
             {
                 SetCurrentState(INTAKE_STATE::EXPEL, true);
             } 
-            else if (extend > 0.1)
+            else if (retractIntake > 0.1)
             {
-                SetCurrentState(INTAKE_STATE::EXTEND, true);
+                SetCurrentState(INTAKE_STATE::RETRACT, true);
             }          
             else if (currentState != INTAKE_STATE::OFF)
             {
