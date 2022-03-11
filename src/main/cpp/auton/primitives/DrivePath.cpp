@@ -98,8 +98,8 @@ void DrivePath::Init(PrimitiveParams *params)
         Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosX", m_currentChassisPosition.X().to<double>());
         Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosY", m_currentChassisPosition.Y().to<double>());
 
-        Logger::GetLogger()->ToNtTable("Deltas", "iDeltaX", "0");
-        Logger::GetLogger()->ToNtTable("Deltas", "iDeltaX", "0");
+        Logger::GetLogger()->ToNtTable("DrivePathValues", "iDeltaX", "0");
+        Logger::GetLogger()->ToNtTable("DrivePathValues", "iDeltaX", "0");
 
         //A timer used for position change detection
         m_PosChgTimer.get()->Reset(); 
@@ -256,11 +256,7 @@ bool DrivePath::IsDone() //Default primitive function to determine if the primit
                 }
             }
         }       
-        
-
-        
-
-
+ 
         if (m_PosChgTimer.get()->Get() > 1_s)//This if statement makes sure that we aren't checking for position change right at the start
         {                                    //caused problems that would signal we are done when the path hasn't started
            //auto moving = !IsSamePose(curPos, m_PrevPos, 7.5);
@@ -308,8 +304,8 @@ bool DrivePath::IsSamePose(frc::Pose2d lCurPos, frc::Pose2d lPrevPos, double tol
     double dDeltaX = abs(dPrevPosX - dCurPosX);
     double dDeltaY = abs(dPrevPosY - dCurPosY);
 
-    Logger::GetLogger()->ToNtTable("Deltas", "iDeltaX", to_string(dDeltaX));
-    Logger::GetLogger()->ToNtTable("Deltas", "iDeltaY", to_string(dDeltaY));
+    Logger::GetLogger()->ToNtTable("DrivePathValues", "iDeltaX", to_string(dDeltaX));
+    Logger::GetLogger()->ToNtTable("DrivePathValues", "iDeltaY", to_string(dDeltaY));
 
     //  If Position of X or Y has moved since last scan..  Using Delta X/Y
     return (dDeltaX <= tolerance && dDeltaY <= tolerance);
@@ -362,8 +358,8 @@ void DrivePath::CalcCurrentAndDesiredStates()
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosX", m_currentChassisPosition.X().to<double>());
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosY", m_currentChassisPosition.Y().to<double>());
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosOmega", m_currentChassisPosition.Rotation().Degrees().to<double>());
-    Logger::GetLogger()->ToNtTable("DeltaValues", "DeltaX", m_desiredState.pose.X().to<double>() - m_currentChassisPosition.X().to<double>());
-    Logger::GetLogger()->ToNtTable("DeltaValues", "DeltaY", m_desiredState.pose.Y().to<double>() - m_currentChassisPosition.Y().to<double>());
+    Logger::GetLogger()->ToNtTable("DrivePathValues", "DeltaX", m_desiredState.pose.X().to<double>() - m_currentChassisPosition.X().to<double>());
+    Logger::GetLogger()->ToNtTable("DrivePathValues", "DeltaY", m_desiredState.pose.Y().to<double>() - m_currentChassisPosition.Y().to<double>());
 
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentTime", m_timer.get()->Get().to<double>());
 }
