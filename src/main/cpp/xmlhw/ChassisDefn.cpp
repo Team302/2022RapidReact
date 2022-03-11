@@ -81,7 +81,7 @@ IChassis* ChassisDefn::ParseXML
     string networkTableName;
     string controlFileName;
 
-    ChassisSpeedCalcEnum speedCalcOption = ChassisSpeedCalcEnum::ETHER;
+    //ChassisSpeedCalcEnum speedCalcOption = ChassisSpeedCalcEnum::ETHER;
     PoseEstimatorEnum poseEstOption   = PoseEstimatorEnum::EULER_AT_CHASSIS;
 
     bool hasError = false;
@@ -157,6 +157,7 @@ IChassis* ChassisDefn::ParseXML
         /** TODO: remove this is unused **/
         else if (attrName.compare("wheelSpeedCalcOption") ==0)
         {
+            /**
             auto val = string( attr.value() );
             if (val.compare( "WPI") == 0)
             {
@@ -177,6 +178,7 @@ IChassis* ChassisDefn::ParseXML
                 Logger::GetLogger()->LogError( string("ChassisDefn::ParseXML"), msg );
                 hasError = true;
             }
+            **/
         }
         /** **/
         else if (attrName.compare("poseEstimationOption") ==0)

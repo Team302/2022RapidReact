@@ -46,10 +46,10 @@ LeftIntakeStateMgr* LeftIntakeStateMgr::GetInstance()
 LeftIntakeStateMgr::LeftIntakeStateMgr() : IntakeStateMgr()
 {
     map<string, StateStruc> stateMap;
-    stateMap["INTAKE_OFF"] = m_offState;
-    stateMap["INTAKE_ON"]  = m_intakeState;
-    stateMap["INTAKE_EXPEL"] = m_expelState;
-    stateMap["INTAKE_RETRACT"] = m_retractState;
+    stateMap[m_intakeOffXmlString]      = m_offState;
+    stateMap[m_intakeIntakeXmlString]   = m_intakeState;
+    stateMap[m_intakeExpelXmlString]    = m_expelState;
+    stateMap[m_intakeRetractXmlString]  = m_retractState;
 
     Init(MechanismFactory::GetMechanismFactory()->GetLeftIntake(), stateMap);
 }   
