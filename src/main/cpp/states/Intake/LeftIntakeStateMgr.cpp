@@ -54,51 +54,22 @@ LeftIntakeStateMgr::LeftIntakeStateMgr() : IntakeStateMgr()
     Init(MechanismFactory::GetMechanismFactory()->GetLeftIntake(), stateMap);
 }   
 
-
-/// @brief  run the current state
-/// @return void
-void LeftIntakeStateMgr::CheckForStateTransition()
+Intake* LeftIntakeStateMgr::GetIntake() const 
 {
-    if ( MechanismFactory::GetMechanismFactory()->GetLeftIntake() != nullptr )
-    {
-        // process teleop/manual interrupts
-        auto currentState = static_cast<INTAKE_STATE>(GetCurrentState());
-        auto targetState = currentState;
-
-        auto controller = TeleopControl::GetInstance();
-        if ( controller != nullptr )
-        {
-            auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT);
-            auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL_LEFT);
-            bool retractIntake  = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_LEFT) > 0.1;
-            if (intakePressed  &&  currentState != INTAKE_STATE::INTAKE)
-            {
-                targetState = INTAKE_STATE::INTAKE;
-            }
-            else if (expelPressed && currentState != INTAKE_STATE::EXPEL)
-            {
-                targetState = INTAKE_STATE::EXPEL;
-            } 
-            else if (retractIntake > 0.1)
-            {
-                targetState = INTAKE_STATE::OFF;
-            }
-
-            if (targetState != currentState)
-            {
-                targetState = INTAKE_STATE::OFF;
-            }
-
-            if (targetState != currentState)
-            {
-                SetCurrentState(targetState, true);
-            }
-            auto intake = MechanismFactory::GetMechanismFactory()->GetLeftIntake();
-            auto stopped = intake->StopIfFullyExtended();
-            if (!stopped)
-            {
-                intake->StopIfRetracted();
-            }
-        }
-    }    
+    return MechanismFactory::GetMechanismFactory()->GetLeftIntake();
+}
+bool LeftIntakeStateMgr::IsIntakePressed() const 
+{
+    auto controller = TeleopControl::GetInstance();
+    return controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) : false;
+}
+bool LeftIntakeStateMgr::IsExpelPressed() const 
+{
+    auto controller = TeleopControl::GetInstance();
+    return controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL_LEFT) : false;
+}
+bool LeftIntakeStateMgr::IsRetractSelected() const
+{
+    auto controller = TeleopControl::GetInstance();
+    return controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_LEFT) > 0.1 : false;
 }
