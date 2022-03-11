@@ -86,6 +86,11 @@ void LeftIntakeStateMgr::CheckForStateTransition()
 
             if (targetState != currentState)
             {
+                targetState = INTAKE_STATE::OFF;
+            }
+
+            if (targetState != currentState)
+            {
                 SetCurrentState(targetState, true);
             }
             auto intake = MechanismFactory::GetMechanismFactory()->GetLeftIntake();
