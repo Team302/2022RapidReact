@@ -63,6 +63,8 @@ void LeftIntakeStateMgr::CheckForStateTransition()
     {
         // process teleop/manual interrupts
         auto currentState = static_cast<INTAKE_STATE>(GetCurrentState());
+        auto targetState = currentState;
+
         auto controller = TeleopControl::GetInstance();
         if ( controller != nullptr )
         {
@@ -71,19 +73,20 @@ void LeftIntakeStateMgr::CheckForStateTransition()
             bool retractIntake  = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_LEFT) > 0.1;
             if (intakePressed  &&  currentState != INTAKE_STATE::INTAKE)
             {
-                SetCurrentState(INTAKE_STATE::INTAKE, true);
+                targetState = INTAKE_STATE::INTAKE;
             }
             else if (expelPressed && currentState != INTAKE_STATE::EXPEL)
             {
-                SetCurrentState(INTAKE_STATE::EXPEL, true);
-            } 
-            else if (retractIntake && currentState != INTAKE_STATE::RETRACT)
+                targetState = INTAKE_STATE::EXPEL;
+            }           
+            else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF )
             {
-                SetCurrentState(INTAKE_STATE::RETRACT, true);
-            }          
-            else if (!intakePressed && !expelPressed && !retractIntake && currentState != INTAKE_STATE::OFF)
+                targetState = INTAKE_STATE::OFF;
+            }
+
+            if (targetState != currentState)
             {
-                SetCurrentState(INTAKE_STATE::OFF, true);
+                SetCurrentState(targetState, true);
             }
             auto intake = MechanismFactory::GetMechanismFactory()->GetLeftIntake();
             auto stopped = intake->StopIfFullyExtended();
