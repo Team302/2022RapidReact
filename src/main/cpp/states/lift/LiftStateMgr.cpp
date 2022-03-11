@@ -100,6 +100,10 @@ void LiftStateMgr::CheckForStateTransition()
                         break;
                 }
             }
+            else
+            {
+                targetState = LIFT_STATE::OFF;
+            }
         }
         else
         {

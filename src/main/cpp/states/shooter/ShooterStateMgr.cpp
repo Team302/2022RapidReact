@@ -81,13 +81,26 @@ ShooterStateMgr::ShooterStateMgr() : StateMgr(),
     {
         m_nt = nt::NetworkTableInstance::GetDefault().GetTable("shooter");
     }
+    //m_timer->Reset();
 }   
 
 
 bool ShooterStateMgr::AtTarget() const
 {
     Logger::GetLogger()->ToNtTable(m_nt, string("At Target"), GetCurrentStatePtr()->AtTarget() ? "true" : "false");
-    return GetCurrentStatePtr()->AtTarget();
+    //return GetCurrentStatePtr()->AtTarget();
+    //if (GetCurrentStatePtr()->AtTarget())
+    //{
+    //    m_timer->Start();
+    //    if (m_timer->HasElapsed(units::second_t(0.25)))
+    //    {
+    //        return GetCurrentStatePtr()->AtTarget();
+    //    }
+    //}
+    //else
+    //{
+        return GetCurrentStatePtr()->AtTarget();
+    //}
 }
 
 void ShooterStateMgr::CheckForStateTransition()
@@ -151,6 +164,8 @@ void ShooterStateMgr::CheckForStateTransition()
         {
             Logger::GetLogger()->ToNtTable(m_nt, string("Changing Shooter State"), targetState);
             SetCurrentState(targetState, true);
+            //m_timer->Stop();
+            //m_timer->Reset();
         }
     }
 }
