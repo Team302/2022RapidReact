@@ -14,29 +14,45 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
-#include <states/Mech2MotorState.h>
+#include <hw/interfaces/IDragonMotorController.h>
+#include <states/intake/IntakeState.h>
+#include <states/intake/ManualRightIntakeState.h>
+#include <controllers/ControlData.h>
+#include <subsys/Intake.h>
+#include <gamepad/TeleopControl.h>
 
-class ControlData;
-class Intake;
-
-class IntakeState : public Mech2MotorState
+ManualRightIntakeState::ManualRightIntakeState
+(
+    Intake*      intake,
+    ControlData* controlSpin,
+    ControlData* controlExtend, 
+    double       spinTarget,
+    double       extendTarget
+) : IntakeState(intake, controlSpin, controlExtend, spinTarget, extendTarget),
+    m_controller(TeleopControl::GetInstance())
 {
-    public:
+}
 
-        IntakeState() = delete;
-        IntakeState
-        (
-            Intake*      intake,
-            ControlData* controlSpin,
-            ControlData* controlExtend, 
-            double       spinTarget,
-            double       extendTarget
-        );
-        ~IntakeState() = default;
 
-        inline Intake* GetIntake() const {return m_intake;}
+void ManualRightIntakeState::Init()
+{
+}
 
-    private:
-        Intake*     m_intake;
-};
+
+void ManualRightIntakeState::Run()           
+{
+    auto intake = GetIntake();
+    if ( m_controller != nullptr && intake != nullptr )
+    {
+        auto percent  = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_RIGHT);
+        auto motor = intake->GetSecondaryMotor();
+        motor.get()->Set(percent);
+    }    
+}
+
+bool ManualRightIntakeState::AtTarget() const
+{
+    return true;
+}
+
+

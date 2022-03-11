@@ -61,7 +61,7 @@ bool AnalogButton::IsButtonPressed() const
     if ( m_axis != nullptr )
     {
         auto axisValue = m_axis->GetAxisValue();
-        pressed = (axisValue > m_minValue && axisValue < m_maxValue );
+        pressed = (axisValue > m_minValue);
     }
     return pressed;
 }

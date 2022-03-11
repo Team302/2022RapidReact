@@ -40,7 +40,7 @@ class LeftIntakeStateMgr : public IntakeStateMgr
         const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::LEFT_INTAKE, true};
         const StateStruc  m_intakeState = {INTAKE_STATE::INTAKE, StateType::LEFT_INTAKE, false};
         const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::LEFT_INTAKE, false};
-
+        const StateStruc  m_retractState = {INTAKE_STATE::RETRACT, StateType::LEFT_INTAKE_MANUAL, false };
 
     private:
         LeftIntakeStateMgr();

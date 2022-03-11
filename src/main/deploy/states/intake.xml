@@ -18,4 +18,9 @@
 	                 controlDataIdentifier2="openloop"
 					 value="-1.0"
 					 secondValue="-1.0"/>
+	<mechanismTarget stateIdentifier="INTAKE_RETRACT"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
 </statedata>

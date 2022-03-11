@@ -15,17 +15,18 @@
 //====================================================================================================================================================
 
 #pragma once
-#include <states/Mech2MotorState.h>
+#include <states/intake/IntakeState.h>
 
 class ControlData;
 class Intake;
+class TeleopControl;
 
-class IntakeState : public Mech2MotorState
+class ManualRightIntakeState : public IntakeState
 {
     public:
 
-        IntakeState() = delete;
-        IntakeState
+        ManualRightIntakeState() = delete;
+        ManualRightIntakeState
         (
             Intake*      intake,
             ControlData* controlSpin,
@@ -33,10 +34,11 @@ class IntakeState : public Mech2MotorState
             double       spinTarget,
             double       extendTarget
         );
-        ~IntakeState() = default;
-
-        inline Intake* GetIntake() const {return m_intake;}
-
+        ~ManualRightIntakeState() = default;
+        void Init() override;
+        void Run() override;
+        bool AtTarget() const override;
+        
     private:
-        Intake*     m_intake;
+        TeleopControl*      m_controller;
 };
