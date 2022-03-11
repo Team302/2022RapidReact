@@ -39,10 +39,10 @@ void ShooterStateManual::Init()
 }
 void ShooterStateManual::Run() 
 {
-    if (m_controller != nullptr && m_shooter != nullptr)
-    {
-        auto shooterHoodAdjust = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_HOOD_MAN);
-    }
+    //if (m_controller != nullptr && m_shooter != nullptr)
+    //{
+    //    auto shooterHoodAdjust = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_HOOD_MAN);
+    //}
 }
 bool ShooterStateManual::AtTarget() const 
 {

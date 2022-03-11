@@ -20,24 +20,21 @@
 //Team302 Includes
 #include <auton/PrimitiveParams.h>
 #include <auton/primitives/IPrimitive.h>
-
-//FRC,WPI Includes
-
-#include <wpi/SmallString.h>
-//#include <wpi/numbers>
-
-#include <frc/geometry/Pose2d.h>
-#include <frc/Filesystem.h>
-#include <frc/trajectory/TrajectoryUtil.h>
-#include <frc/trajectory/TrajectoryConfig.h>
-
-#include <frc/controller/RamseteController.h>
-#include <frc/controller/HolonomicDriveController.h>
-#include <frc/Timer.h>
-#include <frc/estimator/SwerveDrivePoseEstimator.h>
-
+#include <states/chassis/DragonTargetFinder.h>
 #include <subsys/ChassisFactory.h>
 #include <subsys/interfaces/IChassis.h>
+
+//FRC,WPI Includes
+#include <frc/controller/HolonomicDriveController.h>
+#include <frc/controller/RamseteController.h>
+#include <frc/estimator/SwerveDrivePoseEstimator.h>
+#include <frc/Filesystem.h>
+#include <frc/geometry/Pose2d.h>
+#include <frc/Timer.h>
+#include <frc/trajectory/TrajectoryConfig.h>
+#include <frc/trajectory/TrajectoryUtil.h>
+#include <wpi/SmallString.h>
+
 
 class SwerveChassis;
 
@@ -84,5 +81,7 @@ private:
     frc::Trajectory::State                  m_desiredState;
     IChassis::HEADING_OPTION                m_headingOption;
     double                                  m_heading;
+    DragonTargetFinder                      m_targetFinder;
+
  
 };

@@ -141,8 +141,49 @@ void DrivePath::Run()
         CalcCurrentAndDesiredStates();
 
         // Use the controller to calculate the chassis speeds for getting there
-        auto refChassisSpeeds = m_runHoloController ? m_holoController.Calculate(m_currentChassisPosition, m_desiredState, m_desiredState.pose.Rotation()) :
-                                                      m_ramseteController.Calculate(m_currentChassisPosition, m_desiredState);
+        ChassisSpeeds refChassisSpeeds;
+        if (m_runHoloController)
+        {
+            Rotation2d rotation = m_desiredState.pose.Rotation();
+            switch (m_headingOption)
+            {
+                case IChassis::HEADING_OPTION::MAINTAIN:
+                   rotation = m_currentChassisPosition.Rotation();
+                   break;
+
+                case IChassis::HEADING_OPTION::POLAR_HEADING:
+                    [[fallthrough]];
+                case IChassis::HEADING_OPTION::TOWARD_GOAL:
+                    rotation = Rotation2d(units::angle::degree_t(m_targetFinder.GetTargetAngleD(m_currentChassisPosition)));
+                    break;
+
+                case IChassis::HEADING_OPTION::SPECIFIED_ANGLE:
+                    rotation = Rotation2d(units::angle::degree_t(m_heading));
+                    m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
+                    break;
+
+                case IChassis::HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL:
+                    [[fallthrough]];
+                case IChassis::HEADING_OPTION::RIGHT_INTAKE_TOWARD_BALL:
+                    // TODO: need to get info from camera
+                    rotation = m_desiredState.pose.Rotation();
+                    break;
+                
+                default:
+                    rotation = m_desiredState.pose.Rotation();
+                    break;
+            }
+            refChassisSpeeds = m_holoController.Calculate(m_currentChassisPosition, 
+                                                          m_desiredState, 
+                                                          m_desiredState.pose.Rotation());
+        }
+        else
+        {
+            refChassisSpeeds = m_ramseteController.Calculate(m_currentChassisPosition, 
+                                                             m_desiredState);
+        }
+        //auto refChassisSpeeds = m_runHoloController ? m_holoController.Calculate(m_currentChassisPosition, m_desiredState, m_desiredState.pose.Rotation()) :
+        //                                              m_ramseteController.Calculate(m_currentChassisPosition, m_desiredState);
 
         //refChassisSpeeds.omega = units::angular_velocity::degrees_per_second_t(0.0);  // see if this is messing with desired heading
 
@@ -152,10 +193,10 @@ void DrivePath::Run()
         Logger::GetLogger()->ToNtTable("DrivePathValues", "ChassisSpeedsZ", units::degrees_per_second_t(refChassisSpeeds.omega()).to<double>());
 
         // Run the chassis
-        if (m_headingOption == IChassis::HEADING_OPTION::SPECIFIED_ANGLE)
-        {
-            m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
-        }
+        //if (m_headingOption == IChassis::HEADING_OPTION::SPECIFIED_ANGLE)
+        //{
+        //    m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
+        //}
         m_chassis->Drive(refChassisSpeeds,
                          IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
 						 m_headingOption);
