@@ -34,9 +34,15 @@ class LeftIntakeStateMgr : public IntakeStateMgr
 		/// @brief  Find or create the state manmanager
 		/// @return RightIntakeStateMgr* pointer to the state manager
 		static LeftIntakeStateMgr* GetInstance();
-        void CheckForStateTransition() override;
 
     protected:
+
+        Intake* GetIntake() const override;
+        bool IsIntakePressed() const override;
+        bool IsExpelPressed() const override;
+        bool IsRetractSelected() const override;
+
+
         const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::LEFT_INTAKE, true};
         const StateStruc  m_intakeState = {INTAKE_STATE::INTAKE, StateType::LEFT_INTAKE, false};
         const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::LEFT_INTAKE, false};
