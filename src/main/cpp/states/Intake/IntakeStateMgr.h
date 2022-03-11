@@ -28,6 +28,8 @@
 
 // Third Party Includes
 
+class Intake;
+
 class IntakeStateMgr : public StateMgr
 {
     public:
@@ -51,8 +53,29 @@ class IntakeStateMgr : public StateMgr
             {m_intakeExpelXmlString, INTAKE_STATE::EXPEL}
         };
 
+
+        /// @brief  set the current state, initialize it and run it
+        /// @param [in]     int - state to set
+        /// @param [in]     run - true means run, false just initialize it
+        /// @return void
+        void SetCurrentState
+        (
+            int         state,
+            bool        run
+        ) override;
+
+        void CheckForStateTransition() override;
+
     protected:
 
-        IntakeStateMgr() = default;
+        virtual Intake* GetIntake() const = 0;
+        virtual bool IsIntakePressed() const = 0;
+        virtual bool IsExpelPressed() const = 0;
+        virtual bool IsRetractSelected() const = 0;
+
+
+        IntakeStateMgr();
         ~IntakeStateMgr() = default;
+
+        bool m_directStateSet;
 };
