@@ -463,14 +463,17 @@ void SwerveChassis::AdjustRotToMaintainHeading
         m_storedYaw = GetPose().Rotation().Degrees();
     }
 
+    rot -= correction; //was negative
+    /**
     if (DriverStation::IsAutonomousEnabled())
     {
-        rot -= correction;
+        rot += correction;
     }
     else
     {
         rot -= correction; //was negative
     }
+    **/
 }
 
 void SwerveChassis::AdjustRotToPointTowardGoal
