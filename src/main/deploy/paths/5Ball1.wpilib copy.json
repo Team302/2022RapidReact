@@ -1,0 +1,107 @@
+[
+  {
+    "acceleration": -0.5000000000000001,
+    "curvature": 0,
+    "pose": {
+      "rotation": {
+        "radians": 0
+      },
+      "translation": {
+        "x": 7.65,
+        "y": 1.2059999999999995
+      }
+    },
+    "time": 0,
+    "velocity": 0
+  },
+  {
+    "acceleration": -0.4999999999999999,
+    "curvature": 0,
+    "pose": {
+      "rotation": {
+        "radians": 0
+      },
+      "translation": {
+        "x": 7.65,
+        "y": 1.1430359637893375
+      }
+    },
+    "time": 0.5018527122997823,
+    "velocity": -0.2509263561498912
+  },
+  {
+    "acceleration": -0.5,
+    "curvature": 0,
+    "pose": {
+      "rotation": {
+        "radians": 0
+      },
+      "translation": {
+        "x": 7.65,
+        "y": 1.078473586237517
+      }
+    },
+    "time": 0.7142168123545749,
+    "velocity": -0.35710840617728745
+  },
+  {
+    "acceleration": 0.12317660300856811,
+    "curvature": 0,
+    "pose": {
+      "rotation": {
+        "radians": 0
+      },
+      "translation": {
+        "x": 7.65,
+        "y": 1.0134078841030156
+      }
+    },
+    "time": 0.8777063652429186,
+    "velocity": -0.4388531826214593
+  },
+  {
+    "acceleration": 0.5000000000000001,
+    "curvature": 0,
+    "pose": {
+      "rotation": {
+        "radians": 0
+      },
+      "translation": {
+        "x": 7.65,
+        "y": 0.9507250108831018
+      }
+    },
+    "time": 1.0235237120172587,
+    "velocity": -0.42089189718607367
+  },
+  {
+    "acceleration": 0.5,
+    "curvature": 0,
+    "pose": {
+      "rotation": {
+        "radians": 0
+      },
+      "translation": {
+        "x": 7.65,
+        "y": 0.8454373730286884
+      }
+    },
+    "time": 1.3291644237613487,
+    "velocity": -0.26807154131402866
+  },
+  {
+    "acceleration": 0.5,
+    "curvature": 0,
+    "pose": {
+      "rotation": {
+        "radians": 0
+      },
+      "translation": {
+        "x": 7.65,
+        "y": 0.7735750217662094
+      }
+    },
+    "time": 1.865307506389406,
+    "velocity": 0
+  }
+]
