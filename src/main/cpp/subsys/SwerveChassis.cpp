@@ -326,7 +326,6 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
     auto tempRobotPose = robotPose;
     tempRobotPose.Rotation().Degrees() - units::degree_t(0.0);
     auto WheelPose = tempRobotPose + relativeWheelPosition;
-    auto wheelToGoalTrans = WheelPose - goalPose;
 
     auto wheelDeltaX = WheelPose.X() - goalPose.X();
     auto wheelDeltaY = WheelPose.Y() - goalPose.Y();
