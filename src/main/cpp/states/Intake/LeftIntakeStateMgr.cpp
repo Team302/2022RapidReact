@@ -78,8 +78,13 @@ void LeftIntakeStateMgr::CheckForStateTransition()
             else if (expelPressed && currentState != INTAKE_STATE::EXPEL)
             {
                 targetState = INTAKE_STATE::EXPEL;
-            }           
-            else if ((!intakePressed && !expelPressed) && currentState != INTAKE_STATE::OFF )
+            } 
+            else if (retractIntake > 0.1)
+            {
+                targetState = INTAKE_STATE::OFF;
+            }
+
+            if (targetState != currentState)
             {
                 targetState = INTAKE_STATE::OFF;
             }
