@@ -57,7 +57,6 @@ units::angle::degree_t AngleUtils::GetDeltaAngle
     {
         delta += 360_deg;
     }
-
     return delta;
 }
 

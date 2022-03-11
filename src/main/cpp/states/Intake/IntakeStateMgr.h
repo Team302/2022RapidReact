@@ -46,6 +46,7 @@ class IntakeStateMgr : public StateMgr
         const std::string m_intakeOffXmlString = "INTAKE_OFF";
         const std::string m_intakeIntakeXmlString = "INTAKE_ON";
         const std::string m_intakeExpelXmlString = "INTAKE_EXPEL";
+        const std::string m_intakeRetractXmlString = "INTAKE_RETRACT";
         
         const std::map<const std::string, INTAKE_STATE> m_intakeXmlStringToStateEnumMap
         {   {m_intakeOffXmlString, INTAKE_STATE::OFF},
