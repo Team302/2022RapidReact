@@ -260,8 +260,8 @@ class SwerveChassis : public IChassis
                                                            {0.1, 0.1, 0.1} }; // vision measurement standard deviations
         const double kPMaintainHeadingControl = 1.5; //4.0, 3.0
         const double kPAutonSpecifiedHeading = 0.25;  // 4.0
-        const double kPAutonGoalHeadingControl = 2.0;  // 2.0
-        const double kPGoalHeadingControl = 5.0; //10.0, 7.0
+        const double kPAutonGoalHeadingControl = 0.25;  // 2.0
+        const double kPGoalHeadingControl = 3.5; //10.0, 7.0
         const double kIHeadingControl = 0.0; //not being used
         const double kDHeadingControl = 0.0; //not being used
         const double kFHeadingControl = 0.0; //not being used
