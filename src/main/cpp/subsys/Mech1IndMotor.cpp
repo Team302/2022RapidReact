@@ -84,6 +84,14 @@ std::string Mech1IndMotor::GetNetworkTableName() const
 /// @brief log data to the network table if it is activated and time period has past
 void Mech1IndMotor::LogData()
 {
+    auto ntName = GetNetworkTableName();
+    auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
+
+    Logger::GetLogger()->ToNtTable(table, "Speed - Primary", GetSpeed() );
+    
+    Logger::GetLogger()->ToNtTable(table, "Position - Primary", GetPosition() );
+    
+    Logger::GetLogger()->ToNtTable(table, "Target - Primary", GetTarget() );
 }
 
 void Mech1IndMotor::Update()
@@ -94,6 +102,7 @@ void Mech1IndMotor::Update()
         auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
         m_motor.get()->Set( table, m_target );
     }
+    LogData();
 }
 
 void Mech1IndMotor::UpdateTarget

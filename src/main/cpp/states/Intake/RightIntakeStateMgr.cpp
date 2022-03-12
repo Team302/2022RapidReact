@@ -69,7 +69,7 @@ void RightIntakeStateMgr::CheckForStateTransition()
         {
             auto intakePressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT);
             auto expelPressed = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXPEL_RIGHT);
-            auto retractIntake = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_RIGHT);
+            bool retractIntake = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_RIGHT) > 0.1;
             if (intakePressed && currentState != INTAKE_STATE::INTAKE)
             {
                 SetCurrentState( INTAKE_STATE::INTAKE, true );
@@ -78,11 +78,11 @@ void RightIntakeStateMgr::CheckForStateTransition()
             {
                 SetCurrentState(INTAKE_STATE::EXPEL, true);
             }           
-            else if (retractIntake > 0.1)
+            else if (retractIntake && currentState != INTAKE_STATE::RETRACT)
             {
                 SetCurrentState(INTAKE_STATE::RETRACT, true);
             }          
-            else if (currentState != INTAKE_STATE::OFF)
+            else if (!intakePressed && !expelPressed && !retractIntake && currentState != INTAKE_STATE::OFF)
             {
                 SetCurrentState(INTAKE_STATE::OFF, true);
             }

@@ -27,6 +27,8 @@
 #include <gamepad/TeleopControl.h>
 #include <states/indexer/RightIndexerStateMgr.h>
 
+#include <utils/Logger.h>
+
 // Third Party Includes
 
 using namespace std;
@@ -78,6 +80,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
 
             if (m_shooter != nullptr)
             {
+                Logger::GetLogger()->ToNtTable(string("Indexer Timer"), string("Current time: "), m_timer->Get().to<double>());
                 auto isAtSpeed = m_shooterStateMgr->AtTarget();
                 if (isAtSpeed)
                 {
@@ -97,7 +100,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                             //ShooterDelay();
                             if (m_delay)
                             {
-                                if (m_timer->HasElapsed(units::second_t(0.25)))
+                                if (m_timer->Get().to<double>() > 0.25)
                                 {
                                     targetState = INDEXER_STATE::INDEX;
                                     if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
@@ -110,19 +113,20 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                             else
                             {
                                 targetState = INDEXER_STATE::INDEX;
-                                if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
+                                /*if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
                                 {
                                     auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
                                     targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState;
-                                }  
+                                } */ 
                             }                            
                             break;
                     
                         case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
+                            m_timer->Stop();
                             m_timer->Reset();
-                            if (m_delay)
+                            /*if (m_delay)
                             {
-                                if (m_timer->HasElapsed(units::second_t(0.25)))
+                                if (m_timer->HasElapsed(units::second_t(2.0)))
                                 {
                                     targetState = INDEXER_STATE::OFF;
                                     if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
@@ -140,14 +144,18 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                                     auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
                                     targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState;
                                 } 
-                            }
+                            }*/
                             break;
 
                         default:
                             targetState = INDEXER_STATE::OFF;
-                            m_timer->Reset();
+                            //m_timer->Reset();
                             break;
                     }
+                }
+                else //May need to remove this if we want to index while intaking
+                {
+                    targetState = INDEXER_STATE::OFF;
                 }
             }
         }
@@ -156,7 +164,6 @@ void LeftIndexerStateMgr::CheckForStateTransition()
         {
             SetCurrentState(targetState, true);
         }
-
     }    
 }
 
@@ -170,5 +177,7 @@ void LeftIndexerStateMgr::ShooterDelay()
     else
     {
         m_delay = false;
+        m_timer->Stop();
+        m_timer->Reset();
     }
 }
