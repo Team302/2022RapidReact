@@ -460,7 +460,7 @@ void SwerveChassis::AdjustRotToMaintainHeading
 
     if (DriverStation::IsAutonomousEnabled())
     {
-        rot -= correction;
+        rot += correction;
     }
     else
     {

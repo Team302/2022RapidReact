@@ -25,7 +25,7 @@
 
 	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
 	                 controlDataIdentifier="closedloop2"
-					 value="58.7"/>
+					 value="30.0"/>
 
 	<mechanismTarget stateIdentifier="ADJUSTHOOD"
 	                 controlDataIdentifier="openloop"
