@@ -173,6 +173,12 @@ void DrivePath::Run()
                     rotation = m_desiredState.pose.Rotation();
                     break;
             }
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "current pose x", m_currentChassisPosition.X().to<double>());
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "current pose y", m_currentChassisPosition.Y().to<double>());
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "current pose omega", m_currentChassisPosition.Rotation().Degrees().to<double>());
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "desired pose x", m_desiredState.pose.X().to<double>());
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "desired pose y", m_desiredState.pose.Y().to<double>());
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "desired pose omega", m_desiredState.pose.Rotation().Degrees().to<double>());
             refChassisSpeeds = m_holoController.Calculate(m_currentChassisPosition, 
                                                           m_desiredState, 
                                                           m_desiredState.pose.Rotation());
