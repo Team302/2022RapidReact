@@ -16,6 +16,7 @@
     <primitive id="DRIVE_PATH"
                pathname="5Ball2.wpilib.json"
                headingOption="TOWARD_GOAL"
+               rightIntake="INTAKE_ON"
 			   shooter="SHOOT_HIGHGOAL_CLOSE"/> 
     <primitive id="DO_NOTHING"
                time="2.0"
