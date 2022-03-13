@@ -31,12 +31,15 @@
 #include <auton/PrimitiveParser.h>
 #include <auton/primitives/IPrimitive.h>
 #include <states/balltransfer/BallTransferStateMgr.h>
+#include <states/indexer/LeftIndexerStateMgr.h>
+#include <states/indexer/RightIndexerStateMgr.h>
 #include <states/intake/LeftIntakeStateMgr.h>
 #include <states/intake/RightIntakeStateMgr.h>
+#include <states/lift/LiftStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
-#include <subsys/MechanismFactory.h>
-#include <subsys/Intake.h>
 #include <subsys/BallTransfer.h>
+#include <subsys/Intake.h>
+#include <subsys/MechanismFactory.h>
 #include <subsys/Shooter.h>
 #include <utils/Logger.h>
 
@@ -75,35 +78,46 @@ void CyclePrimitives::Run()
 	if (m_currentPrim != nullptr)
 	{
 		m_currentPrim->Run();
-	
-		auto mechFactory = MechanismFactory::GetMechanismFactory();
-		auto leftIntake = mechFactory->GetLeftIntake();
-		auto leftIntakeStateMgr = leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
-
-		auto rightIntake = mechFactory->GetRightIntake();
-		auto rightIntakeStateMgr = rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
-
-		auto ballTransfer = mechFactory->GetBallTransfer();
-		auto ballTransferStateMgr = ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
-
-		auto shooter = mechFactory->GetShooter();
-		auto shooterStateMgr = shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
 		
+		auto leftIntakeStateMgr = GetLeftIntakeStateMgr();
 		if (leftIntakeStateMgr != nullptr)
 		{
 			leftIntakeStateMgr->RunCurrentState();
 		}
+		auto rightIntakeStateMgr = GetRightIntakeStateMgr();
 		if (rightIntakeStateMgr != nullptr)
 		{
 			rightIntakeStateMgr->RunCurrentState();
 		}
+
+		auto shooterStateMgr = GetShooterStateMgr();
 		if (shooterStateMgr != nullptr)
 		{
 			shooterStateMgr->RunCurrentState();
 		}
+
+		auto ballTransferStateMgr = GetBallTransferStateMgr();
 		if (ballTransferStateMgr != nullptr)
 		{
 			ballTransferStateMgr->RunCurrentState();
+		}
+
+		auto leftIndexerStateMgr = GetLeftIndexerStateMgr();
+		if (leftIndexerStateMgr != nullptr)
+		{
+			leftIndexerStateMgr->RunCurrentState();
+		}
+
+		auto rightIndexerStateMgr = GetRightIndexerStateMgr();
+		if (rightIndexerStateMgr != nullptr)
+		{
+			rightIndexerStateMgr->RunCurrentState();
+		}
+
+		auto liftStateMgr = GetLiftStateMgr();
+		if (liftStateMgr != nullptr)
+		{
+			liftStateMgr->RunCurrentState();
 		}
 
 		if (m_currentPrim->IsDone())
@@ -133,35 +147,47 @@ void CyclePrimitives::GetNextPrim()
 	if (m_currentPrim != nullptr)
 	{
 		m_currentPrim->Init(currentPrimParam);
-		auto mechFactory = MechanismFactory::GetMechanismFactory();
-		auto leftIntake = mechFactory->GetLeftIntake();
-		auto leftIntakeStateMgr = leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
 
-		auto rightIntake = mechFactory->GetRightIntake();
-		auto rightIntakeStateMgr = rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
-
-		auto ballTransfer = mechFactory->GetBallTransfer();
-		auto ballTransferStateMgr = ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
-
-		auto shooter = mechFactory->GetShooter();
-		auto shooterStateMgr = shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
-
+		auto leftIntakeStateMgr = GetLeftIntakeStateMgr();
 		if (leftIntakeStateMgr != nullptr)
 		{
 			leftIntakeStateMgr->SetCurrentState(currentPrimParam->GetLeftIntakeState(), true);
 		}
+		auto rightIntakeStateMgr = GetRightIntakeStateMgr();
 		if (rightIntakeStateMgr != nullptr)
 		{
 			rightIntakeStateMgr->SetCurrentState(currentPrimParam->GetRightIntakeState(), true);
 		}
+		auto shooterStateMgr = GetShooterStateMgr();
 		if (shooterStateMgr != nullptr)
 		{
 			shooterStateMgr->SetCurrentState(currentPrimParam->GetShooterState(), true);
 		}
+		auto ballTransferStateMgr = GetBallTransferStateMgr();
 		if (ballTransferStateMgr != nullptr)
 		{
 			ballTransferStateMgr->RunCurrentState();
 		}
+
+		auto leftIndexerStateMgr = GetLeftIndexerStateMgr();
+		if (leftIndexerStateMgr != nullptr)
+		{
+			leftIndexerStateMgr->RunCurrentState();
+		}
+
+		auto rightIndexerStateMgr = GetRightIndexerStateMgr();
+		if (rightIndexerStateMgr != nullptr)
+		{
+			rightIndexerStateMgr->RunCurrentState();
+		}
+
+		auto liftStateMgr = GetLiftStateMgr();
+		if (liftStateMgr != nullptr)
+		{
+			liftStateMgr->RunCurrentState();
+		}
+
+
 		m_maxTime = currentPrimParam->GetTime();
 		m_timer->Reset();
 		m_timer->Start();
@@ -194,3 +220,55 @@ void CyclePrimitives::RunDoNothing()
 	}
 	m_doNothing->Run();
 }
+
+LeftIntakeStateMgr* CyclePrimitives::GetLeftIntakeStateMgr() const
+{
+	auto mechFactory = MechanismFactory::GetMechanismFactory();
+	auto leftIntake = mechFactory->GetLeftIntake();
+	return leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
+}
+
+RightIntakeStateMgr* CyclePrimitives::GetRightIntakeStateMgr() const
+{
+	auto mechFactory = MechanismFactory::GetMechanismFactory();
+	auto rightIntake = mechFactory->GetRightIntake();
+	return rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
+}
+
+BallTransferStateMgr* CyclePrimitives::GetBallTransferStateMgr() const
+{
+	auto mechFactory = MechanismFactory::GetMechanismFactory();
+	auto balltransfer = mechFactory->GetBallTransfer();
+	return balltransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
+}
+
+ShooterStateMgr* CyclePrimitives::GetShooterStateMgr() const
+{
+	auto mechFactory = MechanismFactory::GetMechanismFactory();
+	auto shooter = mechFactory->GetShooter();
+	return shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
+}
+
+
+LeftIndexerStateMgr* CyclePrimitives::GetLeftIndexerStateMgr() const
+{
+	auto mechFactory = MechanismFactory::GetMechanismFactory();
+	auto leftIndexer = mechFactory->GetLeftIndexer();
+	return leftIndexer != nullptr ? LeftIndexerStateMgr::GetInstance() : nullptr;
+}
+
+RightIndexerStateMgr* CyclePrimitives::GetRightIndexerStateMgr() const
+{
+	auto mechFactory = MechanismFactory::GetMechanismFactory();
+	auto rightIndexer = mechFactory->GetRightIndexer();
+	return rightIndexer != nullptr ? RightIndexerStateMgr::GetInstance() : nullptr;
+}
+
+
+LiftStateMgr* CyclePrimitives::GetLiftStateMgr() const
+{
+	auto mechFactory = MechanismFactory::GetMechanismFactory();
+	auto lift = mechFactory->GetLift();
+	return lift != nullptr ? LiftStateMgr::GetInstance() : nullptr;
+}
+

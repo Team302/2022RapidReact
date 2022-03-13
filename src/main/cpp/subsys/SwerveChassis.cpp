@@ -178,6 +178,7 @@ void SwerveChassis::Drive
 
         case HEADING_OPTION::TOWARD_GOAL:
             AdjustRotToPointTowardGoal(rot);
+            Logger::GetLogger()->ToNtTable("Chassis Heading", "rot", rot.to<double>() );
             break;
 
         case HEADING_OPTION::SPECIFIED_ANGLE:
