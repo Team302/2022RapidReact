@@ -68,6 +68,17 @@ class ShooterStateMgr : public StateMgr
 		/// @brief  Find or create the state manmanager
 		/// @return IntakeStateMgr* pointer to the state manager
 		static ShooterStateMgr* GetInstance();
+
+        /// @brief  set the current state, initialize it and run it
+        /// @param [in]     int - state to set
+        /// @param [in]     run - true means run, false just initialize it
+        /// @return void
+        void SetCurrentState
+        (
+            int         state,
+            bool        run
+        ) override;
+
         void CheckForStateTransition() override;
         bool AtTarget() const;
     private:
@@ -77,7 +88,8 @@ class ShooterStateMgr : public StateMgr
         
         DragonLimelight* m_dragonLimeLight;
         Shooter*                                m_shooter;
-        std::shared_ptr<nt::NetworkTable>       m_nt;     
+        std::shared_ptr<nt::NetworkTable>       m_nt;
+        bool m_directStateSet;     
 
 
         const double m_CHANGE_STATE_TARGET = 120.0; 

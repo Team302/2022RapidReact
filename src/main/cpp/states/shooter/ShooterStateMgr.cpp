@@ -51,13 +51,15 @@ ShooterStateMgr* ShooterStateMgr::GetInstance()
 		ShooterStateMgr::m_instance = new ShooterStateMgr();
 	}
 	return ShooterStateMgr::m_instance;
+    
 }
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
 ShooterStateMgr::ShooterStateMgr() : StateMgr(),
                                      m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter()),
-                                     m_nt()
+                                     m_nt(),
+                                     m_directStateSet()
 {
     map<string, StateStruc> stateMap;
     stateMap[m_shooterOffXmlString] = m_offState;
@@ -132,12 +134,15 @@ void ShooterStateMgr::CheckForStateTransition()
             isPrepareToShootSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_MTR_ON);
         }
 
-        if (isShootHighSelected && m_dragonLimeLight != nullptr)
+        m_directStateSet = !(isShootHighSelected    || 
+                             isShootLowSelected     || 
+                             isManualShootSelected  || 
+                             isShooterOffSelected   || 
+                             isPrepareToShootSelected);
+
+        if (isShootHighSelected)
         {
-            if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 3.0_deg)
-            {
-                targetState = SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
-            }
+            targetState = SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
         }
         else if (isShootLowSelected)
         {
@@ -155,9 +160,19 @@ void ShooterStateMgr::CheckForStateTransition()
         {
             targetState = SHOOTER_STATE::OFF;
         }
-        else if (currentState != SHOOTER_STATE::OFF)
+        else if (currentState != SHOOTER_STATE::OFF && !m_directStateSet)
         {
             targetState = SHOOTER_STATE::PREPARE_TO_SHOOT;
+        }
+
+        if (m_dragonLimeLight != nullptr && (targetState == SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE ||
+                                             targetState == SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR ||
+                                             targetState == SHOOTER_STATE::SHOOT_LOW_GOAL))
+        {
+            if(m_dragonLimeLight->GetTargetHorizontalOffset() > 10.0_deg)
+            {
+                targetState = currentState;
+            }
         }
 
         if (targetState != currentState)
@@ -167,5 +182,18 @@ void ShooterStateMgr::CheckForStateTransition()
             //m_timer->Stop();
             //m_timer->Reset();
         }
+        
     }
+}
+
+/// @brief  set the current state, initialize it and run it
+/// @return void
+void ShooterStateMgr::SetCurrentState
+(
+    int             stateID,
+    bool            run
+)
+{
+    m_directStateSet = true;
+    StateMgr::SetCurrentState(stateID, run);
 }

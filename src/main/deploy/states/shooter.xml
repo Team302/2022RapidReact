@@ -19,6 +19,15 @@
 	                 controlDataIdentifier="openloop"
 					 value="0.0"/>
 
+ 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
+	                 controlDataIdentifier="closedloop2"
+					 value="58.7"/> 
+
+
+ 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
+	                 controlDataIdentifier="closedloop2"
+					 value="58.7"/> 
+
 	<mechanismTarget stateIdentifier="SHOOT_LOWGOAL"
 	                 controlDataIdentifier="openloop"
 					 value="0.5"/> 
