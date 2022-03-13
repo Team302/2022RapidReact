@@ -39,7 +39,12 @@ LeftIndexerStateMgr* LeftIndexerStateMgr::GetInstance()
 {
 	if ( LeftIndexerStateMgr::m_instance == nullptr )
 	{
-		LeftIndexerStateMgr::m_instance = new LeftIndexerStateMgr();
+	    auto mechFactory = MechanismFactory::GetMechanismFactory();
+	    auto indexer = mechFactory->GetLeftIndexer();
+        if (indexer != nullptr)
+        {
+    		LeftIndexerStateMgr::m_instance = new LeftIndexerStateMgr();
+        }
 	}
 	return LeftIndexerStateMgr::m_instance;
 }
