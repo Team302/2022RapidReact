@@ -36,7 +36,12 @@ LeftIntakeStateMgr* LeftIntakeStateMgr::GetInstance()
 {
 	if ( LeftIntakeStateMgr::m_instance == nullptr )
 	{
-		LeftIntakeStateMgr::m_instance = new LeftIntakeStateMgr();
+	    auto mechFactory = MechanismFactory::GetMechanismFactory();
+	    auto intake = mechFactory->GetLeftIntake();
+        if (intake != nullptr)
+        {
+		    LeftIntakeStateMgr::m_instance = new LeftIntakeStateMgr();
+        }
 	}
 	return LeftIntakeStateMgr::m_instance;
 }

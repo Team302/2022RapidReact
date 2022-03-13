@@ -57,14 +57,6 @@ class CyclePrimitives : public IState
 		void RunDoNothing();
 
 	private:
-		LeftIntakeStateMgr* GetLeftIntakeStateMgr() const;
-		RightIntakeStateMgr* GetRightIntakeStateMgr() const;
-		BallTransferStateMgr* GetBallTransferStateMgr() const;
-		ShooterStateMgr*	GetShooterStateMgr() const;
-		LeftIndexerStateMgr* GetLeftIndexerStateMgr() const;
-		RightIndexerStateMgr* GetRightIndexerStateMgr() const;
-		LiftStateMgr* GetLiftStateMgr() const;
-
 		std::vector<PrimitiveParams*> 	m_primParams;
 		int 							m_currentPrimSlot;
 		IPrimitive*						m_currentPrim;

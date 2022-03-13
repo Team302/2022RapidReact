@@ -48,7 +48,12 @@ BallTransferStateMgr* BallTransferStateMgr::GetInstance()
 {
 	if ( BallTransferStateMgr::m_instance == nullptr )
 	{
-		BallTransferStateMgr::m_instance = new BallTransferStateMgr();
+	    auto mechFactory = MechanismFactory::GetMechanismFactory();
+	    auto balltransfer = mechFactory->GetBallTransfer();
+	    if (balltransfer != nullptr)
+        {
+		    BallTransferStateMgr::m_instance = new BallTransferStateMgr();
+        }
 	}
 	return BallTransferStateMgr::m_instance;
 }

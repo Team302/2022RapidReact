@@ -38,7 +38,12 @@ RightIndexerStateMgr* RightIndexerStateMgr::GetInstance()
 {
 	if ( RightIndexerStateMgr::m_instance == nullptr )
 	{
-		RightIndexerStateMgr::m_instance = new RightIndexerStateMgr();
+	    auto mechFactory = MechanismFactory::GetMechanismFactory();
+	    auto indexer = mechFactory->GetRightIndexer();
+        if (indexer != nullptr)
+        {
+    		RightIndexerStateMgr::m_instance = new RightIndexerStateMgr();
+        }
 	}
 	return RightIndexerStateMgr::m_instance;
 }
@@ -77,7 +82,7 @@ void RightIndexerStateMgr::CheckForStateTransition()
             {
                 auto isAtSpeed = m_shooterStateMgr->AtTarget();
                 
-                auto controller = TeleopControl::GetInstance();
+                //auto controller = TeleopControl::GetInstance();
 
                 if (isAtSpeed)
                 {

@@ -37,7 +37,12 @@ RightIntakeStateMgr* RightIntakeStateMgr::GetInstance()
 {
 	if ( RightIntakeStateMgr::m_instance == nullptr )
 	{
-		RightIntakeStateMgr::m_instance = new RightIntakeStateMgr();
+	    auto mechFactory = MechanismFactory::GetMechanismFactory();
+	    auto intake = mechFactory->GetRightIntake();
+        if (intake != nullptr)
+        {
+		    RightIntakeStateMgr::m_instance = new RightIntakeStateMgr();
+        }
 	}
 	return RightIntakeStateMgr::m_instance;
 }

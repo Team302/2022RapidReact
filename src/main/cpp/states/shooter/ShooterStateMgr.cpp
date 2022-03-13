@@ -48,7 +48,12 @@ ShooterStateMgr* ShooterStateMgr::GetInstance()
 {
 	if ( ShooterStateMgr::m_instance == nullptr )
 	{
-		ShooterStateMgr::m_instance = new ShooterStateMgr();
+	    auto mechFactory = MechanismFactory::GetMechanismFactory();
+	    auto shooter = mechFactory->GetShooter();
+	    if (shooter != nullptr)
+        {
+		    ShooterStateMgr::m_instance = new ShooterStateMgr();
+        }
 	}
 	return ShooterStateMgr::m_instance;
     
