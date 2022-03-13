@@ -2,12 +2,16 @@
 <!DOCTYPE auton SYSTEM "auton.dtd">
 <auton>
     <primitive id="RESET_POSITION"
-			   pathname="5Ball1.wpilib.json"/>
+			   pathname="shootLow1.wpilib.json"/>
+    <primitive id="DO_NOTHING"
+               time="0.5"
+               headingOption="TOWARD_GOAL"
+               shooter="MANUAL_SHOOT"/> 
     <primitive id="DRIVE_PATH"
-               pathname="5Ball1.wpilib.json" 
+               pathname="shootLow1.wpilib.json" 
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
-               heading="0"/> 
+               heading="180"/> 
     <primitive id="DO_NOTHING"
                time="0.5"
                rightIntake="INTAKE_ON"

@@ -126,12 +126,12 @@ void BallTransferStateMgr::CheckForStateTransition()
             {
                 isManualShoot = shooterState == ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL;
             } 
-            else if (!isAutoShootHigh)
+            if (!isAutoShootHigh)
             {
                 isAutoShootHigh = shooterState == ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE ||
                                   shooterState == ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
             } 
-            else if (!isAutoShootLow)
+            if (!isAutoShootLow)
             {
                 isAutoShootLow = shooterState == ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL;
             }
