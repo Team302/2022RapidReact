@@ -25,6 +25,8 @@
 #include <controllers/ControlModes.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/MotorControllerUsage.h>
+#include <hw/interfaces/IDragonMotorController.h>
+#
 
 // Third Party Includes
 #include <ctre/phoenix/motorcontrol/RemoteSensorSource.h>
@@ -44,7 +46,8 @@ class DragonTalon : public IDragonMotorController
             int deviceID, 
             int pdpID, 
             int countsPerRev, 
-            double gearRatio
+            double gearRatio,
+            MOTOR_TYPE motorType
         );
         virtual ~DragonTalon() = default;
 
@@ -134,6 +137,7 @@ class DragonTalon : public IDragonMotorController
         double GetGearRatio() const override { return m_gearRatio;}
         bool IsForwardLimitSwitchClosed() const override;
         bool IsReverseLimitSwitchClosed() const override;
+        IDragonMotorController::MOTOR_TYPE GetMotorType() const override;
 
     private:
         std::shared_ptr<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>  m_talon;
@@ -146,6 +150,7 @@ class DragonTalon : public IDragonMotorController
         int m_tickOffset;
         double m_gearRatio;
         double m_diameter;
+        DragonTalon::MOTOR_TYPE m_motorType;
 };
 
 typedef std::vector<DragonTalon*> DragonTalonVector;

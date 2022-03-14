@@ -39,6 +39,7 @@
 #include <ctre/phoenix/motorcontrol/LimitSwitchType.h>
 
 
+
 using namespace frc;
 using namespace std;
 using namespace ctre::phoenix;
@@ -46,13 +47,15 @@ using namespace ctre::phoenix::motorcontrol;
 using namespace ctre::phoenix::motorcontrol::can;
 
 
+
 DragonTalon::DragonTalon
 (
 	MotorControllerUsage::MOTOR_CONTROLLER_USAGE deviceType, 
 	int deviceID, 
-        int pdpID, 
+    int pdpID, 
 	int countsPerRev, 
-	double gearRatio 
+	double gearRatio,
+	MOTOR_TYPE motorType 
 ) : m_talon( make_shared<WPI_TalonSRX>(deviceID)),
 	m_controlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT),
 	m_type(deviceType),
@@ -63,6 +66,7 @@ DragonTalon::DragonTalon
 	m_gearRatio(gearRatio),
 	m_diameter( 1.0 )
 {
+	m_motorType = motorType;
 	// for all calls if we get an error log it; for key items try again
 	auto prompt = string("Dragon Talon");
 	prompt += to_string(deviceID);
@@ -300,7 +304,10 @@ double DragonTalon::GetCurrent() const
 	//PowerDistributionPanel* pdp = DragonPDP::GetInstance()->GetPDP();
     //return ( pdp != nullptr ) ? pdp->GetCurrent( m_pdp ) : 0.0;
 }
-
+DragonTalon::MOTOR_TYPE DragonTalon::GetMotorType() const
+{
+	return m_motorType;
+}
 void DragonTalon::UpdateFramePeriods
 (
 	ctre::phoenix::motorcontrol::StatusFrameEnhanced	frame,

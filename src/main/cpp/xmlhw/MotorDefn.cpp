@@ -32,6 +32,7 @@
 #include <utils/HardwareIDValidation.h>
 #include <utils/Logger.h>
 #include <xmlhw/MotorDefn.h>
+#include <hw/interfaces/IDragonMotorController.h>
 
 
 // Third Party Includes
@@ -71,6 +72,7 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
     bool forwardLimitSwitchNormallyOpen = false;
     bool reverseLimitSwitch = false;
     bool reverseLimitSwitchNormallyOpen = false;
+    IDragonMotorController::MOTOR_TYPE motortype = IDragonMotorController::NONE;
     
 
     string mtype;
@@ -173,6 +175,90 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
                 Logger::GetLogger()->LogError( string("MotorDefn::ParseXML "), msg );
             }
         }
+
+        else if ( strcmp( attr.name(), "motortype" ) == 0 )
+        {
+            auto val = string( attr.value() );
+            if ( val.compare( "FALCON500") == 0 )
+            {
+                motortype = IDragonMotorController::FALCON500;
+            }
+            else if ( val.compare( "NEOMOTOR") == 0 )
+            {
+                motortype = IDragonMotorController::NEOMOTOR;
+            }
+            else if ( val.compare( "NEO500MOTOR") == 0 )
+            {
+                motortype = IDragonMotorController::NEO500MOTOR;
+            }
+            else if ( val.compare( "CLIMMOTOR") == 0 )
+            {
+                motortype = IDragonMotorController::CIMMOTOR;
+            }
+            else if ( val.compare( "MINICIMMOTOR") == 0 )
+            {
+                motortype = IDragonMotorController::MINICIMMOTOR;
+            }
+            else if ( val.compare( "BAGMOTOR") == 0 )
+            {
+                motortype = IDragonMotorController::BAGMOTOR;
+            }
+            else if ( val.compare( "PRO775") == 0 )
+            {
+                motortype = IDragonMotorController::PRO775;
+            }
+            else if ( val.compare( "ANDYMARK9015") == 0 )
+            {
+                motortype = IDragonMotorController::ANDYMARK9015;
+            }
+            else if ( val.compare( "ANDYMARKNEVEREST") == 0 )
+            {
+                motortype = IDragonMotorController::ANDYMARKNEVEREST;
+            }
+            else if ( val.compare( "ANDYMARKRS775125") == 0 )
+            {
+                motortype = IDragonMotorController::ANDYMARKRS775125;
+            }
+            else if ( val.compare( "TETRIXMAXTORQUENADOMOTOR") == 0 )
+            {
+                motortype = IDragonMotorController::TETRIXMAXTORQUENADOMOTOR;
+            }
+            else if ( val.compare( "ANDYMARKREDLINEA") == 0 )
+            {
+                motortype = IDragonMotorController::ANDYMARKREDLINEA;
+            }
+            else if ( val.compare( "REVROBOTICSHDHEXMOTOR") == 0 )
+            {
+                motortype = IDragonMotorController::REVROBOTICSHDHEXMOTOR;
+            }
+            else if ( val.compare( "BANEBOTSRS77518V") == 0 )
+            {
+                motortype = IDragonMotorController::BANEBOTSRS77518V;
+            }
+            else if ( val.compare( "BANEBOTSRS550") == 0 )
+            {
+                motortype = IDragonMotorController::BANEBOTSRS550;
+            }
+            else if ( val.compare( "MODERNROBOTICS12VDCMOTOR") == 0 )
+            {
+                motortype = IDragonMotorController::MODERNROBOTICS12VDCMOTOR;
+            }
+            else if ( val.compare( "JOHNSONELECTRICALGEARMOTOR") == 0 )
+            {
+                motortype = IDragonMotorController::JOHNSONELECTRICALGEARMOTOR;
+            }
+            else if ( val.compare( "NONE") == 0 )
+            {
+                motortype = IDragonMotorController::NONE;
+            }
+            else 
+            {
+                string msg = "Invalid motor type";
+                msg += val;
+                Logger::GetLogger()->LogError( string("MotorDefn::ParseXML "), msg );
+            }
+        }
+
 		// counts per revolution
         else if ( strcmp( attr.name(), "countsPerRev" ) == 0 )
         {
@@ -260,7 +346,8 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
                                                                                          forwardLimitSwitch,
                                                                                          forwardLimitSwitchNormallyOpen,
                                                                                          reverseLimitSwitch,
-                                                                                         reverseLimitSwitchNormallyOpen );
+                                                                                         reverseLimitSwitchNormallyOpen,
+                                                                                         motortype);
     }
     return controller;
 }

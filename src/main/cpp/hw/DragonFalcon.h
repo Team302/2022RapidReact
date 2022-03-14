@@ -30,12 +30,13 @@
 #include <hw/DragonFalcon.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/MotorControllerUsage.h>
-
+#include <hw/interfaces/IDragonMotorController.h>
 
 // Third Party Includes
 #include <ctre/phoenix/motorcontrol/RemoteSensorSource.h>
 #include <ctre/phoenix/ErrorCode.h>
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonFX.h>
+
 
 
 class DragonFalcon : public IDragonMotorController
@@ -49,7 +50,9 @@ class DragonFalcon : public IDragonMotorController
             int deviceID, 
             int pdpID, 
             int countsPerRev, 
-            double gearRatio
+            double gearRatio,
+            IDragonMotorController::MOTOR_TYPE motortype
+            
         );
         virtual ~DragonFalcon() = default;
 
@@ -61,6 +64,8 @@ class DragonFalcon : public IDragonMotorController
         int GetID() const override;
         std::shared_ptr<frc::MotorController> GetSpeedController() const override;
         double GetCurrent() const override;
+        IDragonMotorController::MOTOR_TYPE GetMotorType() const override;
+
 
         // Setters (override)
         void SetControlMode(ControlModes::CONTROL_TYPE mode) override; //:D
@@ -147,6 +152,7 @@ class DragonFalcon : public IDragonMotorController
         int m_tickOffset;
         double m_gearRatio;
 		double m_diameter;
+        IDragonMotorController::MOTOR_TYPE m_motorType;
 
 };
 

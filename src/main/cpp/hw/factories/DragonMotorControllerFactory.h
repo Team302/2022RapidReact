@@ -37,6 +37,7 @@
 // Team 302 includes
 #include <hw/interfaces/IDragonMotorController.h>
 
+
 // Third Party Includes
 #include <ctre/phoenix/MotorControl/FeedbackDevice.h>
 
@@ -92,8 +93,10 @@ class DragonMotorControllerFactory
 			bool											forwardLimitSwitch,
 			bool											forwardLimitSwitchNormallyOpen,
 			bool											reverseLimitSwitch,
-			bool											reverseLimitSwitchNormallyOpen
+			bool											reverseLimitSwitchNormallyOpen,
+			IDragonMotorController::MOTOR_TYPE				motorType
 		);
+		
 
 	private:
 

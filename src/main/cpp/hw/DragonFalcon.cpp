@@ -47,10 +47,11 @@ using namespace ctre::phoenix::motorcontrol::can;
 DragonFalcon::DragonFalcon
 (
 	MotorControllerUsage::MOTOR_CONTROLLER_USAGE deviceType, 
-	int deviceID, 
+	int deviceID,
     int pdpID, 
 	int countsPerRev, 
-	double gearRatio 
+	double gearRatio,
+	IDragonMotorController::MOTOR_TYPE motorType
 ) : m_talon( make_shared<WPI_TalonFX>(deviceID)),
 	m_controlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT),
 	m_type(deviceType),
@@ -61,6 +62,7 @@ DragonFalcon::DragonFalcon
 	m_gearRatio(gearRatio),
 	m_diameter( 1.0 )
 {
+	m_motorType = motorType;
 	// for all calls if we get an error log it; for key items try again
 	auto prompt = string("Dragon Falcon");
 	prompt += to_string(deviceID);
@@ -376,7 +378,10 @@ void DragonFalcon::SetFramePeriodPriority
 
 	}
 }
-
+DragonFalcon::MOTOR_TYPE DragonFalcon::GetMotorType() const
+{
+	return m_motorType;
+}
 void DragonFalcon::Set(std::shared_ptr<nt::NetworkTable> nt, double value)
 {
 	Logger::GetLogger()->ToNtTable(nt, string("motor id"), m_talon.get()->GetDeviceID());
