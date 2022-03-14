@@ -85,6 +85,8 @@ class IDragonMotorController
 		virtual void SetDiameter( double diameter ) = 0;
         virtual void SetVoltage(  units::volt_t output ) = 0;
 
+        virtual void SetkP( double value, int slot) = 0;
+
 
         /// @brief  Set the control constants (e.g. PIDF values).
         /// @param [in] int             slot - hardware slot to use

@@ -68,6 +68,8 @@ class DragonTalon : public IDragonMotorController
         void Invert(bool inverted) override; 
         void SetSensorInverted(bool inverted) override;
 
+        void SetkP( double value, int slot) override;
+
         /// @brief  Set the control constants (e.g. PIDF values).
         /// @param [in] int             slot - hardware slot to use
         /// @param [in] ControlData*    pid - the control constants

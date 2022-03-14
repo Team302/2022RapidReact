@@ -185,6 +185,15 @@ class SwerveChassis : public IChassis
             frc::ChassisSpeeds 
         );
 
+        void SetDynamicPGains
+        (
+            std::shared_ptr<SwerveModule> frontLeft,
+            std::shared_ptr<SwerveModule> frontRight,
+            std::shared_ptr<SwerveModule> backLeft,
+            std::shared_ptr<SwerveModule> backRight,
+            units::angular_velocity::radians_per_second_t rotation
+        );
+
         void AdjustRotToMaintainHeading
         (
             units::meters_per_second_t&  xspeed,

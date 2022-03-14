@@ -120,6 +120,9 @@ class SwerveModule
             units::length::meter_t  x,
             units::length::meter_t  y
         );
+
+        std::shared_ptr<IDragonMotorController> GetTurnMotor() const {return m_turnMotor;}
+        std::shared_ptr<IDragonMotorController> GetDriveMotor() const {return m_driveMotor;}
         
     private:
         // Note:  the following was taken from the WPI code and tweaked because we were seeing some weird 

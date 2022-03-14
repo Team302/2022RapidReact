@@ -226,6 +226,8 @@ void SwerveChassis::Drive
         m_steer = units::velocity::meters_per_second_t(ySpeed);
         m_rotate = units::angular_velocity::radians_per_second_t(rot);
 
+        SetDynamicPGains(m_frontLeft, m_frontRight, m_backLeft, m_backRight, m_rotate);
+
         if ( m_runWPI )
         {
             units::degree_t yaw{m_pigeon->GetYaw()};
@@ -811,4 +813,21 @@ void SwerveChassis::SetTargetHeading(units::angle::degree_t targetYaw)
 void SwerveChassis::ReZero()
 {
     m_storedYaw = units::angle::degree_t(0.0);
+}
+
+void SwerveChassis::SetDynamicPGains(
+                                    std::shared_ptr<SwerveModule> frontLeft,
+                                        std::shared_ptr<SwerveModule> frontRight,
+                                        std::shared_ptr<SwerveModule> backLeft,
+                                        std::shared_ptr<SwerveModule> backRight,
+                                        units::angular_velocity::radians_per_second_t rotation)   
+{
+    double percentOfMax = rotation.to<double>() / m_maxAngularSpeed.to<double>();
+    double maxKp = 1.35;
+    double updatedkP = percentOfMax * maxKp;
+
+    frontLeft->GetTurnMotor()->SetkP(0, updatedkP);
+    frontRight->GetTurnMotor()->SetkP(0, updatedkP);
+    backLeft->GetTurnMotor()->SetkP(0, updatedkP);
+    backRight->GetTurnMotor()->SetkP(0, updatedkP);
 }
