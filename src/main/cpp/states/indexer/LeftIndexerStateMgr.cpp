@@ -124,6 +124,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                         case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
                             m_timer->Stop();
                             m_timer->Reset();
+                            targetState = INDEXER_STATE::OFF;
                             /*if (m_delay)
                             {
                                 if (m_timer->HasElapsed(units::second_t(2.0)))
@@ -138,7 +139,6 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                             }
                             else
                             {
-                                targetState = INDEXER_STATE::OFF;
                                 if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
                                 {
                                     auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());

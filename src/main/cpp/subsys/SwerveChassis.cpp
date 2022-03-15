@@ -496,31 +496,28 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     {
         if (m_limelight->HasTarget())
         {
-            targetAngle = -1.0 * m_limelight->GetTargetHorizontalOffset();
-            //Debugging
-            Logger::GetLogger()->ToNtTable("Limelight Toward Goal", "TargetAngle(Degrees)", targetAngle.to<double>());
+            rot -= (-1.0 * m_limelight->GetTargetHorizontalOffset())/1_s*kPGoalHeadingControl;
+        }else
+        {
+            if (DriverStation::IsAutonomousEnabled())
+            {
+                rot -= CalcHeadingCorrection(targetAngle, kPAutonGoalHeadingControl);;
+            }
+            else
+            {
+                rot += CalcHeadingCorrection(targetAngle, kPGoalHeadingControl);;
+            }
         }
     }
-   
-    //Debugging
-    Logger::GetLogger()->LogError(string("TurnToGoal Angle: "), to_string(targetAngle.to<double>())); 
 
     double correctionFactor = kPGoalHeadingControl;
-    if (DriverStation::IsAutonomousEnabled())
-    {
-        rot -= CalcHeadingCorrection(targetAngle, kPAutonGoalHeadingControl);;
-    }
-    else
-    {
-        rot += CalcHeadingCorrection(targetAngle, kPGoalHeadingControl);;
-    }
+  
 
     //auto yawCorrection = (DriverStation::IsAutonomousEnabled()) ? -1.0 * kPAutonGoalHeadingControl : kPGoalHeadingControl;
     //CalcHeadingCorrection(targetAngle, yawCorrection);
     //rot += m_yawCorrection;
     Logger::GetLogger()->LogError(string("TurnToGoal New ZSpeed: "), to_string(rot.to<double>()));
 }
-
 
 
 Pose2d SwerveChassis::GetPose() const
