@@ -193,8 +193,6 @@ void DrivePath::Run()
 
         //refChassisSpeeds.omega = units::angular_velocity::degrees_per_second_t(0.0);  // see if this is messing with desired heading
 
-        //refChassisSpeeds.omega = units::angular_velocity::degrees_per_second_t(0.0);  // see if this is messing with desired heading
-
         // debugging
         Logger::GetLogger()->ToNtTable("DrivePathValues", "ChassisSpeedsX", refChassisSpeeds.vx());
         Logger::GetLogger()->ToNtTable("DrivePathValues", "ChassisSpeedsY", refChassisSpeeds.vy());
