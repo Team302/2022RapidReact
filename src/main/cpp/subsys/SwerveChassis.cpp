@@ -226,8 +226,6 @@ void SwerveChassis::Drive
         m_steer = units::velocity::meters_per_second_t(ySpeed);
         m_rotate = units::angular_velocity::radians_per_second_t(rot);
 
-        SetDynamicPGains(m_frontLeft, m_frontRight, m_backLeft, m_backRight, m_rotate);
-
         if ( m_runWPI )
         {
             units::degree_t yaw{m_pigeon->GetYaw()};
@@ -434,6 +432,8 @@ void SwerveChassis::Drive
         speeds.vy = speeds.vy > maxSpeed ? maxSpeed : speeds.vy;
         speeds.omega = speeds.omega > maxRotation ? maxRotation : speeds.omega;
 
+        SetDynamicPGains(m_frontLeft, m_frontRight, m_backLeft, m_backRight, speeds.vx, speeds.vy);
+
         Drive(speeds, mode, headingOption);
     }
 }
@@ -507,7 +507,7 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     //Debugging
     Logger::GetLogger()->LogError(string("TurnToGoal Angle: "), to_string(targetAngle.to<double>())); 
 
-    double correctionFactor = kPGoalHeadingControl;
+    //double correctionFactor = kPGoalHeadingControl;
     if (DriverStation::IsAutonomousEnabled())
     {
         rot -= CalcHeadingCorrection(targetAngle, kPAutonGoalHeadingControl);;
@@ -543,6 +543,9 @@ units::angle::degree_t SwerveChassis::GetYaw() const
 /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
 void SwerveChassis::UpdateOdometry() 
 {
+
+    //This will set P gains to default, can't find another method that is always run
+
     units::degree_t yaw{m_pigeon->GetYaw()};
     Rotation2d rot2d {yaw}; //used to add m_offsetAngle but now we update pigeon yaw in ResetPosition.cpp
 
@@ -820,14 +823,26 @@ void SwerveChassis::SetDynamicPGains(
                                         std::shared_ptr<SwerveModule> frontRight,
                                         std::shared_ptr<SwerveModule> backLeft,
                                         std::shared_ptr<SwerveModule> backRight,
-                                        units::angular_velocity::radians_per_second_t rotation)   
+                                        units::velocity::meters_per_second_t drive,
+                                        units::velocity::meters_per_second_t steer)   
 {
-    double percentOfMax = rotation.to<double>() / m_maxAngularSpeed.to<double>();
-    double maxKp = 1.35;
+    double input = drive > steer ? drive.to<double>() : steer.to<double>();
+    double percentOfMax = input / m_maxSpeed.to<double>();
+    double maxKp = 0.135;
     double updatedkP = percentOfMax * maxKp;
 
-    frontLeft->GetTurnMotor()->SetkP(0, updatedkP);
-    frontRight->GetTurnMotor()->SetkP(0, updatedkP);
-    backLeft->GetTurnMotor()->SetkP(0, updatedkP);
-    backRight->GetTurnMotor()->SetkP(0, updatedkP);
+    if (input <= 0.05)
+    {
+        frontLeft->GetTurnMotor()->SetkP(m_defaultP, 0);
+        frontRight->GetTurnMotor()->SetkP(m_defaultP, 0);
+        backLeft->GetTurnMotor()->SetkP(m_defaultP, 0);
+        backRight->GetTurnMotor()->SetkP(m_defaultP, 0);
+    }
+    else
+    {
+        frontLeft->GetTurnMotor()->SetkP(updatedkP, 0);
+        frontRight->GetTurnMotor()->SetkP(updatedkP, 0);
+        backLeft->GetTurnMotor()->SetkP(updatedkP, 0);
+        backRight->GetTurnMotor()->SetkP(updatedkP, 0);
+    }
 }
