@@ -94,7 +94,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="17"
-                            offset="-174.72"/>
+                            offset="-172.002"/>
         </swervemodule>
 
        
@@ -146,7 +146,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="18"
-                            offset="-95.801"/>
+                            offset="-95.625"/>
         </swervemodule>
 
         <swervemodule type="RIGHT_FRONT"
@@ -197,7 +197,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="13"
-                            offset="-174.199"/>
+                            offset="-170.99"/>
         </swervemodule>
         <swervemodule type="LEFT_FRONT"
                       turn_p="0.1"
@@ -247,7 +247,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="10"
-                            offset="173.95"/>
+                            offset="174.99"/>
         </swervemodule>
 
        </chassis>  
@@ -268,9 +268,9 @@
               countsPerRev="0"
               gearRatio="1.0"
               brakeMode="false"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
+              peakCurrentDuration="50.0"
+              continuousCurrentLimit="20.0"
+              peakCurrentLimit="25.0"
               currentLimiting="true" 
               forwardlimitswitch="false"
               forwardlimitswitchopen="true"
@@ -309,9 +309,9 @@
               countsPerRev="0"
               gearRatio="1.0"
               brakeMode="false"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
+              peakCurrentDuration="50.0"
+              continuousCurrentLimit="20.0"
+              peakCurrentLimit="25.0"
               currentLimiting="true" 
               forwardlimitswitch="false"
               forwardlimitswitchopen="true"
