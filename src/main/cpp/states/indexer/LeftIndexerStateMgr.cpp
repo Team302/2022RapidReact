@@ -150,6 +150,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                                     targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState;
                                 } 
                             }*/
+                            targetState = INDEXER_STATE::OFF;
                             break;
 
                         default:
