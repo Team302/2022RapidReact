@@ -26,6 +26,8 @@
 #include <states/shooter/ShooterStateAutoHigh.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/Shooter.h>
+#include <states/indexer/LeftIndexerStateMgr.h>
+
 
 // Third Party Includes
 
@@ -42,6 +44,8 @@ ShooterStateAutoHigh::ShooterStateAutoHigh
 
 void ShooterStateAutoHigh::Init() 
 {
+    
+
     if (GetShooter() != nullptr)
     {
         GetShooter()->SetControlConstants( 0, GetControlData() );
@@ -52,8 +56,25 @@ void ShooterStateAutoHigh::Init()
             inches = distance.to<double>();
             std::cout << "Distance (Inches): " << std::to_string(inches) << std::endl;
         }
-        m_shooterTarget = 0.0021 * inches*inches - 0.3585 * inches + 72.867;
-        std::cout << "Shooter Target: " << std::to_string(m_shooterTarget) << std::endl;
+        //m_shooterTarget = 0.0021 * inches*inches - 0.3585 * inches + 72.867;
+       
+       auto currentLeftIndexerStateMgrState = IndexerStates::INDEXER_STATE::OFF;
+       auto leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
+       if (leftIndexerStateMgr != nullptr)
+       {
+            currentLeftIndexerStateMgrState = static_cast<IndexerStates::INDEXER_STATE>(leftIndexerStateMgr->GetCurrentState());
+       }
+       if (currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX)
+       {
+            m_shooterTarget = 0.1939*inches + 40.788;
+
+       }
+       else
+       {
+           m_shooterTarget = 0.1939*inches + 40.788 + 2;
+       }
+       
+
         GetShooter()->UpdateTarget(m_shooterTarget);
     }
 }

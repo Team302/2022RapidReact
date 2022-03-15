@@ -42,8 +42,8 @@ bool ShooterState::AtTarget() const
     {
         auto shootermotor = m_shooter->GetMotor();
         auto rps = shootermotor.get()->GetRPS();
-        auto target = GetTarget();
-        return (abs(rps - target) < 3.0);
+        auto target = m_shooter->GetTarget();
+        return (abs(rps - target) < 1.0);
     }
     return true;
 }
