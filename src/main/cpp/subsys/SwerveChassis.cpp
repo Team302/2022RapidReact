@@ -168,11 +168,13 @@ void SwerveChassis::Drive
     auto ySpeed = (abs(speeds.vy.to<double>()) < m_deadband) ? units::meters_per_second_t(0.0) : speeds.vy; 
     auto rot = speeds.omega;
     switch (headingOption)
-    {
+    {   // NEEDS TO BE TESTED...ORIGINAL BUG WITH FALLTHRU
         case HEADING_OPTION::MAINTAIN:
-             [[fallthrough]]; // intentional fallthrough 
+             AdjustRotToMaintainHeading(xSpeed, ySpeed, rot);
+             break;
         case HEADING_OPTION::POLAR_HEADING:
-            AdjustRotToMaintainHeading(xSpeed, ySpeed, rot);
+             AdjustRotToPointTowardGoal(rot);
+             // 
             break;
 
         case HEADING_OPTION::TOWARD_GOAL:
@@ -245,7 +247,7 @@ void SwerveChassis::Drive
             auto [fl, fr, bl, br] = states;
 
             
-            // adjust wheel angles
+            // adjust wheel angles  AUTON
             if (mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE)
             {
                 auto currentPose = GetPose();
@@ -284,16 +286,24 @@ void SwerveChassis::Drive
 
             CalcSwerveModuleStates(chassisSpeeds);
 
-            // adjust wheel angles
-            if (mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE)
-            {
-                auto currentPose = GetPose();
-                auto goalPose = m_targetFinder.GetPosCenterTarget();
+            frc::Pose2d currentPos = GetPose();
+            // adjust wheel angles  TELEOP FOR 90 DEG POLAR WHEEL ANGLES
+            // Using center chassis might have to be At Target when starting move
 
-                m_flState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, m_flState.angle), chassisSpeeds);
-                m_frState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontRightLocation, m_frState.angle), chassisSpeeds);
-                m_blState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backLeftLocation, m_blState.angle), chassisSpeeds);
-                m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, m_brState.angle), chassisSpeeds);
+            double dTargetAngle = m_targetFinder.GetTargetAngleD(currentPos);
+            bool bAtTarget = m_targetFinder.AtTargetAngle(dTargetAngle);
+
+            //TODO: Point at target first then start polar..(maybe)    
+            //TODO: Only works clockwise.. maybe try (-)NEG m_Angle2OrbitR2D TO GO CCW.
+            {
+                auto goalPose = m_targetFinder.GetPosCenterTarget();
+                // Needs to be pointing toward goal for this to work            
+              
+                frc::Rotation2d m_Angle2OrbitR2D = units::degree_t(m_targetFinder.GetDeg2Polar(currentPos));
+                m_flState.angle = m_Angle2OrbitR2D;
+                m_frState.angle = m_Angle2OrbitR2D;
+                m_blState.angle = m_Angle2OrbitR2D;
+                m_brState.angle = m_Angle2OrbitR2D;
            }
 
             m_frontLeft.get()->SetDesiredState(m_flState);
@@ -312,7 +322,7 @@ void SwerveChassis::Drive
 
 
 units::angle::degree_t SwerveChassis::UpdateForPolarDrive
-(
+(  
     Pose2d              robotPose,
     Pose2d              goalPose,
     Transform2d         wheelLoc,

@@ -25,6 +25,20 @@
 #include <states/chassis/DragonTargetFinder.h>
 #include <wpi/numbers>
 
+// in: double Deg 2 Target -180 to +180 deg double
+// out: bool True/False within 3deg of target
+bool DragonTargetFinder::AtTargetAngle(double lDeg2Target)
+{
+    if (lDeg2Target < 3.0 && lDeg2Target > -3.0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 // in: 
 // out: Pose2d Field position of target center x,y,r(0_deg)
 frc::Pose2d DragonTargetFinder::GetPosCenterTarget()
@@ -144,6 +158,39 @@ double DragonTargetFinder::GetAngle2Target(frc::Pose2d lCurPose)
     // Dist2TargetDEG
 
     return dDeg2Target;
+}
+
+// in: Current Position Pose2d
+// out: double Polar angle relative to robot and center of target Used to set wheel pos. Deg to polar angle
+double DragonTargetFinder::GetDeg2Polar(frc::Pose2d lCurPose)
+{
+    frc::Transform2d Distance2Target = GetDistance2TargetXYR(lCurPose);
+    double dDistX2Target = Distance2Target.X().to<double>();
+    double dDistY2Target = Distance2Target.Y().to<double>();
+    // formulate a vector based on Distance to target
+    double dHypotenuse = sqrt(dDistX2Target * dDistX2Target + dDistY2Target * dDistY2Target);
+    // c = dhypotenuse
+    // a= dDistY2Target
+    // b= dDistX2Target
+    // α = arcsin(a / c)
+    // β = arcsin(b / c)
+
+    frc::Rotation2d Dist2TargetR = Distance2Target.Rotation();
+
+    double dAngleARad = dDistY2Target / dHypotenuse;
+    double dAngleAA = asin(dAngleARad);
+
+    double dAngleBRad = dDistX2Target / dHypotenuse;
+    double dAngleBB = asin(dAngleBRad);
+
+    int iQuadrantsLoc = 0; 
+
+    double dDeg2Target = (dAngleAA * (180.0 / wpi::numbers::pi)); // convert rad to degrees.
+    double dDeg2TargetB = (dAngleBB * (180.0 / wpi::numbers::pi));
+
+    // dDeg2TargetB - This number is 90 deg to target center.  Use for Polar Drive
+    return dDeg2TargetB;
+
 }
 
 // in: Current Position Pose2d

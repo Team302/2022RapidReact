@@ -56,12 +56,19 @@ class DragonTargetFinder
 //    in: Pose2d
 //    out: Target angle in Rotation 2d... Field angle robot center to center target
         frc::Rotation2d GetTargetAngleR2d(frc::Pose2d);
-    
+
+//    in: Pose2d
+//    out: Target angle in Rotation 2d... Degrees to polar angel
+       double GetDeg2Polar(frc::Pose2d);
 
 //   in: double x,double y - field center target position xy meters as double
 //   out:
         void setPosCenterTarget(double x, double y);
 
+
+// in: double Deg 2 Target -180 to +180 deg double
+// out: bool True/False within 3deg of target
+        bool AtTargetAngle(double) ;
 
     private:
       frc::Pose2d PosCenterTarget =  frc::Pose2d(8.212_m, 4.162_m,0_deg); //default
