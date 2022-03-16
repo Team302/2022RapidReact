@@ -432,7 +432,7 @@ void SwerveChassis::Drive
         speeds.vy = speeds.vy > maxSpeed ? maxSpeed : speeds.vy;
         speeds.omega = speeds.omega > maxRotation ? maxRotation : speeds.omega;
 
-        SetDynamicPGains(m_frontLeft, m_frontRight, m_backLeft, m_backRight, speeds.vx, speeds.vy);
+        SetDynamicPGains(speeds.vx, speeds.vy);
 
         Drive(speeds, mode, headingOption);
     }
@@ -543,9 +543,6 @@ units::angle::degree_t SwerveChassis::GetYaw() const
 /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
 void SwerveChassis::UpdateOdometry() 
 {
-
-    //This will set P gains to default, can't find another method that is always run
-
     units::degree_t yaw{m_pigeon->GetYaw()};
     Rotation2d rot2d {yaw}; //used to add m_offsetAngle but now we update pigeon yaw in ResetPosition.cpp
 
@@ -819,12 +816,8 @@ void SwerveChassis::ReZero()
 }
 
 void SwerveChassis::SetDynamicPGains(
-                                    std::shared_ptr<SwerveModule> frontLeft,
-                                        std::shared_ptr<SwerveModule> frontRight,
-                                        std::shared_ptr<SwerveModule> backLeft,
-                                        std::shared_ptr<SwerveModule> backRight,
-                                        units::velocity::meters_per_second_t drive,
-                                        units::velocity::meters_per_second_t steer)   
+                                    units::velocity::meters_per_second_t drive,
+                                    units::velocity::meters_per_second_t steer)   
 {
     double input = drive > steer ? drive.to<double>() : steer.to<double>();
     double percentOfMax = input / m_maxSpeed.to<double>();
@@ -833,16 +826,17 @@ void SwerveChassis::SetDynamicPGains(
 
     if (input <= 0.05)
     {
-        frontLeft->GetTurnMotor()->SetkP(m_defaultP, 0);
-        frontRight->GetTurnMotor()->SetkP(m_defaultP, 0);
-        backLeft->GetTurnMotor()->SetkP(m_defaultP, 0);
-        backRight->GetTurnMotor()->SetkP(m_defaultP, 0);
+        m_frontLeft->GetTurnMotor()->SetkP(m_defaultP, 0);
+        m_frontRight->GetTurnMotor()->SetkP(m_defaultP, 0);
+        m_backLeft->GetTurnMotor()->SetkP(m_defaultP, 0);
+        m_backRight->GetTurnMotor()->SetkP(m_defaultP, 0);
     }
     else
     {
-        frontLeft->GetTurnMotor()->SetkP(updatedkP, 0);
-        frontRight->GetTurnMotor()->SetkP(updatedkP, 0);
-        backLeft->GetTurnMotor()->SetkP(updatedkP, 0);
-        backRight->GetTurnMotor()->SetkP(updatedkP, 0);
+        m_frontLeft->GetTurnMotor()->SetkP(updatedkP, 0);
+        m_frontRight->GetTurnMotor()->SetkP(updatedkP, 0);
+        m_backLeft->GetTurnMotor()->SetkP(updatedkP, 0);
+        m_backRight->GetTurnMotor()->SetkP(updatedkP, 0);
     }
+    Logger::GetLogger()->LogError("SetDyamicP's", to_string(input));
 }

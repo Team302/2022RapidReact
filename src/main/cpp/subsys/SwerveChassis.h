@@ -187,10 +187,6 @@ class SwerveChassis : public IChassis
 
         void SetDynamicPGains
         (
-            std::shared_ptr<SwerveModule> frontLeft,
-            std::shared_ptr<SwerveModule> frontRight,
-            std::shared_ptr<SwerveModule> backLeft,
-            std::shared_ptr<SwerveModule> backRight,
             units::velocity::meters_per_second_t drive,
             units::velocity::meters_per_second_t steer
         );
@@ -245,7 +241,7 @@ class SwerveChassis : public IChassis
         units::velocity::meters_per_second_t                        m_steer;
         units::angular_velocity::radians_per_second_t               m_rotate;
 
-        double                                                      m_defaultP = 0.1;
+        double                                                      m_defaultP = 0.0;
 
       //  const double                                                m_deadband = 0.05;
         const double                                                m_deadband = 0.0;
