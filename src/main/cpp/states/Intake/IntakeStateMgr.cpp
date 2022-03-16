@@ -3,21 +3,9 @@
 #include <subsys/Intake.h>
 
 
-IntakeStateMgr::IntakeStateMgr() : m_directStateSet(false)
+IntakeStateMgr::IntakeStateMgr() : m_buttonTriggerStateChange(false)
 {
     
-}
-
-/// @brief  set the current state, initialize it and run it
-/// @return void
-void IntakeStateMgr::SetCurrentState
-(
-    int             stateID,
-    bool            run
-)
-{
-    m_directStateSet = true;
-    StateMgr::SetCurrentState(stateID, run);
 }
 
 /// @brief  run the current state
@@ -37,22 +25,22 @@ void IntakeStateMgr::CheckForStateTransition()
         if (intakePressed  &&  currentState != INTAKE_STATE::INTAKE)
         {
             targetState = INTAKE_STATE::INTAKE;
-            m_directStateSet = false;
+            m_buttonTriggerStateChange = true;
         }
         else if (expelPressed && currentState != INTAKE_STATE::EXPEL)
         {
             targetState = INTAKE_STATE::EXPEL;
-            m_directStateSet = false;
+            m_buttonTriggerStateChange = true;
         } 
         else if (retractIntake)
         {
             targetState = INTAKE_STATE::RETRACT;
-            m_directStateSet = false;
+            m_buttonTriggerStateChange = true;
         }          
         else if (!intakePressed && 
                  !expelPressed && 
                  !retractIntake && 
-                 !m_directStateSet &&
+                 m_buttonTriggerStateChange &&
                  currentState != INTAKE_STATE::OFF)
         {
             targetState = INTAKE_STATE::OFF;

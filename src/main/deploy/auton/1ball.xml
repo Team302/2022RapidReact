@@ -2,9 +2,8 @@
 <!DOCTYPE auton SYSTEM "auton.dtd">
 <auton>
     <primitive id="RESET_POSITION"
-			   pathname="1ball.wpilib.json"/>
+			   pathname="1Ball.wpilib.json"/>
     <primitive id="DRIVE_PATH"
-               rightIntake="INTAKE"
-               headingOption="SPECIFIED_ANGLE"
-               heading="0"/>
+               leftIntake="INTAKE"
+               headingOption="TOWARD_GOAL"/>
 </auton>

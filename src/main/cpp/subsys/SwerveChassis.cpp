@@ -497,27 +497,20 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     //Debugging
     Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("Field Pos for Toward Goal: TargetAngle(Degrees)"), targetAngle.to<double>());
 
-    if (m_limelight != nullptr)
+    if (m_limelight != nullptr && m_limelight->HasTarget())
     {
-        if (m_limelight->HasTarget())
-        {
-            rot -= (-1.0 * m_limelight->GetTargetHorizontalOffset())/1_s*kPGoalHeadingControl;
-        }else
-        {
-            if (DriverStation::IsAutonomousEnabled())
-            {
-                rot -= CalcHeadingCorrection(targetAngle, kPAutonGoalHeadingControl);;
-            }
-            else
-            {
-                rot += CalcHeadingCorrection(targetAngle, kPGoalHeadingControl);;
-            }
-        }
+        rot += (m_limelight->GetTargetHorizontalOffset())/1_s*kPGoalHeadingControl;
+    }
+    else if (DriverStation::IsAutonomousEnabled())
+    {
+        rot -= CalcHeadingCorrection(targetAngle, kPAutonGoalHeadingControl);;
+    }
+    else
+    {
+        rot += CalcHeadingCorrection(targetAngle, kPGoalHeadingControl);;
     }
 
-    double correctionFactor = kPGoalHeadingControl;
-  
-
+    //double correctionFactor = kPGoalHeadingControl;
     //auto yawCorrection = (DriverStation::IsAutonomousEnabled()) ? -1.0 * kPAutonGoalHeadingControl : kPGoalHeadingControl;
     //CalcHeadingCorrection(targetAngle, yawCorrection);
     //rot += m_yawCorrection;

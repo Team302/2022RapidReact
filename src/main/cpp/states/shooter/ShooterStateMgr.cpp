@@ -64,7 +64,7 @@ ShooterStateMgr* ShooterStateMgr::GetInstance()
 ShooterStateMgr::ShooterStateMgr() : StateMgr(),
                                      m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter()),
                                      m_nt(),
-                                     m_directStateSet()
+                                     m_buttonTriggerStateChange(false)
 {
     map<string, StateStruc> stateMap;
     stateMap[m_shooterOffXmlString] = m_offState;
@@ -139,11 +139,11 @@ void ShooterStateMgr::CheckForStateTransition()
             isPrepareToShootSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_MTR_ON);
         }
 
-        m_directStateSet = !(isShootHighSelected    || 
-                             isShootLowSelected     || 
-                             isManualShootSelected  || 
-                             isShooterOffSelected   || 
-                             isPrepareToShootSelected);
+        m_buttonTriggerStateChange = isShootHighSelected    || 
+                                     isShootLowSelected     || 
+                                     isManualShootSelected  || 
+                                     isShooterOffSelected   || 
+                                     isPrepareToShootSelected;
 
         if (isShootHighSelected)
         {
@@ -165,7 +165,7 @@ void ShooterStateMgr::CheckForStateTransition()
         {
             targetState = SHOOTER_STATE::OFF;
         }
-        else if (currentState != SHOOTER_STATE::OFF && !m_directStateSet)
+        else if (currentState != SHOOTER_STATE::OFF && m_buttonTriggerStateChange)
         {
             targetState = SHOOTER_STATE::PREPARE_TO_SHOOT;
         }
@@ -199,6 +199,5 @@ void ShooterStateMgr::SetCurrentState
     bool            run
 )
 {
-    m_directStateSet = true;
     StateMgr::SetCurrentState(stateID, run);
 }

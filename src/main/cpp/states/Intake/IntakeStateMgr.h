@@ -54,17 +54,6 @@ class IntakeStateMgr : public StateMgr
             {m_intakeExpelXmlString, INTAKE_STATE::EXPEL}
         };
 
-
-        /// @brief  set the current state, initialize it and run it
-        /// @param [in]     int - state to set
-        /// @param [in]     run - true means run, false just initialize it
-        /// @return void
-        void SetCurrentState
-        (
-            int         state,
-            bool        run
-        ) override;
-
         void CheckForStateTransition() override;
 
     protected:
@@ -78,5 +67,5 @@ class IntakeStateMgr : public StateMgr
         IntakeStateMgr();
         ~IntakeStateMgr() = default;
 
-        bool m_directStateSet;
+        bool m_buttonTriggerStateChange;
 };

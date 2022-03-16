@@ -89,7 +89,7 @@ class ShooterStateMgr : public StateMgr
         DragonLimelight* m_dragonLimeLight;
         Shooter*                                m_shooter;
         std::shared_ptr<nt::NetworkTable>       m_nt;
-        bool m_directStateSet;     
+        bool m_buttonTriggerStateChange;
 
 
         const double m_CHANGE_STATE_TARGET = 120.0; 
@@ -101,5 +101,4 @@ class ShooterStateMgr : public StateMgr
         const StateStruc m_manualShootState = {SHOOTER_STATE::SHOOT_MANUAL, StateType::SHOOTER, false};
         const StateStruc m_shooterHoodAdjust = {SHOOTER_STATE::SHOOTER_HOOD_ADJUST, StateType::SHOOTER_MANUAL, false};
         const StateStruc m_prepareToShoot = {SHOOTER_STATE::PREPARE_TO_SHOOT, StateType::SHOOTER, false};
-        //frc::Timer*       m_timer = {new frc::Timer()};
 };
