@@ -111,18 +111,15 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                                     if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
                                     {
                                         auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
-                                        targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState;
+                                        targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && 
+                                                       controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? 
+                                                       INDEXER_STATE::INDEX : targetState;
                                     }
                                 }
                             }
                             else
                             {
                                 targetState = INDEXER_STATE::INDEX;
-                                /*if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
-                                {
-                                    auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
-                                    targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState;
-                                } */ 
                             }                            
                             break;
                     
@@ -130,32 +127,10 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                             m_timer->Stop();
                             m_timer->Reset();
                             targetState = INDEXER_STATE::OFF;
-                            /*if (m_delay)
-                            {
-                                if (m_timer->HasElapsed(units::second_t(2.0)))
-                                {
-                                    targetState = INDEXER_STATE::OFF;
-                                    if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
-                                    {
-                                        auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
-                                        targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (m_leftIntakeStateMgr != nullptr && controller != nullptr)
-                                {
-                                    auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState());
-                                    targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState;
-                                } 
-                            }*/
-                            targetState = INDEXER_STATE::OFF;
                             break;
 
                         default:
                             targetState = INDEXER_STATE::OFF;
-                            //m_timer->Reset();
                             break;
                     }
                 }
