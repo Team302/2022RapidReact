@@ -285,18 +285,20 @@ void SwerveChassis::Drive
             m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
 
             CalcSwerveModuleStates(chassisSpeeds);
-            
+
             frc::Pose2d currentPos = GetPose();
             // adjust wheel angles  TELEOP FOR 90 DEG POLAR WHEEL ANGLES
             // Using center chassis might have to be At Target when starting move
 
             double dTargetAngle = m_targetFinder.GetTargetAngleD(currentPos);
             bool bAtTarget = m_targetFinder.AtTargetAngle(dTargetAngle);
+
             //TODO: Point at target first then start polar..(maybe)    
-            if (mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE)
+            //TODO: Only works clockwise.. maybe try (-)NEG m_Angle2OrbitR2D TO GO CCW.
             {
                 auto goalPose = m_targetFinder.GetPosCenterTarget();
                 // Needs to be pointing toward goal for this to work            
+              
                 frc::Rotation2d m_Angle2OrbitR2D = units::degree_t(m_targetFinder.GetDeg2Polar(currentPos));
                 m_flState.angle = m_Angle2OrbitR2D;
                 m_frState.angle = m_Angle2OrbitR2D;
