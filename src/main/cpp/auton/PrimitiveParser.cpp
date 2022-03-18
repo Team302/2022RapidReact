@@ -14,7 +14,7 @@
 //====================================================================================================================================================
 
 #include <map>
-#include <iostream>
+#include <string>
 
 #include <frc/Filesystem.h>
 
@@ -23,6 +23,9 @@
 #include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
 #include <auton/primitives/IPrimitive.h>
+#include <states/intake/LeftIntakeStateMgr.h>
+#include <states/intake/RightIntakeStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
 #include <utils/Logger.h>
 
 #include <pugixml/pugixml.hpp>
@@ -38,21 +41,6 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
 {
 
     PrimitiveParamsVector paramVector;
-
-    auto primitiveType = UNKNOWN_PRIMITIVE;
-    auto time = 15.0;
-    auto distance = 0.0;
-    auto headingOption = IChassis::HEADING_OPTION::MAINTAIN;
-    auto heading = 0.0;
-    auto startDriveSpeed = 0.0;
-    auto endDriveSpeed = 0.0;
-    auto xloc = 0.0;
-    auto yloc = 0.0;
-    std::string pathName;
-    auto leftIntakeState = IntakeStateMgr::INTAKE_STATE::OFF;
-    auto rightIntakeState = IntakeStateMgr::INTAKE_STATE::OFF;
-    auto shooterState = ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT;
-
     auto hasError = false;
 
 	auto deployDir = frc::filesystem::GetDeployDirectory();
@@ -79,19 +67,6 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
     headingOptionMap["RIGHT_INTAKE_TOWARD_BALL"] = IChassis::HEADING_OPTION::RIGHT_INTAKE_TOWARD_BALL;
     headingOptionMap["SPECIFIED_ANGLE"] = IChassis::HEADING_OPTION::SPECIFIED_ANGLE;
     
-    map<string, IntakeStateMgr::INTAKE_STATE> intakeStateMap;
-    intakeStateMap["OFF"] = IntakeStateMgr::INTAKE_STATE::OFF;
-    intakeStateMap["INTAKE"] = IntakeStateMgr::INTAKE_STATE::INTAKE;
-    intakeStateMap["EXPEL"] = IntakeStateMgr::INTAKE_STATE::EXPEL;  
-
-    map<string, ShooterStateMgr::SHOOTER_STATE> shooterStateMap;
-    shooterStateMap["OFF"] = ShooterStateMgr::SHOOTER_STATE::OFF;
-    shooterStateMap["AUTO_SHOOT_HIGH_GOAL_FAR"] = ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
-    shooterStateMap["AUTO_SHOOT_HIGH_GOAL_CLOSE"] = ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE;
-    shooterStateMap["SHOOT_LOW_GOAL"] = ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL;
-    shooterStateMap["PREPARE_TO_SHOOT"] = ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT;
-    shooterStateMap["MANUAL_SHOOT"] = ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL;
-
     xml_document doc;
     xml_parse_result result = doc.load_file( fulldirfile.c_str() );
    
@@ -104,10 +79,22 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
             {
                 if ( strcmp( primitiveNode.name(), "primitive") == 0 )
                 {
-
+                    auto primitiveType = UNKNOWN_PRIMITIVE;
+                    auto time = 15.0;
+                    auto distance = 0.0;
+                    auto headingOption = IChassis::HEADING_OPTION::MAINTAIN;
+                    auto heading = 0.0;
+                    auto startDriveSpeed = 0.0;
+                    auto endDriveSpeed = 0.0;
+                    auto xloc = 0.0;
+                    auto yloc = 0.0;
+                    std::string pathName;
+                    auto leftIntakeState = IntakeStateMgr::INTAKE_STATE::OFF;
+                    auto rightIntakeState = IntakeStateMgr::INTAKE_STATE::OFF;
+                    auto shooterState = ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT;                    
+                    
                     for (xml_attribute attr = primitiveNode.first_attribute(); attr; attr = attr.next_attribute())
                     {
-                        std::cout << "PrimParser atribute name: " << attr.name() << std::endl;
                         if ( strcmp( attr.name(), "id" ) == 0 )
                         {
                             auto paramStringToEnumItr = primStringToEnumMap.find( attr.value() );
@@ -168,8 +155,8 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                         }                
                         else if ( strcmp( attr.name(), "leftIntake" ) == 0 )
                         {
-                            auto leftItr = intakeStateMap.find( attr.value() );
-                            if ( leftItr != intakeStateMap.end() )
+                            auto leftItr = LeftIntakeStateMgr::GetInstance()->m_intakeXmlStringToStateEnumMap.find( attr.value() );
+                            if ( leftItr != LeftIntakeStateMgr::GetInstance()->m_intakeXmlStringToStateEnumMap.end() )
                             {
                                 leftIntakeState = leftItr->second;
                             }
@@ -181,8 +168,8 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                         }
                         else if ( strcmp( attr.name(), "rightIntake" ) == 0 )
                         {
-                            auto rightItr = intakeStateMap.find( attr.value() );
-                            if ( rightItr != intakeStateMap.end() )
+                            auto rightItr = RightIntakeStateMgr::GetInstance()->m_intakeXmlStringToStateEnumMap.find( attr.value() );
+                            if ( rightItr != RightIntakeStateMgr::GetInstance()->m_intakeXmlStringToStateEnumMap.end() )
                             {
                                 rightIntakeState = rightItr->second;
                             }
@@ -194,13 +181,10 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                         }
                         else if ( strcmp( attr.name(), "shooter" ) == 0 )
                         {
-                            auto shootItr = shooterStateMap.find( attr.value() );
-                            std::cout << "ShootItr second: " << to_string(shootItr->second) << endl;
-                            std::cout << "ShootItr first: " << shootItr->first << endl;
-                            if ( shootItr != shooterStateMap.end() )
+                            auto shootItr = ShooterStateMgr::GetInstance()->m_shooterXmlStringToStateEnumMap.find( attr.value() );
+                            if ( shootItr != ShooterStateMgr::GetInstance()->m_shooterXmlStringToStateEnumMap.end() )
                             {
                                 shooterState = shootItr->second;
-                                std::cout << "PrimParser State: " << to_string(shooterState) << std::endl;
                             }
                             else
                             {
@@ -229,6 +213,23 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                                                                        leftIntakeState,
                                                                        rightIntakeState,
                                                                        shooterState ) );
+                        string ntName = string("Primitive ") + to_string(paramVector.size());
+                        int slot = paramVector.size() - 1;
+                        auto logger = Logger::GetLogger();
+                        auto param = paramVector[slot];
+                        logger->ToNtTable(ntName, string("Primitive ID"), to_string(param->GetID()));
+                        logger->ToNtTable(ntName, string("Time"), param->GetTime());
+                        logger->ToNtTable(ntName, string("Distance"), param->GetDistance());
+                        logger->ToNtTable(ntName, string("X Location"), param->GetXLocation());
+                        logger->ToNtTable(ntName, string("Y Location"), param->GetYLocation());
+                        logger->ToNtTable(ntName, string("Heading Option"), to_string(param->GetHeadingOption()));
+                        logger->ToNtTable(ntName, string("Heading"), param->GetHeading());
+                        logger->ToNtTable(ntName, string("Drive Speed"), param->GetDriveSpeed());
+                        logger->ToNtTable(ntName, string("End Drive Speed"), param->GetEndDriveSpeed());
+                        logger->ToNtTable(ntName, string("Path Name"), param->GetPathName());
+                        logger->ToNtTable(ntName, string("Left Intake"), to_string(param->GetLeftIntakeState()));
+                        logger->ToNtTable(ntName, string("Right Intake"), to_string(param->GetRightIntakeState()));
+                        logger->ToNtTable(ntName, string("Shooter"), to_string(param->GetShooterState()));
                     }
                     else 
                     {

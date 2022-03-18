@@ -48,25 +48,32 @@ ShooterStateMgr* ShooterStateMgr::GetInstance()
 {
 	if ( ShooterStateMgr::m_instance == nullptr )
 	{
-		ShooterStateMgr::m_instance = new ShooterStateMgr();
+	    auto mechFactory = MechanismFactory::GetMechanismFactory();
+	    auto shooter = mechFactory->GetShooter();
+	    if (shooter != nullptr)
+        {
+		    ShooterStateMgr::m_instance = new ShooterStateMgr();
+        }
 	}
 	return ShooterStateMgr::m_instance;
+    
 }
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
 ShooterStateMgr::ShooterStateMgr() : StateMgr(),
                                      m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter()),
-                                     m_nt()
+                                     m_nt(),
+                                     m_buttonTriggerStateChange(false)
 {
     map<string, StateStruc> stateMap;
-    stateMap["SHOOTER_OFF"] = m_offState;
-    stateMap["SHOOT_HIGHGOAL_CLOSE"] = m_shootFarState;
-    stateMap["SHOOT_HIGHGOAL_FAR"] = m_shootCloseState;
-    stateMap["SHOOT_LOWGOAL"] = m_shootLowState;
-    stateMap["MANUAL_SHOOT"] = m_manualShootState;
-    stateMap["ADJUSTHOOD"] = m_shooterHoodAdjust;
-    stateMap["PREPARETOSHOOT"] = m_prepareToShoot;
+    stateMap[m_shooterOffXmlString] = m_offState;
+    stateMap[m_shooterHighGoalCloseXmlString] = m_shootFarState;
+    stateMap[m_shooterHighGoalFarXmlString] = m_shootCloseState;
+    stateMap[m_shooterLowGoalXmlString] = m_shootLowState;
+    stateMap[m_shooterManualXmlString] = m_manualShootState;
+    stateMap[m_shooterHoodXmlString] = m_shooterHoodAdjust;
+    stateMap[m_shooterPrepareXmlString] = m_prepareToShoot;
 
     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
     
@@ -81,26 +88,13 @@ ShooterStateMgr::ShooterStateMgr() : StateMgr(),
     {
         m_nt = nt::NetworkTableInstance::GetDefault().GetTable("shooter");
     }
-    //m_timer->Reset();
 }   
 
 
 bool ShooterStateMgr::AtTarget() const
 {
     Logger::GetLogger()->ToNtTable(m_nt, string("At Target"), GetCurrentStatePtr()->AtTarget() ? "true" : "false");
-    //return GetCurrentStatePtr()->AtTarget();
-    //if (GetCurrentStatePtr()->AtTarget())
-    //{
-    //    m_timer->Start();
-    //    if (m_timer->HasElapsed(units::second_t(0.25)))
-    //    {
-    //        return GetCurrentStatePtr()->AtTarget();
-    //    }
-    //}
-    //else
-    //{
-        return GetCurrentStatePtr()->AtTarget();
-    //}
+    return GetCurrentStatePtr()->AtTarget();
 }
 
 void ShooterStateMgr::CheckForStateTransition()
@@ -132,12 +126,9 @@ void ShooterStateMgr::CheckForStateTransition()
             isPrepareToShootSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_MTR_ON);
         }
 
-        if (isShootHighSelected && m_dragonLimeLight != nullptr)
+        if (isShootHighSelected)
         {
-            if(m_dragonLimeLight->GetTargetHorizontalOffset() <= 3.0_deg)
-            {
-                targetState = SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
-            }
+            targetState = SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
         }
         else if (isShootLowSelected)
         {
@@ -155,17 +146,43 @@ void ShooterStateMgr::CheckForStateTransition()
         {
             targetState = SHOOTER_STATE::OFF;
         }
-        else if (currentState != SHOOTER_STATE::OFF)
+        else if (currentState != SHOOTER_STATE::OFF && m_buttonTriggerStateChange)
         {
             targetState = SHOOTER_STATE::PREPARE_TO_SHOOT;
         }
+
+        if (m_dragonLimeLight != nullptr && (targetState == SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE ||
+                                             targetState == SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR ||
+                                             targetState == SHOOTER_STATE::SHOOT_LOW_GOAL))
+        {
+            if(m_dragonLimeLight->GetTargetHorizontalOffset() > 5.0_deg)
+            {
+                targetState = currentState;
+            }
+        }
+
+        m_buttonTriggerStateChange = isShootHighSelected    || 
+                                     isShootLowSelected     || 
+                                     isManualShootSelected  || 
+                                     isShooterOffSelected   || 
+                                     isPrepareToShootSelected;
 
         if (targetState != currentState)
         {
             Logger::GetLogger()->ToNtTable(m_nt, string("Changing Shooter State"), targetState);
             SetCurrentState(targetState, true);
-            //m_timer->Stop();
-            //m_timer->Reset();
         }
+        
     }
+}
+
+/// @brief  set the current state, initialize it and run it
+/// @return void
+void ShooterStateMgr::SetCurrentState
+(
+    int             stateID,
+    bool            run
+)
+{
+    StateMgr::SetCurrentState(stateID, run);
 }

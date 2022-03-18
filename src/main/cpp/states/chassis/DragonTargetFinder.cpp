@@ -103,7 +103,7 @@ double DragonTargetFinder::GetAngle2Target(frc::Pose2d lCurPose)
     // α = arcsin(a / c)
     // β = arcsin(b / c)
 
-    frc::Rotation2d Dist2TargetR = Distance2Target.Rotation();
+    //frc::Rotation2d Dist2TargetR = Distance2Target.Rotation();
 
     double dAngleARad = dDistY2Target / dHypotenuse;
     double dAngleAA = asin(dAngleARad);
@@ -112,28 +112,28 @@ double DragonTargetFinder::GetAngle2Target(frc::Pose2d lCurPose)
     double dAngleBB = asin(dAngleBRad);
 
     // Chassis Quadarant location based on radians to target.  ///////////////
-    int iQuadrantsLoc = 0; // Quadrants I,II,III,IV.  Standard radians rotation counter clockwise
+    //int iQuadrantsLoc = 0; // Quadrants I,II,III,IV.  Standard radians rotation counter clockwise
 
     double dDeg2Target = (dAngleAA * (180.0 / wpi::numbers::pi)); // convert rad to degrees.
     double dDeg2TargetB = (dAngleBB * (180.0 / wpi::numbers::pi));
 
     if ((dAngleAA) < 0 && (dAngleBB > 0))
     {
-        iQuadrantsLoc = 1;
+        //iQuadrantsLoc = 1;
     } // neg quadraunt
     if ((dAngleAA) < 0 && (dAngleBB < 0))
     {
-        iQuadrantsLoc = 2;
+        //iQuadrantsLoc = 2;
         dDeg2Target = -90 + dDeg2TargetB;
     } // neg quadraunt
     if ((dAngleAA) > 0 && (dAngleBB < 0))
     {
-        iQuadrantsLoc = 3;
+        //iQuadrantsLoc = 3;
         dDeg2Target = 90 + abs(dDeg2TargetB);
     } // Pos quadraunt
     if ((dAngleAA) > 0 && (dAngleBB > 0))
     {
-        iQuadrantsLoc = 4;
+        //iQuadrantsLoc = 4;
     } // Pos quadraunt
     /////////////////////////////////////////////////////////////////////
 

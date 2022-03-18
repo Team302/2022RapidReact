@@ -28,6 +28,8 @@
 
 // Third Party Includes
 
+class Intake;
+
 class IntakeStateMgr : public StateMgr
 {
     public:
@@ -41,8 +43,29 @@ class IntakeStateMgr : public StateMgr
             MAX_INTAKE_STATES
         };
 
+        const std::string m_intakeOffXmlString = "INTAKE_OFF";
+        const std::string m_intakeIntakeXmlString = "INTAKE_ON";
+        const std::string m_intakeExpelXmlString = "INTAKE_EXPEL";
+        const std::string m_intakeRetractXmlString = "INTAKE_RETRACT";
+        
+        const std::map<const std::string, INTAKE_STATE> m_intakeXmlStringToStateEnumMap
+        {   {m_intakeOffXmlString, INTAKE_STATE::OFF},
+            {m_intakeIntakeXmlString, INTAKE_STATE::INTAKE},
+            {m_intakeExpelXmlString, INTAKE_STATE::EXPEL}
+        };
+
+        void CheckForStateTransition() override;
+
     protected:
 
-        IntakeStateMgr() = default;
+        virtual Intake* GetIntake() const = 0;
+        virtual bool IsIntakePressed() const = 0;
+        virtual bool IsExpelPressed() const = 0;
+        virtual bool IsRetractSelected() const = 0;
+
+
+        IntakeStateMgr();
         ~IntakeStateMgr() = default;
+
+        bool m_buttonTriggerStateChange;
 };

@@ -41,7 +41,12 @@ LiftStateMgr* LiftStateMgr::GetInstance()
 {
 	if ( LiftStateMgr::m_instance == nullptr )
 	{
-		LiftStateMgr::m_instance = new LiftStateMgr();
+	    auto mechFactory = MechanismFactory::GetMechanismFactory();
+	    auto lift = mechFactory->GetLift();
+        if (lift != nullptr)
+        {
+		    LiftStateMgr::m_instance = new LiftStateMgr();
+        }
 	}
 	return LiftStateMgr::m_instance;
 }

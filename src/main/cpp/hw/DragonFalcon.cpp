@@ -906,8 +906,3 @@ bool DragonFalcon::IsReverseLimitSwitchClosed() const
 	auto closed = sensors.IsRevLimitSwitchClosed();
 	return closed == 1;
 }
-
-void DragonFalcon::SetkP(double value, int slot)
-{
-	m_talon.get()->Config_kP(slot, value);
-}

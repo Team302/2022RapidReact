@@ -41,8 +41,8 @@ DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChas
                          m_trajectory(),
                          m_runHoloController(true),
                          m_ramseteController(),
-                         m_holoController(frc2::PIDController{0.5, 0, 0},
-                                          frc2::PIDController{0.5, 0, 0},
+                         m_holoController(frc2::PIDController{1.0, 0, 0},
+                                          frc2::PIDController{1.0, 0, 0},
                                           frc::ProfiledPIDController<units::radian>{0, 0, 0,
                                                                                     frc::TrapezoidProfile<units::radian>::Constraints{0_rad_per_s, 0_rad_per_s / 1_s}}),
                          //max velocity of 1 rotation per second and a max acceleration of 180 degrees per second squared.
@@ -98,8 +98,8 @@ void DrivePath::Init(PrimitiveParams *params)
         Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosX", m_currentChassisPosition.X().to<double>());
         Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosY", m_currentChassisPosition.Y().to<double>());
 
-        Logger::GetLogger()->ToNtTable("Deltas", "iDeltaX", "0");
-        Logger::GetLogger()->ToNtTable("Deltas", "iDeltaX", "0");
+        Logger::GetLogger()->ToNtTable("DrivePathValues", "iDeltaX", "0");
+        Logger::GetLogger()->ToNtTable("DrivePathValues", "iDeltaX", "0");
 
         //A timer used for position change detection
         m_PosChgTimer.get()->Reset(); 
@@ -141,8 +141,57 @@ void DrivePath::Run()
         CalcCurrentAndDesiredStates();
 
         // Use the controller to calculate the chassis speeds for getting there
-        auto refChassisSpeeds = m_runHoloController ? m_holoController.Calculate(m_currentChassisPosition, m_desiredState, m_desiredState.pose.Rotation()) :
-                                                      m_ramseteController.Calculate(m_currentChassisPosition, m_desiredState);
+        ChassisSpeeds refChassisSpeeds;
+        if (m_runHoloController)
+        {
+            Rotation2d rotation = m_desiredState.pose.Rotation();
+            switch (m_headingOption)
+            {
+                case IChassis::HEADING_OPTION::MAINTAIN:
+                   rotation = m_currentChassisPosition.Rotation();
+                   break;
+
+                case IChassis::HEADING_OPTION::POLAR_HEADING:
+                    [[fallthrough]];
+                case IChassis::HEADING_OPTION::TOWARD_GOAL:
+                    rotation = Rotation2d(units::angle::degree_t(m_targetFinder.GetTargetAngleD(m_currentChassisPosition)));
+                    break;
+
+                case IChassis::HEADING_OPTION::SPECIFIED_ANGLE:
+                    rotation = Rotation2d(units::angle::degree_t(m_heading));
+                    m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
+                    break;
+
+                case IChassis::HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL:
+                    [[fallthrough]];
+                case IChassis::HEADING_OPTION::RIGHT_INTAKE_TOWARD_BALL:
+                    // TODO: need to get info from camera
+                    rotation = m_desiredState.pose.Rotation();
+                    break;
+                
+                default:
+                    rotation = m_desiredState.pose.Rotation();
+                    break;
+            }
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "current pose x", m_currentChassisPosition.X().to<double>());
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "current pose y", m_currentChassisPosition.Y().to<double>());
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "current pose omega", m_currentChassisPosition.Rotation().Degrees().to<double>());
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "desired pose x", m_desiredState.pose.X().to<double>());
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "desired pose y", m_desiredState.pose.Y().to<double>());
+            Logger::GetLogger()->ToNtTable("DrivePathValues", "desired pose omega", m_desiredState.pose.Rotation().Degrees().to<double>());
+            refChassisSpeeds = m_holoController.Calculate(m_currentChassisPosition, 
+                                                          m_desiredState, 
+                                                          m_desiredState.pose.Rotation());
+        }
+        else
+        {
+            refChassisSpeeds = m_ramseteController.Calculate(m_currentChassisPosition, 
+                                                             m_desiredState);
+        }
+        //auto refChassisSpeeds = m_runHoloController ? m_holoController.Calculate(m_currentChassisPosition, m_desiredState, m_desiredState.pose.Rotation()) :
+        //                                              m_ramseteController.Calculate(m_currentChassisPosition, m_desiredState);
+
+        //refChassisSpeeds.omega = units::angular_velocity::degrees_per_second_t(0.0);  // see if this is messing with desired heading
 
         // debugging
         Logger::GetLogger()->ToNtTable("DrivePathValues", "ChassisSpeedsX", refChassisSpeeds.vx());
@@ -150,11 +199,10 @@ void DrivePath::Run()
         Logger::GetLogger()->ToNtTable("DrivePathValues", "ChassisSpeedsZ", units::degrees_per_second_t(refChassisSpeeds.omega()).to<double>());
 
         // Run the chassis
-        if (m_headingOption == IChassis::HEADING_OPTION::SPECIFIED_ANGLE)
-        {
-            m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
-        }
-
+        //if (m_headingOption == IChassis::HEADING_OPTION::SPECIFIED_ANGLE)
+        //{
+        //    m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
+        //}
         m_chassis->Drive(refChassisSpeeds,
                          IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
 						 m_headingOption);
@@ -214,11 +262,7 @@ bool DrivePath::IsDone() //Default primitive function to determine if the primit
                 }
             }
         }       
-        
-
-        
-
-
+ 
         if (m_PosChgTimer.get()->Get() > 1_s)//This if statement makes sure that we aren't checking for position change right at the start
         {                                    //caused problems that would signal we are done when the path hasn't started
            //auto moving = !IsSamePose(curPos, m_PrevPos, 7.5);
@@ -266,8 +310,8 @@ bool DrivePath::IsSamePose(frc::Pose2d lCurPos, frc::Pose2d lPrevPos, double tol
     double dDeltaX = abs(dPrevPosX - dCurPosX);
     double dDeltaY = abs(dPrevPosY - dCurPosY);
 
-    Logger::GetLogger()->ToNtTable("Deltas", "iDeltaX", to_string(dDeltaX));
-    Logger::GetLogger()->ToNtTable("Deltas", "iDeltaY", to_string(dDeltaY));
+    Logger::GetLogger()->ToNtTable("DrivePathValues", "iDeltaX", to_string(dDeltaX));
+    Logger::GetLogger()->ToNtTable("DrivePathValues", "iDeltaY", to_string(dDeltaY));
 
     //  If Position of X or Y has moved since last scan..  Using Delta X/Y
     return (dDeltaX <= tolerance && dDeltaY <= tolerance);
@@ -320,8 +364,8 @@ void DrivePath::CalcCurrentAndDesiredStates()
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosX", m_currentChassisPosition.X().to<double>());
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosY", m_currentChassisPosition.Y().to<double>());
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentPosOmega", m_currentChassisPosition.Rotation().Degrees().to<double>());
-    Logger::GetLogger()->ToNtTable("DeltaValues", "DeltaX", m_desiredState.pose.X().to<double>() - m_currentChassisPosition.X().to<double>());
-    Logger::GetLogger()->ToNtTable("DeltaValues", "DeltaY", m_desiredState.pose.Y().to<double>() - m_currentChassisPosition.Y().to<double>());
+    Logger::GetLogger()->ToNtTable("DrivePathValues", "DeltaX", m_desiredState.pose.X().to<double>() - m_currentChassisPosition.X().to<double>());
+    Logger::GetLogger()->ToNtTable("DrivePathValues", "DeltaY", m_desiredState.pose.Y().to<double>() - m_currentChassisPosition.Y().to<double>());
 
     Logger::GetLogger()->ToNtTable("DrivePathValues", "CurrentTime", m_timer.get()->Get().to<double>());
 }
