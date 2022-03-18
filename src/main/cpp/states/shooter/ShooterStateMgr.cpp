@@ -126,12 +126,6 @@ void ShooterStateMgr::CheckForStateTransition()
             isPrepareToShootSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_MTR_ON);
         }
 
-        m_buttonTriggerStateChange = isShootHighSelected    || 
-                                     isShootLowSelected     || 
-                                     isManualShootSelected  || 
-                                     isShooterOffSelected   || 
-                                     isPrepareToShootSelected;
-
         if (isShootHighSelected)
         {
             targetState = SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR;
@@ -166,6 +160,12 @@ void ShooterStateMgr::CheckForStateTransition()
                 targetState = currentState;
             }
         }
+
+        m_buttonTriggerStateChange = isShootHighSelected    || 
+                                     isShootLowSelected     || 
+                                     isManualShootSelected  || 
+                                     isShooterOffSelected   || 
+                                     isPrepareToShootSelected;
 
         if (targetState != currentState)
         {
