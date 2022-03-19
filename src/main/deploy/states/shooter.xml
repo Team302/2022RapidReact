@@ -34,7 +34,7 @@
 
 	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
 	                 controlDataIdentifier="closedloop2"
-					 value="30.0"/>
+					 value="32"/>
 
 	<mechanismTarget stateIdentifier="ADJUSTHOOD"
 	                 controlDataIdentifier="openloop"
@@ -42,7 +42,7 @@
 
 	<mechanismTarget stateIdentifier="PREPARETOSHOOT"
 	                 controlDataIdentifier="closedloop2"
-					 value="30"/>
+					 value="32"/>
 
  	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
 	                 controlDataIdentifier="closedloop2"

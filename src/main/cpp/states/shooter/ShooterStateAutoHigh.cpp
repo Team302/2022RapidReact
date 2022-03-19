@@ -66,12 +66,12 @@ void ShooterStateAutoHigh::Init()
        }
        if (currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX)
        {
-            m_shooterTarget = 0.1939*inches + 40.788 + 0.5;
+            m_shooterTarget = 0.1939*inches + 40.788 - 0.25;
 
        }
        else
        {
-           m_shooterTarget = 0.1939*inches + 40.788 + 2;
+           m_shooterTarget = 0.1939*inches + 40.788 + 2.0;
        }
        
 

@@ -105,7 +105,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                             //ShooterDelay();
                             if (m_delay)
                             {
-                                if (m_timer->HasElapsed(units::second_t(0.35)))
+                                if (m_timer->HasElapsed(units::second_t(0.5)))
                                 {
                                     targetState = INDEXER_STATE::INDEX;
                                     // if (m_leftIntakeStateMgr != nullptr && controller != nullptr)

@@ -333,14 +333,7 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
 
     Rotation2d ninety {units::angle::degree_t(-90.0)};
 
-    //TeleopControl* controller = TeleopControl::GetInstance();
-
-    //if (controller->GetAxisValue(TeleopControl::SWERVE_DRIVE_STEER) > 0)
-    //{
-    //    ninety.Degrees() = units::angle::degree_t(ninety.Degrees().to<double>() * -1.0);
-    //}
-
-        //Change angle to change direction of wheel based on quadrant
+    //Change angle to change direction of wheel based on quadrant
     if (m_targetFinder.GetFieldQuadrant(WheelPose) == 1 || m_targetFinder.GetFieldQuadrant(WheelPose) == 3)
     {
         ninety.Degrees() = units::angle::degree_t(90.0); //Might have to switch signs
