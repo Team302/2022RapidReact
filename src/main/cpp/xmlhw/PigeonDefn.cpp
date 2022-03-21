@@ -73,7 +73,7 @@ DragonPigeon* PigeonDefn::ParseXML
             {
                 type = DragonPigeon::PIGEON_TYPE::PIGEON2;
             }
-            else 
+            else
             {
                 type = DragonPigeon::PIGEON_TYPE::PIGEON1;
             }
@@ -84,7 +84,7 @@ DragonPigeon* PigeonDefn::ParseXML
             {
                 usage = DragonPigeon::PIGEON_USAGE::CENTER_OF_SHOOTER;
             }
-            else 
+            else
             {
                 usage = DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT;
             }
@@ -96,13 +96,12 @@ DragonPigeon* PigeonDefn::ParseXML
             Logger::GetLogger()->LogError( Logger::LOGGER_LEVEL::ERROR, string("PigeonDefn::ParseXML"), msg );
             hasError = true;
         }
-
     }
 
     if ( !hasError )
     {
-        Logger::GetLogger()->OnDash(string("RobotXML Parsing"), string("Create Pigeon"));
-        pigeon = PigeonFactory::GetFactory()->CreatePigeon( canID, 
+        Logger::GetLogger()->LogError( string("RobotXML Parsing"), "Create Pigeon" );
+        pigeon = PigeonFactory::GetFactory()->CreatePigeon( canID,
                                                             type,
                                                             usage,
                                                             rotation );

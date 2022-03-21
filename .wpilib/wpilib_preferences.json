@@ -2,5 +2,9 @@
     "enableCppIntellisense": true,
     "currentLanguage": "cpp",
     "projectYear": "2022",
+<<<<<<< main
     "teamNumber": 302
+=======
+    "teamNumber": 2
+>>>>>>> Logging enhancements
 }
