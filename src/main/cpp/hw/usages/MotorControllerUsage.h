@@ -52,7 +52,7 @@ class MotorControllerUsage
             INDEXER,
             LIFT,
             SHOOTER,
-            SHOOTER_HOOD,
+            SHOOTER2,
             CLIMBER_LIFT,
             CLIMBER_ROTATE,
             MAX_MOTOR_CONTROLLER_USAGES

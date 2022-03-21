@@ -28,6 +28,12 @@
           controlDataIdentifier2        CDATA #IMPLIED
           value                         CDATA #REQUIRED
           secondValue                   CDATA #IMPLIED
+          function1A                    CDATA "0.0"
+          function1B                    CDATA "0.0"
+          function1C                    CDATA "0.0"
+          function2A                    CDATA "0.0"
+          function2B                    CDATA "0.0"
+          function2C                    CDATA "0.0"
           solenoid                      ( NONE | ON | REVERSE ) "NONE"
 >
 

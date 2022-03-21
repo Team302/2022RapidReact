@@ -14,6 +14,8 @@
 //====================================================================================================================================================
 #pragma once
 
+#include <array>
+
 #include <hw/DragonLimelight.h>
 #include <states/shooter/ShooterState.h>
 #include <subsys/Shooter.h>
@@ -26,12 +28,20 @@ class ShooterStateAutoHigh : public ShooterState
         ShooterStateAutoHigh
         (
             ControlData*                    control, 
-            double                          primaryTarget
+            ControlData*                    control2,
+            double                          primaryTarget,
+            double                          secondaryTarget,
+            std::array<double,3>            primaryFunctionCoeff,
+            std::array<double,3>            secondaryFunctionCoeff
         );
         ~ShooterStateAutoHigh() = default;
         void Init() override;
     
     private:
-        DragonLimelight*    m_dragonLimeLight;
-        double              m_shooterTarget;
+        DragonLimelight*        m_dragonLimeLight;
+        double                  m_shooterTarget;
+        double                  m_shooterTarget2;
+        std::array<double,3>    m_primaryFunctionCoeff;
+        std::array<double,3>    m_secondaryFunctionCoeff;
+        
 };

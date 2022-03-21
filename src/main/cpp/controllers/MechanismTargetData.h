@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <array>
 #include <string>
 #include <vector>
 #include <controllers/ControlData.h>
@@ -43,7 +44,9 @@ class MechanismTargetData
             std::string                                 controller2,
             double                                      target,
             double                                      secondTarget,
-            SOLENOID                                    solenoid
+            SOLENOID                                    solenoid,
+            std::array<double,3>                        function1Coeff,
+            std::array<double,3>                        function2Coeff
         );
         MechanismTargetData() = delete;
 
@@ -87,7 +90,8 @@ class MechanismTargetData
         /// @return void
         void Update( std::vector<ControlData*> data );
 
-
+        std::array<double,3> GetFunction1Coeff() const {return m_function1Coeff;}
+        std::array<double,3> GetFunction2Coeff() const {return m_function2Coeff;}
 
  
     private:
@@ -99,6 +103,8 @@ class MechanismTargetData
         ControlData*                                m_controlData2;
         SOLENOID                                    m_solenoid;
         double                                      m_secondTarget;
+        std::array<double,3>                        m_function1Coeff;
+        std::array<double,3>                        m_function2Coeff;
 };
 
 

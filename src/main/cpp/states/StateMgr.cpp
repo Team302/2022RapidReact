@@ -93,9 +93,11 @@ void StateMgr::Init
                     if ( m_stateVector[slot] == nullptr )
                     {
                         auto controlData = td->GetController();
-                	auto controlData2 = td->GetController2();
+                	    auto controlData2 = td->GetController2();
                         auto target = td->GetTarget();
-                	auto secondaryTarget = td->GetSecondTarget();
+                	    auto secondaryTarget = td->GetSecondTarget();
+                        auto function1Coeff = td->GetFunction1Coeff();
+                        auto function2Coeff = td->GetFunction2Coeff();
                         auto type = struc.type;
                         IState* thisState = nullptr;
                         switch (type)
@@ -137,7 +139,7 @@ void StateMgr::Init
                         	    break;
                     
                     	        case StateType::SHOOTER:
-                       		    thisState = new ShooterState(controlData, target);
+                       		    thisState = new ShooterState(controlData, controlData2, target, secondaryTarget);
                        		    break;
 
                     	        case StateType::SHOOTER_MANUAL:
@@ -145,7 +147,7 @@ void StateMgr::Init
                        		    break;
 
                     	        case StateType::SHOOTER_AUTO:
-                       		    thisState = new ShooterStateAutoHigh(controlData, target);
+                       		    thisState = new ShooterStateAutoHigh(controlData, controlData2, target, secondaryTarget, function1Coeff, function2Coeff);
                        		    break;
 
                                 case StateType::CLIMBER:

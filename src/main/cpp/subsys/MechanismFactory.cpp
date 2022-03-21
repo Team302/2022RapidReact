@@ -252,10 +252,11 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_shooter == nullptr)
 			{
-				auto shooterMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER);
+				auto shooterMotor = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER);
+				auto shooterMotor2 = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER2);
 				if ( shooterMotor.get() != nullptr)
 				{
-					m_shooter = new Shooter(controlFileName, networkTableName, shooterMotor);
+					m_shooter = new Shooter(controlFileName, networkTableName, shooterMotor, shooterMotor2);
 				}
 				else
 				{

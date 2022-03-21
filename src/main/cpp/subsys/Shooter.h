@@ -20,13 +20,13 @@
 // FRC includes
 
 // Team 302 includes
-#include <subsys/Mech1IndMotor.h>
+#include <subsys/Mech2IndMotors.h>
 
 // Third Party Includes
 
 class IDragonMotorController;
 
-class Shooter : public Mech1IndMotor
+class Shooter : public Mech2IndMotors
 {
     public:
 
@@ -34,7 +34,8 @@ class Shooter : public Mech1IndMotor
         (
             std::string                                     controlFileName,
             std::string                                     networkTableName,
-            std::shared_ptr<IDragonMotorController>         motor
+            std::shared_ptr<IDragonMotorController>         flywheelMotor,
+            std::shared_ptr<IDragonMotorController>         controlMotor
         );
 
         Shooter() = delete;
