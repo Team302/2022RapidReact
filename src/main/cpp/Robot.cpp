@@ -2,6 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+//C++
+#include <string>
+
 #include <Robot.h>
 
 #include <auton/CyclePrimitives.h>
@@ -14,20 +17,26 @@
 #include <subsys/BallTransfer.h>
 #include <subsys/ChassisFactory.h>
 #include <subsys/Climber.h>
+#include <subsys/Indexer.h>
 #include <subsys/Intake.h>
 #include <subsys/interfaces/IChassis.h>
+#include <subsys/Lift.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/Shooter.h>
-#include <xmlhw/RobotDefn.h>
-#include <subsys/Indexer.h>
-#include <subsys/Lift.h>
 #include <states/indexer/LeftIndexerStateMgr.h>
 #include <states/indexer/RightIndexerStateMgr.h>
+#include <utils/Logger.h>
+#include <xmlhw/RobotDefn.h>
+
+using namespace std;
 
 
-void Robot::RobotInit() 
+void Robot::RobotInit()
 {
-    // Read the XML file to build the robot 
+    Logger::GetLogger()->Arrived_at(string(" RobotInit"));
+    Logger::GetLogger()->PutLoggingSelectionsOnDashboard();
+
+    // Read the XML file to build the robot
     auto defn = new RobotDefn();
     defn->ParseXML();
 
@@ -39,10 +48,11 @@ void Robot::RobotInit()
     m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
     m_controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_PROFILE::CUBED);
     m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
+
     auto factory = ChassisFactory::GetChassisFactory();
     m_chassis = factory->GetIChassis();
     m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
-        
+
     auto mechFactory = MechanismFactory::GetMechanismFactory();
     m_leftIntake = mechFactory->GetLeftIntake();
     m_leftIntakeStateMgr = m_leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
@@ -55,7 +65,7 @@ void Robot::RobotInit()
 
     m_rightIndexer = mechFactory->GetRightIndexer();
     m_rightIndexerStateMgr = m_rightIndexer != nullptr ? RightIndexerStateMgr::GetInstance() : nullptr;
-    
+
     m_ballTransfer = mechFactory->GetBallTransfer();
     m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
 
@@ -64,11 +74,13 @@ void Robot::RobotInit()
 
     m_lift = mechFactory->GetLift();
     m_liftStateMgr = m_lift != nullptr ? LiftStateMgr::GetInstance() : nullptr;
-    
+
     m_climber = mechFactory->GetClimber();
     m_climberStateMgr = m_climber != nullptr ? ClimberStateMgr::GetInstance() : nullptr;
 
     m_cyclePrims = new CyclePrimitives();
+
+    Logger::GetLogger()->Arrived_at(string(" end of RobotInit"));
 }
 
 /**
@@ -79,12 +91,14 @@ void Robot::RobotInit()
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() 
+void Robot::RobotPeriodic()
 {
     if (m_chassis != nullptr)
     {
         m_chassis->UpdateOdometry();
     }
+
+    Logger::GetLogger()->PeriodicLog();
 }
 
 /**
@@ -98,15 +112,17 @@ void Robot::RobotPeriodic()
  * if-else structure below with additional strings. If using the SendableChooser
  * make sure to add them to the chooser code above as well.
  */
-void Robot::AutonomousInit() 
+void Robot::AutonomousInit()
 {
+    Logger::GetLogger()->Arrived_at(string(" AutonomousInit"));
+
     if (m_cyclePrims != nullptr)
     {
         m_cyclePrims->Init();
     }
 }
 
-void Robot::AutonomousPeriodic() 
+void Robot::AutonomousPeriodic()
 {
     if (m_cyclePrims != nullptr)
     {
@@ -114,8 +130,9 @@ void Robot::AutonomousPeriodic()
     }
 }
 
-void Robot::TeleopInit() 
+void Robot::TeleopInit()
 {
+    Logger::GetLogger()->Arrived_at(string(" TeleopInit"));
 
     if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
     {
@@ -155,7 +172,7 @@ void Robot::TeleopInit()
     }
 }
 
-void Robot::TeleopPeriodic() 
+void Robot::TeleopPeriodic()
 {
     if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
     {
@@ -196,28 +213,26 @@ void Robot::TeleopPeriodic()
     }
 }
 
-void Robot::DisabledInit() 
+void Robot::DisabledInit()
 {
-
+    Logger::GetLogger()->Arrived_at(string(" DisabledInit"));
 }
 
-void Robot::DisabledPeriodic() 
+void Robot::DisabledPeriodic()
 {
-
 }
 
-void Robot::TestInit() 
+void Robot::TestInit()
 {
-
+    Logger::GetLogger()->Arrived_at(string(" TestInit"));
 }
 
-void Robot::TestPeriodic() 
+void Robot::TestPeriodic()
 {
-
 }
 
 #ifndef RUNNING_FRC_TESTS
-int main() 
+int main()
 {
     return frc::StartRobot<Robot>();
 }
