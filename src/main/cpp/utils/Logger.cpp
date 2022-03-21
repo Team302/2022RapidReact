@@ -1,6 +1,6 @@
 
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302 
+// Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -19,7 +19,7 @@
 //========================================================================================================
 ///
 /// File Description:
-///     This logs error messages
+///     This logs error messages, and can also be used to log non-error events.
 ///
 //========================================================================================================
 
@@ -31,6 +31,7 @@
 #include <string>
 
 // FRC includes
+#include <frc/SmartDashboard/SendableChooser.h>
 #include <frc/SmartDashboard/SmartDashboard.h>
 #include <networktables/NetworkTableInstance.h>
 #include <networktables/NetworkTable.h>
@@ -45,6 +46,14 @@
 using namespace frc;
 using namespace std;
 
+/// @brief constructor that creates/initializes the object
+Logger::Logger() : m_option( LOGGER_OPTION::EAT_IT ),
+                   m_level( LOGGER_LEVEL::PRINT_ONCE ),
+                   m_alreadyDisplayed(),
+                   m_OptionChooser(),
+                   m_LevelChooser()
+{
+}
 
 /// @brief Find or create the singleton logger
 /// @returns Logger* pointer to the logger
@@ -58,11 +67,127 @@ Logger* Logger::GetLogger()
     return Logger::m_instance;
 }
 
+
+/// @brief Display/select logging options/levels on dashboard
+void Logger::PutLoggingSelectionsOnDashboard()
+{
+    // set up option menu
+    m_OptionChooser.SetDefaultOption("EAT_IT", LOGGER_OPTION::EAT_IT);
+    m_OptionChooser.AddOption("DASHBOARD", LOGGER_OPTION::DASHBOARD);
+    m_OptionChooser.AddOption("CONSOLE", LOGGER_OPTION::CONSOLE);
+    frc::SmartDashboard::PutData("Logging Options", &m_OptionChooser);
+
+    // set up level menu
+    m_LevelChooser.SetDefaultOption("ERROR_ONCE", LOGGER_LEVEL::ERROR_ONCE);
+    m_LevelChooser.AddOption("ERROR", LOGGER_LEVEL::ERROR);
+    m_LevelChooser.AddOption("WARNING_ONCE", LOGGER_LEVEL::WARNING_ONCE);
+    m_LevelChooser.AddOption("WARNING", LOGGER_LEVEL::WARNING);
+    m_LevelChooser.AddOption("PRINT_ONCE", LOGGER_LEVEL::PRINT_ONCE);
+    m_LevelChooser.AddOption("PRINT", LOGGER_LEVEL::PRINT);
+    frc::SmartDashboard::PutData("Logging Levels", &m_LevelChooser);
+
+    m_CyclingCounter = 0;
+}
+
+/// @brief Read logging option from dashboard, but not every 20ms
+void Logger::PeriodicLog()
+{
+    m_CyclingCounter += 1;          // count 20ms loops
+    if (m_CyclingCounter >= 25)     // execute every 500ms
+    {
+        m_CyclingCounter = 0;
+
+        //
+        // Check for a new option selection
+        //
+        LOGGER_OPTION SelectedOption = m_OptionChooser.GetSelected();
+
+        if (SelectedOption != m_option)
+        {
+            cout << "SelectedOption = " << SelectedOption;    // print integer value
+            m_option = SelectedOption;
+
+            switch(SelectedOption)
+            {
+                case CONSOLE:
+                    cout << " CONSOLE" << endl;
+                    break;
+
+                case DASHBOARD:
+                    cout << " DASHBOARD" << endl;
+                    break;
+
+                case EAT_IT:
+                    cout << " EAT_IT" << endl;
+                    break;
+
+                default:
+                    cout << " Out of range !" << endl;
+                    m_option = EAT_IT;
+                    break;
+            }
+        }
+
+        //
+        // Check for a new level selection
+        //
+        LOGGER_LEVEL SelectedLevel = m_LevelChooser.GetSelected();
+
+        if (SelectedLevel != m_level)
+        {
+            cout << "SelectedLevel = " << SelectedLevel;    // print integer value
+            m_level = SelectedLevel;
+
+            switch(SelectedLevel)
+            {
+                case ERROR_ONCE:
+                    cout << " ERROR_ONCE" << endl;
+                    break;
+
+                case ERROR:
+                    cout << " ERROR" << endl;
+                    break;
+
+                case WARNING_ONCE:
+                    cout << " WARNING_ONCE" << endl;
+                    break;
+
+                case WARNING:
+                    cout << " WARNING" << endl;
+                    break;
+
+                case PRINT_ONCE:
+                    cout << " PRINT_ONCE" << endl;
+                    break;
+
+                case PRINT:
+                    cout << " PRINT" << endl;
+                    break;
+
+                default:
+                    cout << " Out of range !" << endl;
+                    m_level = WARNING;
+                    break;
+            }
+        }
+    }
+}
+
+/// @brief Log a message indicating the code has reached a given point
+/// @param [in] std::string: message indicating location in code
+void Logger::Arrived_at
+(
+    const std::string&   message
+)
+{
+    LogError( LOGGER_LEVEL::PRINT, "Arrived_at ", message );
+}
+
 /// @brief set the option for where the logging messages should be displayed
 /// @param [in] LOGGER_OPTION:  logging option for where to log messages
 void Logger::SetLoggingOption
 (
-    LOGGER_OPTION option    
+    LOGGER_OPTION option
 )
 {
     m_option = option;
@@ -72,7 +197,7 @@ void Logger::SetLoggingOption
 /// @param [in] LOGGER_LEVEL:  logging level for which messages to display
 void Logger::SetLoggingLevel
 (
-    LOGGER_LEVEL level    
+    LOGGER_LEVEL level
 )
 {
     m_level = level;
@@ -81,10 +206,10 @@ void Logger::SetLoggingLevel
 /// @brief log a message
 /// @param [in] std::string: classname or object identifier
 /// @param [in] std::string: message
-void Logger::LogError
+void Logger::LogError       // calling LogError() without a LOGGER_LEVEL defaults to PRINT
 (
-    const string&   locationIdentifier,     
-    const string&   message                 
+    const string&   locationIdentifier,
+    const string&   message
 )
 {
     LogError( LOGGER_LEVEL::PRINT, locationIdentifier, message );
@@ -97,24 +222,27 @@ void Logger::LogError
 void Logger::LogError
 (
     LOGGER_LEVEL    level,
-    const string&   locationIdentifier,     
-    const string&   message                 
+    const string&   locationIdentifier,
+    const string&   message
 )
 {
-    //if ( level <= m_level )
-    //{
+    //  Is the level important enough to display?
+    //  (Lower numeric values are more important)
+    if ( level <= m_level )
+    {
         auto display = true;
-        if ( level%2 == 1 )
+        // If the error level is *_ONCE, display it only the first time it happens
+        if ((level == ERROR_ONCE) || (level == WARNING_ONCE) || (level == PRINT_ONCE))
         {
             string key = locationIdentifier + message;
             auto it = m_alreadyDisplayed.find(key);
-            display = it == m_alreadyDisplayed.end();
+            display = ( it == m_alreadyDisplayed.end() );   // Display if it can't find the key
             if (display)
             {
-                m_alreadyDisplayed.insert(key);
+                m_alreadyDisplayed.insert(key);             // and save the key
             }
-
         }
+
         if (display)
         {
             switch ( m_option )
@@ -127,12 +255,17 @@ void Logger::LogError
                     SmartDashboard::PutString( locationIdentifier.c_str(), message.c_str());
                     break;
 
-                default:  // case LOGGER_OPTION::EAT_IT:
+                case LOGGER_OPTION::EAT_IT:
+                    // keep quiet
                     break;
 
+                default:
+                    cout << "Logger: Invalid m_option = " << m_option << endl;
+                    m_option = EAT_IT;
+                    break;
             }
         }
-    //}
+    }
 }
 
 /// @brief Write a message to the dashboard
@@ -141,7 +274,7 @@ void Logger::LogError
 void Logger::OnDash
 (
     const string&   locationIdentifier,     // <I> - classname or object identifier
-    const string&   message                 // <I> - error message
+    const string&   message                 // <I> - message
 )
 {
     if (m_option != Logger::LOGGER_OPTION::EAT_IT)
@@ -156,7 +289,7 @@ void Logger::OnDash
 void Logger::OnDash
 (
     const string&   locationIdentifier,     // <I> - classname or object identifier
-    bool            val                 // <I> - error message
+    bool            val                     // <I> - message
 )
 {
     if (m_option != Logger::LOGGER_OPTION::EAT_IT)
@@ -169,13 +302,13 @@ void Logger::ToNtTable
 (
     const std::string&  ntName,
     const std::string&  identifier,
-    const std::string&  msg 
+    const std::string&  msg
 )
 {
     if (m_option != Logger::LOGGER_OPTION::EAT_IT)
     {
         auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
-    	table.get()->PutString(identifier, msg);
+        table.get()->PutString(identifier, msg);
     }
 }
 
@@ -183,13 +316,13 @@ void Logger::ToNtTable
 (
     const std::string&  ntName,
     const std::string&  identifier,
-    double              value 
+    double              value
 )
 {
     if (m_option != Logger::LOGGER_OPTION::EAT_IT)
-    {   
+    {
         auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
-	    table.get()->PutNumber(identifier, value);
+        table.get()->PutNumber(identifier, value);
     }
 }
 
@@ -197,12 +330,12 @@ void Logger::ToNtTable
 (
     std::shared_ptr<nt::NetworkTable>   ntable,
     const std::string&                  identifier,
-    const std::string&                  msg 
+    const std::string&                  msg
 )
 {
     if (m_option != Logger::LOGGER_OPTION::EAT_IT)
     {
-	    ntable.get()->PutString(identifier, msg);
+        ntable.get()->PutString(identifier, msg);
     }
 }
 
@@ -210,17 +343,11 @@ void Logger::ToNtTable
 (
     std::shared_ptr<nt::NetworkTable>   ntable,
     const std::string&                  identifier,
-    double                              value 
+    double                              value
 )
 {
     if (m_option != Logger::LOGGER_OPTION::EAT_IT)
     {
-	    ntable.get()->PutNumber(identifier, value);
+        ntable.get()->PutNumber(identifier, value);
     }
-}
-
-Logger::Logger() : m_option( LOGGER_OPTION::EAT_IT ), 
-                   m_level( LOGGER_LEVEL::PRINT ),
-                   m_alreadyDisplayed()
-{
 }

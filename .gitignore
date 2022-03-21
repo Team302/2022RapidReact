@@ -36,3 +36,7 @@
 .gradle/
 
 build/
+
+src/main/deploy/robotThing1.xml
+
+*.bak
