@@ -168,6 +168,9 @@ void SwerveChassis::Drive
     auto xSpeed = (abs(speeds.vx.to<double>()) < m_deadband) ? units::meters_per_second_t(0.0) : speeds.vx; 
     auto ySpeed = (abs(speeds.vy.to<double>()) < m_deadband) ? units::meters_per_second_t(0.0) : speeds.vy; 
     auto rot = speeds.omega;
+    auto currentPose = GetPose();
+    auto goalPose = m_targetFinder.GetPosCenterTarget();
+    m_hold = false;
     switch (headingOption)
     {
         case HEADING_OPTION::MAINTAIN:
@@ -177,7 +180,7 @@ void SwerveChassis::Drive
             break;
 
         case HEADING_OPTION::TOWARD_GOAL:
-            AdjustRotToPointTowardGoal(rot);
+            AdjustRotToPointTowardGoal(currentPose,goalPose,xSpeed,ySpeed,rot);
             Logger::GetLogger()->ToNtTable("Chassis Heading", "rot", rot.to<double>() );
             break;
 
@@ -299,11 +302,18 @@ void SwerveChassis::Drive
                 m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, m_brState.angle), chassisSpeeds);
            }
 
+            if(m_hold)
+            {
+                m_flState.angle = {units::angle::degree_t(45)};
+                m_frState.angle = {units::angle::degree_t(-45)};
+                m_blState.angle = {units::angle::degree_t(135)};
+                m_brState.angle = {units::angle::degree_t(-135)};
+            }
+            
             m_frontLeft.get()->SetDesiredState(m_flState);
             m_frontRight.get()->SetDesiredState(m_frState);
             m_backLeft.get()->SetDesiredState(m_blState);
             m_backRight.get()->SetDesiredState(m_brState);
-
             auto ax = m_accel.GetX();
             auto ay = m_accel.GetY();
             auto az = m_accel.GetZ();
@@ -467,12 +477,20 @@ void SwerveChassis::AdjustRotToMaintainHeading
 }
 
 void SwerveChassis::AdjustRotToPointTowardGoal
-(
-    units::radians_per_second_t& rot 
+(   
+    Pose2d                     robotPose,
+    Pose2d                     goalPose, 
+    units::meters_per_second_t &xSpeed,
+    units::meters_per_second_t &ySpeed,
+    units::radians_per_second_t &rot     
 )
 {
-    auto myPose = GetPose();
-
+    Pose2d myPose = robotPose;
+    Pose2d targetPose = goalPose;
+    double targetDistance = 90;
+    auto currDistance = m_limelight->EstimateTargetDistance();
+    double error = targetDistance - currDistance.to<double>();
+    double deltaX,deltaY = 0;
     // Get target angle relative to center of robot and center of target (field pos)
     //auto r2DTargetAtAngle = m_targetFinder.GetTargetAngleR2d(myPose);
     //auto xCurRot2d = m_targetFinder.GetCurrentRotaion(myPose);
@@ -491,17 +509,44 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("Field Pos for Toward Goal: TargetAngle(Degrees)"), targetAngle.to<double>());
 
     if (m_limelight != nullptr && m_limelight->HasTarget())
-    {
-        rot += (m_limelight->GetTargetHorizontalOffset())/1_s*kPGoalHeadingControl;
-    }
-    else if (DriverStation::IsAutonomousEnabled())
-    {
-        rot -= CalcHeadingCorrection(targetAngle, kPAutonGoalHeadingControl);;
+    { 
+        if ( abs(error) > 30)
+        {
+            deltaX = (myPose.X()- targetPose.X()).to<double>();
+            deltaY = (myPose.Y()- targetPose.Y()).to<double>();
+            xSpeed -= units::length::meter_t(deltaX)/1_s*kPDistance; 
+            ySpeed -= units::length::meter_t(deltaY)/1_s*kPDistance; 
+            rot += (m_limelight->GetTargetHorizontalOffset())/1_s*kPGoalHeadingControl;  
+            m_hold = false;
+        }
+        else if ( abs(error) > 10)
+        {
+            deltaX = (myPose.X()- targetPose.X()).to<double>();
+            deltaY = (myPose.Y()- targetPose.Y()).to<double>();
+            xSpeed -= units::length::meter_t(deltaX)/1_s*kPDistance*0.5; 
+            ySpeed -= units::length::meter_t(deltaY)/1_s*kPDistance*0.5; 
+            rot += (m_limelight->GetTargetHorizontalOffset())/1_s*kPGoalHeadingControl;  
+            m_hold = false;
+        }
+        else if(abs(m_limelight->GetTargetHorizontalOffset().to<double>()) < 3.0)
+        {
+            m_hold = true;
+        }
+        else
+        {
+            rot += (m_limelight->GetTargetHorizontalOffset())/1_s*kPGoalHeadingControl;  
+            m_hold = false;
+        }
+        
     }
     else
     {
-        rot += CalcHeadingCorrection(targetAngle, kPGoalHeadingControl);;
+        rot -= CalcHeadingCorrection(targetAngle,kPGoalHeadingControl);;
     }
+  /*  else
+    {
+     rot += CalcHeadingCorrection(targetAngle, kPGoalHeadingControl);;
+  */
 
     //double correctionFactor = kPGoalHeadingControl;
     //auto yawCorrection = (DriverStation::IsAutonomousEnabled()) ? -1.0 * kPAutonGoalHeadingControl : kPGoalHeadingControl;

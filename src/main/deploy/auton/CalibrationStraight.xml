@@ -5,6 +5,4 @@
 			   pathname="CalibrationStraight.wpilib.json"/>
     <primitive id="DRIVE_PATH"
                pathname="CalibrationStraight.wpilib.json"/>
-    <primitive id="DO_NOTHING"
-                headingOption="TOWARD_GOAL"/>
 </auton>
