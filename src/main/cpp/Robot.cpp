@@ -129,7 +129,7 @@ void Robot::TeleopInit()
     }
     if (m_shooterStateMgr != nullptr && m_shooter != nullptr)
     {
-        m_shooterStateMgr->RunCurrentState();
+        m_shooterStateMgr->SetCurrentState(ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT, true);
     }
     if (m_climberStateMgr != nullptr && m_climber != nullptr)
     {
