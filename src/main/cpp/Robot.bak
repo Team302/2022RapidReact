@@ -6,17 +6,15 @@
 #include <string>
 
 #include <Robot.h>
-#include <string>
 
-#include <cameraserver/CameraServer.h>
 #include <auton/CyclePrimitives.h>
 #include <gamepad/TeleopControl.h>
 #include <states/chassis/SwerveDrive.h>
 #include <states/climber/ClimberStateMgr.h>
-#include <states/indexer/IndexerStateMgr.h>
 #include <states/Intake/LeftIntakeStateMgr.h>
 #include <states/Intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
+#include <subsys/BallTransfer.h>
 #include <subsys/ChassisFactory.h>
 #include <subsys/Climber.h>
 #include <subsys/Indexer.h>
@@ -38,26 +36,47 @@ void Robot::RobotInit()
     Logger::GetLogger()->Arrived_at(string(" RobotInit"));
     Logger::GetLogger()->PutLoggingSelectionsOnDashboard();
 
-    CameraServer::SetSize(CameraServer::kSize320x240);
-    CameraServer::StartAutomaticCapture();
-
     // Read the XML file to build the robot
     auto defn = new RobotDefn();
     defn->ParseXML();
 
     // Get local copies of the teleop controller and the chassis
     m_controller = TeleopControl::GetInstance();
+    m_controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, IDragonGamePad::AXIS_PROFILE::CUBED);
+    m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
+    m_controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, IDragonGamePad::AXIS_PROFILE::CUBED);
+    m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
+    m_controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_PROFILE::CUBED);
+    m_controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
+
     auto factory = ChassisFactory::GetChassisFactory();
     m_chassis = factory->GetIChassis();
     m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
 
-    m_leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
-    m_rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
-    m_indexerStateMgr = IndexerStateMgr::GetInstance();
-    m_liftStateMgr = LiftStateMgr::GetInstance();
-    m_ballTransferStateMgr = BallTransferStateMgr::GetInstance();
-    m_shooterStateMgr = ShooterStateMgr::GetInstance();
-    m_climberStateMgr = ClimberStateMgr::GetInstance();
+    auto mechFactory = MechanismFactory::GetMechanismFactory();
+    m_leftIntake = mechFactory->GetLeftIntake();
+    m_leftIntakeStateMgr = m_leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
+
+    m_rightIntake = mechFactory->GetRightIntake();
+    m_rightIntakeStateMgr = m_rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
+
+    m_leftIndexer = mechFactory->GetLeftIndexer();
+    m_leftIndexerStateMgr = m_leftIndexer != nullptr ? LeftIndexerStateMgr::GetInstance() : nullptr;
+
+    m_rightIndexer = mechFactory->GetRightIndexer();
+    m_rightIndexerStateMgr = m_rightIndexer != nullptr ? RightIndexerStateMgr::GetInstance() : nullptr;
+
+    m_ballTransfer = mechFactory->GetBallTransfer();
+    m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
+
+    m_shooter = mechFactory->GetShooter();
+    m_shooterStateMgr = m_shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
+
+    m_lift = mechFactory->GetLift();
+    m_liftStateMgr = m_lift != nullptr ? LiftStateMgr::GetInstance() : nullptr;
+
+    m_climber = mechFactory->GetClimber();
+    m_climberStateMgr = m_climber != nullptr ? ClimberStateMgr::GetInstance() : nullptr;
 
     m_cyclePrims = new CyclePrimitives();
 
@@ -101,8 +120,6 @@ void Robot::AutonomousInit()
     {
         m_cyclePrims->Init();
     }
-
-    Logger::GetLogger()->Arrived_at(string(" end of AutonomousInit"));
 }
 
 void Robot::AutonomousPeriodic()
@@ -121,31 +138,35 @@ void Robot::TeleopInit()
     {
         m_swerve->Init();
     }
-    if (m_leftIntakeStateMgr != nullptr)
+    if (m_leftIntake != nullptr && m_leftIntakeStateMgr != nullptr)
     {
         m_leftIntakeStateMgr->RunCurrentState();
     }
-    if (m_rightIntakeStateMgr != nullptr)
+    if (m_rightIntake != nullptr && m_rightIntakeStateMgr != nullptr)
     {
         m_rightIntakeStateMgr->RunCurrentState();
     }
-    if (m_ballTransferStateMgr != nullptr)
+    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
     {
         m_ballTransferStateMgr->RunCurrentState();
     }
-    if (m_shooterStateMgr != nullptr)
+    if (m_shooterStateMgr != nullptr && m_shooter != nullptr)
     {
-        m_shooterStateMgr->SetCurrentState(ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT, true);
+        m_shooterStateMgr->RunCurrentState();
     }
-    if (m_climberStateMgr != nullptr)
+    if (m_climberStateMgr != nullptr && m_climber != nullptr)
     {
         m_climberStateMgr->RunCurrentState();
     }
-    if (m_indexerStateMgr != nullptr)
+    if (m_rightIndexer != nullptr && m_rightIndexerStateMgr != nullptr)
     {
-        m_indexerStateMgr->RunCurrentState();
+        m_rightIndexerStateMgr->RunCurrentState();
     }
-    if (m_liftStateMgr != nullptr)
+    if (m_leftIndexer != nullptr && m_leftIndexerStateMgr != nullptr)
+    {
+        m_leftIndexerStateMgr->RunCurrentState();
+    }
+    if (m_lift != nullptr && m_liftStateMgr != nullptr)
     {
         m_liftStateMgr->RunCurrentState();
     }
@@ -158,31 +179,35 @@ void Robot::TeleopPeriodic()
         m_swerve->Run();
     }
 
-    if (m_leftIntakeStateMgr != nullptr)
+    if (m_leftIntake != nullptr && m_leftIntakeStateMgr != nullptr)
     {
         m_leftIntakeStateMgr->RunCurrentState();
     }
-    if (m_rightIntakeStateMgr != nullptr)
+    if (m_rightIntake != nullptr && m_rightIntakeStateMgr != nullptr)
     {
         m_rightIntakeStateMgr->RunCurrentState();
     }
-    if (m_ballTransferStateMgr != nullptr)
+    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
     {
         m_ballTransferStateMgr->RunCurrentState();
     }
-    if (m_shooterStateMgr != nullptr)
+    if (m_shooter != nullptr && m_shooterStateMgr != nullptr)
     {
         m_shooterStateMgr->RunCurrentState();
     }
-    if (m_climberStateMgr != nullptr)
+    if (m_climberStateMgr != nullptr && m_climber != nullptr)
     {
         m_climberStateMgr->RunCurrentState();
     }
-    if (m_indexerStateMgr != nullptr)
+    if (m_rightIndexer != nullptr && m_rightIndexerStateMgr != nullptr)
     {
-        m_indexerStateMgr->RunCurrentState();
+        m_rightIndexerStateMgr->RunCurrentState();
     }
-    if (m_liftStateMgr != nullptr)
+    if (m_leftIndexer != nullptr && m_leftIndexerStateMgr != nullptr)
+    {
+        m_leftIndexerStateMgr->RunCurrentState();
+    }
+    if (m_lift != nullptr && m_liftStateMgr != nullptr)
     {
         m_liftStateMgr->RunCurrentState();
     }
@@ -199,7 +224,8 @@ void Robot::DisabledPeriodic()
 
 void Robot::TestInit()
 {
-    Logger::GetLogger()->Arrived_at(string(" TestInit"));
+    //??Logger::GetLogger()->Arrived_at(string(" TestInit");
+    Logger::GetLogger()->LogError(string("Arrived_at"), string(" TestInit"));
 }
 
 void Robot::TestPeriodic()
