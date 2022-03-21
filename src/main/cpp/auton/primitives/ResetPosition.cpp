@@ -40,26 +40,17 @@ void ResetPosition::Init(PrimitiveParams* params)
 
     if (pathToLoad != "")
     {
-        //wpi::SmallString<64> deployDir;
  	    auto deployDir = frc::filesystem::GetDeployDirectory();
         deployDir += "/paths/" + pathToLoad;
-        //wpi::SmallString<64> deployDir;
-        //frc::filesystem::GetDeployDirectory(deployDir);
-        //wpi::sys::path::append(deployDir, "paths");
-        //wpi::sys::path::append(deployDir, pathToLoad);
-
         m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);
-
-
-        //m_chassis->SetEncodersToZero();
 
         m_chassis->ResetPosition(m_trajectory.InitialPose());
 
-        Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::PRINT, "ResetPosX", to_string(m_chassis.get()->GetPose().X().to<double>()));
-        Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::PRINT, "ResetPosY", to_string(m_chassis.get()->GetPose().Y().to<double>()));
-        Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::PRINT, "InitialPoseX", to_string(m_trajectory.InitialPose().X().to<double>()));
-        Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::PRINT, "InitialPoseY", to_string(m_trajectory.InitialPose().Y().to<double>()));
-        Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::PRINT, "InitialPoseOmega", to_string(m_trajectory.InitialPose().Rotation().Degrees().to<double>()));
+        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("ResetPosX"), m_chassis.get()->GetPose().X().to<double>());
+        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("ResetPosY"), m_chassis.get()->GetPose().Y().to<double>());
+        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("InitialPoseX"), m_trajectory.InitialPose().X().to<double>());
+        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("InitialPoseY"), m_trajectory.InitialPose().Y().to<double>());
+        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("InitialPoseOmega"), m_trajectory.InitialPose().Rotation().Degrees().to<double>());
         
     }
 }

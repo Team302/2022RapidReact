@@ -43,7 +43,7 @@
 #include <subsys/SwerveChassis.h>
 #include <utils/AngleUtils.h>
 #include <utils/Logger.h>
-#include <gamepad/TeleopControl.h>
+//#include <gamepad/TeleopControl.h>
 
 // Third Party Includes
 #include <ctre/phoenix/sensors/CANCoder.h>
@@ -140,15 +140,16 @@ units::angular_velocity::degrees_per_second_t SwerveChassis::CalcHeadingCorrecti
 {
     //auto currentAngle = GetYaw();
     auto currentAngle = GetPose().Rotation().Degrees();
+    auto errorAngle = AngleUtils::GetEquivAngle(AngleUtils::GetDeltaAngle(currentAngle, targetAngle));
     //auto errorAngle = remainder((targetAngle.to<double>() - currentAngle.to<double>()), 360.0);
-    auto errorAngle = remainder((currentAngle.to<double>() - targetAngle.to<double>()), 360.0);
-    errorAngle = AngleUtils::GetEquivAngle(units::angle::degree_t(errorAngle)).to<double>();
-    auto correction = units::angular_velocity::degrees_per_second_t(errorAngle*kP);
+    //auto errorAngle = remainder((currentAngle.to<double>() - targetAngle.to<double>()), 360.0);
+    //errorAngle = AngleUtils::GetEquivAngle(units::angle::degree_t(errorAngle)).to<double>();
+    auto correction = units::angular_velocity::degrees_per_second_t(errorAngle.to<double>()*kP);
 
     //Debugging
-    Logger::GetLogger()->ToNtTable("Yaw Correction", "Current Angle (Degrees): ", currentAngle.to<double>());
-    Logger::GetLogger()->ToNtTable("Yaw Correction", "Error Angle (Degrees???): ", errorAngle);
-    Logger::GetLogger()->ToNtTable("Yaw Correction", "Yaw Correction (Degrees Per Second): ", m_yawCorrection.to<double>());
+    Logger::GetLogger()->ToNtTable("Chassis Heading", "Current Angle (Degrees): ", currentAngle.to<double>());
+    Logger::GetLogger()->ToNtTable("Chassis Heading", "Error Angle (Degrees): ", errorAngle.to<double>());
+    Logger::GetLogger()->ToNtTable("Chassis Heading", "Yaw Correction (Degrees Per Second): ", m_yawCorrection.to<double>());
 
     return correction;
 }
@@ -177,11 +178,13 @@ void SwerveChassis::Drive
 
         case HEADING_OPTION::TOWARD_GOAL:
             AdjustRotToPointTowardGoal(rot);
+            Logger::GetLogger()->ToNtTable("Chassis Heading", "rot", rot.to<double>() );
             break;
 
         case HEADING_OPTION::SPECIFIED_ANGLE:
             rot -= CalcHeadingCorrection(m_targetHeading, kPAutonSpecifiedHeading);
-            Logger::GetLogger()->LogError("Specified Angle (Degrees): ", to_string(m_targetHeading.to<double>()));
+            Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("Specified Angle (Degrees): "), m_targetHeading.to<double>());
+            Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("Heading Correctioin"), rot.to<double>());
             break;
 
         case HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL:
@@ -234,8 +237,8 @@ void SwerveChassis::Drive
                                             ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rot, currentOrientation) : 
                                             ChassisSpeeds{xSpeed, ySpeed, rot};
 
-            auto goalPose = m_targetFinder.GetPosCenterTarget();
-            Translation2d goalTranslation = {goalPose.X(), goalPose.Y()};
+            //auto goalPose = m_targetFinder.GetPosCenterTarget();
+            //Translation2d goalTranslation = {goalPose.X(), goalPose.Y()};
 
             //auto states = mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE ? m_kinematics.ToSwerveModuleStates(chassisSpeeds, goalTranslation) : m_kinematics.ToSwerveModuleStates(chassisSpeeds);
             auto states = m_kinematics.ToSwerveModuleStates(chassisSpeeds);
@@ -324,21 +327,13 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
     auto tempRobotPose = robotPose;
     tempRobotPose.Rotation().Degrees() - units::degree_t(0.0);
     auto WheelPose = tempRobotPose + relativeWheelPosition;
-    auto wheelToGoalTrans = WheelPose - goalPose;
 
     auto wheelDeltaX = WheelPose.X() - goalPose.X();
     auto wheelDeltaY = WheelPose.Y() - goalPose.Y();
 
     Rotation2d ninety {units::angle::degree_t(-90.0)};
 
-    //TeleopControl* controller = TeleopControl::GetInstance();
-
-    //if (controller->GetAxisValue(TeleopControl::SWERVE_DRIVE_STEER) > 0)
-    //{
-    //    ninety.Degrees() = units::angle::degree_t(ninety.Degrees().to<double>() * -1.0);
-    //}
-
-        //Change angle to change direction of wheel based on quadrant
+    //Change angle to change direction of wheel based on quadrant
     if (m_targetFinder.GetFieldQuadrant(WheelPose) == 1 || m_targetFinder.GetFieldQuadrant(WheelPose) == 3)
     {
         ninety.Degrees() = units::angle::degree_t(90.0); //Might have to switch signs
@@ -458,6 +453,8 @@ void SwerveChassis::AdjustRotToMaintainHeading
         m_storedYaw = GetPose().Rotation().Degrees();
     }
 
+    rot -= correction; //was negative
+    /**
     if (DriverStation::IsAutonomousEnabled())
     {
         rot += correction;
@@ -466,6 +463,7 @@ void SwerveChassis::AdjustRotToMaintainHeading
     {
         rot -= correction; //was negative
     }
+    **/
 }
 
 void SwerveChassis::AdjustRotToPointTowardGoal
@@ -490,33 +488,27 @@ void SwerveChassis::AdjustRotToPointTowardGoal
 
     auto targetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(myPose));
     //Debugging
-    Logger::GetLogger()->ToNtTable("Field Pos for Toward Goal", "TargetAngle(Degrees)", targetAngle.to<double>());
+    Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("Field Pos for Toward Goal: TargetAngle(Degrees)"), targetAngle.to<double>());
 
-    if (m_limelight != nullptr)
+    if (m_limelight != nullptr && m_limelight->HasTarget())
     {
-        if (m_limelight->HasTarget())
-        {
-            rot -= (-1.0 * m_limelight->GetTargetHorizontalOffset())/1_s*kPGoalHeadingControl;
-        }else
-        {
-            if (DriverStation::IsAutonomousEnabled())
-            {
-                rot -= CalcHeadingCorrection(targetAngle, kPAutonGoalHeadingControl);;
-            }
-            else
-            {
-                rot += CalcHeadingCorrection(targetAngle, kPGoalHeadingControl);;
-            }
-        }
+        rot += (m_limelight->GetTargetHorizontalOffset())/1_s*kPGoalHeadingControl;
+    }
+    else if (DriverStation::IsAutonomousEnabled())
+    {
+        rot -= CalcHeadingCorrection(targetAngle, kPAutonGoalHeadingControl);;
+    }
+    else
+    {
+        rot += CalcHeadingCorrection(targetAngle, kPGoalHeadingControl);;
     }
 
-    double correctionFactor = kPGoalHeadingControl;
-  
 
+    //double correctionFactor = kPGoalHeadingControl;
     //auto yawCorrection = (DriverStation::IsAutonomousEnabled()) ? -1.0 * kPAutonGoalHeadingControl : kPGoalHeadingControl;
     //CalcHeadingCorrection(targetAngle, yawCorrection);
     //rot += m_yawCorrection;
-    Logger::GetLogger()->LogError(string("TurnToGoal New ZSpeed: "), to_string(rot.to<double>()));
+    Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("TurnToGoal New ZSpeed: "), rot.to<double>());
 }
 
 
@@ -633,8 +625,10 @@ void SwerveChassis::ResetPosition
 {
     m_poseEstimator.ResetPosition(pose, angle);
     SetEncodersToZero();
-    auto trans = pose - m_pose;
-    m_pose = m_pose + trans;
+    m_pose = pose;
+   // auto trans = pose - m_pose;
+   // m_pose = m_pose + trans;
+    
 
     auto pigeon = PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
 

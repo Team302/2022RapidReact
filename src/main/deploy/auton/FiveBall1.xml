@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE auton SYSTEM "auton.dtd">
+<auton>
+    <primitive id="RESET_POSITION"
+               rightIntake="INTAKE"
+			   pathname="FiveBall1.wpilib.json"/>
+    <primitive id="DRIVE_PATH"
+               rightIntake="INTAKE"
+               headingOption="SPECIFIED_ANGLE"
+               heading="0"/>
+</auton>

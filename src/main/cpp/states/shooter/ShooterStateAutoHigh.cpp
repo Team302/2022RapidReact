@@ -71,7 +71,7 @@ void ShooterStateAutoHigh::Init()
        }
        else
        {
-           m_shooterTarget = 0.1939*inches + 40.788 + 2;
+           m_shooterTarget = 0.1939*inches + 40.788 + 2.0;
        }
        
 

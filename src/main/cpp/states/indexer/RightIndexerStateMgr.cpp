@@ -38,7 +38,12 @@ RightIndexerStateMgr* RightIndexerStateMgr::GetInstance()
 {
 	if ( RightIndexerStateMgr::m_instance == nullptr )
 	{
-		RightIndexerStateMgr::m_instance = new RightIndexerStateMgr();
+	    auto mechFactory = MechanismFactory::GetMechanismFactory();
+	    auto indexer = mechFactory->GetRightIndexer();
+        if (indexer != nullptr)
+        {
+    		RightIndexerStateMgr::m_instance = new RightIndexerStateMgr();
+        }
 	}
 	return RightIndexerStateMgr::m_instance;
 }
@@ -76,9 +81,6 @@ void RightIndexerStateMgr::CheckForStateTransition()
             if (m_shooter != nullptr)
             {
                 auto isAtSpeed = m_shooterStateMgr->AtTarget();
-                
-                auto controller = TeleopControl::GetInstance();
-
                 if (isAtSpeed)
                 {
                     switch (shooterState)
@@ -94,20 +96,10 @@ void RightIndexerStateMgr::CheckForStateTransition()
 
                         case ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL:
                             targetState = INDEXER_STATE::INDEX;
-                            /*if (m_rightIntakeStateMgr != nullptr && controller != nullptr)
-                            {
-                                auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_rightIntakeStateMgr->GetCurrentState());
-                                targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT) ) ? INDEXER_STATE::INDEX : targetState;
-                            }*/
                             break;
 
                         case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
                             targetState = INDEXER_STATE::OFF;
-                            /*if (m_rightIntakeStateMgr != nullptr && controller != nullptr)
-                            {
-                                auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_rightIntakeStateMgr->GetCurrentState());
-                                targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT) ) ? INDEXER_STATE::INDEX : targetState;
-                            }*/
                             break;
 
                         default:

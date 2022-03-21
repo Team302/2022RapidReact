@@ -11,7 +11,7 @@
 
 	<controlData identifier="closedloop2"
 				 mode="VELOCITY_RPS"
-				 proportional="0.155"
+				 proportional="0.165"
 				 integral="0.0"
 				 feedforward="0.0475"/>
 
@@ -19,13 +19,22 @@
 	                 controlDataIdentifier="openloop"
 					 value="0.0"/>
 
+ 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
+	                 controlDataIdentifier="closedloop2"
+					 value="58.7"/> 
+
+
+ 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
+	                 controlDataIdentifier="closedloop2"
+					 value="58.7"/> 
+
 	<mechanismTarget stateIdentifier="SHOOT_LOWGOAL"
 	                 controlDataIdentifier="openloop"
 					 value="0.5"/> 
 
 	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
 	                 controlDataIdentifier="closedloop2"
-					 value="30.0"/>
+					 value="32"/>
 
 	<mechanismTarget stateIdentifier="ADJUSTHOOD"
 	                 controlDataIdentifier="openloop"
@@ -33,7 +42,8 @@
 
 	<mechanismTarget stateIdentifier="PREPARETOSHOOT"
 	                 controlDataIdentifier="closedloop2"
-					 value="30"/>
+					 value="32"/>
+
 
  	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
 	                 controlDataIdentifier="closedloop2"

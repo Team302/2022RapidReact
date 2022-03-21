@@ -45,8 +45,12 @@ ClimberStateMgr* ClimberStateMgr::GetInstance()
 {
 	if ( ClimberStateMgr::m_instance == nullptr )
 	{
-        // Create the shooter state manager, ball transfer state manager, turret state manager and hopper state manager
-		ClimberStateMgr::m_instance = new ClimberStateMgr();
+	    auto mechFactory = MechanismFactory::GetMechanismFactory();
+	    auto climber = mechFactory->GetClimber();
+	    if (climber != nullptr)
+        {
+		    ClimberStateMgr::m_instance = new ClimberStateMgr();
+        }
     }
 	return ClimberStateMgr::m_instance;
 }

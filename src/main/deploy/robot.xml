@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
@@ -66,7 +67,7 @@
                     gearRatio="8.55"
                     brakeMode="true"
                     follow="-1"
-                    peakCurrentDuration="50.0"
+                    peakCurrentDuration="25.0"
                     continuousCurrentLimit="20.0"
                     peakCurrentLimit="25.0"
                     currentLimiting="true" 
@@ -85,7 +86,7 @@
                     gearRatio="1.0"
                     brakeMode="true"
                     follow="-1"
-                    peakCurrentDuration="50.0"
+                    peakCurrentDuration="25.0"
                     continuousCurrentLimit="20.0"
                     peakCurrentLimit="25.0"
                     currentLimiting="true" 
@@ -118,7 +119,7 @@
                     gearRatio="8.55"
                     brakeMode="true"
                     follow="-1"
-                    peakCurrentDuration="50.0"
+                    peakCurrentDuration="25.0"
                     continuousCurrentLimit="20.0"
                     peakCurrentLimit="25.0"
                     currentLimiting="true" 
@@ -137,7 +138,7 @@
                     gearRatio="1.0"
                     brakeMode="true"
                     follow="-1"
-                    peakCurrentDuration="50.0"
+                    peakCurrentDuration="25.0"
                     continuousCurrentLimit="20.0"
                     peakCurrentLimit="25.0"
                     currentLimiting="true" 
@@ -146,7 +147,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="18"
-                            offset="-95.801"/>
+                            offset="-95.2731247"/>
         </swervemodule>
 
         <swervemodule type="RIGHT_FRONT"
@@ -169,7 +170,7 @@
                     gearRatio="8.55"
                     brakeMode="true"
                     follow="-1"
-                    peakCurrentDuration="50.0"
+                    peakCurrentDuration="25.0"
                     continuousCurrentLimit="20.0"
                     peakCurrentLimit="25.0"
                     currentLimiting="true" 
@@ -188,7 +189,7 @@
                     gearRatio="1.0"
                     brakeMode="true"
                     follow="-1"
-                    peakCurrentDuration="50.0"
+                    peakCurrentDuration="25.0"
                     continuousCurrentLimit="20.0"
                     peakCurrentLimit="25.0"
                     currentLimiting="true" 
@@ -219,7 +220,7 @@
                     gearRatio="8.55"
                     brakeMode="true"
                     follow="-1"
-                    peakCurrentDuration="50.0"
+                    peakCurrentDuration="25.0"
                     continuousCurrentLimit="20.0"
                     peakCurrentLimit="25.0"
                     currentLimiting="true" 
@@ -238,7 +239,7 @@
                     gearRatio="1.0"
                     brakeMode="true"
                     follow="-1"
-                    peakCurrentDuration="50.0"
+                    peakCurrentDuration="25.0"
                     continuousCurrentLimit="20.0"
                     peakCurrentLimit="25.0"
                     currentLimiting="true" 
@@ -247,7 +248,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="10"
-                            offset="173.95"/>
+                            offset="176.133"/>
         </swervemodule>
 
        </chassis>  
@@ -288,7 +289,7 @@
               brakeMode="true"
               peakCurrentDuration="50.0"
               continuousCurrentLimit="20.0"
-              peakCurrentLimit="25.0"
+              peakCurrentLimit="35.0"
               currentLimiting="true" 
               forwardlimitswitch="true"
               forwardlimitswitchopen="true"
@@ -329,7 +330,7 @@
               brakeMode="true"
               peakCurrentDuration="50.0"
               continuousCurrentLimit="20.0"
-              peakCurrentLimit="25.0"
+              peakCurrentLimit="35.0"
               currentLimiting="true" 
               forwardlimitswitch="true"
               forwardlimitswitchopen="true"
@@ -480,5 +481,4 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
    </mechanism>
-
 </robot>

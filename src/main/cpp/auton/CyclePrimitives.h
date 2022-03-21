@@ -18,29 +18,28 @@
 
 // C++ Includes
 #include <memory>
+#include <vector>
 
 // FRC includes
 #include <frc/Timer.h>
 
 // Team 302 includes
-#include <states/BallTransfer/BallTransferStateMgr.h>
-#include <states/intake/LeftIntakeStateMgr.h>
-#include <states/intake/RightIntakeStateMgr.h>
-#include <states/shooter/ShooterStateMgr.h>
-#include <states/BallTransfer/BallTransferStateMgr.h>
+#include <states/IState.h>
 
 // Third Party Includes
-
-
-
-#include <vector>
-#include <states/IState.h>
 
 class AutonSelector;
 class IPrimitive;
 class PrimitiveFactory;
 class PrimitiveParams;
 
+class LeftIntakeStateMgr;
+class RightIntakeStateMgr;
+class BallTransferStateMgr;
+class ShooterStateMgr;
+class LeftIndexerStateMgr;
+class RightIndexerStateMgr;
+class LiftStateMgr;
 
 class CyclePrimitives : public IState
 {
@@ -67,9 +66,5 @@ class CyclePrimitives : public IState
 		std::unique_ptr<frc::Timer>     m_timer;
 		double                          m_maxTime;
 		bool							m_isDone;
-		LeftIntakeStateMgr*             m_leftIntake;
-		RightIntakeStateMgr*			m_rightIntake;
-		BallTransferStateMgr*			m_ballTransfer;
-		ShooterStateMgr*				m_shooter;
 };
 

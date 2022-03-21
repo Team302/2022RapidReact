@@ -46,11 +46,39 @@ class ShooterStateMgr : public StateMgr
             SHOOTER_HOOD_ADJUST,
             PREPARE_TO_SHOOT
         };
+        const std::string m_shooterOffXmlString = "SHOOTER_OFF";
+        const std::string m_shooterHighGoalCloseXmlString = "SHOOT_HIGHGOAL_CLOSE";
+        const std::string m_shooterHighGoalFarXmlString = "SHOOT_HIGHGOAL_FAR";
+        const std::string m_shooterLowGoalXmlString = "SHOOT_LOWGOAL";
+        const std::string m_shooterManualXmlString = "MANUAL_SHOOT";
+        const std::string m_shooterHoodXmlString = "ADJUSTHOOD";
+        const std::string m_shooterPrepareXmlString = "PREPARETOSHOOT";
+        
+        const std::map<const std::string, SHOOTER_STATE> m_shooterXmlStringToStateEnumMap
+        {   {m_shooterOffXmlString, SHOOTER_STATE::OFF},
+            {m_shooterHighGoalCloseXmlString, SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE},
+            {m_shooterHighGoalFarXmlString, SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR},
+            {m_shooterLowGoalXmlString, SHOOTER_STATE::SHOOT_LOW_GOAL},
+            {m_shooterManualXmlString, SHOOTER_STATE::SHOOT_MANUAL},
+            {m_shooterHoodXmlString, SHOOTER_STATE::SHOOTER_HOOD_ADJUST},
+            {m_shooterPrepareXmlString, SHOOTER_STATE::PREPARE_TO_SHOOT}
+        };
 
         
 		/// @brief  Find or create the state manmanager
 		/// @return IntakeStateMgr* pointer to the state manager
 		static ShooterStateMgr* GetInstance();
+
+        /// @brief  set the current state, initialize it and run it
+        /// @param [in]     int - state to set
+        /// @param [in]     run - true means run, false just initialize it
+        /// @return void
+        void SetCurrentState
+        (
+            int         state,
+            bool        run
+        ) override;
+
         void CheckForStateTransition() override;
         bool AtTarget() const;
     private:
@@ -60,7 +88,8 @@ class ShooterStateMgr : public StateMgr
         
         DragonLimelight* m_dragonLimeLight;
         Shooter*                                m_shooter;
-        std::shared_ptr<nt::NetworkTable>       m_nt;     
+        std::shared_ptr<nt::NetworkTable>       m_nt;
+        bool m_buttonTriggerStateChange;
 
 
         const double m_CHANGE_STATE_TARGET = 120.0; 
@@ -72,5 +101,4 @@ class ShooterStateMgr : public StateMgr
         const StateStruc m_manualShootState = {SHOOTER_STATE::SHOOT_MANUAL, StateType::SHOOTER, false};
         const StateStruc m_shooterHoodAdjust = {SHOOTER_STATE::SHOOTER_HOOD_ADJUST, StateType::SHOOTER_MANUAL, false};
         const StateStruc m_prepareToShoot = {SHOOTER_STATE::PREPARE_TO_SHOOT, StateType::SHOOTER, false};
-        //frc::Timer*       m_timer = {new frc::Timer()};
 };
