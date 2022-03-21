@@ -35,8 +35,8 @@ using namespace std;
 
 void Robot::RobotInit()
 {
-    Logger::GetLogger()->Arrived_at(string(" RobotInit"));
     Logger::GetLogger()->PutLoggingSelectionsOnDashboard();
+    Logger::GetLogger()->Arrived_at(string(" RobotInit"));
 
     CameraServer::SetSize(CameraServer::kSize320x240);
     CameraServer::StartAutomaticCapture();
