@@ -39,59 +39,59 @@ using namespace frc;
 
 //========================================================================================================
 /// @class  DoNothing
-/// @brief  This is an auton primitive that causes the chassis to not drive 
+/// @brief  This is an auton primitive that causes the chassis to not drive
 //========================================================================================================
 
 
 /// @brief constructor that creates/initializes the object
 DoNothing::DoNothing() : m_maxTime(0.0),
-						 m_currentTime(0.0),
-						 m_chassis( ChassisFactory::GetChassisFactory()->GetIChassis()),
-						 m_timer( make_unique<Timer>() )
+                         m_currentTime(0.0),
+                         m_chassis( ChassisFactory::GetChassisFactory()->GetIChassis()),
+                         m_timer( make_unique<Timer>() )
 {
 }
 
 /// @brief initialize this usage of the primitive
 /// @param PrimitiveParms* params the drive parameters
 /// @return void
-void DoNothing::Init(PrimitiveParams* params) 
+void DoNothing::Init(PrimitiveParams* params)
 {
-	m_maxTime = params->GetTime();
-	m_timer->Reset();
-	m_timer->Start();
-	m_heading = params->GetHeading();
-	m_headingOption = params->GetHeadingOption();
+    m_maxTime = params->GetTime();
+    m_timer->Reset();
+    m_timer->Start();
+    m_heading = params->GetHeading();
+    m_headingOption = params->GetHeadingOption();
 }
 
 /// @brief run the primitive (periodic routine)
 /// @return void
-void DoNothing::Run() 
+void DoNothing::Run()
 {
-	Logger::GetLogger() -> LogError(string("DoNothing::Run()"), string("Arrived!"));
-	if ( m_chassis != nullptr )
-	{
-		ChassisSpeeds speeds;
-		speeds.vx = 0_mps;
-		speeds.vy = 0_mps;
-		speeds.omega = units::degrees_per_second_t(0.0);
-		if (m_headingOption == IChassis::HEADING_OPTION::SPECIFIED_ANGLE)
+    Logger::GetLogger() -> LogError(Logger::LOGGER_LEVEL::PRINT_ONCE, "Arrived_at ", "DoNothing::Run()");
+    if ( m_chassis != nullptr )
+    {
+        ChassisSpeeds speeds;
+        speeds.vx = 0_mps;
+        speeds.vy = 0_mps;
+        speeds.omega = units::degrees_per_second_t(0.0);
+        if (m_headingOption == IChassis::HEADING_OPTION::SPECIFIED_ANGLE)
         {
             m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
         }
 
-		m_chassis->Drive(speeds, 
-						 IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
-						 m_headingOption);
-	}
-	else
-	{
-		Logger::GetLogger()->LogError( string( "DoNothing::Run" ), string( "chassis not found") );
-	}
+        m_chassis->Drive(speeds,
+                         IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
+                         m_headingOption);
+    }
+    else
+    {
+        Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::WARNING_ONCE, string( "DoNothing::Run" ), string( "chassis not found") );
+    }
 }
 
 /// @brief check if the end condition has been met
 /// @return bool true means the end condition was reached, false means it hasn't
-bool DoNothing::IsDone() 
+bool DoNothing::IsDone()
 {
-	return m_timer->AdvanceIfElapsed(units::second_t(m_maxTime));
+    return m_timer->AdvanceIfElapsed(units::second_t(m_maxTime));
 }

@@ -1,6 +1,6 @@
 
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302 
+// Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -19,7 +19,7 @@
 //========================================================================================================
 ///
 /// File Description:
-///     This logs error messages
+///     This logs error messages, and can also be used to log non-error events.
 ///
 //========================================================================================================
 
@@ -30,6 +30,7 @@
 #include <set>
 
 // FRC includes
+#include <frc/SmartDashboard/SendableChooser.h>
 #include <networktables/NetworkTableInstance.h>
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableEntry.h>
@@ -40,7 +41,6 @@
 // Third Party Includes
 
 
-
 class Logger
 {
     public:
@@ -49,26 +49,40 @@ class Logger
         /// @brief Define where the items being logged should be sent
         enum LOGGER_OPTION
         {
-            CONSOLE,        ///< write to the RoboRio Console
-            DASHBOARD,      ///< write to the SmartDashboard
-            EAT_IT          ///< don't write anything (useful at comps where we want to minimize network traffic)
+            CONSOLE,    ///< write to the RoboRio Console                                                      0
+            DASHBOARD,  ///< write to the SmartDashboard                                                       1
+            EAT_IT      ///< don't write anything (useful at comps where we want to minimize network traffic)  2
         };
 
         /// @enum LOGGER_LEVEL
-        /// @brief Define what level the message is as well as this can be used to write only the messages of a certain level or worse.  The enum is ordered from worse to better and corresponds to the driver's station levels
+        /// @brief Define what level the message is as well as this can be used to write only the messages of a certain level or worse.
+        /// @brief The enum is ordered from worse to better and corresponds to the driver's station levels.
         enum LOGGER_LEVEL
-        {
-            ERROR,             ///< this is catastrophic 
-            ERROR_ONCE,        ///< this is catastrophic that we only want to see once
-            WARNING,           ///< this is a medium level error
-            WARNING_ONCE,      ///< this is a medium level error we only want to see once
-            PRINT,             ///< this is an information/debug message
-            PRINT_ONCE         ///< this is an information/debug message we only want to see once
+        {                                                                                   // numerical value
+            ERROR_ONCE,     ///< this is catastrophic that we only want to see once                 0
+            ERROR,          ///< this is catastrophic                                               1
+            WARNING_ONCE,   ///< this is a medium level error we only want to see once              2
+            WARNING,        ///< this is a medium level error                                       3
+            PRINT_ONCE,     ///< this is an information/debug message we only want to see once      4
+            PRINT           ///< this is an information/debug message                               5
         };
 
         /// @brief Find or create the singleton logger
         /// @returns Logger* pointer to the logger
         static Logger* GetLogger();
+
+        /// @brief Display logging options on dashboard
+        void PutLoggingSelectionsOnDashboard();
+
+        /// @brief Read logging option from dashboard, but not every 20ms
+        void PeriodicLog();
+
+        /// @brief Log a message indicating the code has reached a given point
+        /// @param [in] std::string: message indicating location in code
+        void Arrived_at
+        (
+            const std::string&   message
+        );
 
         /// @brief set the option for where the logging messages should be displayed
         /// @param [in] LOGGER_OPTION:  logging option for where to log messages
@@ -89,8 +103,8 @@ class Logger
         /// @param [in] std::string: message
         void LogError
         (
-            const std::string&      locationIdentifier,     
-            const std::string&      message                 
+            const std::string&      locationIdentifier,
+            const std::string&      message
         );
 
         /// @brief log a message
@@ -100,8 +114,8 @@ class Logger
         void LogError
         (
             LOGGER_LEVEL            level,
-            const std::string&      locationIdentifier,     
-            const std::string&      message                 
+            const std::string&      locationIdentifier,
+            const std::string&      message
         );
 
 
@@ -110,17 +124,17 @@ class Logger
         /// @param [in] std::string: message
         void OnDash
         (
-            const std::string&   locationIdentifier,    
-            const std::string&   message  
-        );              
+            const std::string&   locationIdentifier,
+            const std::string&   message
+        );
 
         /// @brief Write a message to the dashboard
         /// @param [in] std::string: classname or object identifier
         /// @param [in] bool: boolean that should be written
         void OnDash
         (
-            const std::string&   locationIdentifier,     
-            bool                 value                 
+            const std::string&   locationIdentifier,
+            bool                 value
         );
 
 
@@ -128,29 +142,29 @@ class Logger
         (
             const std::string&  ntName,
             const std::string&  identifier,
-            const std::string&  string 
+            const std::string&  string
         );
 
         void ToNtTable
         (
             const std::string&  ntName,
             const std::string&  identifier,
-            double              value 
+            double              value
         );
 
         void ToNtTable
         (
             std::shared_ptr<nt::NetworkTable>   ntable,
             const std::string&                  identifier,
-            const std::string&                  msg 
+            const std::string&                  msg
         );
+
         void ToNtTable
         (
             std::shared_ptr<nt::NetworkTable>   ntable,
             const std::string&                  identifier,
-            double                              value 
+            double                              value
         );
-
 
 
     protected:
@@ -160,12 +174,12 @@ class Logger
         Logger();
         ~Logger() = default;
 
-        LOGGER_OPTION           m_option;
-        LOGGER_LEVEL            m_level;
+        LOGGER_OPTION           m_option;               // indicates where the message should go
+        LOGGER_LEVEL            m_level;                // the level at which a message is important enough to send
         std::set<std::string>   m_alreadyDisplayed;
         static Logger*          m_instance;
+        int                     m_CyclingCounter;       // count 20ms loops
 
-
+        frc::SendableChooser<LOGGER_OPTION>     m_OptionChooser;
+        frc::SendableChooser<LOGGER_LEVEL>      m_LevelChooser;
 };
-
-

@@ -1,6 +1,6 @@
 
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302 
+// Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -14,9 +14,9 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-/// @class SwerveModuleDefn. 
-/// @brief Create a chassis from an XML definition.   CHASSIS_TYPE (ChassisFactory.h) determines the type of 
-///        chassis to create.   WheelBase is the front to back distance between the wheel centers.   Track 
+/// @class SwerveModuleDefn.
+/// @brief Create a chassis from an XML definition.   CHASSIS_TYPE (ChassisFactory.h) determines the type of
+///        chassis to create.   WheelBase is the front to back distance between the wheel centers.   Track
 ///        is the left to right distance between the wheels.
 
 // C++ includes
@@ -50,12 +50,12 @@ using namespace std;
 
 
 /// @brief  Parse the chassie element (and it children).  When this is done a SwerveModule object exists.
-///		   It can be retrieved from the factory.
+///        It can be retrieved from the factory.
 /// @param [in]  pugi::xml_node the chassis element in the XML document
-/// @return void shared_ptr<SwerveModule> 
+/// @return void shared_ptr<SwerveModule>
 std::shared_ptr<SwerveModule> SwerveModuleDefn::ParseXML
 (
-	xml_node      SwerveModuleNode
+    xml_node      SwerveModuleNode
 )
 {
    auto hasError = false;
@@ -97,7 +97,7 @@ std::shared_ptr<SwerveModule> SwerveModuleDefn::ParseXML
             {
                 position = SwerveModule::ModuleID::RIGHT_BACK;
             }
-            else 
+            else
             {
                 string msg = "unknown position ";
                 msg += attr.name();
@@ -107,35 +107,35 @@ std::shared_ptr<SwerveModule> SwerveModuleDefn::ParseXML
         }
         else if (  attrName.compare("turn_p") == 0 )
         {
-        	turnP = attr.as_double();
+            turnP = attr.as_double();
         }
         else if (  attrName.compare("turn_i") == 0 )
         {
-        	turnI = attr.as_double();
+            turnI = attr.as_double();
         }
         else if (  attrName.compare("turn_d") == 0 )
         {
-        	turnD = attr.as_double();
+            turnD = attr.as_double();
         }
         else if (  attrName.compare("turn_f") == 0 )
         {
-        	turnF = attr.as_double();
+            turnF = attr.as_double();
         }
         else if (  attrName.compare("turn_nominal_val") == 0 )
         {
-        	turnNominalVal = attr.as_double();
+            turnNominalVal = attr.as_double();
         }
         else if (  attrName.compare("turn_peak_val") == 0 )
         {
-        	turnPeakVal = attr.as_double();
+            turnPeakVal = attr.as_double();
         }
         else if (  attrName.compare("turn_max_acc") == 0 )
         {
-        	turnMaxAcc = attr.as_double();
+            turnMaxAcc = attr.as_double();
         }
         else if (  attrName.compare("turn_cruise_vel") == 0 )
         {
-        	turnCruiseVel = attr.as_double();
+            turnCruiseVel = attr.as_double();
         }
         else   // log errors
         {
@@ -157,36 +157,36 @@ std::shared_ptr<SwerveModule> SwerveModuleDefn::ParseXML
     for (xml_node child = SwerveModuleNode.first_child(); child; child = child.next_sibling())
     {
         string childName (child.name());
-    	if ( childName.compare("motor") == 0 )
-    	{
+        if ( childName.compare("motor") == 0 )
+        {
             auto motor = motorXML.get()->ParseXML(child);
             if ( motor.get() != nullptr )
             {
                 motors[ motor.get()->GetType() ] =  motor ;
             }
-    	}
-    	else if ( childName.compare("cancoder") == 0 )
-    	{
+        }
+        else if ( childName.compare("cancoder") == 0 )
+        {
             Logger::GetLogger()->OnDash(string("RobotXML Parsing"), string("Swerve CANCoder"));
             turnsensor = cancoderXML.get()->ParseXML(child);
-    	}
-    	else  // log errors
-    	{
+        }
+        else  // log errors
+        {
             string msg = "unknown child ";
             msg += child.name();
             Logger::GetLogger()->LogError( string("SwerveModuleDefn::ParseXML"), msg );
             hasError = true;
-    	}
+        }
     }
 
 
     // create chassis instance
     if ( !hasError )
     {
-        Logger::GetLogger()->OnDash(string("RobotXML Parsing"), string("Create Swerve Module"));
-        module = ChassisFactory::GetChassisFactory()->CreateSwerveModule(position, 
-                                                                         motors, 
-                                                                         turnsensor, 
+        Logger::GetLogger()->LogError( string("RobotXML Parsing"), string("Create Swerve Module"));
+        module = ChassisFactory::GetChassisFactory()->CreateSwerveModule(position,
+                                                                         motors,
+                                                                         turnsensor,
                                                                          turnP,
                                                                          turnI,
                                                                          turnD,
