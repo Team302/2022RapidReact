@@ -24,20 +24,20 @@
 	                 controlDataIdentifier2="closedloop2"
 					 value="2.0"
 					 secondValue="2.0"
-					 function1B="0.1939"
-					 function1C="40.788" 
-					 function2B="0.1939"
-					 function2C="40.788"/> 
+					 function1B="0.0"
+					 function1C="45.0" 
+					 function2B="0.0"
+					 function2C="13.5"/> 
 
  	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
 	                 controlDataIdentifier="closedloop2"
 	                 controlDataIdentifier2="closedloop2"
 					 value="2.0"
 					 secondValue="2.0"
-					 function1B="0.1939"
-					 function1C="40.788" 
-					 function2B="0.1939"
-					 function2C="40.788"/> 
+					 function1B="0.0"
+					 function1C="45.0" 
+					 function2B="0.0"
+					 function2C="13.5"/> 
 
 	<mechanismTarget stateIdentifier="SHOOT_LOWGOAL"
 	                 controlDataIdentifier="openloop"

@@ -29,11 +29,22 @@ Indexer::Indexer
     MechanismTypes::MECHANISM_TYPE      type,
     string                              controlFileName,
     string                              ntName,
-    shared_ptr<IDragonMotorController>  indexerMotor
+    shared_ptr<IDragonMotorController>  indexerMotor,
+    shared_ptr<DragonDigitalInput>     ballPresent
 ) : Mech1IndMotor(type,
                     controlFileName,
                     ntName,
-                    indexerMotor)
+                    indexerMotor),
+    m_ballPresent(ballPresent)
 {
     indexerMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
+}
+
+bool Indexer::IsBallPresent() const
+{
+    if (m_ballPresent.get() != nullptr)
+    {
+        return m_ballPresent.get()->Get();
+    }
+    return false;
 }

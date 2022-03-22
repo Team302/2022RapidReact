@@ -386,6 +386,9 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="true"
               reverselimitswitchopen="true"/> 
+       <digitalinput usage= "BALL_PRESENT"
+                     digitalId="0"
+                     reversed="false"/>
   </mechanism>
 
   <mechanism type="RIGHT_INDEXER"
@@ -409,6 +412,9 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="true"
               reverselimitswitchopen="true"/>
+       <digitalinput usage= "BALL_PRESENT"
+                     digitalId="0"
+                     reversed="false"/>
   </mechanism>
 
 <!-- ====================================================
@@ -420,6 +426,24 @@
        <motor usage="SHOOTER"
               canId="14"
               pdpID="14"
+              type="FALCON"
+              inverted="false"
+              sensorInverted="false"
+              feedbackDevice="INTERNAL"
+              countsPerRev="2048"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="false"
+              reverselimitswitchopen="true"/>
+       <motor usage="SHOOTER2"
+              canId="8"
+              pdpID="8"
               type="FALCON"
               inverted="false"
               sensorInverted="false"

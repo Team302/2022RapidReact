@@ -77,17 +77,21 @@ void LeftIndexerStateMgr::CheckForStateTransition()
         auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
         auto targetState = currentState;
 
+        auto controller = TeleopControl::GetInstance();
+
+        bool ballPresent = m_indexer->IsBallPresent();
+
         if (m_shooterStateMgr != nullptr)
         {
             auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
 
             if (m_shooter != nullptr)
             {
-                Logger::GetLogger()->ToNtTable(string("Indexer Timer"), string("Current time: "), m_timer->Get().to<double>());
+                //Logger::GetLogger()->ToNtTable(string("Indexer Timer"), string("Current time: "), m_timer->Get().to<double>());
                 auto isAtSpeed = m_shooterStateMgr->AtTarget();
                 if (isAtSpeed)
                 {
-                    ShooterDelay(); //may stay up here, may not, might change location depending on where m_timer needs to be reset
+                    //ShooterDelay();
                     switch (shooterState)
                     {
                         case ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL:
@@ -101,22 +105,22 @@ void LeftIndexerStateMgr::CheckForStateTransition()
 
                         case ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL:
                             //ShooterDelay();
-                            if (m_delay)
+                            /*if (m_delay)
                             {
                                 if (m_timer->HasElapsed(units::second_t(0.5)))
                                 {
                                     targetState = INDEXER_STATE::INDEX;
                                 }
                             }
-                            else
+                            else*/
                             {
                                 targetState = INDEXER_STATE::INDEX;
                             }                            
                             break;
                     
                         case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
-                            m_timer->Stop();
-                            m_timer->Reset();
+                            //m_timer->Stop();
+                            //m_timer->Reset();
                             targetState = INDEXER_STATE::OFF;
                             break;
 
@@ -131,6 +135,12 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                 }
             }
         }
+
+        if (m_leftIntakeStateMgr != nullptr && controller != nullptr && !ballPresent) 
+        { 
+            auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState()); 
+            targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState; 
+        } 
         
         if (targetState != currentState)
         {
