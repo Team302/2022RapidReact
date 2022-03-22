@@ -176,13 +176,3 @@ void ShooterStateMgr::CheckForStateTransition()
     }
 }
 
-/// @brief  set the current state, initialize it and run it
-/// @return void
-void ShooterStateMgr::SetCurrentState
-(
-    int             stateID,
-    bool            run
-)
-{
-    StateMgr::SetCurrentState(stateID, run);
-}

@@ -17,35 +17,33 @@
 
 	<mechanismTarget stateIdentifier="SHOOTER_OFF"
 	                 controlDataIdentifier="openloop"
-					 value="0.0"/>
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"/>
 
  	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
 	                 controlDataIdentifier="closedloop2"
 	                 controlDataIdentifier2="closedloop2"
-					 value="2.0"
-					 secondValue="2.0"
-					 function1B="0.0"
-					 function1C="45.0" 
-					 function2B="0.0"
-					 function2C="13.5"/> 
+					 value="45"
+					 secondValue="15"/> 
 
  	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
 	                 controlDataIdentifier="closedloop2"
 	                 controlDataIdentifier2="closedloop2"
-					 value="2.0"
-					 secondValue="2.0"
-					 function1B="0.0"
-					 function1C="45.0" 
-					 function2B="0.0"
-					 function2C="13.5"/> 
+					 value="45"
+					 secondValue="15"/> 
 
 	<mechanismTarget stateIdentifier="SHOOT_LOWGOAL"
 	                 controlDataIdentifier="openloop"
-					 value="0.5"/> 
+	                 controlDataIdentifier2="openloop"
+					 value="0.3" 
+					 secondValue="0.3"/> 
 
 	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
 	                 controlDataIdentifier="closedloop2"
-					 value="32"/>
+	                 controlDataIdentifier2="closedloop2"
+					 value="32"
+					 secondValue="20"/>
 
 	<mechanismTarget stateIdentifier="ADJUSTHOOD"
 	                 controlDataIdentifier="openloop"
@@ -53,7 +51,9 @@
 
 	<mechanismTarget stateIdentifier="PREPARETOSHOOT"
 	                 controlDataIdentifier="closedloop2"
-					 value="32"/>
+	                 controlDataIdentifier2="closedloop2"
+					 value="32"
+					 secondValue="20"/>
 
 
 </statedata>

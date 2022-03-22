@@ -69,16 +69,6 @@ class ShooterStateMgr : public StateMgr
 		/// @return IntakeStateMgr* pointer to the state manager
 		static ShooterStateMgr* GetInstance();
 
-        /// @brief  set the current state, initialize it and run it
-        /// @param [in]     int - state to set
-        /// @param [in]     run - true means run, false just initialize it
-        /// @return void
-        void SetCurrentState
-        (
-            int         state,
-            bool        run
-        ) override;
-
         void CheckForStateTransition() override;
         bool AtTarget() const;
     private:
