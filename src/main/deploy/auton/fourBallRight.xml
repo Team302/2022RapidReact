@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE auton SYSTEM "auton.dtd">
+<auton>
+    <primitive id="RESET_POSITION"
+			   pathname="fourBallRight1.wpilib.json"/>
+    <primitive id="DO_NOTHING"
+               time="0.5"
+               headingOption="TOWARD_GOAL"/> 
+    <primitive id="DRIVE_PATH"
+               pathname="fourBallRight1.wpilib.json"
+               headingOption="TOWARD_GOAL"
+               leftIntake="INTAKE_ON"/> 
+    <primitive id="DO_NOTHING"
+               time="0.5"
+               headingOption="TOWARD_GOAL"
+               leftIntake="INTAKE_ON"
+               shooter="PREPARETOSHOOT"/> 
+    <primitive id="DRIVE_PATH"
+               pathname="fourBallRight2.wpilib.json" 
+               headingOption="TOWARD_GOAL"/> 
+    <primitive id="DO_NOTHING"
+               time="2.0"
+               shooter="SHOOT_HIGHGOAL_FAR"
+               leftIntake="INTAKE_ON"/> 
+    <primitive id="DRIVE_PATH"
+               pathname="fourBallRight3.wpilib.json" 
+               leftIntake="INTAKE_ON"
+               headingOption="TOWARD_GOAL"/> 
+    <primitive id="DO_NOTHING"
+               time="0.5"
+               leftIntake="INTAKE_ON"
+               headingOption="TOWARD_GOAL"/> 
+    <primitive id="DRIVE_PATH"
+               pathname="fourBallRight6.wpilib.json" 
+               leftIntake="INTAKE_ON"
+               headingOption="TOWARD_GOAL"/> 
+    <primitive id="DO_NOTHING"
+               time="0.5"
+               leftIntake="INTAKE_ON"
+               headingOption="TOWARD_GOAL"/> 
+    <primitive id="DRIVE_PATH"
+               pathname="fourBallRight4.wpilib.json" 
+               leftIntake="INTAKE_ON"
+               headingOption="TOWARD_GOAL"/> 
+    <primitive id="DO_NOTHING"
+               time="0.5"
+               leftIntake="INTAKE_ON"
+               headingOption="TOWARD_GOAL"/> 
+    <primitive id="DRIVE_PATH"
+               pathname="fourBallRight5.wpilib.json" 
+               leftIntake="INTAKE_ON"
+               shooter="PREPARETOSHOOT"
+               headingOption="TOWARD_GOAL"/> 
+    <primitive id="DO_NOTHING"
+               time="10.0"
+               shooter="SHOOT_HIGHGOAL_FAR"/> 
+</auton>
