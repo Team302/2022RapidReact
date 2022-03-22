@@ -194,6 +194,12 @@ class SwerveChassis : public IChassis
 
         void AdjustRotToPointTowardGoal
         (
+            frc::Pose2d                  robotPose,
+            units::radians_per_second_t& rot
+        );
+
+        void DriveToPointTowardGoal
+        (
             frc::Pose2d              robotPose,
             frc::Pose2d              goalPose, 
             units::meters_per_second_t&  xspeed,
@@ -278,6 +284,8 @@ class SwerveChassis : public IChassis
         DragonTargetFinder m_targetFinder;
         units::angle::degree_t m_targetHeading;
         DragonLimelight*        m_limelight;
+
+        const units::length::inch_t m_shootingDistance = units::length::inch_t(90.0);
 
 
 };

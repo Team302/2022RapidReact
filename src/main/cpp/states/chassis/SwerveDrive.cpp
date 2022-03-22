@@ -63,17 +63,14 @@ void SwerveDrive::Init()
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, profile);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
         controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, -0.6);
-//        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE, -0.85);
 
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, profile);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
         controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, -0.6);
- //       controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER, -0.85);
 
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, profile);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
         controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 0.5);
-//        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE, 0.2125);
     }
 }
 
@@ -87,9 +84,15 @@ void SwerveDrive::Run()
         IChassis::CHASSIS_DRIVE_MODE mode = controller->IsButtonPressed(TeleopControl::DRIVE_POLAR) ? 
                                                     IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE : 
                                                     IChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED;
-        IChassis::HEADING_OPTION headingOpt = controller->IsButtonPressed(TeleopControl::FINDTARGET) ? 
-                                                    IChassis::HEADING_OPTION::TOWARD_GOAL : 
-                                                    IChassis::HEADING_OPTION::MAINTAIN;
+        IChassis::HEADING_OPTION headingOpt = IChassis::HEADING_OPTION::MAINTAIN;
+        if (controller->IsButtonPressed(TeleopControl::FINDTARGET))
+        {
+            headingOpt = IChassis::HEADING_OPTION::TOWARD_GOAL;
+        }                                       
+        else if (controller->IsButtonPressed(TeleopControl::DRIVE_TO_SHOOTING_SPOT))
+        {
+            headingOpt = IChassis::HEADING_OPTION::TOWARD_GOAL_DRIVE;
+        }
         
         if (controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::REZERO_PIGEON))
         {
