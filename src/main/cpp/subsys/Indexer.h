@@ -36,7 +36,7 @@ class Indexer : public Mech1IndMotor
             std::string                             controlFileName,
             std::string                             ntName,
             std::shared_ptr<IDragonMotorController> indexerMotor,
-            shared_ptr<DragonDigitalInput>          ballPresent
+            std::shared_ptr<DragonDigitalInput>     ballPresent
         );
 
         bool IsBallPresent() const;
