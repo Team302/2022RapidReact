@@ -16,6 +16,7 @@
 
 // C++ Includes
 #include <map>
+#include <iostream>
 
 // FRC includes
 
@@ -136,8 +137,13 @@ void LeftIndexerStateMgr::CheckForStateTransition()
             }
         }
 
+        std::cout << "LeftIntakeStateMgr = nullptr: " << to_string(m_leftIntakeStateMgr == nullptr) << std::endl;
+        std::cout << "Controller = nullptr: " << to_string(controller == nullptr) << std::endl;
+        std::cout << "!ballPresent: " << to_string(!ballPresent) << std::endl;
+
         if (m_leftIntakeStateMgr != nullptr && controller != nullptr && !ballPresent) 
-        { 
+        {
+            std::cout << "Intaking through indexer" << std::endl;
             auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState()); 
             targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState; 
         } 

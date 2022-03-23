@@ -746,7 +746,7 @@ void SwerveChassis::CalcSwerveModuleStates
     auto vx = -1.0 * speeds.vy;
     auto omega = speeds.omega;
 
-    units::velocity::meters_per_second_t omegaL = omega.to<double>() * l / 2.0 / 1_s ;
+    units::velocity::meters_per_second_t omegaL = omega.to<double>() * l / 2.0 / 1_s;
     units::velocity::meters_per_second_t omegaW = omega.to<double>() * w / 2.0 / 1_s;
     
     auto a = vx - omegaL;

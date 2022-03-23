@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
@@ -386,8 +385,8 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="true"
               reverselimitswitchopen="true"/> 
-       <digitalinput usage= "BALL_PRESENT"
-                     digitalId="0"
+       <digitalInput usage= "BALL_PRESENT"
+                     digitalId="1"
                      reversed="false"/>
   </mechanism>
 
@@ -412,8 +411,8 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="true"
               reverselimitswitchopen="true"/>
-       <digitalinput usage= "BALL_PRESENT"
-                     digitalId="0"
+       <digitalInput usage="BALL_PRESENT"
+                     digitalId="1"
                      reversed="false"/>
   </mechanism>
 
