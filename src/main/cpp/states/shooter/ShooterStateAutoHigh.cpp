@@ -27,6 +27,7 @@
 #include <subsys/MechanismFactory.h>
 #include <subsys/Shooter.h>
 #include <states/indexer/LeftIndexerStateMgr.h>
+#include <utils/Logger.h>
 
 
 // Third Party Includes
@@ -52,12 +53,9 @@ ShooterStateAutoHigh::ShooterStateAutoHigh
 
 void ShooterStateAutoHigh::Init() 
 {
-    
-
-    if (GetShooter() != nullptr)
+    auto shooter = GetShooter();    
+    if (shooter != nullptr)
     {
-        GetShooter()->SetControlConstants(0, GetPrimaryControlData());
-        GetShooter()->SetSecondaryControlConstants(0, GetSecondaryControlData());
         double inches = 75.0;
         if (m_dragonLimeLight != nullptr)
         {
@@ -83,6 +81,30 @@ void ShooterStateAutoHigh::Init()
                               m_secondaryFunctionCoeff[2] +
                               GetSecondaryTarget() +
                               indexerOffset;
-        GetShooter()->UpdateTargets(shooterTarget, shooterTarget2);
+        
+        auto logger = Logger::GetLogger();
+        auto nt = shooter->GetNetworkTableName();
+        auto cd = GetPrimaryControlData();
+        auto cd2 = GetSecondaryControlData();
+
+        logger->ToNtTable(nt, string("control data Mode1"), cd->GetMode());
+        logger->ToNtTable(nt, string("control data Identifier1"), cd->GetIdentifier());
+        logger->ToNtTable(nt, string("control data p1"), cd->GetP());
+        logger->ToNtTable(nt, string("control data i1"), cd->GetI());
+        logger->ToNtTable(nt, string("control data d1"), cd->GetD());
+        logger->ToNtTable(nt, string("control data f1"), cd->GetF());
+        logger->ToNtTable(nt, string("target 1"), shooterTarget);
+
+        logger->ToNtTable(nt, string("control data Mode2"), cd2->GetMode());
+        logger->ToNtTable(nt, string("control data Identifier2"), cd2->GetIdentifier());
+        logger->ToNtTable(nt, string("control data p2"), cd2->GetP());
+        logger->ToNtTable(nt, string("control data i2"), cd2->GetI());
+        logger->ToNtTable(nt, string("control data d2"), cd2->GetD());
+        logger->ToNtTable(nt, string("control data f2"), cd2->GetF());
+        logger->ToNtTable(nt, string("target 2"), shooterTarget2);
+        
+        shooter->SetControlConstants(0, GetPrimaryControlData());
+        shooter->SetSecondaryControlConstants(0, GetSecondaryControlData());
+        shooter->UpdateTargets(shooterTarget, shooterTarget2);
     }
 }

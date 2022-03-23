@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include <Robot.h>
-#include <cameraserver/CameraServer.h>
+//#include <cameraserver/CameraServer.h>
 
 #include <auton/CyclePrimitives.h>
 #include <gamepad/TeleopControl.h>
