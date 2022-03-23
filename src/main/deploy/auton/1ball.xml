@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE auton SYSTEM "auton.dtd">
-<auton>
-    <primitive id="RESET_POSITION"
-			   pathname="1Ball.wpilib.json"/>
-    <primitive id="DRIVE_PATH"
-               leftIntake="INTAKE"
-               headingOption="TOWARD_GOAL"/>
-</auton>
