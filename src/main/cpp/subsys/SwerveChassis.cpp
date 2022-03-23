@@ -521,6 +521,7 @@ void SwerveChassis::AdjustRotToPointTowardGoal
         auto targetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(robotPose));
         rot -= CalcHeadingCorrection(targetAngle,kPGoalHeadingControl);;
     }
+    Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("TurnToGoal New ZSpeed: "), rot.to<double>());
 }
 
 Pose2d SwerveChassis::GetPose() const
@@ -637,9 +638,6 @@ void SwerveChassis::ResetPosition
     m_poseEstimator.ResetPosition(pose, angle);
     SetEncodersToZero();
     m_pose = pose;
-   // auto trans = pose - m_pose;
-   // m_pose = m_pose + trans;
-    
 
     auto pigeon = PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
 
