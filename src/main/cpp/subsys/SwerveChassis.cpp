@@ -482,6 +482,7 @@ void SwerveChassis::DriveToPointTowardGoal
         auto speedCorrection = abs(distanceError.to<double>()) > 30.0 ? kPDistance : kPDistance*0.5;
         if (abs(distanceError.to<double>()) > 10.0)
         {
+            AdjustRotToPointTowardGoal(robotPose, rot);
             auto deltaX = (myPose.X()- targetPose.X());
             auto deltaY = (myPose.Y()- targetPose.Y());
             xSpeed -= deltaX/1_s*speedCorrection; 
