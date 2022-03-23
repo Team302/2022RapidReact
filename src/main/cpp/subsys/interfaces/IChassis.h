@@ -63,6 +63,8 @@ class IChassis
             MAINTAIN,
             POLAR_HEADING,
             TOWARD_GOAL,
+            TOWARD_GOAL_DRIVE,
+            TOWARD_GOAL_LAUNCHPAD,
             SPECIFIED_ANGLE,
             LEFT_INTAKE_TOWARD_BALL,
             RIGHT_INTAKE_TOWARD_BALL

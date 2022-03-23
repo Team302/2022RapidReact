@@ -42,9 +42,10 @@ class TeleopControl
             SWERVE_DRIVE_ROTATE,
             SWERVE_DRIVE_STEER,
             REZERO_PIGEON,
-            ROTATE_TO_GOAL,             //not used maybe same as FINDTARGET
             DRIVE_POLAR,
             DRIVE_POLAR_INTAKE,         //not used yet?? 2.13.22
+            DRIVE_TO_SHOOTING_SPOT,
+            DRIVE_TO_LAUNCHPAD,
             INTAKE_LEFT,
             INTAKE_RIGHT,
             EXPEL_LEFT,

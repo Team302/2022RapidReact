@@ -194,7 +194,18 @@ class SwerveChassis : public IChassis
 
         void AdjustRotToPointTowardGoal
         (
+            frc::Pose2d                  robotPose,
             units::radians_per_second_t& rot
+        );
+
+        void DriveToPointTowardGoal
+        (
+            frc::Pose2d              robotPose,
+            frc::Pose2d              goalPose, 
+            units::meters_per_second_t&  xspeed,
+            units::meters_per_second_t&  yspeed,
+            units::radians_per_second_t& rot
+            
         );
         units::angle::degree_t UpdateForPolarDrive
         (
@@ -262,15 +273,19 @@ class SwerveChassis : public IChassis
         const double kPAutonSpecifiedHeading = 0.25;  // 4.0
         const double kPAutonGoalHeadingControl = 2.0;  // 2.0
         const double kPGoalHeadingControl = 7.0; //10.0, 7.0
+        const double kPDistance = 1.0; //10.0, 7.0
         const double kIHeadingControl = 0.0; //not being used
         const double kDHeadingControl = 0.0; //not being used
         const double kFHeadingControl = 0.0; //not being used
+        bool m_hold = false;
         units::angle::degree_t m_storedYaw;
         units::angular_velocity::degrees_per_second_t m_yawCorrection;
 
         DragonTargetFinder m_targetFinder;
         units::angle::degree_t m_targetHeading;
         DragonLimelight*        m_limelight;
+
+        const units::length::inch_t m_shootingDistance = units::length::inch_t(90.0);
 
 
 };
