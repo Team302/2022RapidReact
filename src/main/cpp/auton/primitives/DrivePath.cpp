@@ -154,6 +154,10 @@ void DrivePath::Run()
                 case IChassis::HEADING_OPTION::POLAR_HEADING:
                     [[fallthrough]];
                 case IChassis::HEADING_OPTION::TOWARD_GOAL:
+                    [[fallthrough]];
+                case IChassis::HEADING_OPTION::TOWARD_GOAL_DRIVE:
+                    [[fallthrough]];
+                case IChassis::HEADING_OPTION::TOWARD_GOAL_LAUNCHPAD:
                     rotation = Rotation2d(units::angle::degree_t(m_targetFinder.GetTargetAngleD(m_currentChassisPosition)));
                     break;
 

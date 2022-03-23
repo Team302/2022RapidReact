@@ -63,6 +63,8 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
     map<string, IChassis::HEADING_OPTION> headingOptionMap;
     headingOptionMap["MAINTAIN"] = IChassis::HEADING_OPTION::MAINTAIN;
     headingOptionMap["TOWARD_GOAL"] = IChassis::HEADING_OPTION::TOWARD_GOAL;
+    headingOptionMap["TOWARD_GOAL_DRIVE"] = IChassis::HEADING_OPTION::TOWARD_GOAL_DRIVE;
+    headingOptionMap["TOWARD_GOAL_LAUNCHPAD"] = IChassis::HEADING_OPTION::TOWARD_GOAL_LAUNCHPAD;
     headingOptionMap["LEFT_INTAKE_TOWARD_BALL"] = IChassis::HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL;
     headingOptionMap["RIGHT_INTAKE_TOWARD_BALL"] = IChassis::HEADING_OPTION::RIGHT_INTAKE_TOWARD_BALL;
     headingOptionMap["SPECIFIED_ANGLE"] = IChassis::HEADING_OPTION::SPECIFIED_ANGLE;

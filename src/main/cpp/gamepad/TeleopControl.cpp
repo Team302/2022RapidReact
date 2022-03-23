@@ -112,6 +112,8 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_controllerIndex[ SWERVE_DRIVE_ROTATE]			= ctrlNo;
 		m_axisIDs[ SWERVE_DRIVE_ROTATE]					= IDragonGamePad::RIGHT_JOYSTICK_X;
 	
+		m_controllerIndex[ DRIVE_TO_SHOOTING_SPOT ]		= ctrlNo;
+		m_buttonIDs[ DRIVE_TO_SHOOTING_SPOT ]			= IDragonGamePad::A_BUTTON;
 		m_controllerIndex[ REZERO_PIGEON ]				= ctrlNo;
 		m_buttonIDs[ REZERO_PIGEON ]					= IDragonGamePad::B_BUTTON;
 		m_controllerIndex[DRIVE_POLAR] 					= ctrlNo;  
