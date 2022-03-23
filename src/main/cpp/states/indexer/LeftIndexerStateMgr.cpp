@@ -81,6 +81,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
         auto controller = TeleopControl::GetInstance();
 
         bool ballPresent = m_indexer->IsBallPresent();
+        Logger::GetLogger()->ToNtTable(m_indexer->GetNetworkTableName(), string("Ball Present"), ballPresent ? string("true") : string("false"));
 
         if (m_shooterStateMgr != nullptr)
         {

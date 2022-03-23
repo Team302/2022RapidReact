@@ -28,8 +28,8 @@
 
 void Robot::RobotInit() 
 {
-    CameraServer::SetSize(CameraServer::kSize320x240);
-    CameraServer::StartAutomaticCapture();
+    //CameraServer::SetSize(CameraServer::kSize320x240);
+    //CameraServer::StartAutomaticCapture();
 
     // Read the XML file to build the robot 
     auto defn = new RobotDefn();
