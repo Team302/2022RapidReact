@@ -33,14 +33,6 @@ class IPrimitive;
 class PrimitiveFactory;
 class PrimitiveParams;
 
-class LeftIntakeStateMgr;
-class RightIntakeStateMgr;
-class BallTransferStateMgr;
-class ShooterStateMgr;
-class LeftIndexerStateMgr;
-class RightIndexerStateMgr;
-class LiftStateMgr;
-
 class CyclePrimitives : public IState
 {
 	public:

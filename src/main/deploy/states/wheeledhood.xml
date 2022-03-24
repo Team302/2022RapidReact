@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE statedata SYSTEM "stateData.dtd">
+<statedata>
+	<controlData identifier="openloop" 
+	             mode="PERCENT_OUTPUT"/>
+				 
+	<controlData identifier="closedloop"
+				 mode="POSITION_DEGREES"
+				 proportional="0.08"
+				 />
+
+	<controlData identifier="closedloop2"
+				 mode="VELOCITY_RPS"
+				 proportional="0.165"
+				 integral="0.0"
+				 feedforward="0.0475"/>
+
+	<mechanismTarget stateIdentifier="SHOOTER_OFF"
+	                 controlDataIdentifier="openloop"
+					 value="0.0"/>
+
+ 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
+	                 controlDataIdentifier="closedloop2"
+					 value="18.0"/> 
+
+
+ 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
+	                 controlDataIdentifier="closedloop2"
+					 value="18.0"/> 
+
+	<mechanismTarget stateIdentifier="SHOOT_LOWGOAL"
+	                 controlDataIdentifier="openloop"
+					 value="0.3"/> 
+
+	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
+	                 controlDataIdentifier="closedloop2"
+					 value="10"/>
+
+	<mechanismTarget stateIdentifier="PREPARETOSHOOT"
+	                 controlDataIdentifier="closedloop2"
+					 value="10"/>
+</statedata>

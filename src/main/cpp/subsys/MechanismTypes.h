@@ -33,12 +33,12 @@ class MechanismTypes
             UNKNOWN_MECHANISM = -1,
             LEFT_INTAKE,
             RIGHT_INTAKE,
-            BALL_TRANSFER,
             LEFT_INDEXER,
             RIGHT_INDEXER,
             LIFT,
             SHOOTER,
-            CLIMBER,                 
+            CLIMBER,           
+            WHEELEDHOOD,      
             MAX_MECHANISM_TYPES
         };
 };

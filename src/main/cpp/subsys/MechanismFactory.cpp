@@ -72,7 +72,7 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 
 MechanismFactory::MechanismFactory() : 	m_leftIntake(nullptr),
 										m_rightIntake(nullptr),
-										m_ballTransfer(nullptr),
+										m_wheeledHood(nullptr),
 										m_shooter(nullptr),
 										m_climber(nullptr),
 										m_leftIndexer(nullptr),
@@ -232,17 +232,14 @@ void MechanismFactory::CreateIMechanism
 		}
 		break;
 
-		case MechanismTypes::BALL_TRANSFER:
+		case MechanismTypes::WHEELEDHOOD:
 		{
-			if (m_ballTransfer == nullptr)
+			if (m_wheeledHood == nullptr)
 			{
-				auto spin = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
-				auto lift = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_SPIN);
-				auto ballPresentSw = GetDigitalInput(digitalInputs, DigitalInputUsage::BALL_PRESENT);
-				auto liftForwardSw = GetDigitalInput(digitalInputs, DigitalInputUsage::BALL_TRANSFER_FORWARD);
-				if ((lift.get() != nullptr) && spin.get() != nullptr && ballPresentSw.get() != nullptr && liftForwardSw.get() != nullptr)
+				auto motor = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
+				if (motor.get() != nullptr) 
 				{
-					m_ballTransfer = new BallTransfer(networkTableName, controlFileName, spin, lift, ballPresentSw, liftForwardSw);
+					m_wheeledHood = new WheeledHood(networkTableName, controlFileName, motor);
 				}
 			}
 		}
@@ -346,8 +343,8 @@ IMech* MechanismFactory::GetMechanism
 			return GetRightIntake();
 			break;
 			
-		case MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER:
-			return GetBallTransfer();
+		case MechanismTypes::MECHANISM_TYPE::WHEELEDHOOD:
+			return GetWheeledHood();
 			break;
 
 		case MechanismTypes::MECHANISM_TYPE::LEFT_INDEXER:

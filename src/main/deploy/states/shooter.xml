@@ -36,21 +36,7 @@
 	                 controlDataIdentifier="closedloop2"
 					 value="32"/>
 
-	<mechanismTarget stateIdentifier="ADJUSTHOOD"
-	                 controlDataIdentifier="openloop"
-					 value="0.0"/>
-
 	<mechanismTarget stateIdentifier="PREPARETOSHOOT"
 	                 controlDataIdentifier="closedloop2"
 					 value="32"/>
-
-
- 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
-	                 controlDataIdentifier="closedloop2"
-					 value="3"/> 
-
-
- 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
-	                 controlDataIdentifier="closedloop2"
-					 value="3"/> 
 </statedata>

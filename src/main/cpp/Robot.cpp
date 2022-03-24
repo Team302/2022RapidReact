@@ -8,21 +8,15 @@
 #include <gamepad/TeleopControl.h>
 #include <states/chassis/SwerveDrive.h>
 #include <states/climber/ClimberStateMgr.h>
+#include <states/indexer/LeftIndexerStateMgr.h>
+#include <states/indexer/RightIndexerStateMgr.h>
 #include <states/Intake/LeftIntakeStateMgr.h>
 #include <states/Intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
-#include <subsys/BallTransfer.h>
+#include <states/wheeledHood/WheeledHoodStateMgr.h>
 #include <subsys/ChassisFactory.h>
-#include <subsys/Climber.h>
-#include <subsys/Intake.h>
 #include <subsys/interfaces/IChassis.h>
-#include <subsys/MechanismFactory.h>
-#include <subsys/Shooter.h>
 #include <xmlhw/RobotDefn.h>
-#include <subsys/Indexer.h>
-#include <subsys/Lift.h>
-#include <states/indexer/LeftIndexerStateMgr.h>
-#include <states/indexer/RightIndexerStateMgr.h>
 
 
 void Robot::RobotInit() 
@@ -37,30 +31,14 @@ void Robot::RobotInit()
     m_chassis = factory->GetIChassis();
     m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
         
-    auto mechFactory = MechanismFactory::GetMechanismFactory();
-    m_leftIntake = mechFactory->GetLeftIntake();
-    m_leftIntakeStateMgr = m_leftIntake != nullptr ? LeftIntakeStateMgr::GetInstance() : nullptr;
-
-    m_rightIntake = mechFactory->GetRightIntake();
-    m_rightIntakeStateMgr = m_rightIntake != nullptr ? RightIntakeStateMgr::GetInstance() : nullptr;
-
-    m_leftIndexer = mechFactory->GetLeftIndexer();
-    m_leftIndexerStateMgr = m_leftIndexer != nullptr ? LeftIndexerStateMgr::GetInstance() : nullptr;
-
-    m_rightIndexer = mechFactory->GetRightIndexer();
-    m_rightIndexerStateMgr = m_rightIndexer != nullptr ? RightIndexerStateMgr::GetInstance() : nullptr;
-    
-    m_ballTransfer = mechFactory->GetBallTransfer();
-    m_ballTransferStateMgr = m_ballTransfer != nullptr ? BallTransferStateMgr::GetInstance() : nullptr;
-
-    m_shooter = mechFactory->GetShooter();
-    m_shooterStateMgr = m_shooter != nullptr ? ShooterStateMgr::GetInstance() : nullptr;
-
-    m_lift = mechFactory->GetLift();
-    m_liftStateMgr = m_lift != nullptr ? LiftStateMgr::GetInstance() : nullptr;
-    
-    m_climber = mechFactory->GetClimber();
-    m_climberStateMgr = m_climber != nullptr ? ClimberStateMgr::GetInstance() : nullptr;
+    m_leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
+    m_rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
+    m_leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
+    m_rightIndexerStateMgr = RightIndexerStateMgr::GetInstance();
+    m_liftStateMgr = LiftStateMgr::GetInstance();
+    m_shooterStateMgr = ShooterStateMgr::GetInstance();
+    m_wheeledHoodStateMgr = WheeledHoodStateMgr::GetInstance();
+    m_climberStateMgr = ClimberStateMgr::GetInstance();
 
     m_cyclePrims = new CyclePrimitives();
 }
@@ -115,37 +93,40 @@ void Robot::TeleopInit()
     {
         m_swerve->Init();
     }
-    if (m_leftIntake != nullptr && m_leftIntakeStateMgr != nullptr)
+    
+    if (m_wheeledHoodStateMgr != nullptr)
     {
-        m_leftIntakeStateMgr->RunCurrentState();
+        m_wheeledHoodStateMgr->SetCurrentState(ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT, true);
     }
-    if (m_rightIntake != nullptr && m_rightIntakeStateMgr != nullptr)
-    {
-        m_rightIntakeStateMgr->RunCurrentState();
-    }
-    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
-    {
-        m_ballTransferStateMgr->RunCurrentState();
-    }
-    if (m_shooterStateMgr != nullptr && m_shooter != nullptr)
+    if (m_shooterStateMgr != nullptr)
     {
         m_shooterStateMgr->SetCurrentState(ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT, true);
     }
-    if (m_climberStateMgr != nullptr && m_climber != nullptr)
+
+    if (m_leftIntakeStateMgr != nullptr)
     {
-        m_climberStateMgr->RunCurrentState();
+        m_leftIntakeStateMgr->RunCurrentState();
     }
-    if (m_rightIndexer != nullptr && m_rightIndexerStateMgr != nullptr)
+    if (m_rightIntakeStateMgr != nullptr)
+    {
+        m_rightIntakeStateMgr->RunCurrentState();
+    }
+    if (m_rightIndexerStateMgr != nullptr)
     {
         m_rightIndexerStateMgr->RunCurrentState();
     }
-    if (m_leftIndexer != nullptr && m_leftIndexerStateMgr != nullptr)
+    if (m_leftIndexerStateMgr != nullptr)
     {
         m_leftIndexerStateMgr->RunCurrentState();
     }
-    if (m_lift != nullptr && m_liftStateMgr != nullptr)
+    if (m_liftStateMgr != nullptr)
     {
         m_liftStateMgr->RunCurrentState();
+    }
+
+    if (m_climberStateMgr != nullptr)
+    {
+        m_climberStateMgr->RunCurrentState();
     }
 }
 
@@ -156,35 +137,35 @@ void Robot::TeleopPeriodic()
         m_swerve->Run();
     }
 
-    if (m_leftIntake != nullptr && m_leftIntakeStateMgr != nullptr)
+    if (m_leftIntakeStateMgr != nullptr)
     {
         m_leftIntakeStateMgr->RunCurrentState();
     }
-    if (m_rightIntake != nullptr && m_rightIntakeStateMgr != nullptr)
+    if (m_rightIntakeStateMgr != nullptr)
     {
         m_rightIntakeStateMgr->RunCurrentState();
     }
-    if (m_ballTransfer != nullptr && m_ballTransferStateMgr != nullptr)
+    if (m_wheeledHoodStateMgr != nullptr)
     {
-        m_ballTransferStateMgr->RunCurrentState();
+        m_wheeledHoodStateMgr->RunCurrentState();
     }
-    if (m_shooter != nullptr && m_shooterStateMgr != nullptr)
+    if (m_shooterStateMgr != nullptr)
     {
         m_shooterStateMgr->RunCurrentState();
     }
-    if (m_climberStateMgr != nullptr && m_climber != nullptr)
+    if (m_climberStateMgr != nullptr)
     {
         m_climberStateMgr->RunCurrentState();
     }
-    if (m_rightIndexer != nullptr && m_rightIndexerStateMgr != nullptr)
+    if (m_rightIndexerStateMgr != nullptr)
     {
         m_rightIndexerStateMgr->RunCurrentState();
     }
-    if (m_leftIndexer != nullptr && m_leftIndexerStateMgr != nullptr)
+    if (m_leftIndexerStateMgr != nullptr)
     {
         m_leftIndexerStateMgr->RunCurrentState();
     }
-    if (m_lift != nullptr && m_liftStateMgr != nullptr)
+    if (m_liftStateMgr != nullptr)
     {
         m_liftStateMgr->RunCurrentState();
     }

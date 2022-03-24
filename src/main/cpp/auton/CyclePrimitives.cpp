@@ -30,17 +30,14 @@
 #include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
 #include <auton/primitives/IPrimitive.h>
-#include <states/balltransfer/BallTransferStateMgr.h>
+#include <states/wheeledHood/WheeledHoodStateMgr.h>
 #include <states/indexer/LeftIndexerStateMgr.h>
 #include <states/indexer/RightIndexerStateMgr.h>
 #include <states/intake/LeftIntakeStateMgr.h>
 #include <states/intake/RightIntakeStateMgr.h>
 #include <states/lift/LiftStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
-#include <subsys/BallTransfer.h>
-#include <subsys/Intake.h>
 #include <subsys/MechanismFactory.h>
-#include <subsys/Shooter.h>
 #include <utils/Logger.h>
 
 // Third Party Includes
@@ -96,10 +93,10 @@ void CyclePrimitives::Run()
 			shooterStateMgr->RunCurrentState();
 		}
 
-		auto ballTransferStateMgr = BallTransferStateMgr::GetInstance();
-		if (ballTransferStateMgr != nullptr)
+		auto wheeledHoodStateMgr = WheeledHoodStateMgr::GetInstance();
+		if (wheeledHoodStateMgr != nullptr)
 		{
-			ballTransferStateMgr->RunCurrentState();
+			wheeledHoodStateMgr->RunCurrentState();
 		}
 
 		auto leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
@@ -163,10 +160,10 @@ void CyclePrimitives::GetNextPrim()
 		{
 			shooterStateMgr->SetCurrentState(currentPrimParam->GetShooterState(), true);
 		}
-		auto ballTransferStateMgr = BallTransferStateMgr::GetInstance();
-		if (ballTransferStateMgr != nullptr)
+		auto wheeledHoodStateMgr = WheeledHoodStateMgr::GetInstance();
+		if (wheeledHoodStateMgr != nullptr)
 		{
-			ballTransferStateMgr->RunCurrentState();
+			wheeledHoodStateMgr->RunCurrentState();
 		}
 
 		auto leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();

@@ -43,7 +43,6 @@ class ShooterStateMgr : public StateMgr
             AUTO_SHOOT_HIGH_GOAL_CLOSE,
             SHOOT_LOW_GOAL,
             SHOOT_MANUAL,
-            SHOOTER_HOOD_ADJUST,
             PREPARE_TO_SHOOT
         };
         const std::string m_shooterOffXmlString = "SHOOTER_OFF";
@@ -51,7 +50,6 @@ class ShooterStateMgr : public StateMgr
         const std::string m_shooterHighGoalFarXmlString = "SHOOT_HIGHGOAL_FAR";
         const std::string m_shooterLowGoalXmlString = "SHOOT_LOWGOAL";
         const std::string m_shooterManualXmlString = "MANUAL_SHOOT";
-        const std::string m_shooterHoodXmlString = "ADJUSTHOOD";
         const std::string m_shooterPrepareXmlString = "PREPARETOSHOOT";
         
         const std::map<const std::string, SHOOTER_STATE> m_shooterXmlStringToStateEnumMap
@@ -60,7 +58,6 @@ class ShooterStateMgr : public StateMgr
             {m_shooterHighGoalFarXmlString, SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR},
             {m_shooterLowGoalXmlString, SHOOTER_STATE::SHOOT_LOW_GOAL},
             {m_shooterManualXmlString, SHOOTER_STATE::SHOOT_MANUAL},
-            {m_shooterHoodXmlString, SHOOTER_STATE::SHOOTER_HOOD_ADJUST},
             {m_shooterPrepareXmlString, SHOOTER_STATE::PREPARE_TO_SHOOT}
         };
 
@@ -99,6 +96,5 @@ class ShooterStateMgr : public StateMgr
         const StateStruc m_shootCloseState = {SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE, StateType::SHOOTER_AUTO, false};
         const StateStruc m_shootLowState = {SHOOTER_STATE::SHOOT_LOW_GOAL, StateType::SHOOTER, false};
         const StateStruc m_manualShootState = {SHOOTER_STATE::SHOOT_MANUAL, StateType::SHOOTER, false};
-        const StateStruc m_shooterHoodAdjust = {SHOOTER_STATE::SHOOTER_HOOD_ADJUST, StateType::SHOOTER_MANUAL, false};
         const StateStruc m_prepareToShoot = {SHOOTER_STATE::PREPARE_TO_SHOOT, StateType::SHOOTER, false};
 };
