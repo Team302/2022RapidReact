@@ -71,6 +71,9 @@ void ShooterStateAutoHigh::Init()
         }
         auto indexerOffset = currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX ? 0.0 : 2.0;
 
+        auto shooterTarget = GetPrimaryTarget();
+        auto shooterTarget2 = GetSecondaryTarget();
+        /**
         auto shooterTarget = m_primaryFunctionCoeff[0]*inches*inches + 
                              m_primaryFunctionCoeff[1]*inches + 
                              m_primaryFunctionCoeff[2] +
@@ -81,7 +84,7 @@ void ShooterStateAutoHigh::Init()
                               m_secondaryFunctionCoeff[2] +
                               GetSecondaryTarget() +
                               indexerOffset;
-        
+        **/
         auto logger = Logger::GetLogger();
         auto nt = shooter->GetNetworkTableName();
         auto cd = GetPrimaryControlData();

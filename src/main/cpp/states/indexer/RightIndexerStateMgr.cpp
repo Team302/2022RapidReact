@@ -77,7 +77,7 @@ void RightIndexerStateMgr::CheckForStateTransition()
 
         auto controller = TeleopControl::GetInstance();
 
-        bool ballPresent = m_indexer->IsBallPresent();
+       // bool ballPresent = m_indexer->IsBallPresent();
         
         if (m_shooterStateMgr != nullptr)
         {
@@ -118,8 +118,8 @@ void RightIndexerStateMgr::CheckForStateTransition()
             }
         }
 
-        /*
-        if (m_rightIntakeStateMgr != nullptr && controller != nullptr && !ballPresent) 
+        //if (m_rightIntakeStateMgr != nullptr && controller != nullptr && !ballPresent) 
+        if (m_rightIntakeStateMgr != nullptr && controller != nullptr) 
         { 
             auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_rightIntakeStateMgr->GetCurrentState()); 
             targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT) ) ? INDEXER_STATE::INDEX : targetState; 

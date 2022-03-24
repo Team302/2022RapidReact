@@ -80,8 +80,8 @@ void LeftIndexerStateMgr::CheckForStateTransition()
 
         auto controller = TeleopControl::GetInstance();
 
-        bool ballPresent = m_indexer->IsBallPresent();
-        Logger::GetLogger()->ToNtTable(m_indexer->GetNetworkTableName(), string("Ball Present"), ballPresent ? string("true") : string("false"));
+        //bool ballPresent = m_indexer->IsBallPresent();
+        //Logger::GetLogger()->ToNtTable(m_indexer->GetNetworkTableName(), string("Ball Present"), ballPresent ? string("true") : string("false"));
 
         if (m_shooterStateMgr != nullptr)
         {
@@ -137,8 +137,14 @@ void LeftIndexerStateMgr::CheckForStateTransition()
             }
         }
 
-        if (m_leftIntakeStateMgr != nullptr && controller != nullptr && !ballPresent) 
-        { 
+        //std::cout << "LeftIntakeStateMgr = nullptr: " << to_string(m_leftIntakeStateMgr == nullptr) << std::endl;
+        //std::cout << "Controller = nullptr: " << to_string(controller == nullptr) << std::endl;
+        //std::cout << "!ballPresent: " << to_string(!ballPresent) << std::endl;
+
+        //if (m_leftIntakeStateMgr != nullptr && controller != nullptr && !ballPresent) 
+        if (m_leftIntakeStateMgr != nullptr && controller != nullptr) 
+        {
+            //std::cout << "Intaking through indexer" << std::endl;
             auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_leftIntakeStateMgr->GetCurrentState()); 
             targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState; 
         } 
