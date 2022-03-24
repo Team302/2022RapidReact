@@ -485,8 +485,18 @@ void SwerveChassis::DriveToPointTowardGoal
             AdjustRotToPointTowardGoal(robotPose, rot);
             auto deltaX = (myPose.X()- targetPose.X());
             auto deltaY = (myPose.Y()- targetPose.Y());
-            xSpeed -= deltaX/1_s*speedCorrection; 
-            ySpeed -= deltaY/1_s*speedCorrection; 
+
+            if (distanceError.to<double>() < 0)
+            {
+                xSpeed -= deltaX/1_s*speedCorrection; 
+                ySpeed -= deltaY/1_s*speedCorrection; 
+            }
+            else
+            {
+                xSpeed += deltaX/1_s*speedCorrection; 
+                ySpeed += deltaY/1_s*speedCorrection; 
+            }
+
             m_hold = false;
         }
         else if(abs(m_limelight->GetTargetHorizontalOffset().to<double>()) < 3.0)

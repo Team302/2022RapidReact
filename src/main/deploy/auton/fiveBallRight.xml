@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE auton SYSTEM "auton.dtd">
+<auton>
+    <primitive id="RESET_POSITION"
+			   pathname="1Ball.wpilib.json"/>
+    <primitive id="DO_NOTHING"
+               time="0.5"
+               shooter="PREPARETOSHOOT"
+               headingOption="TOWARD_GOAL"/>
+    <primitive id="DO_NOTHING"
+               time="0.5"
+               shooter="SHOOT_HIGHGOAL_FAR"
+               headingOption="TOWARD_GOAL"/>
+    <primitive id="DRIVE_PATH"
+               pathname="1Ball.wpilib.json" 
+               rightIntake="INTAKE_ON"
+               headingOption="SPECIFIED_ANGLE"
+               heading="90"/> 
+    <primitive id="DRIVE_PATH"
+               pathname="fiveBallRight9.wpilib.json" 
+               leftIntake="INTAKE_ON"
+               headingOption="TOWARD_GOAL"/> 
+    <primitive id="DO_NOTHING"
+               time="2.0"
+               headingOption="TOWARD_GOAL_DRIVE"
+               shooter="SHOOT_HIGHGOAL_FAR"/> 
+    <primitive id="DO_NOTHING"
+               time="10.0"
+               headingOption="TOWARD_GOAL"
+               shooter="SHOOT_HIGHGOAL_FAR"/>
+</auton>
