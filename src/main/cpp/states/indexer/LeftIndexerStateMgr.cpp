@@ -78,7 +78,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
         auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
         auto targetState = currentState;
 
-        auto controller = TeleopControl::GetInstance();
+        //auto controller = TeleopControl::GetInstance();
 
         //bool ballPresent = m_indexer->IsBallPresent();
         //Logger::GetLogger()->ToNtTable(m_indexer->GetNetworkTableName(), string("Ball Present"), ballPresent ? string("true") : string("false"));
@@ -142,6 +142,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
         //std::cout << "!ballPresent: " << to_string(!ballPresent) << std::endl;
 
         //if (m_leftIntakeStateMgr != nullptr && controller != nullptr && !ballPresent) 
+        /*
         if (m_leftIntakeStateMgr != nullptr && controller != nullptr) 
         {
             //std::cout << "Intaking through indexer" << std::endl;

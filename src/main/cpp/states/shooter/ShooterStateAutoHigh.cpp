@@ -56,6 +56,7 @@ void ShooterStateAutoHigh::Init()
     auto shooter = GetShooter();    
     if (shooter != nullptr)
     {
+        /**
         double inches = 75.0;
         if (m_dragonLimeLight != nullptr)
         {
@@ -70,7 +71,7 @@ void ShooterStateAutoHigh::Init()
             currentLeftIndexerStateMgrState = static_cast<IndexerStates::INDEXER_STATE>(leftIndexerStateMgr->GetCurrentState());
         }
         auto indexerOffset = currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX ? 0.0 : 2.0;
-
+        **/
         auto shooterTarget = GetPrimaryTarget();
         auto shooterTarget2 = GetSecondaryTarget();
         /**
