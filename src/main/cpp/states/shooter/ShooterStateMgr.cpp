@@ -72,7 +72,6 @@ ShooterStateMgr::ShooterStateMgr() : StateMgr(),
     stateMap[m_shooterHighGoalFarXmlString] = m_shootCloseState;
     stateMap[m_shooterLowGoalXmlString] = m_shootLowState;
     stateMap[m_shooterManualXmlString] = m_manualShootState;
-    stateMap[m_shooterHoodXmlString] = m_shooterHoodAdjust;
     stateMap[m_shooterPrepareXmlString] = m_prepareToShoot;
 
     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();

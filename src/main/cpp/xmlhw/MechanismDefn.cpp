@@ -84,9 +84,9 @@ void MechanismDefn::ParseXML
             {
                 type = MechanismTypes::MECHANISM_TYPE::RIGHT_INTAKE;
             }
-            else if (typeStr.compare( "BALL_TRANSFER") == 0)
+            else if (typeStr.compare( "WHEELEDHOOD") == 0)
             {
-                type = MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER;
+                type = MechanismTypes::MECHANISM_TYPE::WHEELEDHOOD;
             }
             else if (typeStr.compare( "SHOOTER") == 0)
             {

@@ -436,7 +436,20 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
     </mechanism>
-
+    <mechanism type="WHEELEDHOOD"
+               networkTable="wheeledhoodNT"
+               controlFile="wheeledhood.xml">
+       <motor usage="SHOOTER"
+              canId="8"
+              pdpID="8"
+              type="FALCON"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="INTERNAL"
+              countsPerRev="2048"
+              gearRatio="1.0"
+              brakeMode="false"/>
+    </mechanism>
 <!-- ====================================================
      Climber
      ====================================================  -->

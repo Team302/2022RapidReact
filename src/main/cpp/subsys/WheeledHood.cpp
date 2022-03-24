@@ -1,6 +1,5 @@
-
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302
+// Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -14,53 +13,26 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
-
 // C++ Includes
+#include <memory>
+#include <string>
 
 // FRC includes
 
 // Team 302 includes
-#include <states/StateStruc.h>
-#include <states/shooter/ShooterStateMgr.h>
-#include <states/StateMgr.h>
-
-#include <subsys/Shooter.h>
-#include <subsys/Lift.h>
-
+#include <subsys/WheeledHood.h>
+#include <subsys/Mech1IndMotor.h>
+#include <hw/interfaces/IDragonMotorController.h>
 
 // Third Party Includes
+using namespace std;
 
-class LiftStateMgr : public StateMgr
+WheeledHood::WheeledHood
+(
+  std::string                                       controlFileName,
+  std::string                                       networkTableName,
+  std::shared_ptr<IDragonMotorController>           motor
+) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::WHEELEDHOOD,  controlFileName, networkTableName, motor)
 {
-    public:
-        /// @enum the various states of the Lift
-        enum LIFT_STATE
-        {
-            OFF,
-            LIFT,
-            LOWER,
-            MAX_BALL_TRANSFER_STATES
-        };
-
-		/// @brief  Find or create the state manmanager
-		/// @return RightIntakeStateMgr* pointer to the state manager
-		static LiftStateMgr* GetInstance();
-        void CheckForStateTransition() override;
-
-    protected:
-        const StateStruc  m_offState = {LIFT_STATE::OFF, StateType::LIFT, true};
-        const StateStruc  m_liftState = {LIFT_STATE::LIFT, StateType::LIFT, false};
-        const StateStruc  m_lowerState = {LIFT_STATE::LOWER, StateType::LIFT, false};
-
-
-    private:
-        LiftStateMgr();
-        ~LiftStateMgr() = default;
-
-		static LiftStateMgr*	m_instance;
-        ShooterStateMgr*        m_shooterStateMgr;
-        Shooter*                m_shooter;
-        Lift*                   m_lift;
-
-};
+    motor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
+}
