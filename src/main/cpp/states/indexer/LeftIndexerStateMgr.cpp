@@ -93,6 +93,7 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                 auto isAtSpeed = m_shooterStateMgr->AtTarget();
                 if (isAtSpeed)
                 {
+                    Logger::GetLogger()->ToNtTable(string("Indexer Timer"), string("Current time right: "), m_timer->Get().to<double>());
                     ShooterDelay();
                     switch (shooterState)
                     {
@@ -108,9 +109,13 @@ void LeftIndexerStateMgr::CheckForStateTransition()
                         case ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL:
                             if (m_delay)
                             {
-                                if (m_timer->HasElapsed(units::second_t(0.5)))
+                                if (m_timer->HasElapsed(units::second_t(0.6)))
                                 {
                                     targetState = INDEXER_STATE::INDEX;
+                                }
+                                else
+                                {
+                                    targetState = INDEXER_STATE::OFF;
                                 }
                             }
                             else
@@ -150,6 +155,11 @@ void LeftIndexerStateMgr::CheckForStateTransition()
             targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_LEFT) ) ? INDEXER_STATE::INDEX : targetState; 
         } 
         */
+
+       if (m_timer->HasElapsed(units::second_t(1.2)))
+       {
+           m_timer->Reset();
+       }
         
         if (targetState != currentState)
         {

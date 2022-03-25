@@ -42,13 +42,13 @@
 	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
 	                 controlDataIdentifier="closedloop2"
 	                 controlDataIdentifier2="openloop"
-					 value="32.0"
+					 value="31.0"
 					 secondValue="0.1"/>
 
 	<mechanismTarget stateIdentifier="PREPARETOSHOOT"
 	                 controlDataIdentifier="closedloop2"
 	                 controlDataIdentifier2="openloop"
-					 value="32.0"
+					 value="31.0"
 					 secondValue="0.1"/>
 
 

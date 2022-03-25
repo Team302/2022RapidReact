@@ -19,6 +19,7 @@
 // C++ Includes
 
 // FRC includes
+#include <frc/Timer.h>
 
 // Team 302 includes
 #include <states/indexer/IndexerStates.h>
@@ -50,10 +51,14 @@ class RightIndexerStateMgr : public IndexerStates
 
 
     private:
+        void DelayForLeftIndexer();
+
 		static RightIndexerStateMgr*	m_instance;
         Indexer*                        m_indexer;
         ShooterStateMgr*                m_shooterStateMgr;
         Shooter*                        m_shooter;
         RightIntakeStateMgr*            m_rightIntakeStateMgr;
 
+        frc::Timer*                      m_timer;
+        bool                            m_delay;
 };
