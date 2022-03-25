@@ -56,7 +56,18 @@ void ShooterStateAutoHigh::Init()
     auto shooter = GetShooter();    
     if (shooter != nullptr)
     {
-        /**
+        
+        auto currentLeftIndexerStateMgrState = IndexerStates::INDEXER_STATE::OFF;
+        auto leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
+        if (leftIndexerStateMgr != nullptr)
+        {
+            currentLeftIndexerStateMgrState = static_cast<IndexerStates::INDEXER_STATE>(leftIndexerStateMgr->GetCurrentState());
+        }
+        //auto indexerOffset = currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX ? 0.0 : 2.0;
+        
+        auto shooterTarget = GetPrimaryTarget();
+        auto shooterTarget2 = GetSecondaryTarget();
+
         double inches = 75.0;
         if (m_dragonLimeLight != nullptr)
         {
@@ -64,16 +75,32 @@ void ShooterStateAutoHigh::Init()
             inches = distance.to<double>();
         }
        
-        auto currentLeftIndexerStateMgrState = IndexerStates::INDEXER_STATE::OFF;
-        auto leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
-        if (leftIndexerStateMgr != nullptr)
+        if (inches > 110)
         {
-            currentLeftIndexerStateMgrState = static_cast<IndexerStates::INDEXER_STATE>(leftIndexerStateMgr->GetCurrentState());
+            if (currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX)
+            {
+                shooterTarget = 50;
+                shooterTarget2 = 0.83;
+            }
+            else
+            {
+                shooterTarget = 54;
+                shooterTarget2 = 0.65;
+            }
         }
-        auto indexerOffset = currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX ? 0.0 : 2.0;
-        **/
-        auto shooterTarget = GetPrimaryTarget();
-        auto shooterTarget2 = GetSecondaryTarget();
+        else
+        {
+           if (currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX)
+            {
+                shooterTarget = 44;
+                shooterTarget2 = 0.45;
+            }
+            else
+            {
+                shooterTarget = 47.5;
+                shooterTarget2 = 0.35;
+            } 
+        }
         /**
         auto shooterTarget = m_primaryFunctionCoeff[0]*inches*inches + 
                              m_primaryFunctionCoeff[1]*inches + 
@@ -86,6 +113,7 @@ void ShooterStateAutoHigh::Init()
                               GetSecondaryTarget() +
                               indexerOffset;
         **/
+       /*
         auto logger = Logger::GetLogger();
         auto nt = shooter->GetNetworkTableName();
         auto cd = GetPrimaryControlData();
@@ -106,9 +134,11 @@ void ShooterStateAutoHigh::Init()
         logger->ToNtTable(nt, string("control data d2"), cd2->GetD());
         logger->ToNtTable(nt, string("control data f2"), cd2->GetF());
         logger->ToNtTable(nt, string("target 2"), shooterTarget2);
+        */
         
         shooter->SetControlConstants(0, GetPrimaryControlData());
         shooter->SetSecondaryControlConstants(0, GetSecondaryControlData());
         shooter->UpdateTargets(shooterTarget, shooterTarget2);
+
     }
 }
