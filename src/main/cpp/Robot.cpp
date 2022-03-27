@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include <Robot.h>
-//#include <cameraserver/CameraServer.h>
+#include <cameraserver/CameraServer.h>
 
 #include <auton/CyclePrimitives.h>
 #include <gamepad/TeleopControl.h>
@@ -28,8 +28,8 @@
 
 void Robot::RobotInit() 
 {
-    //CameraServer::SetSize(CameraServer::kSize320x240);
-    //CameraServer::StartAutomaticCapture();
+    CameraServer::SetSize(CameraServer::kSize320x240);
+    CameraServer::StartAutomaticCapture();
 
     // Read the XML file to build the robot 
     auto defn = new RobotDefn();
