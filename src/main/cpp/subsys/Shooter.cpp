@@ -21,7 +21,7 @@
 
 // Team 302 includes
 #include <subsys/Shooter.h>
-#include <subsys/Mech1IndMotor.h>
+#include <subsys/Mech2IndMotors.h>
 #include <hw/interfaces/IDragonMotorController.h>
 
 // Third Party Includes
@@ -31,8 +31,10 @@ Shooter::Shooter
 (
   std::string                                       controlFileName,
   std::string                                       networkTableName,
-  std::shared_ptr<IDragonMotorController>           flywheelMotor
-) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::SHOOTER,  controlFileName, networkTableName, flywheelMotor)
+  std::shared_ptr<IDragonMotorController>           flywheelMotor,
+  std::shared_ptr<IDragonMotorController>           controlMotor
+) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::SHOOTER,  controlFileName, networkTableName, flywheelMotor, controlMotor)
 {
     flywheelMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::HIGH);
+    controlMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::HIGH);
 }

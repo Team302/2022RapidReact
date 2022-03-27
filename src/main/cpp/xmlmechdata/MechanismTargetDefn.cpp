@@ -15,6 +15,7 @@
 //====================================================================================================================================================
 
 // C++ Includes
+#include <array>
 #include <string>
 #include <cstring>
 
@@ -51,6 +52,8 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
     double target = 0.0;
     double secondTarget = 0.0;
     MechanismTargetData::SOLENOID solenoid = MechanismTargetData::SOLENOID::NONE; 
+    array<double,3> function1Coeff = {0.0, 0.0, 0.0};
+    array<double,3> function2Coeff = {0.0, 0.0, 0.0};
 
 
     // parse/validate xml
@@ -75,6 +78,30 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
         else if ( strcmp( attr.name(), "secondValue") == 0 )
         {
             secondTarget = attr.as_double();
+        }
+        else if ( strcmp( attr.name(), "function1A") == 0 )
+        {
+            function1Coeff[0] = attr.as_double();
+        }
+        else if ( strcmp( attr.name(), "function1B") == 0 )
+        {
+            function1Coeff[1] = attr.as_double();
+        }
+        else if ( strcmp( attr.name(), "function1C") == 0 )
+        {
+            function1Coeff[2] = attr.as_double();
+        }
+        else if ( strcmp( attr.name(), "function2A") == 0 )
+        {
+            function2Coeff[0] = attr.as_double();
+        }
+        else if ( strcmp( attr.name(), "function2B") == 0 )
+        {
+            function2Coeff[1] = attr.as_double();
+        }
+        else if ( strcmp( attr.name(), "function2C") == 0 )
+        {
+            function2Coeff[2] = attr.as_double();
         }
         else if( strcmp( attr.name(), "solenoid" ) == 0 )
         {
@@ -112,7 +139,9 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
                                             controllerIdentifier2, 
                                             target, 
                                             secondTarget,
-                                            solenoid );
+                                            solenoid,
+                                            function1Coeff,
+                                            function2Coeff );
     }
     else
     {

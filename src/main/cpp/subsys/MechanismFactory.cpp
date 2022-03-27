@@ -161,6 +161,7 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_leftIndexer == nullptr)
 			{
+				//auto ballsensor = GetDigitalInput(digitalInputs, DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_PRESENT);
 				auto indexerMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INDEXER);
 				if (indexerMotor.get() != nullptr)
 				{
@@ -168,6 +169,8 @@ void MechanismFactory::CreateIMechanism
 												controlFileName,
 												networkTableName,
 												indexerMotor);
+												//,
+												//ballsensor);
 					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Left Indexer mechanism"));
 				}
 				else
@@ -186,6 +189,7 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_rightIndexer == nullptr)
 			{
+				//auto ballsensor = GetDigitalInput(digitalInputs, DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_PRESENT);
 				auto indexerMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INDEXER);
 				if (indexerMotor.get() != nullptr)
 				{
@@ -193,6 +197,8 @@ void MechanismFactory::CreateIMechanism
 												controlFileName,
 												networkTableName,
 												indexerMotor);
+												//,
+												//ballsensor);
 					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Right Indexer mechanism"));
 				}
 				else
@@ -252,10 +258,11 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_shooter == nullptr)
 			{
-				auto shooterMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER);
-				if ( shooterMotor.get() != nullptr)
+				auto shooterMotor = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER);
+				auto shooterMotor2 = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER2);
+				if ( shooterMotor.get() != nullptr && shooterMotor2.get() != nullptr)
 				{
-					m_shooter = new Shooter(controlFileName, networkTableName, shooterMotor);
+					m_shooter = new Shooter(controlFileName, networkTableName, shooterMotor, shooterMotor2);
 				}
 				else
 				{

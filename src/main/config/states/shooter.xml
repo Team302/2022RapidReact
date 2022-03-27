@@ -21,12 +21,23 @@
 
  	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
 	                 controlDataIdentifier="closedloop2"
-					 value="58.7"/> 
-
+	                 controlDataIdentifier2="closedloop2"
+					 value="2.0"
+					 secondValue="2.0"
+					 function1B="0.1939"
+					 function1C="40.788" 
+					 function2B="0.1939"
+					 function2C="40.788"/> 
 
  	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
 	                 controlDataIdentifier="closedloop2"
-					 value="58.7"/> 
+	                 controlDataIdentifier2="closedloop2"
+					 value="2.0"
+					 secondValue="2.0"
+					 function1B="0.1939"
+					 function1C="40.788" 
+					 function2B="0.1939"
+					 function2C="40.788"/> 
 
 	<mechanismTarget stateIdentifier="SHOOT_LOWGOAL"
 	                 controlDataIdentifier="openloop"
@@ -44,12 +55,5 @@
 	                 controlDataIdentifier="closedloop2"
 					 value="32"/>
 
- 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_CLOSE"
-	                 controlDataIdentifier="closedloop2"
-					 value="3"/> 
 
-
- 	<mechanismTarget stateIdentifier="SHOOT_HIGHGOAL_FAR"
-	                 controlDataIdentifier="closedloop2"
-					 value="3"/> 
 </statedata>

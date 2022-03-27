@@ -72,7 +72,6 @@ ShooterStateMgr::ShooterStateMgr() : StateMgr(),
     stateMap[m_shooterHighGoalFarXmlString] = m_shootCloseState;
     stateMap[m_shooterLowGoalXmlString] = m_shootLowState;
     stateMap[m_shooterManualXmlString] = m_manualShootState;
-    stateMap[m_shooterHoodXmlString] = m_shooterHoodAdjust;
     stateMap[m_shooterPrepareXmlString] = m_prepareToShoot;
 
     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
@@ -109,6 +108,7 @@ void ShooterStateMgr::CheckForStateTransition()
     {    
         auto currentState = static_cast<SHOOTER_STATE>(GetCurrentState());
         auto targetState = currentState;
+        Logger::GetLogger()->ToNtTable(m_nt, string("current state "), currentState);
 
         auto isShootHighSelected    = false;
         auto isShootLowSelected     = false;
@@ -119,10 +119,10 @@ void ShooterStateMgr::CheckForStateTransition()
         auto controller = TeleopControl::GetInstance();
         if ( controller != nullptr )
         {
-            isShootHighSelected     = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH);
-            isShootLowSelected      = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW);
-            isManualShootSelected   = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT);
-            isShooterOffSelected    = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_OFF);
+            isShootHighSelected      = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_HIGH);
+            isShootLowSelected       = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_SHOOT_LOW);
+            isManualShootSelected    = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_SHOOT);
+            isShooterOffSelected     = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_OFF);
             isPrepareToShootSelected = controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_MTR_ON);
         }
 
@@ -176,13 +176,3 @@ void ShooterStateMgr::CheckForStateTransition()
     }
 }
 
-/// @brief  set the current state, initialize it and run it
-/// @return void
-void ShooterStateMgr::SetCurrentState
-(
-    int             stateID,
-    bool            run
-)
-{
-    StateMgr::SetCurrentState(stateID, run);
-}

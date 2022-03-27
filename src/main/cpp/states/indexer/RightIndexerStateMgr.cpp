@@ -54,7 +54,8 @@ RightIndexerStateMgr::RightIndexerStateMgr() : IndexerStates(),
                                                 m_indexer(MechanismFactory::GetMechanismFactory()->GetRightIndexer()),
                                                 m_shooterStateMgr(ShooterStateMgr::GetInstance()),
                                                 m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter()),
-                                                m_rightIntakeStateMgr(RightIntakeStateMgr::GetInstance())
+                                                m_rightIntakeStateMgr(RightIntakeStateMgr::GetInstance()),
+                                                m_timer(new frc::Timer())
 
 {
     map<string, StateStruc> stateMap;
@@ -74,6 +75,10 @@ void RightIndexerStateMgr::CheckForStateTransition()
     {
         auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
         auto targetState = currentState;
+
+        //auto controller = TeleopControl::GetInstance();
+
+       // bool ballPresent = m_indexer->IsBallPresent();
         
         if (m_shooterStateMgr != nullptr)
         {
@@ -83,6 +88,8 @@ void RightIndexerStateMgr::CheckForStateTransition()
                 auto isAtSpeed = m_shooterStateMgr->AtTarget();
                 if (isAtSpeed)
                 {
+                    Logger::GetLogger()->ToNtTable(string("Indexer Timer"), string("Current time left: "), m_timer->Get().to<double>());
+                    DelayForLeftIndexer();
                     switch (shooterState)
                     {
                         case ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL:
@@ -99,6 +106,9 @@ void RightIndexerStateMgr::CheckForStateTransition()
                             break;
 
                         case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
+                            m_timer->Stop();
+                            m_timer->Reset();
+                            m_delay = false;
                             targetState = INDEXER_STATE::OFF;
                             break;
 
@@ -113,10 +123,40 @@ void RightIndexerStateMgr::CheckForStateTransition()
                 }
             }
         }
+
+        //if (m_rightIntakeStateMgr != nullptr && controller != nullptr && !ballPresent) 
+        /*
+        if (m_rightIntakeStateMgr != nullptr && controller != nullptr) 
+        { 
+            auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_rightIntakeStateMgr->GetCurrentState()); 
+            targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT) ) ? INDEXER_STATE::INDEX : targetState; 
+        } */
+
+        if (m_timer->HasElapsed(units::second_t(1.2)))
+        {
+           m_timer->Reset();
+        }
+
+        if (m_delay)
+        {
+            if (m_timer->HasElapsed(units::second_t(0.6)))
+            {
+                targetState = INDEXER_STATE::OFF;
+            }
+        }
         
         if (targetState != currentState)
         {
             SetCurrentState(targetState, true);
         }
     }    
+}
+
+void RightIndexerStateMgr::DelayForLeftIndexer()
+{
+    if (GetCurrentState() == INDEXER_STATE::INDEX )
+    {
+        m_timer->Start();
+        m_delay = true;
+    }
 }

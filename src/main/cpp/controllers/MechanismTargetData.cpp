@@ -13,6 +13,7 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+#include <array>
 #include <vector>
 #include <string>
 
@@ -28,7 +29,9 @@ MechanismTargetData::MechanismTargetData
     string                                      controller2,
     double                                      target,
     double                                      secondTarget,
-    SOLENOID                                    solenoid
+    SOLENOID                                    solenoid,
+    array<double,3>                             function1Coeff,
+    array<double,3>                             function2Coeff
 ) : m_state( state ),
     m_controller( controller ),
     m_controller2( controller2 ),
@@ -36,7 +39,9 @@ MechanismTargetData::MechanismTargetData
     m_controlData(nullptr),
     m_controlData2(nullptr),
     m_solenoid( solenoid ),
-    m_secondTarget( secondTarget )
+    m_secondTarget( secondTarget ),
+    m_function1Coeff(function1Coeff),
+    m_function2Coeff(function2Coeff)
 {
 }
 

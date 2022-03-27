@@ -10,14 +10,8 @@
                headingOption="SPECIFIED_ANGLE"
                heading="-90"/> 
     <primitive id="DO_NOTHING"
-               time="0.5"
                rightIntake="INTAKE_ON"
-               headingOption="SPECIFIED_ANGLE"
-               heading="0"/>
-    <primitive id="DRIVE_PATH"
-               pathname="LeftHigh2Short.wpilib.json" 
-               rightIntake="INTAKE_ON"
-               headingOption="TOWARD_GOAL"/> 
+               headingOption="TOWARD_GOAL_DRIVE"/> 
     <primitive id="DO_NOTHING"
                time="10.0"
                headingOption="TOWARD_GOAL"

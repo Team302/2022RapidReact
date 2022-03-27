@@ -122,6 +122,12 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
         {
             talon->SetAsFollowerMotor( followMotor );
         }
+
+        talon->ConfigPeakCurrentLimit( peakCurrentLimit, 50 );
+        talon->ConfigPeakCurrentDuration( peakCurrentDuration, 50 );
+        talon->ConfigContinuousCurrentLimit( continuousCurrentLimit, 50 );
+        talon->EnableCurrentLimiting( enableCurrentLimit );
+        
         /** **/
         controller.reset( talon );
     }

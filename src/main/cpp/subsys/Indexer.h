@@ -23,6 +23,7 @@
 
 //Team 302 Includes
 #include <subsys/Mech1IndMotor.h>
+#include <hw/DragonDigitalInput.h>
 
 class IDragonMotorController;
 
@@ -34,9 +35,14 @@ class Indexer : public Mech1IndMotor
             MechanismTypes::MECHANISM_TYPE          type,
             std::string                             controlFileName,
             std::string                             ntName,
-            std::shared_ptr<IDragonMotorController> indexerMotor
+            std::shared_ptr<IDragonMotorController> indexerMotor//,
+            //std::shared_ptr<DragonDigitalInput>     ballPresent
         );
+
+        //bool IsBallPresent() const;
 
         Indexer() = delete;
         virtual ~Indexer() = default;
+    private:
+        //std::shared_ptr<DragonDigitalInput>   m_ballPresent;
 };

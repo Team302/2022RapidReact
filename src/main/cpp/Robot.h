@@ -11,19 +11,13 @@
 #include <auton/CyclePrimitives.h>
 #include <gamepad/TeleopControl.h>
 #include <states/BallTransfer/BallTransferStateMgr.h>
-#include <states/climber/ClimberStateMgr.h>
 #include <states/chassis/SwerveDrive.h>
-#include <states/intake/IntakeStateMgr.h>
-#include <states/shooter/ShooterStateMgr.h>
-#include <subsys/BallTransfer.h>
-#include <subsys/Climber.h>
-#include <subsys/Intake.h>
-#include <subsys/interfaces/IChassis.h>
-#include <subsys/Shooter.h>
-#include <subsys/Lift.h>
-#include <states/lift/LiftStateMgr.h>
-#include <subsys/Indexer.h>
+#include <states/climber/ClimberStateMgr.h>
 #include <states/indexer/IndexerStates.h>
+#include <states/intake/IntakeStateMgr.h>
+#include <states/lift/LiftStateMgr.h>
+#include <states/shooter/ShooterStateMgr.h>
+#include <subsys/interfaces/IChassis.h>
 
 
 
@@ -49,26 +43,11 @@ class Robot : public frc::TimedRobot
   SwerveDrive*          m_swerve;
 
   IntakeStateMgr*       m_leftIntakeStateMgr;
-  Intake*               m_leftIntake;
-
   IntakeStateMgr*       m_rightIntakeStateMgr;
-  Intake*               m_rightIntake;
-
   BallTransferStateMgr* m_ballTransferStateMgr;
-  BallTransfer*         m_ballTransfer;
-
-  ShooterStateMgr*      m_shooterStateMgr;
-  Shooter*              m_shooter;
-
-  ClimberStateMgr*      m_climberStateMgr;
-  Climber*              m_climber;
-
   IndexerStates*        m_leftIndexerStateMgr;
-  Indexer*              m_leftIndexer;
-
   IndexerStates*        m_rightIndexerStateMgr;
-  Indexer*              m_rightIndexer;
-
   LiftStateMgr*         m_liftStateMgr;
-  Lift*                 m_lift;
+  ShooterStateMgr*      m_shooterStateMgr;
+  ClimberStateMgr*      m_climberStateMgr;
 };

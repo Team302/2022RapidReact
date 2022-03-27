@@ -21,7 +21,7 @@
 // Team 302 includes
 #include <controllers/ControlData.h>
 #include <states/shooter/ShooterState.h>
-#include <states/Mech1MotorState.h>
+#include <states/Mech2MotorState.h>
 #include <subsys/MechanismFactory.h>
 
 // Third Party Includes
@@ -30,8 +30,10 @@
 ShooterState::ShooterState
 (
     ControlData*                    control, 
-    double                          primaryTarget
-) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetShooter(), control, primaryTarget),
+    ControlData*                    control2,
+    double                          primaryTarget,
+    double                          secondaryTarget
+) : Mech2MotorState( MechanismFactory::GetMechanismFactory()->GetShooter(), control, control2, primaryTarget, secondaryTarget),
     m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter())
 {
 }
@@ -40,11 +42,18 @@ bool ShooterState::AtTarget() const
 {
     if (m_shooter != nullptr)
     {
-        auto shootermotor = m_shooter->GetMotor();
+        auto shootermotor = m_shooter->GetPrimaryMotor();
         auto rps = shootermotor.get()->GetRPS();
-        auto target = m_shooter->GetTarget();
-        return (abs(rps - target) < 1.5);
+        auto target = m_shooter->GetPrimaryTarget();
 
+        /**
+        auto shootermotor2 = m_shooter->GetSecondaryMotor();
+        auto rps2 = shootermotor2.get()->GetRPS();
+        auto target2 = m_shooter->GetSecondaryTarget();
+        return (abs(rps - target) < 1.5 && abs(rps2 - target2) < 1.5);
+        **/
+
+        return (abs(rps - target) < 1.5);
     }
     return true;
 }

@@ -93,9 +93,11 @@ void StateMgr::Init
                     if ( m_stateVector[slot] == nullptr )
                     {
                         auto controlData = td->GetController();
-                	auto controlData2 = td->GetController2();
+                	    auto controlData2 = td->GetController2();
                         auto target = td->GetTarget();
-                	auto secondaryTarget = td->GetSecondTarget();
+                	    auto secondaryTarget = td->GetSecondTarget();
+                        auto function1Coeff = td->GetFunction1Coeff();
+                        auto function2Coeff = td->GetFunction2Coeff();
                         auto type = struc.type;
                         IState* thisState = nullptr;
                         switch (type)
@@ -133,61 +135,73 @@ void StateMgr::Init
                         	    break;
                         	    
                     	    case StateType::BALL_TRANSFER:
-                        	    thisState = new BallTransferState(controlData, controlData2, target, secondaryTarget);
+                        	    thisState = new BallTransferState(controlData, 
+                                                                  controlData2, 
+                                                                  target, 
+                                                                  secondaryTarget);
                         	    break;
                     
-                    	        case StateType::SHOOTER:
-                       		    thisState = new ShooterState(controlData, target);
+                    	    case StateType::SHOOTER:
+                       		    thisState = new ShooterState(controlData, 
+                                                             controlData2, 
+                                                             target, 
+                                                             secondaryTarget);
                        		    break;
 
-                    	        case StateType::SHOOTER_MANUAL:
+                    	    case StateType::SHOOTER_MANUAL:
                        		    thisState = new ShooterStateManual();
                        		    break;
 
-                    	        case StateType::SHOOTER_AUTO:
-                       		    thisState = new ShooterStateAutoHigh(controlData, target);
+                    	    case StateType::SHOOTER_AUTO:
+                       		    thisState = new ShooterStateAutoHigh(controlData, 
+                                                                     controlData2, 
+                                                                     target, 
+                                                                     secondaryTarget, 
+                                                                     function1Coeff, 
+                                                                     function2Coeff);
                        		    break;
 
-                                case StateType::CLIMBER:
-                                    thisState = new ClimberState(controlData, controlData2, target, secondaryTarget);
-                                    break;
+                            case StateType::CLIMBER:
+                                thisState = new ClimberState(controlData, 
+                                                             controlData2, 
+                                                             target, 
+                                                             secondaryTarget);
+                                break;
 
-                                case StateType::LEFT_INDEXER:
-                                    thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetLeftIndexer(), controlData, target);
-                                    break;
+                            case StateType::LEFT_INDEXER:
+                                thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetLeftIndexer(), controlData, target);
+                                break;
 
-                                case StateType::RIGHT_INDEXER:
-                                    thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetRightIndexer(), controlData, target);
-                                    break;
+                            case StateType::RIGHT_INDEXER:
+                                thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetRightIndexer(), controlData, target);
+                                break;
                                 
-                                case StateType::LIFT:
-                                    thisState = new LiftState(MechanismFactory::GetMechanismFactory()->GetLift(), controlData, target);
-                                    break;
+                            case StateType::LIFT:
+                                thisState = new LiftState(MechanismFactory::GetMechanismFactory()->GetLift(), controlData, target);
+                                break;
 
                     	    default:
-                    	    {
                         	    Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));
-                    	    }
-                    	    break;
-                	}
-                	if (thisState != nullptr)
-                	{
+                    	        break;
+                	    }
+                	    if (thisState != nullptr)
+                	    {
                     	    m_stateVector[slot] = thisState;
                             if (struc.isDefault)
                             {
-                        	m_currentState = thisState;
-                        	m_currentStateID = slot;
-                        	m_currentState->Init();
+                        	    m_currentState = thisState;
+                        	    m_currentStateID = slot;
+                        	    m_currentState->Init();
                     	    }
-                	}
+                	    }
             	    }
             	    else
             	    {
-                	Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("multiple mechanism state info for state"));
+                	    Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("multiple mechanism state info for state"));
             	    }
-        	}
-        	else
-        	{
+        	    }
+        	    else
+        	    {
             	    Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("state not found"));
                 }
             }
