@@ -33,20 +33,18 @@
 // FRC includes
 
 // Team 302 includes
-#include <subsys/MechanismTypes.h>
-#include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/DigitalInputMap.h>
-#include <hw/usages/ServoMap.h>
 #include <hw/usages/DragonSolenoidMap.h>
-#include <subsys/interfaces/IMech.h>
-#include <subsys/Intake.h>
-#include <subsys/BallTransfer.h>
-#include <subsys/Shooter.h>
-#include <subsys/Climber.h>
-#include <subsys/BallTransfer.h>
-#include <subsys/Lift.h>
-#include <subsys/Indexer.h>
+#include <hw/usages/IDragonMotorControllerMap.h>
+#include <hw/usages/ServoMap.h>
 #include <subsys/CameraServo.h>
+#include <subsys/Climber.h>
+#include <subsys/Indexer.h>
+#include <subsys/Intake.h>
+#include <subsys/interfaces/IMech.h>
+#include <subsys/Lift.h>
+#include <subsys/MechanismTypes.h>
+#include <subsys/Shooter.h>
 
 // Third Party Includes
 
@@ -92,7 +90,6 @@ class MechanismFactory
 			const DigitalInputMap&									digitalInputs,
 			std::shared_ptr<ctre::phoenix::sensors::CANCoder>		canCoder
 		);
-		inline BallTransfer* GetBallTransfer() const { return m_ballTransfer;};
 		
 		inline Intake* GetLeftIntake() const { return m_leftIntake;};
 		inline Intake* GetRightIntake() const { return m_rightIntake;};
@@ -100,7 +97,6 @@ class MechanismFactory
 		inline Indexer* GetLeftIndexer() const { return m_leftIndexer;};
 		inline Indexer* GetRightIndexer() const { return m_rightIndexer;};
 		inline Lift* GetLift() const { return m_lift;};
-		inline Servo* GetServo() const { return m_servo;};
 		inline CameraServo* GetCameraServo() const { return m_cameraServo;};
 
 		IMech* GetMechanism
@@ -155,8 +151,6 @@ class MechanismFactory
 		Indexer* 		m_rightIndexer;
 		Lift* 			m_lift;
 		
-		Servo*		        m_servo;
-
 		CameraServo*				m_cameraServo;
 
 };
