@@ -354,8 +354,8 @@
               gearRatio="1.0"
               brakeMode="false"
               peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
+              continuousCurrentLimit="50"
+              peakCurrentLimit="50"
               currentLimiting="true" 
               forwardlimitswitch="false"
               forwardlimitswitchopen="true"
@@ -370,7 +370,11 @@
               feedbackDevice="INTERNAL"
               countsPerRev="2048"
               gearRatio="1.0"
-              brakeMode="false"/>
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="50"
+              peakCurrentLimit="50"
+              currentLimiting="true" />
     </mechanism>
 
 <!-- ====================================================
@@ -421,9 +425,9 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="true"
               reverselimitswitchopen="true"/> 
-       <!-- digitalInput usage= "BALL_PRESENT"
+       <digitalInput usage= "BALL_PRESENT"
                      digitalId="1"
-                     reversed="false"/ -->
+                     reversed="false"/>
   </mechanism>
 
   <mechanism type="RIGHT_INDEXER"
@@ -447,9 +451,9 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="true"
               reverselimitswitchopen="true"/>
-       <!-- digitalInput usage="BALL_PRESENT"
+       <digitalInput usage="BALL_PRESENT"
                      digitalId="1"
-                     reversed="false"/ -->
+                     reversed="false"/>
   </mechanism>
 
 <!-- ====================================================

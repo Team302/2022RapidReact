@@ -5,8 +5,8 @@
 	             mode="PERCENT_OUTPUT"/>
 				 
 	<controlData identifier="closedloop"
-				 mode="POSITION_DEGREES"
-				 proportional="0.5"
+				 mode="VELOCITY_RPS"
+				 proportional="0.075"
 				 feedforward="0.025"/>
 
 	<controlData identifier="closedloop2"
@@ -41,15 +41,15 @@
 
 	<mechanismTarget stateIdentifier="MANUAL_SHOOT"
 	                 controlDataIdentifier="closedloop2"
-	                 controlDataIdentifier2="openloop"
+	                 controlDataIdentifier2="closedloop"
 					 value="31.0"
-					 secondValue="0.1"/>
+					 secondValue="20"/>
 
 	<mechanismTarget stateIdentifier="PREPARETOSHOOT"
 	                 controlDataIdentifier="closedloop2"
-	                 controlDataIdentifier2="openloop"
+	                 controlDataIdentifier2="closedloop"
 					 value="31.0"
-					 secondValue="0.1"/>
+					 secondValue="20"/>
 
 
 </statedata>

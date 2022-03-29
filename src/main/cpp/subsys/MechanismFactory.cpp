@@ -161,16 +161,15 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_leftIndexer == nullptr)
 			{
-				//auto ballsensor = GetDigitalInput(digitalInputs, DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_PRESENT);
+				auto ballsensor = GetDigitalInput(digitalInputs, DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_PRESENT);
 				auto indexerMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INDEXER);
 				if (indexerMotor.get() != nullptr)
 				{
 					m_leftIndexer = new Indexer(MechanismTypes::MECHANISM_TYPE::LEFT_INDEXER,
 												controlFileName,
 												networkTableName,
-												indexerMotor);
-												//,
-												//ballsensor);
+												indexerMotor,
+												ballsensor);
 					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Left Indexer mechanism"));
 				}
 				else
@@ -189,16 +188,15 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_rightIndexer == nullptr)
 			{
-				//auto ballsensor = GetDigitalInput(digitalInputs, DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_PRESENT);
+				auto ballsensor = GetDigitalInput(digitalInputs, DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_PRESENT);
 				auto indexerMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INDEXER);
 				if (indexerMotor.get() != nullptr)
 				{
 					m_rightIndexer = new Indexer(MechanismTypes::MECHANISM_TYPE::RIGHT_INDEXER,
 												controlFileName,
 												networkTableName,
-												indexerMotor);
-												//,
-												//ballsensor);
+												indexerMotor,
+												ballsensor);
 					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Right Indexer mechanism"));
 				}
 				else

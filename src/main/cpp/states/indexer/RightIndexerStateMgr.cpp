@@ -76,9 +76,9 @@ void RightIndexerStateMgr::CheckForStateTransition()
         auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
         auto targetState = currentState;
 
-        //auto controller = TeleopControl::GetInstance();
+        auto controller = TeleopControl::GetInstance();
 
-       // bool ballPresent = m_indexer->IsBallPresent();
+        bool ballPresent = m_indexer->IsBallPresent();
         
         if (m_shooterStateMgr != nullptr)
         {
@@ -124,22 +124,22 @@ void RightIndexerStateMgr::CheckForStateTransition()
             }
         }
 
-        //if (m_rightIntakeStateMgr != nullptr && controller != nullptr && !ballPresent) 
-        /*
-        if (m_rightIntakeStateMgr != nullptr && controller != nullptr) 
-        { 
-            auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_rightIntakeStateMgr->GetCurrentState()); 
-            targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT) ) ? INDEXER_STATE::INDEX : targetState; 
-        } */
-
-        if (m_timer->HasElapsed(units::second_t(1.2)))
+        if (m_rightIntakeStateMgr != nullptr && controller != nullptr && !ballPresent) 
+        {
+            if (m_rightIntakeStateMgr != nullptr && controller != nullptr) 
+            { 
+                auto intakeState = static_cast<IntakeStateMgr::INTAKE_STATE>(m_rightIntakeStateMgr->GetCurrentState()); 
+                targetState = (intakeState == IntakeStateMgr::INTAKE_STATE::INTAKE && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RIGHT) ) ? INDEXER_STATE::INDEX : targetState; 
+            } 
+        }
+        if (m_timer->HasElapsed(units::second_t(1.0)))
         {
            m_timer->Reset();
         }
 
         if (m_delay)
         {
-            if (m_timer->HasElapsed(units::second_t(0.6)))
+            if (m_timer->HasElapsed(units::second_t(0.5)))
             {
                 targetState = INDEXER_STATE::OFF;
             }
