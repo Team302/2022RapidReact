@@ -22,19 +22,19 @@
 #include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
-#include <states/IState.h>
-#include <states/ShooterStateMgr.h>
-#include <xmlmechdata/StateDataDefn.h>
 #include <controllers/MechanismTargetData.h>
-#include <utils/Logger.h>
 #include <gamepad/TeleopControl.h>
-#include <states/ShooterState.h>
+#include <hw/DragonLimelight.h>
+#include <hw/factories/LimelightFactory.h>
+#include <states/IState.h>
+#include <states/shooter/ShooterState.h>
+#include <states/shooter/ShooterStateMgr.h>
 #include <states/StateMgr.h>
 #include <states/StateStruc.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
-#include <hw/DragonLimelight.h>
-#include <hw/factories/LimelightFactory.h>
+#include <utils/Logger.h>
+#include <xmlmechdata/StateDataDefn.h>
 
 
 // Third Party Includes
@@ -70,7 +70,10 @@ ShooterStateMgr::ShooterStateMgr()
 /// @brief  run the current state
 /// @return void
 
-bool ShooterStateMgr::AtTarget() {return GetCurrentStatePtr()->AtTarget();}
+bool ShooterStateMgr::AtTarget() const
+{
+    return GetCurrentStatePtr()->AtTarget();
+}
 
 void ShooterStateMgr::CheckForStateTransition()
 {
@@ -78,11 +81,11 @@ void ShooterStateMgr::CheckForStateTransition()
     {
         if(m_dragonLimeLight->EstimateTargetDistance() >= units::length::inch_t(m_CHANGE_STATE_TARGET))
         {
-        SetCurrentState(SHOOT_FAR, true);
+            SetCurrentState(ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR, true);
         }
         else
         {
-        SetCurrentState(SHOOT_CLOSE, true);
+            SetCurrentState(ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE, true);
         }
     }
 

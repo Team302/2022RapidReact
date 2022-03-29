@@ -337,57 +337,6 @@
     </mechanism>
 
 <!-- ====================================================
-     Ball Transfer
-     ====================================================  -->
-
-    <mechanism type="BALL_TRANSFER"
-               networkTable="BallTransferNT"
-               controlFile="balltransfer.xml">
-       <motor usage="BALL_TRANSFER_SPIN"
-              canId="3"
-              pdpID="3"
-              type="TALONSRX"
-              inverted="true"
-              sensorInverted="false"
-              feedbackDevice="NONE"
-              countsPerRev="0"
-              gearRatio="1.0"
-              brakeMode="false"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="false"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="false"
-              reverselimitswitchopen="true"/>
-       <motor usage="BALL_TRANSFER_LIFT"
-              canId="4"
-              pdpID="4"
-              type="TALONSRX"
-              inverted="false"
-              sensorInverted="false"
-              feedbackDevice="NONE"
-              countsPerRev="0"
-              gearRatio="1.0"
-              brakeMode="true"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="true"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="true"
-              reverselimitswitchopen="true"/>      
-       <digitalInput usage="BALL_PRESENT"
-                     digitalId="0"  
-                     reversed="true"/>      
-       <digitalInput usage="BALL_TRANSFER_FORWARD"
-                     digitalId="1"  
-                     reversed="true"/>      
-    </mechanism>
-
-<!-- ====================================================
      Shooter
      ====================================================  -->
     <mechanism type="SHOOTER"

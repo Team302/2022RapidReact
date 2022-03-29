@@ -72,13 +72,12 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 
 MechanismFactory::MechanismFactory() : 	m_leftIntake(nullptr),
 										m_rightIntake(nullptr),
-										m_ballTransfer(nullptr),
 										m_shooter(nullptr),
 										m_climber(nullptr),
 										m_leftIndexer(nullptr),
 										m_rightIndexer(nullptr),
 										m_lift(nullptr),
-									        m_cameraServo(nullptr)
+									    m_cameraServo(nullptr)
 
 {
 }
@@ -240,21 +239,6 @@ void MechanismFactory::CreateIMechanism
 		}
 		break;
 
-		case MechanismTypes::BALL_TRANSFER:
-		{
-			if (m_ballTransfer == nullptr)
-			{
-				auto spin = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
-				auto lift = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_SPIN);
-				auto ballPresentSw = GetDigitalInput(digitalInputs, DigitalInputUsage::BALL_PRESENT);
-				auto liftForwardSw = GetDigitalInput(digitalInputs, DigitalInputUsage::BALL_TRANSFER_FORWARD);
-				if ((lift.get() != nullptr) && spin.get() != nullptr && ballPresentSw.get() != nullptr && liftForwardSw.get() != nullptr)
-				{
-					m_ballTransfer = new BallTransfer(networkTableName, controlFileName, spin, lift, ballPresentSw, liftForwardSw);
-				}
-			}
-		}
-		break;
 
 		case MechanismTypes::MECHANISM_TYPE::SHOOTER:
 		{
@@ -298,47 +282,17 @@ void MechanismFactory::CreateIMechanism
 		case MechanismTypes::CAMERA_SERVO:
 		{
 			//logger about to create camera servo
-			Logger::GetLogger()->ToNtTable(string("Sierra"), string("about to create camera servo"), string("true"));
 			if (m_cameraServo == nullptr)
 			{
-				//logger created the servo
-				Logger::GetLogger()->ToNtTable(string("Sierra"), string("created the camera servo"), string("true"));
 				auto servo = GetServo(servos, ServoUsage::RELEASE_SERVO);
 				if (servo != nullptr)
 				{
-					Logger::GetLogger()->ToNtTable(string("Sierra"), string("did not create the camera servo"), string("true"));
 					m_cameraServo = new CameraServo(servo);
-				}
-				else
-				{
-					//logger did not get camera servo
-					Logger::GetLogger()->ToNtTable(string("Sierra"), string("did not create the camera servo"), string("false"));
 				}
 			}
 		}
 		break;	
-		case MechanismTypes::CAMERA_SERVO:
-		{
-			//logger about to create camera servo
-			Logger::GetLogger()->ToNtTable(string("Sierra"), string("about to create camera servo"), string("true"));
-			if (m_cameraServo == nullptr)
-			{
-				//logger created the servo
-				Logger::GetLogger()->ToNtTable(string("Sierra"), string("created the camera servo"), string("true"));
-				auto servo = GetServo(servos, ServoUsage::RELEASE_SERVO);
-				if (servo != nullptr)
-				{
-					Logger::GetLogger()->ToNtTable(string("Sierra"), string("did not create the camera servo"), string("true"));
-					m_cameraServo = new CameraServo(servo);
-				}
-				else
-				{
-					//logger did not get camera servo
-					Logger::GetLogger()->ToNtTable(string("Sierra"), string("did not create the camera servo"), string("false"));
-				}
-			}
-		}
-		break;	
+
 		default:
 		{
 			string msg = "unknown Mechanism type ";
@@ -396,10 +350,6 @@ IMech* MechanismFactory::GetMechanism
 
 		case MechanismTypes::MECHANISM_TYPE::RIGHT_INTAKE:
 			return GetRightIntake();
-			break;
-			
-		case MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER:
-			return GetBallTransfer();
 			break;
 
 		case MechanismTypes::MECHANISM_TYPE::LEFT_INDEXER:
@@ -465,7 +415,7 @@ DragonServo* MechanismFactory::GetServo
 	ServoUsage::SERVO_USAGE							usage
 )
 {
-	DragonServo* servo; //= nullptr;
+	DragonServo* servo = nullptr;
 	auto it = servos.find( usage );
 	if ( it != servos.end() )  // found it
 	{

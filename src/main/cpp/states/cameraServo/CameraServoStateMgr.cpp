@@ -48,7 +48,12 @@ CameraServoStateMgr* CameraServoStateMgr::GetInstance()
 {
 	if ( CameraServoStateMgr::m_instance == nullptr )
 	{
-	     CameraServoStateMgr::m_instance = new CameraServoStateMgr();
+	    auto mechFactory = MechanismFactory::GetMechanismFactory();
+	    auto cameraServo = mechFactory->GetCameraServo();
+	    if (cameraServo != nullptr)
+        {
+	        CameraServoStateMgr::m_instance = new CameraServoStateMgr();
+        }
 	}
 	return CameraServoStateMgr::m_instance;
 }

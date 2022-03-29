@@ -17,12 +17,7 @@
 
 <!ELEMENT mechanismTarget EMPTY>
 <!ATTLIST mechanismTarget 
-          stateIdentifier               ( INTAKEOFF | INTAKEON | INTAKEEXPEL |
-                                          BALLTRANSFEROFF | BALLTRANSFERINTAKE | BALLTRANSFEREXPEL |
-                                          ARMUP | ARMDOWN | ARMHOLDUP | ARMHOLDDOWN | ARMHOLDPOSITION |
-                                          BALLRELEASEHOLD | BALLRELEASEOPEN | SHOOTERCLOSE | SHOOTERFAR | 
-                                          SHOOTEROFF | CAMERASERVOLEFT | CAMERASERVORIGHT |
-                                          UNKNOWN ) "UNKNOWN"
+          stateIdentifier               CDATA #REQUIRED
           controlDataIdentifier         CDATA #REQUIRED
           controlDataIdentifier2        CDATA #IMPLIED
           value                         CDATA #REQUIRED
