@@ -18,12 +18,22 @@
 #include <subsys/Intake.h>
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/MechanismFactory.h>
+#include <auton/CyclePrimitives.h>
+#include <states/Intake/LeftIntakeStateMgr.h>
+#include <states/Intake/RightIntakeStateMgr.h>
+#include <states/ShooterStateMgr.h>
+#include <states/cameraServo/CameraServoStateMgr.h>
+#include <subsys/CameraServo.h>
+#include <utils/Logger.h>
+
+#include <states/servo/ServoStateMgr.h>
 #include <subsys/Shooter.h>
 #include <xmlhw/RobotDefn.h>
 #include <subsys/Indexer.h>
 #include <subsys/Lift.h>
 #include <states/indexer/LeftIndexerStateMgr.h>
 #include <states/indexer/RightIndexerStateMgr.h>
+#include <states/servo/ServoStateMgr.h>
 
 
 void Robot::RobotInit() 
@@ -49,6 +59,18 @@ void Robot::RobotInit()
     m_ballTransferStateMgr = BallTransferStateMgr::GetInstance();
     m_shooterStateMgr = ShooterStateMgr::GetInstance();
     m_climberStateMgr = ClimberStateMgr::GetInstance();
+
+    m_cameraServo = mechFactory->GetCameraServo();
+    //m_cameraServoStateMgr= m_cameraServo != nullptr ? CameraServoStateMgr::GetInstance() : nullptr;
+    m_cameraServoStateMgr = CameraServoStateMgr::GetInstance();
+    if (m_cameraServo != nullptr)
+    {
+        Logger::GetLogger()->ToNtTable(std::string("Sierra"), std::string("get camera servo"), std::string("true"));
+    }
+    else
+    {
+        Logger::GetLogger()->ToNtTable(std::string("Sierra"), std::string("get camera servo"), std::string("false"));
+    }
 
     m_cyclePrims = new CyclePrimitives();
 }
@@ -135,6 +157,15 @@ void Robot::TeleopInit()
     {
         m_liftStateMgr->RunCurrentState();
     }
+    if (m_cameraServoStateMgr != nullptr && m_cameraServo != nullptr)
+    {
+        m_cameraServoStateMgr->SetCurrentState(CameraServoStateMgr::SCAN , true);
+    }
+       /* if (m_cameraServo != nullptr && m_cameraServoStateMgr != nullptr)
+    {
+        m_cameraServoStateMgr->SetCurrentState(CameraServoStateMgr::LOOK_RIGHT, true);
+        //m_cameraServoStateMgr->RunCurrentState();
+    }*/
 }
 
 void Robot::TeleopPeriodic() 
@@ -159,6 +190,10 @@ void Robot::TeleopPeriodic()
     if (m_shooterStateMgr != nullptr)
     {
         m_shooterStateMgr->RunCurrentState();
+    }
+    if (m_cameraServo != nullptr && m_cameraServoStateMgr != nullptr)
+    {
+        m_cameraServoStateMgr->RunCurrentState();
     }
     if (m_climberStateMgr != nullptr)
     {

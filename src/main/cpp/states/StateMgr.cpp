@@ -37,6 +37,9 @@
 #include <states/shooter/ShooterState.h>
 #include <states/shooter/ShooterStateAutoHigh.h>
 #include <states/shooter/ShooterStateManual.h>
+#include <states/Intake/IntakeState.h>
+#include <states/ShooterState.h>
+#include <states/cameraServo/CameraServoState.h>
 #include <subsys/MechanismFactory.h>
 #include <states/climber/ClimberState.h>
 #include <states/BallTransfer/BallTransferState.h>
@@ -167,6 +170,9 @@ void StateMgr::Init
                                                              target, 
                                                              secondaryTarget);
                                 break;
+                            case StateType::CAMERA_SERVO:
+                                thisState = new CameraServoState(target);
+                                break;
 
                             case StateType::LEFT_INDEXER:
                                 thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetLeftIndexer(), controlData, target);
@@ -178,6 +184,9 @@ void StateMgr::Init
                                 
                             case StateType::LIFT:
                                 thisState = new LiftState(MechanismFactory::GetMechanismFactory()->GetLift(), controlData, target);
+                                break;
+                            case StateType::CAMERA_SERVO:
+                                thisState = new CameraServoState(target);
                                 break;
 
                     	    default:

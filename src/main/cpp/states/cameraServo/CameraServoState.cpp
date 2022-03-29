@@ -13,80 +13,36 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+// Team 302 includes
+#include <states/cameraServo/CameraServoState.h>
+#include <subsys/MechanismFactory.h>
+#include <controllers/ControlData.h>
+#include <controllers/MechanismTargetData.h>
+#include <subsys/Mech1Servo.h>
+// Third Party Includes
 
-#include <hw/DragonServo.h>
-#include <hw/usages/ServoUsage.h>
 
-#include <frc/Servo.h>
-
-using namespace frc;
-
-DragonServo::DragonServo
+CameraServoState::CameraServoState
 (
-	ServoUsage::SERVO_USAGE	    deviceUsage,		// <I> - Usage of the servo
-	int 						deviceID,			// <I> - PWM ID
-	double 						minAngle,			// <I> - Minimun desired angle
-	double						maxAngle			// <I> - Maximum desired angle
-
-) : m_usage( deviceUsage ),
-    m_servo(new frc::Servo(deviceID)),
-	m_minAngle( minAngle ),
-	m_maxAngle( maxAngle )
+    double                          target
+) : m_target(target), m_servo(MechanismFactory::GetMechanismFactory()->GetCameraServo())
 {
-    
 }
 
-void DragonServo::Set(double value)
+void CameraServoState::Init()
 {
-    if ( m_servo != nullptr )
-    {
-        m_servo->Set( value );
-    }
-}
-void DragonServo::SetOffline()
-{
-    if ( m_servo != nullptr )
-    {
-        m_servo->SetOffline();
-    }
-}
-double DragonServo::Get() const
-{
-    double value = 0.0;
-    if ( m_servo != nullptr )
-    {
-        value = m_servo->Get();
-    }
-    return value;
-}
-void DragonServo::SetAngle(double angle)
-{
-    if ( m_servo != nullptr )
-    {
-        m_servo->SetAngle( angle );
-    }
-}
-double DragonServo::GetAngle() const
-{
-    double angle = 0.0;
-    if ( m_servo != nullptr )
-    {
-        angle = m_servo->GetAngle();
-    }
-    return angle;
+    // No-op - we already have the information
 }
 
-void DragonServo::MoveToMaxAngle()
+void CameraServoState::Run()
 {
-	SetAngle( m_maxAngle );
+    if (m_servo != nullptr)
+    {
+        m_servo->SetAngle(m_target);
+    }
 }
 
-void DragonServo::MoveToMinAngle()
+bool CameraServoState::AtTarget() const
 {
-	SetAngle( m_minAngle );
-}
-
-ServoUsage::SERVO_USAGE DragonServo::GetUsage() const
-{
-    return m_usage;
+    return true;
 }

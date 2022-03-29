@@ -1,6 +1,5 @@
-
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302
+// Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -14,30 +13,40 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+
 #pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    LEFT_INTAKE_MANUAL,
-    RIGHT_INTAKE,
-    RIGHT_INTAKE_MANUAL,
-    LEFT_INDEXER,
-    RIGHT_INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    SHOOTER_AUTO,
-    CLIMBER,
-    CAMERA_SERVO,
-    MAX_STATE_TYPES
-};
 
+//Team 302 Includes
+#include <states/IState.h>
+#include <controllers/MechanismTargetData.h>
+#include <subsys/Mech1Servo.h>
+#include <states/Mech1MotorState.h>
+#include <subsys/interfaces/IMech1Servo.h>
 
-struct StateStruc
+class ControlData;
+
+class CameraServoState : public IState
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
+    public:
+        CameraServoState() = delete;
+        CameraServoState
+        (
+            double                          target
+        );
+
+        ~CameraServoState() = default;
+        
+        
+        void Init() override;
+        void Run() override;
+        bool AtTarget() const override;
+
+        double GetTarget() const {return m_target;}
+
+    private:
+
+        double                      m_target;
+        IMech1Servo*                m_servo;
+
+        
 };

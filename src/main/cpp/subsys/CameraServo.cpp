@@ -1,6 +1,5 @@
-
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302
+// Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -14,30 +13,24 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    LEFT_INTAKE_MANUAL,
-    RIGHT_INTAKE,
-    RIGHT_INTAKE_MANUAL,
-    LEFT_INDEXER,
-    RIGHT_INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    SHOOTER_AUTO,
-    CLIMBER,
-    CAMERA_SERVO,
-    MAX_STATE_TYPES
-};
+#include <memory>
+#include <string>
 
 
-struct StateStruc
+// FRC includes
+
+// Team 302 includes
+#include <subsys/CameraServo.h>
+#include <subsys/Mech1Servo.h>
+#include <hw/DragonServo.h>
+
+// Third Party Includes
+
+using namespace std;
+
+CameraServo::CameraServo
+(
+    DragonServo* servo 
+) : Mech1Servo(MechanismTypes::MECHANISM_TYPE::CAMERA_SERVO,  string("cameraservo.xml"),  string("CameraServoNT"), servo)
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
-};
+}

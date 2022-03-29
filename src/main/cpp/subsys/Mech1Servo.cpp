@@ -27,6 +27,7 @@
 #include <subsys/interfaces/IMech1Servo.h>
 #include <utils/Logger.h>
 
+
 // Third Party Includes
 
 using namespace std;
@@ -89,10 +90,18 @@ void Mech1Servo::SetAngle
 {
     if ( m_servo != nullptr )
     {
+        Logger::GetLogger()->ToNtTable(string("Sierra"), string("m_servo angle"), angle);
         m_servo->SetAngle( angle );
     }
 }
-
+double Mech1Servo::GetAngle() const
+{
+    if (m_servo != nullptr)
+    {
+        return m_servo->GetAngle();
+    }
+    return 0;
+}
 
 
 

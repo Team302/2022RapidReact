@@ -38,7 +38,8 @@ class MechanismTypes
             RIGHT_INDEXER,
             LIFT,
             SHOOTER,
-            CLIMBER,                 
+            CLIMBER,
+            CAMERA_SERVO,               
             MAX_MECHANISM_TYPES
         };
 };

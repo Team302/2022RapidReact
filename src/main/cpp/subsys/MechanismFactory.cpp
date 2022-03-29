@@ -77,7 +77,9 @@ MechanismFactory::MechanismFactory() : 	m_leftIntake(nullptr),
 										m_climber(nullptr),
 										m_leftIndexer(nullptr),
 										m_rightIndexer(nullptr),
-										m_lift(nullptr)
+										m_lift(nullptr),
+									        m_cameraServo(nullptr)
+
 {
 }
 
@@ -270,7 +272,7 @@ void MechanismFactory::CreateIMechanism
 				}
 			}
 		}
-		break;		
+		break;	
 		
 		case MechanismTypes::MECHANISM_TYPE::CLIMBER :
 		{
@@ -293,7 +295,50 @@ void MechanismFactory::CreateIMechanism
 			}
 		}
 		break;
-
+		case MechanismTypes::CAMERA_SERVO:
+		{
+			//logger about to create camera servo
+			Logger::GetLogger()->ToNtTable(string("Sierra"), string("about to create camera servo"), string("true"));
+			if (m_cameraServo == nullptr)
+			{
+				//logger created the servo
+				Logger::GetLogger()->ToNtTable(string("Sierra"), string("created the camera servo"), string("true"));
+				auto servo = GetServo(servos, ServoUsage::RELEASE_SERVO);
+				if (servo != nullptr)
+				{
+					Logger::GetLogger()->ToNtTable(string("Sierra"), string("did not create the camera servo"), string("true"));
+					m_cameraServo = new CameraServo(servo);
+				}
+				else
+				{
+					//logger did not get camera servo
+					Logger::GetLogger()->ToNtTable(string("Sierra"), string("did not create the camera servo"), string("false"));
+				}
+			}
+		}
+		break;	
+		case MechanismTypes::CAMERA_SERVO:
+		{
+			//logger about to create camera servo
+			Logger::GetLogger()->ToNtTable(string("Sierra"), string("about to create camera servo"), string("true"));
+			if (m_cameraServo == nullptr)
+			{
+				//logger created the servo
+				Logger::GetLogger()->ToNtTable(string("Sierra"), string("created the camera servo"), string("true"));
+				auto servo = GetServo(servos, ServoUsage::RELEASE_SERVO);
+				if (servo != nullptr)
+				{
+					Logger::GetLogger()->ToNtTable(string("Sierra"), string("did not create the camera servo"), string("true"));
+					m_cameraServo = new CameraServo(servo);
+				}
+				else
+				{
+					//logger did not get camera servo
+					Logger::GetLogger()->ToNtTable(string("Sierra"), string("did not create the camera servo"), string("false"));
+				}
+			}
+		}
+		break;	
 		default:
 		{
 			string msg = "unknown Mechanism type ";
@@ -373,6 +418,11 @@ IMech* MechanismFactory::GetMechanism
 			return GetShooter();
 			break;
 
+		case MechanismTypes::MECHANISM_TYPE::CAMERA_SERVO:
+			return GetCameraServo();
+			break;
+
+
 		default:
 			return nullptr;
 			break;
@@ -415,7 +465,7 @@ DragonServo* MechanismFactory::GetServo
 	ServoUsage::SERVO_USAGE							usage
 )
 {
-	DragonServo* servo = nullptr;
+	DragonServo* servo; //= nullptr;
 	auto it = servos.find( usage );
 	if ( it != servos.end() )  // found it
 	{
