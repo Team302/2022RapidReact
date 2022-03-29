@@ -317,6 +317,28 @@ void MechanismFactory::CreateIMechanism
 			}
 		}
 		break;	
+		case MechanismTypes::CAMERA_SERVO:
+		{
+			//logger about to create camera servo
+			Logger::GetLogger()->ToNtTable(string("Sierra"), string("about to create camera servo"), string("true"));
+			if (m_cameraServo == nullptr)
+			{
+				//logger created the servo
+				Logger::GetLogger()->ToNtTable(string("Sierra"), string("created the camera servo"), string("true"));
+				auto servo = GetServo(servos, ServoUsage::RELEASE_SERVO);
+				if (servo != nullptr)
+				{
+					Logger::GetLogger()->ToNtTable(string("Sierra"), string("did not create the camera servo"), string("true"));
+					m_cameraServo = new CameraServo(servo);
+				}
+				else
+				{
+					//logger did not get camera servo
+					Logger::GetLogger()->ToNtTable(string("Sierra"), string("did not create the camera servo"), string("false"));
+				}
+			}
+		}
+		break;	
 		default:
 		{
 			string msg = "unknown Mechanism type ";

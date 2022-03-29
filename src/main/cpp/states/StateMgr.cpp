@@ -185,6 +185,9 @@ void StateMgr::Init
                             case StateType::LIFT:
                                 thisState = new LiftState(MechanismFactory::GetMechanismFactory()->GetLift(), controlData, target);
                                 break;
+                            case StateType::CAMERA_SERVO:
+                                thisState = new CameraServoState(target);
+                                break;
 
                     	    default:
                         	    Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("unknown state"));
