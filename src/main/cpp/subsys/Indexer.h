@@ -22,21 +22,23 @@
 //FRC Includes
 
 //Team 302 Includes
-#include <subsys/Mech1IndMotor.h>
 #include <hw/DragonDigitalInput.h>
+#include <hw/interfaces/IDragonMotorController.h>
+#include <subsys/Mech2IndMotors.h>
 
 class IDragonMotorController;
 
-class Indexer : public Mech1IndMotor
+class Indexer : public Mech2IndMotors
 {
     public: 
         Indexer
         (
-            MechanismTypes::MECHANISM_TYPE          type,
-            std::string                             controlFileName,
-            std::string                             ntName,
-            std::shared_ptr<IDragonMotorController> indexerMotor,
-            std::shared_ptr<DragonDigitalInput>     ballPresent
+            MechanismTypes::MECHANISM_TYPE              type,
+            std::string                                 controlFileName,
+            std::string                                 ntName,
+            std::shared_ptr<IDragonMotorController>     leftIndexer,
+            std::shared_ptr<IDragonMotorController>     rightIndexer,
+            std::shared_ptr<DragonDigitalInput>         ballPresent
         );
 
         bool IsBallPresent() const;

@@ -62,7 +62,9 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     bool											forwardLimitSwitch,
     bool											forwardLimitSwitchNormallyOpen,
     bool											reverseLimitSwitch,
-    bool											reverseLimitSwitchNormallyOpen
+    bool											reverseLimitSwitchNormallyOpen,
+    double											voltageCompensationSaturation,
+    bool											enableVoltageCompensation
 )
 {
     shared_ptr<IDragonMotorController> controller;
@@ -97,6 +99,11 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
             talon->SetAsFollowerMotor( followMotor );
         }
         controller.reset( talon );
+
+        if (enableVoltageCompensation)
+        {
+            talon->EnableVoltageCompensation(voltageCompensationSaturation);
+        }
     }
     else if ( type == MOTOR_TYPE::FALCON )
     {
@@ -127,7 +134,12 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
         talon->ConfigPeakCurrentDuration( peakCurrentDuration, 50 );
         talon->ConfigContinuousCurrentLimit( continuousCurrentLimit, 50 );
         talon->EnableCurrentLimiting( enableCurrentLimit );
-        
+
+        if (enableVoltageCompensation)
+        {
+            talon->EnableVoltageCompensation(voltageCompensationSaturation);
+        }
+
         /** **/
         controller.reset( talon );
     }

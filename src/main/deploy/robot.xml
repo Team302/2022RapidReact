@@ -397,39 +397,15 @@
               peakCurrentDuration="50"
               continuousCurrentLimit="30"
               peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="false"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="false"
-              reverselimitswitchopen="true"/>             
+              currentLimiting="true"
+              voltageCompensationSaturation="10.0"
+              voltageCompensationEnable="true"/> 
     </mechanism>
 
-    <mechanism type="RIGHT_INDEXER"
+    <mechanism type="INDEXER"
               networkTable="IndexerNT"
               controlFile="indexer.xml">
-	<motor usage="INDEXER"
-              canId="7"
-              pdpID="7"
-              type="TALONSRX"
-              inverted="true"
-              sensorInverted="false"
-              feedbackDevice="NONE"
-              countsPerRev="0"
-              gearRatio="1.0"
-              brakeMode="true"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true"/>
-       <digitalInput usage="BALL_PRESENT"
-                     digitalId="1"
-                     reversed="true"/>
-    </mechanism>
-
-    <mechanism type="LEFT_INDEXER"
-              networkTable="IndexerNT"
-              controlFile="indexer.xml">
-       <motor usage="INDEXER"
+       <motor usage="LEFT_INDEXER"
               canId="4"
               pdpID="4"
               type="TALONSRX"
@@ -442,8 +418,26 @@
               peakCurrentDuration="50"
               continuousCurrentLimit="30"
               peakCurrentLimit="40"
-              currentLimiting="true"/> 
-       <digitalInput usage= "BALL_PRESENT"
+              currentLimiting="true"
+              voltageCompensationSaturation="10.0"
+              voltageCompensationEnable="true"/> 
+	<motor usage="RIGHT_INDEXER"
+              canId="7"
+              pdpID="7"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="true"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true"
+              voltageCompensationSaturation="10.0"
+              voltageCompensationEnable="true"/> 
+       <digitalInput usage="BALL_PRESENT"
                      digitalId="1"
                      reversed="true"/>
   </mechanism>

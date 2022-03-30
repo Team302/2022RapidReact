@@ -26,7 +26,6 @@
 #include <states/shooter/ShooterStateAutoHigh.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/Shooter.h>
-#include <states/indexer/LeftIndexerStateMgr.h>
 #include <utils/Logger.h>
 
 
@@ -56,15 +55,7 @@ void ShooterStateAutoHigh::Init()
     auto shooter = GetShooter();    
     if (shooter != nullptr)
     {
-        
-        auto currentLeftIndexerStateMgrState = IndexerStates::INDEXER_STATE::OFF;
-        auto leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
-        if (leftIndexerStateMgr != nullptr)
-        {
-            currentLeftIndexerStateMgrState = static_cast<IndexerStates::INDEXER_STATE>(leftIndexerStateMgr->GetCurrentState());
-        }
-        //auto indexerOffset = currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX ? 0.0 : 2.0;
-        
+
         auto shooterTarget = GetPrimaryTarget();
         auto shooterTarget2 = GetSecondaryTarget();
 
@@ -77,29 +68,13 @@ void ShooterStateAutoHigh::Init()
        
         if (inches > 110)
         {
-            //if (currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX)
-            //{
-            //    shooterTarget = 50;
-            //    shooterTarget2 = 0.83;
-            //}
-            //else
-            //{
-                shooterTarget = 54;
-                shooterTarget2 = 0.65;
-            //}
+            shooterTarget = 54;
+            shooterTarget2 = 0.65;
         }
         else
         {
-           //if (currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX)
-            //{
-            //    shooterTarget = 44;
-            //    shooterTarget2 = 0.45;
-           // }
-            //else
-            //{
-                shooterTarget = 46.75; //46
-                shooterTarget2 = 0.35;
-             
+            shooterTarget = 46.75; //46
+            shooterTarget2 = 0.35;
         }
         /**
         auto shooterTarget = m_primaryFunctionCoeff[0]*inches*inches + 

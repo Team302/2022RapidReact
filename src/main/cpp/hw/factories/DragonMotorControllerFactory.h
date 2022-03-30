@@ -92,7 +92,9 @@ class DragonMotorControllerFactory
 			bool											forwardLimitSwitch,
 			bool											forwardLimitSwitchNormallyOpen,
 			bool											reverseLimitSwitch,
-			bool											reverseLimitSwitchNormallyOpen
+			bool											reverseLimitSwitchNormallyOpen,
+			double											voltageCompensationSaturation,
+			bool											enableVoltageCompensation
 		);
 
 	private:

@@ -31,8 +31,7 @@
 #include <auton/PrimitiveParser.h>
 #include <auton/primitives/IPrimitive.h>
 #include <states/balltransfer/BallTransferStateMgr.h>
-#include <states/indexer/LeftIndexerStateMgr.h>
-#include <states/indexer/RightIndexerStateMgr.h>
+#include <states/indexer/IndexerStateMgr.h>
 #include <states/intake/LeftIntakeStateMgr.h>
 #include <states/intake/RightIntakeStateMgr.h>
 #include <states/lift/LiftStateMgr.h>
@@ -102,16 +101,10 @@ void CyclePrimitives::Run()
 			ballTransferStateMgr->RunCurrentState();
 		}
 
-		auto leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
-		if (leftIndexerStateMgr != nullptr)
+		auto indexerStateMgr = IndexerStateMgr::GetInstance();
+		if (indexerStateMgr != nullptr)
 		{
-			leftIndexerStateMgr->RunCurrentState();
-		}
-
-		auto rightIndexerStateMgr = RightIndexerStateMgr::GetInstance();
-		if (rightIndexerStateMgr != nullptr)
-		{
-			rightIndexerStateMgr->RunCurrentState();
+			indexerStateMgr->RunCurrentState();
 		}
 
 		auto liftStateMgr = LiftStateMgr::GetInstance();
@@ -169,16 +162,10 @@ void CyclePrimitives::GetNextPrim()
 			ballTransferStateMgr->RunCurrentState();
 		}
 
-		auto leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
-		if (leftIndexerStateMgr != nullptr)
+		auto indexerStateMgr = IndexerStateMgr::GetInstance();
+		if (indexerStateMgr != nullptr)
 		{
-			leftIndexerStateMgr->RunCurrentState();
-		}
-
-		auto rightIndexerStateMgr = RightIndexerStateMgr::GetInstance();
-		if (rightIndexerStateMgr != nullptr)
-		{
-			rightIndexerStateMgr->RunCurrentState();
+			indexerStateMgr->RunCurrentState();
 		}
 
 		auto liftStateMgr = LiftStateMgr::GetInstance();

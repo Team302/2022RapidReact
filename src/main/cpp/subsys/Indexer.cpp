@@ -18,7 +18,7 @@
 #include <string>
 
 //Team 302 Inlcudes
-#include <subsys/Mech1IndMotor.h>
+#include <subsys/Mech2IndMotors.h>
 #include <subsys/Indexer.h>
 #include <hw/interfaces/IDragonMotorController.h>
 
@@ -29,15 +29,18 @@ Indexer::Indexer
     MechanismTypes::MECHANISM_TYPE      type,
     string                              controlFileName,
     string                              ntName,
-    shared_ptr<IDragonMotorController>  indexerMotor,
-    shared_ptr<DragonDigitalInput>     ballPresent
-) : Mech1IndMotor(type,
-                    controlFileName,
-                    ntName,
-                    indexerMotor),
+    shared_ptr<IDragonMotorController>  leftIndexer,
+    shared_ptr<IDragonMotorController>  rightIndexer,
+    shared_ptr<DragonDigitalInput>      ballPresent
+) : Mech2IndMotors(type,
+                   controlFileName,
+                   ntName,
+                   leftIndexer,
+                   rightIndexer),
     m_ballPresent(ballPresent)
 {
-    indexerMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
+    leftIndexer.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
+    rightIndexer.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
 }
 
 

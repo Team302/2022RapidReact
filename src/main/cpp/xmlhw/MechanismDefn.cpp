@@ -100,13 +100,9 @@ void MechanismDefn::ParseXML
             {
                 type = MechanismTypes::MECHANISM_TYPE::LIFT;
             }
-            else if (typeStr.compare( "LEFT_INDEXER") == 0)
+            else if (typeStr.compare( "INDEXER") == 0)
             {
-                type = MechanismTypes::MECHANISM_TYPE::LEFT_INDEXER;
-            }
-            else if (typeStr.compare( "RIGHT_INDEXER") == 0)
-            {
-                type = MechanismTypes::MECHANISM_TYPE::RIGHT_INDEXER;
+                type = MechanismTypes::MECHANISM_TYPE::INDEXER;
             }
             else
             {

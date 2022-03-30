@@ -9,21 +9,13 @@
 #include <gamepad/TeleopControl.h>
 #include <states/chassis/SwerveDrive.h>
 #include <states/climber/ClimberStateMgr.h>
+#include <states/indexer/IndexerStateMgr.h>
 #include <states/Intake/LeftIntakeStateMgr.h>
 #include <states/Intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
-#include <subsys/BallTransfer.h>
 #include <subsys/ChassisFactory.h>
-#include <subsys/Climber.h>
-#include <subsys/Intake.h>
 #include <subsys/interfaces/IChassis.h>
-#include <subsys/MechanismFactory.h>
-#include <subsys/Shooter.h>
 #include <xmlhw/RobotDefn.h>
-#include <subsys/Indexer.h>
-#include <subsys/Lift.h>
-#include <states/indexer/LeftIndexerStateMgr.h>
-#include <states/indexer/RightIndexerStateMgr.h>
 
 
 void Robot::RobotInit() 
@@ -43,8 +35,7 @@ void Robot::RobotInit()
         
     m_leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
     m_rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
-    m_rightIndexerStateMgr = RightIndexerStateMgr::GetInstance();
-    m_leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
+    m_indexerStateMgr = IndexerStateMgr::GetInstance();
     m_liftStateMgr = LiftStateMgr::GetInstance();
     m_ballTransferStateMgr = BallTransferStateMgr::GetInstance();
     m_shooterStateMgr = ShooterStateMgr::GetInstance();
@@ -123,13 +114,9 @@ void Robot::TeleopInit()
     {
         m_climberStateMgr->RunCurrentState();
     }
-    if (m_rightIndexerStateMgr != nullptr)
+    if (m_indexerStateMgr != nullptr)
     {
-        m_rightIndexerStateMgr->RunCurrentState();
-    }
-    if (m_leftIndexerStateMgr != nullptr)
-    {
-        m_leftIndexerStateMgr->RunCurrentState();
+        m_indexerStateMgr->RunCurrentState();
     }
     if (m_liftStateMgr != nullptr)
     {
@@ -164,13 +151,9 @@ void Robot::TeleopPeriodic()
     {
         m_climberStateMgr->RunCurrentState();
     }
-    if (m_rightIndexerStateMgr != nullptr)
+    if (m_indexerStateMgr != nullptr)
     {
-        m_rightIndexerStateMgr->RunCurrentState();
-    }
-    if (m_leftIndexerStateMgr != nullptr)
-    {
-        m_leftIndexerStateMgr->RunCurrentState();
+        m_indexerStateMgr->RunCurrentState();
     }
     if (m_liftStateMgr != nullptr)
     {

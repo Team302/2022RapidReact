@@ -779,3 +779,9 @@ bool DragonTalon::IsReverseLimitSwitchClosed() const
 	auto closed = sensors.IsRevLimitSwitchClosed();
 	return closed == 1;
 }
+
+void DragonTalon::EnableVoltageCompensation( double fullvoltage) 
+{
+	m_talon.get()->ConfigVoltageCompSaturation(fullvoltage);
+	m_talon.get()->EnableVoltageCompensation(true);
+}

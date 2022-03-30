@@ -14,12 +14,12 @@
 //====================================================================================================================================================
 
 #pragma once
-#include <states/Mech1MotorState.h>
+#include <states/Mech2MotorState.h>
 
 class ControlData;
 class Indexer;
 
-class IndexerState : public Mech1MotorState
+class IndexerState : public Mech2MotorState
 {
     public:
 
@@ -28,7 +28,9 @@ class IndexerState : public Mech1MotorState
         (
             Indexer*      indexer,
             ControlData* control,
-            double       target
+            ControlData* control2,
+            double       target,
+            double       target2
         );
         ~IndexerState() = default;
 
