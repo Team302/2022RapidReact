@@ -21,19 +21,21 @@
                pathname="fiveBallRight9.wpilib.json" 
                leftIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
-               heading="45"/> 
+               heading="110"/> 
     <!--There is a duplicate here because top wheel is run open loop currently-->
     <!--Hopefully this gets top wheel up to speed for secodn ball-->
 
-    <primitive id="DRIVE_PATH"
-               pathname="fiveBallRight5.wpilib.json" 
-               headingOption="TOWARD_GOAL"/>   
+    <primitive id="DO_NOTHING"
+               time="1.5"
+               headingOption="TOWARD_GOAL_DRIVE"/>   
     <primitive id="DO_NOTHING"
                time="1.5"
                headingOption="TOWARD_GOAL"
-               shooter="SHOOT_HIGHGOAL_FAR"/>           
+               shooter="SHOOT_HIGHGOAL_FAR"/>   
+    <primitive id="RESET_POSITION"
+			   pathname="fiveBallRight6copy.wpilib.json"/>        
     <primitive id="DRIVE_PATH"
-               pathname="fiveBallRight6.wpilib.json" 
+               pathname="fiveBallRight6copy.wpilib.json" 
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="-45"/> 
@@ -41,11 +43,11 @@
                time="1.0"
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
-               heading="-45"/>
+               heading="-45"/>               
     <primitive id="DO_NOTHING"
                time="2.0"
                headingOption="TOWARD_GOAL_DRIVE"
-               shooter="PREPARETOSHOOT"/>
+               shooter="PREPARETOSHOOT"/> 
     <primitive id="DO_NOTHING"
                time="2.0"
                headingOption="TOWARD_GOAL"
