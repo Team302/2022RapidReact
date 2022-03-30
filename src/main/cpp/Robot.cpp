@@ -43,8 +43,8 @@ void Robot::RobotInit()
         
     m_leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
     m_rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
-    m_leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
     m_rightIndexerStateMgr = RightIndexerStateMgr::GetInstance();
+    m_leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
     m_liftStateMgr = LiftStateMgr::GetInstance();
     m_ballTransferStateMgr = BallTransferStateMgr::GetInstance();
     m_shooterStateMgr = ShooterStateMgr::GetInstance();

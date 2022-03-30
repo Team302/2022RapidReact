@@ -404,6 +404,28 @@
               reverselimitswitchopen="true"/>             
     </mechanism>
 
+    <mechanism type="RIGHT_INDEXER"
+              networkTable="IndexerNT"
+              controlFile="indexer.xml">
+	<motor usage="INDEXER"
+              canId="7"
+              pdpID="7"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="true"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true"/>
+       <digitalInput usage="BALL_PRESENT"
+                     digitalId="1"
+                     reversed="true"/>
+    </mechanism>
+
     <mechanism type="LEFT_INDEXER"
               networkTable="IndexerNT"
               controlFile="indexer.xml">
@@ -420,41 +442,12 @@
               peakCurrentDuration="50"
               continuousCurrentLimit="30"
               peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="true"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="true"
-              reverselimitswitchopen="true"/> 
+              currentLimiting="true"/> 
        <digitalInput usage= "BALL_PRESENT"
                      digitalId="1"
-                     reversed="false"/>
+                     reversed="true"/>
   </mechanism>
 
-  <mechanism type="RIGHT_INDEXER"
-              networkTable="IndexerNT"
-              controlFile="indexer.xml">
-	<motor usage="INDEXER"
-              canId="7"
-              pdpID="7"
-              type="TALONSRX"
-              inverted="true"
-              sensorInverted="false"
-              feedbackDevice="NONE"
-              countsPerRev="0"
-              gearRatio="1.0"
-              brakeMode="true"
-              peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="true"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="true"
-              reverselimitswitchopen="true"/>
-       <digitalInput usage="BALL_PRESENT"
-                     digitalId="1"
-                     reversed="false"/>
-  </mechanism>
 
 <!-- ====================================================
      Climber
