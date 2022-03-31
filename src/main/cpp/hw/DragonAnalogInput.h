@@ -31,6 +31,7 @@ class DragonAnalogInput : AnalogInput
 			ANALOG_GYRO,
 			POTENTIOMETER,
 			PRESSURE_GAUGE,
+			ELEVATOR_HEIGHT,
 			MAX_ANALOG_TYPES
 		};
 
