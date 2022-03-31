@@ -25,25 +25,25 @@
 
 // Team 302 includes
 #include <controllers/MechanismTargetData.h>
-#include <states/IState.h>
-#include <states/StateMgr.h>
-#include <states/StateStruc.h>
-#include <subsys/interfaces/IMech.h>
-#include <utils/Logger.h>
-#include <xmlmechdata/StateDataDefn.h>
+#include <states/BallTransfer/BallTransferState.h>
+#include <states/BallTransfer/BallTransferStateMgr.h>
+#include <states/climber/ClimberState.h>
+#include <states/climber/ClimberManualState.h>
+#include <states/indexer/IndexerState.h>
 #include <states/intake/IntakeState.h>
 #include <states/intake/ManualLeftIntakeState.h>
 #include <states/intake/ManualRightIntakeState.h>
+#include <states/IState.h>
+#include <states/lift/LiftState.h>
 #include <states/shooter/ShooterState.h>
 #include <states/shooter/ShooterStateAutoHigh.h>
 #include <states/shooter/ShooterStateManual.h>
+#include <states/StateMgr.h>
+#include <states/StateStruc.h>
+#include <subsys/interfaces/IMech.h>
 #include <subsys/MechanismFactory.h>
-#include <states/climber/ClimberState.h>
-#include <states/BallTransfer/BallTransferState.h>
-#include <states/BallTransfer/BallTransferStateMgr.h>
-#include <subsys/BallTransfer.h>
-#include <states/indexer/IndexerState.h>
-#include <states/lift/LiftState.h>
+#include <utils/Logger.h>
+#include <xmlmechdata/StateDataDefn.h>
 
 // Third Party Includes
 
@@ -166,6 +166,13 @@ void StateMgr::Init
                                                              controlData2, 
                                                              target, 
                                                              secondaryTarget);
+                                break;
+
+                            case StateType::CLIMBER_MANUAL:
+                                thisState = new ClimberManualState(controlData, 
+                                                                   controlData2, 
+                                                                   target, 
+                                                                   secondaryTarget);
                                 break;
 
                             case StateType::INDEXER:

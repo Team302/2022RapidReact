@@ -34,8 +34,7 @@ class ClimberManualState : public IState
             ControlData*                    controlData,
             ControlData*                    controlData2,
             double                          maxRotationsUpDown,
-            double                          maxRotationsRotate,
-            Climber*                        climber
+            double                          maxRotationsRotate
         );
         ClimberManualState() = delete;
         ~ClimberManualState() = default;
