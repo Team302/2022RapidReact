@@ -13,31 +13,46 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
-
+   
 #pragma once
-       
-enum StateType
+
+#include <vector>
+#include <frc/AnalogInput.h>
+
+using namespace frc;
+
+class DragonAnalogInput : AnalogInput
 {
-    LEFT_INTAKE,
-    LEFT_INTAKE_MANUAL,
-    RIGHT_INTAKE,
-    RIGHT_INTAKE_MANUAL,
-    LEFT_INDEXER,
-    RIGHT_INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    SHOOTER_AUTO,
-    CLIMBER,
-    CLIMBER_MANUAL,
-    MAX_STATE_TYPES
-};
+	public:
+		enum ANALOG_SENSOR_TYPE
+		{
+			UNKNOWN_ANALOG_TYPE = -1,
+			ANALOG_GENERAL,
+			ANALOG_GYRO,
+			POTENTIOMETER,
+			PRESSURE_GAUGE,
+			MAX_ANALOG_TYPES
+		};
 
 
-struct StateStruc
-{
-    int         id;
-    StateType   type;
-    bool        isDefault;
+		DragonAnalogInput
+		(
+			ANALOG_SENSOR_TYPE			type,
+			int 						analogID,
+		    float						voltageMin,
+		    float						voltageMax,
+		    float 						outputMin,
+		    float						outputMax
+		);
+		virtual ~DragonAnalogInput();
+		float GetInterpolatedValue() const;
+        ANALOG_SENSOR_TYPE GetType() const {return m_type;};
+
+	private:
+		ANALOG_SENSOR_TYPE				m_type;
+		float							m_voltMin;
+		float							m_voltMax;
+		float							m_outMin;
+		float							m_outMax;
 };
+typedef std::vector<DragonAnalogInput*> DragonAnalogInputVector;

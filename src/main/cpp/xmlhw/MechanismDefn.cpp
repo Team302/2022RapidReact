@@ -28,14 +28,17 @@
 
 // Team 302 includes
 #include <hw/interfaces/IDragonMotorController.h>
+#include <hw/usages/AnalogInputMap.h>
 #include <hw/usages/DigitalInputMap.h>
 #include <hw/usages/DragonSolenoidMap.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/ServoMap.h>
+#include <hw/DragonAnalogInput.h>
 #include <subsys/interfaces/IMech.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
 #include <utils/Logger.h>
+#include <xmlhw/AnalogInputDefn.h>
 #include <xmlhw/CanCoderDefn.h>
 #include <xmlhw/DigitalInputDefn.h>
 #include <xmlhw/MechanismDefn.h>
@@ -135,7 +138,7 @@ void MechanismDefn::ParseXML
 
     // Parse/validate subobject xml
     unique_ptr<MotorDefn> motorXML = make_unique<MotorDefn>();
-    //unique_ptr<AnalogInputDefn> analogXML = make_unique<AnalogInputDefn>();
+    unique_ptr<AnalogInputDefn> analogXML = make_unique<AnalogInputDefn>();
     unique_ptr<DigitalInputDefn> digitalXML = make_unique<DigitalInputDefn>();
     unique_ptr<ServoDefn> servoXML = make_unique<ServoDefn>();
     unique_ptr<SolenoidDefn> solenoidXML = make_unique<SolenoidDefn>();
@@ -144,7 +147,7 @@ void MechanismDefn::ParseXML
     IDragonMotorControllerMap motors;
     ServoMap servos;
     DragonSolenoidMap solenoids;
-    //AnalogInputMap analogInputs;
+    AnalogInputMap analogInputs;
     DigitalInputMap digitalInputs;
     shared_ptr<ctre::phoenix::sensors::CANCoder> canCoder = nullptr;
 
@@ -158,16 +161,14 @@ void MechanismDefn::ParseXML
                 motors[ motor.get()->GetType() ] =  motor ;
             }
         }
-        /**
         else if ( strcmp( child.name(), "analogInput") == 0 )
         {
             auto analogIn = analogXML->ParseXML(child);
-            if ( analogIn.get() != nullptr )
+            if ( analogIn != nullptr )
             {
-                analogInputs[analogIn.get()->GetUsage()] = analogIn;
+                analogInputs[analogIn->GetType()] = analogIn;
             }
         }
-        **/
         else if ( strcmp( child.name(), "digitalInput") == 0 )
         {
             auto digitalIn = digitalXML->ParseXML(child);
@@ -215,7 +216,8 @@ void MechanismDefn::ParseXML
                                    motors, 
                                    solenoids, 
                                    servos, 
-                                   digitalInputs, 
+                                   digitalInputs,
+                                   analogInputs, 
                                    canCoder );
     }
 

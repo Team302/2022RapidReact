@@ -33,19 +33,20 @@
 // FRC includes
 
 // Team 302 includes
-#include <subsys/MechanismTypes.h>
-#include <hw/usages/IDragonMotorControllerMap.h>
+#include <hw/usages/AnalogInputMap.h>
 #include <hw/usages/DigitalInputMap.h>
-#include <hw/usages/ServoMap.h>
 #include <hw/usages/DragonSolenoidMap.h>
-#include <subsys/interfaces/IMech.h>
-#include <subsys/Intake.h>
+#include <hw/usages/IDragonMotorControllerMap.h>
+#include <hw/usages/ServoMap.h>
 #include <subsys/BallTransfer.h>
-#include <subsys/Shooter.h>
+#include <subsys/BallTransfer.h>
 #include <subsys/Climber.h>
-#include <subsys/BallTransfer.h>
-#include <subsys/Lift.h>
 #include <subsys/Indexer.h>
+#include <subsys/Intake.h>
+#include <subsys/interfaces/IMech.h>
+#include <subsys/Lift.h>
+#include <subsys/MechanismTypes.h>
+#include <subsys/Shooter.h>
 
 // Third Party Includes
 
@@ -89,6 +90,7 @@ class MechanismFactory
 			const DragonSolenoidMap&                				solenoids,
 			const ServoMap&						    				servos,
 			const DigitalInputMap&									digitalInputs,
+			const AnalogInputMap& 								    analogInputs,
 			std::shared_ptr<ctre::phoenix::sensors::CANCoder>		canCoder
 		);
 		inline BallTransfer* GetBallTransfer() const { return m_ballTransfer;};
@@ -129,14 +131,11 @@ class MechanismFactory
 			DigitalInputUsage::DIGITAL_SENSOR_USAGE			usage
 		);
 
-		
-		/**
-		std::shared_ptr<DragonAnalogInput> GetAnalogInput
+		DragonAnalogInput* GetAnalogInput
 		(
 			const AnalogInputMap&							analogInputs,
-			AnalogInputUsage::ANALOG_SENSOR_USAGE			usage
+			DragonAnalogInput::ANALOG_SENSOR_TYPE			usage
 		);
-		**/
 
 		MechanismFactory();
 		virtual ~MechanismFactory() = default;
