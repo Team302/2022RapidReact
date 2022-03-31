@@ -32,13 +32,13 @@
 // Team 302 includes
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
-//#include <hw/usages/AnalogInputMap.h>
+#include <hw/usages/AnalogInputMap.h>
 #include <hw/usages/DigitalInputMap.h>
 #include <hw/usages/DragonSolenoidMap.h>
 #include <hw/usages/ServoMap.h>
 #include <hw/DragonSolenoid.h>
 #include <hw/DragonServo.h>
-//#include <hw/DragonAnalogInput.h>
+#include <hw/DragonAnalogInput.h>
 #include <hw/DragonDigitalInput.h>
 
 #include <subsys/MechanismFactory.h>
@@ -97,6 +97,7 @@ void MechanismFactory::CreateIMechanism
 	const DragonSolenoidMap&                solenoids,
 	const ServoMap&						    servos,
 	const DigitalInputMap&					digitalInputs,
+	const AnalogInputMap&					analogInputs,
 	shared_ptr<CANCoder>					canCoder
 )
 {
@@ -465,14 +466,13 @@ shared_ptr<DragonDigitalInput> MechanismFactory::GetDigitalInput
 	return dio;
 }
 	
-/**
-shared_ptr<DragonAnalogInput> MechanismFactory::GetAnalogInput
+DragonAnalogInput* MechanismFactory::GetAnalogInput
 (
 	const AnalogInputMap&							analogInputs,
-	AnalogInputUsage::ANALOG_SENSOR_USAGE			usage
+	DragonAnalogInput::ANALOG_SENSOR_TYPE			usage
 )
 {
-	shared_ptr<DragonAnalogInput> anIn;
+	DragonAnalogInput* anIn = nullptr;
 	auto it = analogInputs.find( usage );
 	if ( it != analogInputs.end() )  // found it
 	{
@@ -485,7 +485,7 @@ shared_ptr<DragonAnalogInput> MechanismFactory::GetAnalogInput
 		Logger::GetLogger()->LogError( string( "MechanismFactory::GetAnalogInput" ), msg );
 	}
 	
-	if ( anIn.get() == nullptr )
+	if ( anIn == nullptr )
 	{
 		string msg = "analog input is nullptr; usage = ";
 		msg += to_string( usage );
@@ -493,7 +493,6 @@ shared_ptr<DragonAnalogInput> MechanismFactory::GetAnalogInput
 	}
 	return anIn;
 }
-**/
 
 
 

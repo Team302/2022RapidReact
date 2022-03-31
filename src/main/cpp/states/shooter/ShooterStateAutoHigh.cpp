@@ -55,16 +55,7 @@ void ShooterStateAutoHigh::Init()
 {
     auto shooter = GetShooter();    
     if (shooter != nullptr)
-    {
-        
-        auto currentLeftIndexerStateMgrState = IndexerStates::INDEXER_STATE::OFF;
-        auto leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
-        if (leftIndexerStateMgr != nullptr)
-        {
-            currentLeftIndexerStateMgrState = static_cast<IndexerStates::INDEXER_STATE>(leftIndexerStateMgr->GetCurrentState());
-        }
-        //auto indexerOffset = currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX ? 0.0 : 2.0;
-        
+    {       
         auto shooterTarget = GetPrimaryTarget();
         auto shooterTarget2 = GetSecondaryTarget();
 

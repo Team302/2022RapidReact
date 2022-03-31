@@ -26,6 +26,7 @@
 #include <states/climber/ClimberManualState.h>
 #include <states/IState.h>
 #include <subsys/interfaces/IMech2IndMotors.h>
+#include <subsys/MechanismFactory.h>
 #include <utils/Logger.h>
 
 
@@ -40,10 +41,9 @@ ClimberManualState::ClimberManualState
     ControlData*                    controlDataUpDown,
     ControlData*                    controlDataRotate,
     double                          maxRotationsUpDown,
-    double                          maxRotationsRotate,
-    Climber*                        climber
+    double                          maxRotationsRotate
 ) : IState(),
-    m_climber(climber),
+    m_climber(MechanismFactory::GetMechanismFactory()->GetClimber()),
     m_controller(TeleopControl::GetInstance()),
     m_controlDataUpDown(controlDataUpDown),
     m_controlDataRotate(controlDataRotate),
@@ -52,11 +52,6 @@ ClimberManualState::ClimberManualState
     m_rotateMin(0.0),
     m_rotateMax(maxRotationsRotate)
 {
-    if (climber == nullptr)
-    {
-        Logger::GetLogger()->LogError(string("ClimberManualState::ClimberManualState"), string("no climber"));
-    }    
-    
     if (controlDataUpDown == nullptr)
     {
         Logger::GetLogger()->LogError(string("Mech2MotorState::Mech2MotorState"), string("no control data"));
