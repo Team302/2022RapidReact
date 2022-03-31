@@ -73,9 +73,8 @@ ClimberStateMgr::ClimberStateMgr() : m_climber(MechanismFactory::GetMechanismFac
     
     // initialize the xml string to state map
     map<string, StateStruc> stateMap;
-    stateMap[m_climberOffXmlString] = m_offState;
-    stateMap[m_climberManualXmlString] = m_manualState;
     stateMap[m_climberStartingXmlString] = m_startingState;
+    stateMap[m_climberManualXmlString] = m_manualState;
     stateMap[m_climberPrepMidBarXmlString] = m_prepMidBarState;
     stateMap[m_climberClimbMidBarXmlString] = m_climbMidBarState;
     stateMap[m_climberFrontHookPrepXmlString] = m_frontHookprepNextBarState;
@@ -113,14 +112,9 @@ void ClimberStateMgr::CheckForStateTransition()
 
         if (isClimbMode)
         {
-            if (isPrepMidbar)
+            auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
+            if (isAutoClimb)
             {
-                targetState = CLIMBER_STATE::PREP_MID_BAR;
-                m_prevState = targetState;
-            }
-            else if (isAutoClimb)
-            {
-                m_wasAutoClimb = true;
                 auto currentStatePtr = GetCurrentStatePtr();
                 if (currentStatePtr != nullptr)
                 {
@@ -129,12 +123,7 @@ void ClimberStateMgr::CheckForStateTransition()
                     {
                         targetState = static_cast<CLIMBER_STATE>(static_cast<int>(currentState)+1);
                     }
-                    m_prevState = targetState;
                 }
-            }
-            else if (m_wasAutoClimb)
-            {
-                targetState = m_prevState;
             }
             else
             {
@@ -143,9 +132,7 @@ void ClimberStateMgr::CheckForStateTransition()
         }
         else
         {
-            m_prevState = CLIMBER_STATE::OFF;
-            m_wasAutoClimb = false;
-            targetState = CLIMBER_STATE::OFF;
+            targetState = CLIMBER_STATE::STARTING_CONFIG;
         }
 
         Logger::GetLogger()->ToNtTable(m_nt, string("state"), targetState);
