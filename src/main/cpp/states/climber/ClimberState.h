@@ -31,9 +31,15 @@ class ClimberState : public Mech2MotorState
             ControlData*                    controlData,
             ControlData*                    controlData2,
             double                          target1,
-            double                          target2
+            double                          target2,
+            double                          robotPitch
         );
 
         ClimberState() = delete;
         ~ClimberState() = default;
+
+        double GetRobotPitch() const { return m_robotPitch; };
+
+    private:
+        double                              m_robotPitch;
 };
