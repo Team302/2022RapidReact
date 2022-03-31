@@ -4,8 +4,12 @@
 	<controlData identifier="openloop" 
 	             mode="PERCENT_OUTPUT"/>
 				 
-	<controlData identifier="closedlooppos"
+	<controlData identifier="closedloopposdegrees"
 				 mode="POSITION_DEGREES"
+				 proportional="1.0"/>
+				 
+	<controlData identifier="closedloopposinches"
+				 mode="POSITION_INCH"
 				 proportional="1.0"/>
 
 	<controlData identifier="closedloopvel"
@@ -13,72 +17,110 @@
 				 proportional="0.155"
 				 feedforward="0.045"/>
 
-	<mechanismTarget stateIdentifier="CLIMBER_OFF"
+	<mechanismTarget stateIdentifier="STARTING_CONFIG"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="0.0"
+					 secondValue="-95.0"
+					 robotPitch="0.0"/>
+
+	<mechanismTarget stateIdentifier="MANUAL"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
 					 value="0.0"
-					 secondValue="0.0"/>
+					 secondValue="0.0"
+					 robotPitch="0.0"/>
 
-	<!--
-	<mechanismTarget stateIdentifier="CLIMBER_MANUAL"
-	                 controlDataIdentifier="closedloopvel"
-	                 controlDataIdentifier2="closedloopvel"
-					 value="312.5"
-					 secondValue="312.5"/>
-	-->
-	<!--
-	<mechanismTarget stateIdentifier="CLIMBER_MANUAL"
-	                 controlDataIdentifier="closedlooppos"
-	                 controlDataIdentifier2="closedlooppos"
-					 value="1260.5"
-					 secondValue="720.0"/>
-	-->
-	<mechanismTarget stateIdentifier="CLIMBER_MANUAL"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
+	<mechanismTarget stateIdentifier="PREP_MID_BAR"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="19.0"
+					 secondValue="8.0"
+					 robotPitch="0.0"/>
+
+	<mechanismTarget stateIdentifier="CLIMB_MID_BAR"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
 					 value="1.0"
-					 secondValue="1.0"/>
+					 secondValue="8.0"
+					 robotPitch="-12.1"/>
 
-	<mechanismTarget stateIdentifier="CLIMBER_INITIALREACH"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
+	<mechanismTarget stateIdentifier="FRONT_HOOK_PREP_FOR_NEXT_BAR"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="10.0"
+					 secondValue="8.0"
+					 robotPitch="-12.1"/>
 
-	<mechanismTarget stateIdentifier="CLIMBER_RETRACT"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
-                     
-	<mechanismTarget stateIdentifier="CLIMBER_RELEASE"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
+	<mechanismTarget stateIdentifier="FRONT_HOOK_ROTATE_A"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="10.0"
+					 secondValue="-45.0"
+					 robotPitch="6.5"/>
 
-	<mechanismTarget stateIdentifier="CLIMBER_REACHTOBAR"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
-                     
-	<mechanismTarget stateIdentifier="CLIMBER_ROTATEOUT"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
+	<mechanismTarget stateIdentifier="FRONT_HOOK_ROTATE_B"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="1.0"
+					 secondValue="-95.0"
+					 robotPitch="24.1"/>
 
-	<mechanismTarget stateIdentifier="CLIMBER_ROTATEIN"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
+	<mechanismTarget stateIdentifier="FRONT_HOOK_ELEVATE"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="19.0"
+					 secondValue="-95.0"
+					 robotPitch="24.1"/>
 
-	<mechanismTarget stateIdentifier="CLIMBER_HOLD"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
+	<mechanismTarget stateIdentifier="FRONT_HOOK_ROTATE_TO_HOOK"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="19.0"
+					 secondValue="-72.0"
+					 robotPitch="16.8"/>
+
+	<mechanismTarget stateIdentifier="FRONT_HOOK_LIFT_ROBOT"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="10.0"
+					 secondValue="-72.0"
+					 robotPitch="16.8"/>
+
+	<mechanismTarget stateIdentifier="FRONT_HOOK_ROTATE_ARM"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="10.0"
+					 secondValue="8.0"
+					 robotPitch="-12.1"/>
+
+	<mechanismTarget stateIdentifier="BACK_HOOK_PREP"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="19.0"
+					 secondValue="8.0"
+					 robotPitch="-12.1"/>
+
+	<mechanismTarget stateIdentifier="BACK_HOOK_ROTATE_A"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="19.0"
+					 secondValue="-58.0"
+					 robotPitch="11.6"/>
+
+	<mechanismTarget stateIdentifier="BACK_HOOK_LIFT_ROBOT"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="5.0"
+					 secondValue="-58.0"
+					 robotPitch="11.6"/>
+
+	<mechanismTarget stateIdentifier="BACK_HOOK_REST"
+	                 controlDataIdentifier="closedloopposinches"
+	                 controlDataIdentifier2="closedloopposdegrees"
+					 value="19.0"
+					 secondValue="-58.0"
+					 robotPitch="11.6"/>
+
 
 </statedata> 

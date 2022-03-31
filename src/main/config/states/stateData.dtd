@@ -4,8 +4,9 @@
 <!ATTLIST controlData
           identifier CDATA  #REQUIRED
           mode ( PERCENT_OUTPUT | VELOCITY_INCH | VELOCITY_DEGREES  | VELOCITY_RPS |
-                 VOLTAGE | CURRENT | TRAPEZOID | MOTION_PROFILE | MOTION_PROFILE_ARC | POSITION_DEGREES) "PERCENT_OUTPUT"
-	  constrolServer ( MOTORCONTROLLER | ROBORIO ) "MOTORCONTROLLER"
+                 VOLTAGE | CURRENT | TRAPEZOID | MOTION_PROFILE | MOTION_PROFILE_ARC | 
+                 POSITION_DEGREES | POSITION_INCH) "PERCENT_OUTPUT"
+	   constrolServer ( MOTORCONTROLLER | ROBORIO ) "MOTORCONTROLLER"
           proportional CDATA "0.0"
           integral CDATA "0.0"
           derivative CDATA "0.0"
@@ -17,23 +18,12 @@
 
 <!ELEMENT mechanismTarget EMPTY>
 <!ATTLIST mechanismTarget 
-          stateIdentifier ( INTAKE_OFF | INTAKE_ON | INTAKE_EXPEL | INTAKE_RETRACT |
-                            BALLTRANSFER_OFF | BALLTRANSFER_LOAD | BALLTRANSFER_HOLD | BALLTRANSFER_FEED || BALLTRANSFER_SHOOT | 
-                            SHOOTER_OFF | SHOOT_LOWGOAL | MANUAL_SHOOT | ADJUSTHOOD | PREPARETOSHOOT | SHOOT_HIGHGOAL_CLOSE | SHOOT_HIGHGOAL_FAR |
-                            LIFT_LIFT | LIFT_LOWER | LIFT_OFF |
-                            INDEXER_INDEX | INDEXER_EXPEL | INDEXER_OFF | 
-                            CLIMBER_OFF | CLIMBER_MANUAL | CLIMBER_INITIALREACH | CLIMBER_RETRACT | CLIMBER_RELEASE | CLIMBER_REACHTOBAR | CLIMBER_ROTATEOUT | CLIMBER_ROTATEIN | CLIMBER_HOLD |
-                            UNKNOWN ) "UNKNOWN"
+          stateIdentifier               CDATA #REQUIRED
           controlDataIdentifier         CDATA #REQUIRED
           controlDataIdentifier2        CDATA #IMPLIED
           value                         CDATA #REQUIRED
           secondValue                   CDATA #IMPLIED
-          function1A                    CDATA "0.0"
-          function1B                    CDATA "0.0"
-          function1C                    CDATA "0.0"
-          function2A                    CDATA "0.0"
-          function2B                    CDATA "0.0"
-          function2C                    CDATA "0.0"
           solenoid                      ( NONE | ON | REVERSE ) "NONE"
+          robotPitch                    CDATA #IMPLIED
 >
 
