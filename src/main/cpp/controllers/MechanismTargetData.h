@@ -44,6 +44,7 @@ class MechanismTargetData
             std::string                                 controller2,
             double                                      target,
             double                                      secondTarget,
+            double                                      robotPitch,
             SOLENOID                                    solenoid,
             std::array<double,3>                        function1Coeff,
             std::array<double,3>                        function2Coeff
@@ -85,6 +86,7 @@ class MechanismTargetData
         /// @return double - target value
         inline double GetSecondTarget() const { return m_secondTarget; };
 
+        inline double GetRobotPitch() const { return m_robotPitch; };
         /// @brief update to include ControlData
         /// @param [in] std::vector<ControlData*> - vector of ControlData Objects
         /// @return void
@@ -103,6 +105,7 @@ class MechanismTargetData
         ControlData*                                m_controlData2;
         SOLENOID                                    m_solenoid;
         double                                      m_secondTarget;
+        double                                      m_robotPitch;
         std::array<double,3>                        m_function1Coeff;
         std::array<double,3>                        m_function2Coeff;
 };

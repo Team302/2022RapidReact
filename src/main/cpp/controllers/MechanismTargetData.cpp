@@ -29,6 +29,7 @@ MechanismTargetData::MechanismTargetData
     string                                      controller2,
     double                                      target,
     double                                      secondTarget,
+    double                                      robotPitch,
     SOLENOID                                    solenoid,
     array<double,3>                             function1Coeff,
     array<double,3>                             function2Coeff
