@@ -140,7 +140,7 @@ void ClimberStateMgr::CheckForStateTransition()
         }
         else
         {
-            targetState = CLIMBER_STATE::OFF;
+            targetState = CLIMBER_STATE::STARTING_CONFIG;
         }
 
         if (targetState != currentState)

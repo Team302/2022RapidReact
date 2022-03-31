@@ -39,7 +39,6 @@ class ClimberStateMgr : public StateMgr
         /// @enum the various states of the impeller
         enum CLIMBER_STATE
         {
-            OFF,
             MANUAL,
             STARTING_CONFIG,
             PREP_MID_BAR,
