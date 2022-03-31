@@ -25,7 +25,13 @@ ClimberState::ClimberState
     ControlData*                    controlData, 
     ControlData*                    controlData2, 
     double                          target1,
-    double                          target2
-) : Mech2MotorState( MechanismFactory::GetMechanismFactory()->GetClimber(), controlData, controlData2, target1, target2 )
+    double                          target2,
+    double                          robotPitch
+) : Mech2MotorState( MechanismFactory::GetMechanismFactory()->GetClimber(), 
+                     controlData, 
+                     controlData2, 
+                     target1, 
+                     target2 ),
+    m_robotPitch(robotPitch)
 {
 }

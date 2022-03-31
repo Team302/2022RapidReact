@@ -96,6 +96,7 @@ void StateMgr::Init
                 	    auto controlData2 = td->GetController2();
                         auto target = td->GetTarget();
                 	    auto secondaryTarget = td->GetSecondTarget();
+                        auto robotPitch = td->GetRobotPitch();
                         auto function1Coeff = td->GetFunction1Coeff();
                         auto function2Coeff = td->GetFunction2Coeff();
                         auto type = struc.type;
@@ -165,7 +166,8 @@ void StateMgr::Init
                                 thisState = new ClimberState(controlData, 
                                                              controlData2, 
                                                              target, 
-                                                             secondaryTarget);
+                                                             secondaryTarget,
+                                                             robotPitch);
                                 break;
 
                             case StateType::CLIMBER_MANUAL:
