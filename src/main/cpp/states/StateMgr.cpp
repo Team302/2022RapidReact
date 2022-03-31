@@ -159,6 +159,7 @@ void StateMgr::Init
                                                              target, 
                                                              secondaryTarget,
                                                              robotPitch);
+                                break;
 
                             case StateType::CLIMBER_MANUAL:
                                 thisState = new ClimberManualState(controlData, 
