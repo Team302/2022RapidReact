@@ -159,7 +159,6 @@ void StateMgr::Init
                                                              target, 
                                                              secondaryTarget,
                                                              robotPitch);
-                                break;
 
                             case StateType::CLIMBER_MANUAL:
                                 thisState = new ClimberManualState(controlData, 
@@ -167,6 +166,7 @@ void StateMgr::Init
                                                                    target, 
                                                                    secondaryTarget);
                                 break;
+
 
                             case StateType::INDEXER:
                                 thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetIndexer(), 
