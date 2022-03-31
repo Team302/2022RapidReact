@@ -64,6 +64,7 @@ class IndexerStateMgr : public StateMgr
 		static IndexerStateMgr* GetInstance();
 
         void CheckForStateTransition() override;
+        bool IsBallPresent() const;
 
     protected:
         const StateStruc  m_offState = {INDEXER_STATE::OFF, StateType::INDEXER, true};
@@ -81,5 +82,7 @@ class IndexerStateMgr : public StateMgr
         Indexer*            m_indexer;
         Shooter*            m_shooter;
         ShooterStateMgr*    m_shooterStateMgr;
+        INDEXER_STATE       m_prevIndexState;
+        int                 m_loopsWithBallPresent;
 
 };

@@ -57,7 +57,9 @@ IndexerStateMgr* IndexerStateMgr::GetInstance()
 IndexerStateMgr::IndexerStateMgr() : StateMgr(),
                                      m_indexer(MechanismFactory::GetMechanismFactory()->GetIndexer()),
                                      m_shooter(MechanismFactory::GetMechanismFactory()->GetShooter()),
-                                     m_shooterStateMgr(ShooterStateMgr::GetInstance())
+                                     m_shooterStateMgr(ShooterStateMgr::GetInstance()),
+                                     m_prevIndexState(INDEXER_STATE::OFF),
+                                     m_loopsWithBallPresent(0)
 {
     map<string, StateStruc> stateMap;
     stateMap[m_indexerOffXmlString] = m_offState;
@@ -87,10 +89,8 @@ void IndexerStateMgr::CheckForStateTransition()
         if (m_shooterStateMgr != nullptr)
         {
             auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
-
             if (m_shooter != nullptr)
             {
-                auto isAtSpeed = m_shooterStateMgr->AtTarget();
                 switch (shooterState)
                 {
                     case ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL:
@@ -105,15 +105,31 @@ void IndexerStateMgr::CheckForStateTransition()
                     case ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL:
                         if (ballPresent)
                         {
+                            auto isAtSpeed = m_shooterStateMgr->AtTarget();
                             if (isAtSpeed)
                             {
-                                if (currentState == INDEXER_STATE::INDEX_LEFT || currentState == INDEXER_STATE::INDEX_RIGHT)
+                                if (currentState == INDEXER_STATE::INDEX_LEFT || 
+                                    currentState == INDEXER_STATE::INDEX_RIGHT)
                                 {
                                     targetState = currentState; // stay in current state (we're shooting, so keep the current state to keep balls consistent)
+                                    m_prevIndexState = targetState;
                                 }
                                 else
                                 {
-                                    targetState = INDEXER_STATE::INDEX_LEFT; // help keep shots consistent
+                                    targetState = m_prevIndexState;
+                                }
+                                m_loopsWithBallPresent++;
+                                if (m_loopsWithBallPresent > 5)
+                                {
+                                    m_loopsWithBallPresent = 0;
+                                    if (currentState == INDEXER_STATE::INDEX_LEFT)
+                                    {
+                                        targetState = INDEXER_STATE::INDEX_RIGHT;
+                                    }
+                                    else if (currentState == INDEXER_STATE::INDEX_RIGHT)
+                                    {
+                                        targetState = INDEXER_STATE::INDEX_LEFT;
+                                    }
                                 }
                             }
                             else
@@ -124,34 +140,22 @@ void IndexerStateMgr::CheckForStateTransition()
                         else if (currentState == INDEXER_STATE::INDEX_LEFT) 
                         {
                             targetState = INDEXER_STATE::INDEX_RIGHT;  // no ball, so switch side the indexer is indexing
+                            m_prevIndexState = targetState;
                         }
                         else if (currentState == INDEXER_STATE::INDEX_RIGHT) 
                         {
                             targetState = INDEXER_STATE::INDEX_LEFT;  // no ball, so switch side the indexer is indexing
+                            m_prevIndexState = targetState;
                         }
                         else 
                         {
                             targetState = INDEXER_STATE::INDEX_LEFT;  // no ball and indexer isn't indexing, so start indexing
+                            m_prevIndexState = targetState;
                         }
                         break;
                 
                     case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
-                        if (!ballPresent)
-                        {
-                            // switch side indexing
-                            if (currentState == INDEXER_STATE::INDEX_LEFT)
-                            {
-                                targetState = INDEXER_STATE::INDEX_RIGHT;
-                            }
-                            else
-                            {
-                                targetState = INDEXER_STATE::INDEX_LEFT;
-                            }
-                        }
-                        else
-                        {
-                            targetState = INDEXER_STATE::OFF;
-                        }
+                        targetState = INDEXER_STATE::OFF;
                         break;
 
                     default:
@@ -188,10 +192,12 @@ void IndexerStateMgr::CheckForStateTransition()
             if (leftIntakeState == IntakeStateMgr::INTAKE_STATE::INTAKE)
             {
                 targetState = INDEXER_STATE::INDEX_LEFT;
+                m_prevIndexState = targetState;
             }
             else if (rightIntakeState == IntakeStateMgr::INTAKE_STATE::INTAKE)
             {
                 targetState = INDEXER_STATE::INDEX_RIGHT;
+                m_prevIndexState = targetState;
             }
         }
        
@@ -200,4 +206,9 @@ void IndexerStateMgr::CheckForStateTransition()
             SetCurrentState(targetState, true);
         }
     }    
+}
+
+bool IndexerStateMgr::IsBallPresent() const
+{
+    return m_indexer != nullptr ? m_indexer->IsBallPresent() : true;
 }

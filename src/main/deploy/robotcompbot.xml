@@ -398,7 +398,7 @@
               continuousCurrentLimit="30"
               peakCurrentLimit="40"
               currentLimiting="true"
-              voltageCompensationSaturation="10.0"
+              voltageCompensationSaturation="9.0"
               voltageCompensationEnable="true"/> 
     </mechanism>
 
@@ -416,10 +416,10 @@
               gearRatio="1.0"
               brakeMode="false"
               peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
+              continuousCurrentLimit="50"
+              peakCurrentLimit="50"
               currentLimiting="true"
-              voltageCompensationSaturation="10.0"
+              voltageCompensationSaturation="9.0"
               voltageCompensationEnable="true"/> 
 	<motor usage="RIGHT_INDEXER"
               canId="7"
@@ -432,10 +432,10 @@
               gearRatio="1.0"
               brakeMode="false"
               peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
+              continuousCurrentLimit="50"
+              peakCurrentLimit="50"
               currentLimiting="true"
-              voltageCompensationSaturation="10.0"
+              voltageCompensationSaturation="9.0"
               voltageCompensationEnable="true"/> 
        <digitalInput usage="BALL_PRESENT"
                      digitalId="1"
