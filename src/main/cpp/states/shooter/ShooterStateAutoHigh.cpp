@@ -59,14 +59,17 @@ void ShooterStateAutoHigh::Init()
         auto shooterTarget = GetPrimaryTarget();
         auto shooterTarget2 = GetSecondaryTarget();
 
-        double inches = 75.0;
+        double inches = 90.0;
         if (m_dragonLimeLight != nullptr)
         {
             auto distance = m_dragonLimeLight->EstimateTargetDistance();
             inches = distance.to<double>();
         }
        
-        if (inches > 110)
+        shooterTarget = 0.0034*inches*inches - 0.5314*inches + 67.569; //y = 0.0034x2 - 0.5314x + 67.569
+        shooterTarget2 = 0.0047*inches*inches - 0.7452*inches + 66.302; //y = 0.0047x2 - 0.7452x + 66.302
+
+       /* if (inches > 110)
         {
             shooterTarget = 54;
             shooterTarget2 = 0.65;
@@ -74,8 +77,9 @@ void ShooterStateAutoHigh::Init()
         else
         {
             shooterTarget = 46.75; //46
-            shooterTarget2 = 0.35;
-        }
+            shooterTarget2 = 0.35
+            
+        }*/
         /**
         auto shooterTarget = m_primaryFunctionCoeff[0]*inches*inches + 
                              m_primaryFunctionCoeff[1]*inches + 
