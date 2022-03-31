@@ -530,15 +530,15 @@
               forwardlimitswitch="false"
               forwardlimitswitchopen="false"
               reverselimitswitch="false"
-              reverselimitswitchopen="false"/>
-       <digitalInput usage= "CLIMBER_BACK"
-              digitalId="2"
-              reversed="false"/>
-       <!--analogInput type="ELEVATOR_HEIGHT"
+              reverselimitswitchopen="true"/>
+       <digitalInput usage="CLIMBER_BACK"
+                     digitalId="2"
+                     reversed="false"/>
+       <analogInput type="ELEVATOR_HEIGHT"
                     analogId="0"
                     voltageMin="0.0"
                     voltageMax="5.0"
                     outputMin="0.0"
-                    outputMax="27.0"/ -->
+                    outputMax="27.0"/>
    </mechanism>
 </robot>

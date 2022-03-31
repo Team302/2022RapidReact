@@ -28,22 +28,22 @@
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/MotorData.h>
 #include <subsys/Climber.h>
-#include <utils/Logger.h>
+#include <hw/interfaces/IDragonMotorController.h>
+#include <hw/DragonAnalogInput.h>
+#include <hw/DragonDigitalInput.h>
 
 // Third Party Includes
 using namespace std;
 
 Climber::Climber
 (
-    shared_ptr<IDragonMotorController>      liftMotor,
+    shared_ptr<IDragonMotorController>      reachMotor,
     shared_ptr<IDragonMotorController>      rotateMotor,
-    std::shared_ptr<DragonDigitalInput>     armBackSw
-) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::CLIMBER,  string("climber.xml"),  string("ClimberNT"), liftMotor, rotateMotor ),
-    m_reachMin(GetPositionInInches(liftMotor)),
-    m_reachMax(m_reachMin+19.25),
-    m_rotateMin(GetPositionInDegrees(rotateMotor)),
-    m_rotateMax(m_rotateMin+95.0),
-    m_armBack(armBackSw)
+    std::shared_ptr<DragonDigitalInput>     armBackSw,
+    DragonAnalogInput*                      elevatorHeight
+) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::CLIMBER,  string("climber.xml"),  string("ClimberNT"), reachMotor, rotateMotor ),
+    m_reachMin(reachMotor.get()->GetRotations()),
+    m_rotateMin(rotateMotor.get()->GetRotations())
 {
     liftMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
     rotateMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);

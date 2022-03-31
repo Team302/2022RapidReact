@@ -32,8 +32,8 @@ class Climber : public Mech2IndMotors
         (
             std::shared_ptr<IDragonMotorController> reachMotor,
             std::shared_ptr<IDragonMotorController> rotateMotor,
-            std::shared_ptr<DragonDigitalInput>     armBackSw//,
-            //DragonAnalogInput*                      elevatorHeight
+            std::shared_ptr<DragonDigitalInput>     armBackSw,
+            DragonAnalogInput*                      elevatorHeight
         );
 
         Climber() = delete;
