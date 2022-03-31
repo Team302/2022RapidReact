@@ -68,6 +68,7 @@ class ShooterStateMgr : public StateMgr
 
         void CheckForStateTransition() override;
         bool AtTarget() const;
+        bool IsShooting() const;
     private:
 
         ShooterStateMgr();

@@ -80,9 +80,17 @@ class IndexerStateMgr : public StateMgr
         ~IndexerStateMgr() = default;
 
         Indexer*            m_indexer;
-        Shooter*            m_shooter;
         ShooterStateMgr*    m_shooterStateMgr;
-        INDEXER_STATE       m_prevIndexState;
-        int                 m_loopsWithBallPresent;
+        std::array<INDEXER_STATE,2>     m_prevIndexStates;
+        int                             m_loopsWithBallPresent;
+        int                             m_loopsToCenterBall;
+        bool                            m_keepCurrentState;
+
+        const int NUM_LOOPS_TO_CENTER_BALL = 5;
+        const int NUM_LOOPS_TO_SHOOT_BALL = 5;
+
+        bool IsShooting() const;
+        bool IsIntakingLeft() const;
+        bool IsIntakingRight() const;
 
 };
