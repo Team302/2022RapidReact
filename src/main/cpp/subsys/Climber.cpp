@@ -22,14 +22,18 @@
 // Team 302 includes
 #include <subsys/Climber.h>
 #include <hw/interfaces/IDragonMotorController.h>
+#include <hw/DragonAnalogInput.h>
+#include <hw/DragonDigitalInput.h>
 
 // Third Party Includes
 using namespace std;
 
 Climber::Climber
 (
-    shared_ptr<IDragonMotorController> reachMotor,
-    shared_ptr<IDragonMotorController> rotateMotor
+    shared_ptr<IDragonMotorController>      reachMotor,
+    shared_ptr<IDragonMotorController>      rotateMotor,
+    std::shared_ptr<DragonDigitalInput>     armBackSw,
+    DragonAnalogInput*                      elevatorHeight
 ) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::CLIMBER,  string("climber.xml"),  string("ClimberNT"), reachMotor, rotateMotor ),
     m_reachMin(reachMotor.get()->GetRotations()),
     m_rotateMin(rotateMotor.get()->GetRotations())

@@ -22,6 +22,8 @@
 #include <subsys/Mech2IndMotors.h>
 
 class IDragonMotorController;
+class DragonDigitalInput;
+class DragonAnalogInput;
 
 class Climber : public Mech2IndMotors
 {
@@ -29,7 +31,9 @@ class Climber : public Mech2IndMotors
         Climber
         (
             std::shared_ptr<IDragonMotorController> reachMotor,
-            std::shared_ptr<IDragonMotorController> rotateMotor
+            std::shared_ptr<IDragonMotorController> rotateMotor,
+            std::shared_ptr<DragonDigitalInput>     armBackSw,
+            DragonAnalogInput*                      elevatorHeight
         );
 
         Climber() = delete;
