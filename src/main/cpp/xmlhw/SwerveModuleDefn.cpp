@@ -72,7 +72,7 @@ std::shared_ptr<SwerveModule> SwerveModuleDefn::ParseXML
     double turnMaxAcc = 0.0;
     double turnCruiseVel = 0.0;
 
-    Logger::GetLogger()->OnDash(string("RobotXML Parsing"), string("Swerve Modules"));
+    Logger::GetLogger()->Arrived_at(string("Parsing: Swerve Modules"));
 
     // process attributes
     for (xml_attribute attr = SwerveModuleNode.first_attribute(); attr && !hasError; attr = attr.next_attribute())
@@ -167,7 +167,7 @@ std::shared_ptr<SwerveModule> SwerveModuleDefn::ParseXML
         }
         else if ( childName.compare("cancoder") == 0 )
         {
-            Logger::GetLogger()->OnDash(string("RobotXML Parsing"), string("Swerve CANCoder"));
+            Logger::GetLogger()->Arrived_at(string("Parsing: Swerve CANCoder"));
             turnsensor = cancoderXML.get()->ParseXML(child);
         }
         else  // log errors
@@ -183,7 +183,7 @@ std::shared_ptr<SwerveModule> SwerveModuleDefn::ParseXML
     // create chassis instance
     if ( !hasError )
     {
-        Logger::GetLogger()->LogError( string("RobotXML Parsing"), string("Create Swerve Module"));
+        Logger::GetLogger()->Arrived_at( string("Parsing: Create Swerve Module") );
         module = ChassisFactory::GetChassisFactory()->CreateSwerveModule(position,
                                                                          motors,
                                                                          turnsensor,

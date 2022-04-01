@@ -55,7 +55,8 @@ class Logger
         };
 
         /// @enum LOGGER_LEVEL
-        /// @brief Define what level the message is as well as this can be used to write only the messages of a certain level or worse.
+        /// @brief Define what level the message is as well as this can be used to write only the messages
+        /// @brief  of a certain level or worse.
         /// @brief The enum is ordered from worse to better and corresponds to the driver's station levels.
         enum LOGGER_LEVEL
         {                                                                                   // numerical value
@@ -118,26 +119,20 @@ class Logger
             const std::string&      message
         );
 
-
-        /// @brief Write a message to the dashboard
+        /// @brief Write a message and value to the dashboard, for monitoring the value
         /// @param [in] std::string: classname or object identifier
-        /// @param [in] std::string: message
+        /// @param [in] double: value that should be written (int or bool could also be 'doubled' and sent)
         void OnDash
         (
             const std::string&   locationIdentifier,
-            const std::string&   message
-        );
-
-        /// @brief Write a message to the dashboard
-        /// @param [in] std::string: classname or object identifier
-        /// @param [in] bool: boolean that should be written
-        void OnDash
-        (
-            const std::string&   locationIdentifier,
-            bool                 value
+            double               value
         );
 
 
+        //
+        //  ToNtTable() sends an identifier and information (string or value) to the specified network table.
+        //  Anything on the network can then read the message.
+        //
         void ToNtTable
         (
             const std::string&  ntName,

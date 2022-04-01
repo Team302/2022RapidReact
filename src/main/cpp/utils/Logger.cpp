@@ -48,7 +48,7 @@ using namespace std;
 
 /// @brief constructor that creates/initializes the object
 Logger::Logger() : m_option( LOGGER_OPTION::EAT_IT ),
-                   m_level( LOGGER_LEVEL::PRINT_ONCE ),
+                   m_level( LOGGER_LEVEL::PRINT ),
                    m_alreadyDisplayed(),
                    m_OptionChooser(),
                    m_LevelChooser()
@@ -268,36 +268,25 @@ void Logger::LogError
     }
 }
 
-/// @brief Write a message to the dashboard
+/// @brief Write a message and value to the dashboard, for monitoring the value
 /// @param [in] std::string: classname or object identifier
-/// @param [in] std::string: message
+/// @param [in] double: value that should be written (int or bool could also be 'doubled' and sent)
 void Logger::OnDash
 (
     const string&   locationIdentifier,     // <I> - classname or object identifier
-    const string&   message                 // <I> - message
+    double          val                     // <I> - numerical value
 )
 {
     if (m_option != Logger::LOGGER_OPTION::EAT_IT)
     {
-        SmartDashboard::PutString( locationIdentifier.c_str(), message.c_str());
+        SmartDashboard::PutNumber( locationIdentifier.c_str(), val );
     }
 }
 
-/// @brief Write a message to the dashboard
-/// @param [in] std::string: classname or object identifier
-/// @param [in] bool: boolean that should be written
-void Logger::OnDash
-(
-    const string&   locationIdentifier,     // <I> - classname or object identifier
-    bool            val                     // <I> - message
-)
-{
-    if (m_option != Logger::LOGGER_OPTION::EAT_IT)
-    {
-        SmartDashboard::PutBoolean( locationIdentifier.c_str(), val );
-    }
-}
-
+//
+//  ToNtTable() sends an identifier and information (string or value) to the specified network table.
+//  Anything on the network can then read the message.
+//
 void Logger::ToNtTable
 (
     const std::string&  ntName,
