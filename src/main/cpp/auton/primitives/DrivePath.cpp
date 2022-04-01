@@ -41,9 +41,9 @@ DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChas
                          m_trajectory(),
                          m_runHoloController(true),
                          m_ramseteController(),
-                         m_holoController(frc2::PIDController{1.0, 0, 0},
-                                          frc2::PIDController{1.0, 0, 0},
-                                          frc::ProfiledPIDController<units::radian>{0, 0, 0,
+                         m_holoController(frc2::PIDController{1.2, 0, 0},
+                                          frc2::PIDController{1.2, 0, 0},
+                                          frc::ProfiledPIDController<units::radian>{0.1, 0, 0,
                                                                                     frc::TrapezoidProfile<units::radian>::Constraints{0_rad_per_s, 0_rad_per_s / 1_s}}),
                          //max velocity of 1 rotation per second and a max acceleration of 180 degrees per second squared.
                          m_PrevPos(m_chassis.get()->GetPose()),
