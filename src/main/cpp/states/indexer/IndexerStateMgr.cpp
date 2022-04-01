@@ -85,11 +85,20 @@ void IndexerStateMgr::CheckForStateTransition()
         auto currentState = static_cast<INDEXER_STATE>(GetCurrentState());
         auto targetState = currentState;
 
-        auto controller = TeleopControl::GetInstance();
         bool ballPresent = m_indexer->IsBallPresent();
         Logger::GetLogger()->ToNtTable(m_indexer->GetNetworkTableName(), string("Ball Present"), ballPresent ? string("true") : string("false"));
 
-        if (!ballPresent)
+        if (IsIntakingLeft() && !ballPresent)
+        {
+            targetState = INDEXER_STATE::INDEX_LEFT;
+            m_keepCurrentState = true;
+        }
+        else if (IsIntakingRight() && !ballPresent)
+        {
+            targetState = INDEXER_STATE::INDEX_RIGHT;
+            m_keepCurrentState = true;
+        }
+        else if (!ballPresent)
         {
             m_loopsToCenterBall = 0;
         }
@@ -134,23 +143,15 @@ void IndexerStateMgr::CheckForStateTransition()
             {
                 targetState = INDEXER_STATE::OFF;  // have ball and not shooting, so no indexing needed
             }
-            else if (currentState == INDEXER_STATE::INDEX_LEFT) 
+            else if (currentState == INDEXER_STATE::INDEX_LEFT && !ballPresent) 
             {
                 targetState = INDEXER_STATE::INDEX_RIGHT;  // no ball, so switch side the indexer is indexing
             }
-            else if (currentState == INDEXER_STATE::INDEX_RIGHT) 
+            else if (currentState == INDEXER_STATE::INDEX_RIGHT && !ballPresent) 
             {
                 targetState = INDEXER_STATE::INDEX_LEFT;  // no ball, so switch side the indexer is indexing
             }
-            else if (IsIntakingLeft())
-            {
-                targetState = INDEXER_STATE::INDEX_LEFT;
-            }
-            else if (IsIntakingRight())
-            {
-                targetState = INDEXER_STATE::INDEX_RIGHT;
-            }
-            else 
+            else if (!ballPresent)
             {
                 targetState = INDEXER_STATE::INDEX_LEFT;  // no ball and indexer isn't indexing, so start indexing
             }
