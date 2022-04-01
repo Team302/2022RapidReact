@@ -3,11 +3,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 //C++
+#include <Robot.h>
 #include <string>
 
-#include <Robot.h>
 #include <cameraserver/CameraServer.h>
-
 #include <auton/CyclePrimitives.h>
 #include <gamepad/TeleopControl.h>
 #include <states/chassis/SwerveDrive.h>
@@ -100,6 +99,8 @@ void Robot::AutonomousInit()
     {
         m_cyclePrims->Init();
     }
+
+    Logger::GetLogger()->Arrived_at(string(" end of AutonomousInit"));
 }
 
 void Robot::AutonomousPeriodic()
@@ -111,7 +112,7 @@ void Robot::AutonomousPeriodic()
 }
 
 void Robot::TeleopInit()
-{
+{   
     Logger::GetLogger()->Arrived_at(string(" TeleopInit"));
 
     if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
