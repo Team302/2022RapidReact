@@ -100,7 +100,7 @@ DragonPigeon* PigeonDefn::ParseXML
 
     if ( !hasError )
     {
-        Logger::GetLogger()->LogError( string("RobotXML Parsing"), "Create Pigeon" );
+        Logger::GetLogger()->Arrived_at( string("Parsing: Create Pigeon") );
         pigeon = PigeonFactory::GetFactory()->CreatePigeon( canID,
                                                             type,
                                                             usage,

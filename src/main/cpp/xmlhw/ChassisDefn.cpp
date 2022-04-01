@@ -1,6 +1,6 @@
 
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302 
+// Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -14,9 +14,9 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-/// @class ChassisDefn. 
-/// @brief Create a chassis from an XML definition.   CHASSIS_TYPE (ChassisFactory.h) determines the type of 
-///        chassis to create.   WheelBase is the front to back distance between the wheel centers.   Track 
+/// @class ChassisDefn.
+/// @brief Create a chassis from an XML definition.   CHASSIS_TYPE (ChassisFactory.h) determines the type of
+///        chassis to create.   WheelBase is the front to back distance between the wheel centers.   Track
 ///        is the left to right distance between the wheels.
 
 // C++ includes
@@ -58,13 +58,13 @@ using namespace std;
 
 
 /// @brief  Parse the chassie element (and it children).  When this is done a IChassis object exists.
-///		   It can be retrieved from the factory.
+///        It can be retrieved from the factory.
 /// @param [in]  pugi::xml_node the chassis element in the XML document
 /// @return void
 
 IChassis* ChassisDefn::ParseXML
 (
-	xml_node      chassisNode
+    xml_node      chassisNode
 )
 {
     IChassis* chassis = nullptr;
@@ -114,21 +114,21 @@ IChassis* ChassisDefn::ParseXML
         }
         else if (  attrName.compare("wheelBase") == 0 )
         {
-        	wheelBase = units::length::inch_t(attr.as_double());
+            wheelBase = units::length::inch_t(attr.as_double());
         }
         else if (  attrName.compare("track") == 0 )
         {
-        	track = units::length::inch_t(attr.as_double());
+            track = units::length::inch_t(attr.as_double());
         }
         else if (  attrName.compare("maxVelocity") == 0 )
         {
             units::velocity::feet_per_second_t fps(attr.as_double()/12.0);
-        	maxVelocity = units::velocity::meters_per_second_t(fps);
+            maxVelocity = units::velocity::meters_per_second_t(fps);
         }
         else if (  attrName.compare("maxAngularVelocity") == 0 )
         {
             units::degrees_per_second_t degreesPerSec(attr.as_double());
-        	maxAngularSpeed = units::radians_per_second_t(degreesPerSec);
+            maxAngularSpeed = units::radians_per_second_t(degreesPerSec);
         }
         else if (  attrName.compare("maxAcceleration") == 0 )
         {
@@ -140,7 +140,7 @@ IChassis* ChassisDefn::ParseXML
         }
         else if (  attrName.compare("wheelDiameter") == 0 )
         {
-        	wheelDiameter = units::length::inch_t(attr.as_double());
+            wheelDiameter = units::length::inch_t(attr.as_double());
         }
         else if ( attrName.compare("odometryComplianceCoefficient") == 0 )
         {
@@ -225,7 +225,7 @@ IChassis* ChassisDefn::ParseXML
     // Process child element nodes
     IDragonMotorControllerMap motors;
     unique_ptr<MotorDefn> motorXML = make_unique<MotorDefn>();
-    
+
     shared_ptr<SwerveModule> lfront;
     shared_ptr<SwerveModule> rfront;
     shared_ptr<SwerveModule> lback;
@@ -236,17 +236,17 @@ IChassis* ChassisDefn::ParseXML
     for (xml_node child = chassisNode.first_child(); child; child = child.next_sibling())
     {
         string childName (child.name());
-      	if (childName.compare("motor") == 0)
-    	{
+        if (childName.compare("motor") == 0)
+        {
             auto motor = motorXML.get()->ParseXML(child);
             if ( motor.get() != nullptr )
             {
                 motors[ motor.get()->GetType() ] =  motor ;
             }
-    	}        
-    	else if (childName.compare("swervemodule") == 0)
-    	{
-            Logger::GetLogger()->OnDash(string("RobotXML Parsing"), string("Swerve Modules"));
+        }
+        else if (childName.compare("swervemodule") == 0)
+        {
+            Logger::GetLogger()->Arrived_at(string("Parsing: Swerve Modules"));
             shared_ptr<SwerveModule> module = moduleXML.get()->ParseXML(child);
             switch ( module.get()->GetType() )
             {
@@ -261,7 +261,7 @@ IChassis* ChassisDefn::ParseXML
                 case SwerveModule::ModuleID::RIGHT_FRONT:
                     rfront = module;
                     break;
-                
+
                 case SwerveModule::ModuleID::RIGHT_BACK:
                     rback = module;
                     break;
@@ -269,13 +269,13 @@ IChassis* ChassisDefn::ParseXML
                 default:
                     break;
             }
-    	}
-    	else  // log errors
-    	{
+        }
+        else  // log errors
+        {
             string msg = "unknown child ";
             msg += child.name();
             Logger::GetLogger()->LogError( string("SwerveChassisDefn::ParseXML"), msg );
-    	}
+        }
     }
 
 
@@ -285,12 +285,12 @@ IChassis* ChassisDefn::ParseXML
         auto factory = ChassisFactory::GetChassisFactory();
         if ( factory != nullptr )
         {
-            chassis = factory->CreateChassis( type, 
+            chassis = factory->CreateChassis( type,
                                               networkTableName,
                                               controlFileName,
-                                              wheelDiameter, 
-                                              wheelBase, 
-                                              track, 
+                                              wheelDiameter,
+                                              wheelBase,
+                                              track,
                                               maxVelocity,
                                               maxAngularSpeed,
                                               maxAcceleration,
@@ -301,7 +301,7 @@ IChassis* ChassisDefn::ParseXML
                                               lback,
                                               rback,
                                               //speedCalcOption,
-                                              poseEstOption, 
+                                              poseEstOption,
                                               odometryComplianceCoefficient );
         }
         else  // log errors

@@ -67,7 +67,8 @@ void DoNothing::Init(PrimitiveParams* params)
 /// @return void
 void DoNothing::Run()
 {
-    Logger::GetLogger() -> LogError(Logger::LOGGER_LEVEL::PRINT_ONCE, "Arrived_at ", "DoNothing::Run()");
+    Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::PRINT_ONCE, string( "Arrived_at " ), string( "DoNothing::Run") );
+
     if ( m_chassis != nullptr )
     {
         ChassisSpeeds speeds;
