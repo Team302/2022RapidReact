@@ -50,10 +50,11 @@ void IntakeStateMgr::CheckForStateTransition()
         {
             SetCurrentState(targetState, true);
         }
-        // auto stopped = intake->StopIfFullyExtended();
-        // if (!stopped)
-        // {
-        //    intake->StopIfRetracted();
-        //}
     } 
+}
+
+bool IntakeStateMgr::IsIntaking() const
+{
+    return (IsIntakePressed() || 
+            static_cast<INTAKE_STATE>(GetCurrentState()) == INTAKE_STATE::INTAKE);
 }

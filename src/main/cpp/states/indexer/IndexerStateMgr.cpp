@@ -57,14 +57,11 @@ IndexerStateMgr* IndexerStateMgr::GetInstance()
 IndexerStateMgr::IndexerStateMgr() : StateMgr(),
                                      m_indexer(MechanismFactory::GetMechanismFactory()->GetIndexer()),
                                      m_shooterStateMgr(ShooterStateMgr::GetInstance()),
-                                     m_prevIndexStates(),
+                                     m_prevIndexState(INDEXER_STATE::OFF),
                                      m_loopsWithBallPresent(0),
                                      m_loopsToCenterBall(0),
                                      m_keepCurrentState(false)
 {
-    m_prevIndexStates[0] = INDEXER_STATE::OFF;
-    m_prevIndexStates[1] = INDEXER_STATE::OFF;
-    
     map<string, StateStruc> stateMap;
     stateMap[m_indexerOffXmlString] = m_offState;
     stateMap[m_indexerIndexLeftXmlString]  = m_indexLeftState;
@@ -86,87 +83,92 @@ void IndexerStateMgr::CheckForStateTransition()
         auto targetState = currentState;
 
         bool ballPresent = m_indexer->IsBallPresent();
+
         Logger::GetLogger()->ToNtTable(m_indexer->GetNetworkTableName(), string("Ball Present"), ballPresent ? string("true") : string("false"));
 
-        if (IsIntakingLeft() && !ballPresent)
-        {
-            targetState = INDEXER_STATE::INDEX_LEFT;
-            m_keepCurrentState = true;
-        }
-        else if (IsIntakingRight() && !ballPresent)
-        {
-            targetState = INDEXER_STATE::INDEX_RIGHT;
-            m_keepCurrentState = true;
-        }
-        else if (!ballPresent)
+        if (!ballPresent && m_prevIndexState != INDEXER_STATE::OFF)
         {
             m_loopsToCenterBall = 0;
+            targetState = m_prevIndexState;
         }
-        else if (currentState == INDEXER_STATE::INDEX_LEFT ||  currentState == INDEXER_STATE::INDEX_RIGHT)
+        else if (ballPresent && m_loopsToCenterBall < NUM_LOOPS_TO_CENTER_BALL)
         {
-            // need to keep indexing to center the ball
-            m_keepCurrentState = m_loopsToCenterBall <= NUM_LOOPS_TO_CENTER_BALL;
             m_loopsToCenterBall++;
+            targetState = m_prevIndexState;
         }
-
-        if (!m_keepCurrentState && m_shooterStateMgr != nullptr)
+        else if (m_shooterStateMgr != nullptr && m_shooterStateMgr->IsShooting())
         {
-            auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
-            if (IsShooting())
+            if (ballPresent)
             {
-                if (currentState == INDEXER_STATE::INDEX_LEFT || 
-                    currentState == INDEXER_STATE::INDEX_RIGHT)
+                auto isAtSpeed = m_shooterStateMgr->AtTarget();
+                if (isAtSpeed)
                 {
-                    targetState = currentState; // stay in current state (we're shooting, so keep the current state to keep balls consistent)
+                    if (currentState == INDEXER_STATE::INDEX_LEFT || 
+                        currentState == INDEXER_STATE::INDEX_RIGHT)
+                    {
+                        targetState = currentState; // stay in current state (we're shooting, so keep the current state to keep balls consistent)
+                        m_prevIndexState = targetState;
+                    }
+                    else
+                    {
+                        targetState = m_prevIndexState;
+                    }
+                    m_loopsWithBallPresent++;
+                    if (m_loopsWithBallPresent > NUM_LOOPS_TO_SHOOT_BALL)
+                    {
+                        m_loopsWithBallPresent = 0;
+                        if (currentState == INDEXER_STATE::INDEX_LEFT)
+                        {
+                            targetState = INDEXER_STATE::INDEX_RIGHT;
+                        }
+                        else if (currentState == INDEXER_STATE::INDEX_RIGHT)
+                        {
+                            targetState = INDEXER_STATE::INDEX_LEFT;
+                        }
+                    }
                 }
                 else
-                {   // Set the state to the first state stored
-                    targetState = m_prevIndexStates[1];
-                    m_prevIndexStates[1] = m_prevIndexStates[0];
-                }
-                m_loopsWithBallPresent++;
-                if (m_loopsWithBallPresent > NUM_LOOPS_TO_SHOOT_BALL)
                 {
-                    m_loopsWithBallPresent = 0;
-                    if (currentState == INDEXER_STATE::INDEX_LEFT)
-                    {
-                        targetState = INDEXER_STATE::INDEX_RIGHT;
-                    }
-                    else if (currentState == INDEXER_STATE::INDEX_RIGHT)
-                    {
-                        targetState = INDEXER_STATE::INDEX_LEFT;
-                    }
-                }            
+                    targetState = INDEXER_STATE::OFF;  // have ball and not shooting, so no indexing needed
+                }
             }
-            else if (ballPresent || shooterState == ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT
-                                 || shooterState == ShooterStateMgr::SHOOTER_STATE::OFF)
-            {
-                targetState = INDEXER_STATE::OFF;  // have ball and not shooting, so no indexing needed
-            }
-            else if (currentState == INDEXER_STATE::INDEX_LEFT && !ballPresent) 
+            else if (currentState == INDEXER_STATE::INDEX_LEFT) 
             {
                 targetState = INDEXER_STATE::INDEX_RIGHT;  // no ball, so switch side the indexer is indexing
+                m_prevIndexState = targetState;
             }
-            else if (currentState == INDEXER_STATE::INDEX_RIGHT && !ballPresent) 
+            else if (currentState == INDEXER_STATE::INDEX_RIGHT) 
             {
                 targetState = INDEXER_STATE::INDEX_LEFT;  // no ball, so switch side the indexer is indexing
+                m_prevIndexState = targetState;
             }
-            else if (!ballPresent)
+            else 
             {
                 targetState = INDEXER_STATE::INDEX_LEFT;  // no ball and indexer isn't indexing, so start indexing
+                m_prevIndexState = targetState;
             }
         }
-      
+        else if (IsIntakingLeft())
+        {
+            targetState = INDEXER_STATE::INDEX_LEFT;
+            m_prevIndexState = targetState;
+        }
+        else if (IsIntakingRight())
+        {
+            targetState = INDEXER_STATE::INDEX_RIGHT;
+            m_prevIndexState = targetState;
+        }
+        else
+        {
+            targetState = INDEXER_STATE::OFF;
+        }
+       
         if (targetState != currentState)
         {
             SetCurrentState(targetState, true);
-            if (targetState == INDEXER_STATE::INDEX_LEFT || targetState == INDEXER_STATE::INDEX_RIGHT)
-            {
-                m_prevIndexStates[1] = m_prevIndexStates[0];
-                m_prevIndexStates[0] = targetState;
-            }
         }
     }    
+	
 }
 
 bool IndexerStateMgr::IsBallPresent() const
@@ -174,36 +176,14 @@ bool IndexerStateMgr::IsBallPresent() const
     return m_indexer != nullptr ? m_indexer->IsBallPresent() : true;
 }
 
-bool IndexerStateMgr::IsShooting() const
-{
-    if (m_shooterStateMgr != nullptr)
-    {
-        return (m_shooterStateMgr->IsShooting() && m_shooterStateMgr->AtTarget() && IsBallPresent());
-    }
-    return false;
-}
-
 bool IndexerStateMgr::IsIntakingLeft() const
 {
-    auto controller = TeleopControl::GetInstance();
     auto leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
-
-    auto leftIntakeState = leftIntakeStateMgr != nullptr ? static_cast<IntakeStateMgr::INTAKE_STATE>(leftIntakeStateMgr->GetCurrentState()) : IntakeStateMgr::INTAKE_STATE::OFF;
-    if (leftIntakeState == IntakeStateMgr::INTAKE_STATE::OFF && controller != nullptr)
-    {
-        return controller->IsButtonPressed(TeleopControl::INTAKE_LEFT);
-    }
-    return false;
+    return leftIntakeStateMgr != nullptr ? leftIntakeStateMgr->IsIntaking() : false;
 }
 
 bool IndexerStateMgr::IsIntakingRight() const
 {
-    auto controller = TeleopControl::GetInstance();
     auto rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
-    auto rightIntakeState = rightIntakeStateMgr != nullptr ? static_cast<IntakeStateMgr::INTAKE_STATE>(rightIntakeStateMgr->GetCurrentState()) : IntakeStateMgr::INTAKE_STATE::OFF;
-    if (rightIntakeState == IntakeStateMgr::INTAKE_STATE::OFF && controller != nullptr)
-    {
-        return controller->IsButtonPressed(TeleopControl::INTAKE_RIGHT);
-    }
-    return false;
+    return rightIntakeStateMgr != nullptr ? rightIntakeStateMgr->IsIntaking() : false;
 }
