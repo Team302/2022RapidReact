@@ -67,122 +67,6 @@ Logger* Logger::GetLogger()
     return Logger::m_instance;
 }
 
-
-/// @brief Display/select logging options/levels on dashboard
-void Logger::PutLoggingSelectionsOnDashboard()
-{
-    // set up option menu
-    m_OptionChooser.SetDefaultOption("EAT_IT", LOGGER_OPTION::EAT_IT);
-    m_OptionChooser.AddOption("DASHBOARD", LOGGER_OPTION::DASHBOARD);
-    m_OptionChooser.AddOption("CONSOLE", LOGGER_OPTION::CONSOLE);
-    frc::SmartDashboard::PutData("Logging Options", &m_OptionChooser);
-
-    // set up level menu
-    m_LevelChooser.SetDefaultOption("ERROR_ONCE", LOGGER_LEVEL::ERROR_ONCE);
-    m_LevelChooser.AddOption("ERROR", LOGGER_LEVEL::ERROR);
-    m_LevelChooser.AddOption("WARNING_ONCE", LOGGER_LEVEL::WARNING_ONCE);
-    m_LevelChooser.AddOption("WARNING", LOGGER_LEVEL::WARNING);
-    m_LevelChooser.AddOption("PRINT_ONCE", LOGGER_LEVEL::PRINT_ONCE);
-    m_LevelChooser.AddOption("PRINT", LOGGER_LEVEL::PRINT);
-    frc::SmartDashboard::PutData("Logging Levels", &m_LevelChooser);
-
-    m_CyclingCounter = 0;
-}
-
-/// @brief Read logging option from dashboard, but not every 20ms
-void Logger::PeriodicLog()
-{
-    m_CyclingCounter += 1;          // count 20ms loops
-    if (m_CyclingCounter >= 25)     // execute every 500ms
-    {
-        m_CyclingCounter = 0;
-
-        //
-        // Check for a new option selection
-        //
-        LOGGER_OPTION SelectedOption = m_OptionChooser.GetSelected();
-
-        if (SelectedOption != m_option)
-        {
-            cout << "SelectedOption = " << SelectedOption;    // print integer value
-            m_option = SelectedOption;
-
-            switch(SelectedOption)
-            {
-                case CONSOLE:
-                    cout << " CONSOLE" << endl;
-                    break;
-
-                case DASHBOARD:
-                    cout << " DASHBOARD" << endl;
-                    break;
-
-                case EAT_IT:
-                    cout << " EAT_IT" << endl;
-                    break;
-
-                default:
-                    cout << " Out of range !" << endl;
-                    m_option = EAT_IT;
-                    break;
-            }
-        }
-
-        //
-        // Check for a new level selection
-        //
-        LOGGER_LEVEL SelectedLevel = m_LevelChooser.GetSelected();
-
-        if (SelectedLevel != m_level)
-        {
-            cout << "SelectedLevel = " << SelectedLevel;    // print integer value
-            m_level = SelectedLevel;
-
-            switch(SelectedLevel)
-            {
-                case ERROR_ONCE:
-                    cout << " ERROR_ONCE" << endl;
-                    break;
-
-                case ERROR:
-                    cout << " ERROR" << endl;
-                    break;
-
-                case WARNING_ONCE:
-                    cout << " WARNING_ONCE" << endl;
-                    break;
-
-                case WARNING:
-                    cout << " WARNING" << endl;
-                    break;
-
-                case PRINT_ONCE:
-                    cout << " PRINT_ONCE" << endl;
-                    break;
-
-                case PRINT:
-                    cout << " PRINT" << endl;
-                    break;
-
-                default:
-                    cout << " Out of range !" << endl;
-                    m_level = WARNING;
-                    break;
-            }
-        }
-    }
-}
-
-/// @brief Log a message indicating the code has reached a given point
-/// @param [in] std::string: message indicating location in code
-void Logger::Arrived_at
-(
-    const std::string&   message
-)
-{
-    LogError( LOGGER_LEVEL::PRINT, string("Arrived_at "), message );
-}
-
 /// @brief set the option for where the logging messages should be displayed
 /// @param [in] LOGGER_OPTION:  logging option for where to log messages
 void Logger::SetLoggingOption
@@ -265,6 +149,21 @@ void Logger::LogError
                     break;
             }
         }
+    //}
+}
+
+/// @brief Write a message to the dashboard
+/// @param [in] std::string: classname or object identifier
+/// @param [in] std::string: message
+void Logger::OnDash
+(
+    const string&   locationIdentifier,     // <I> - classname or object identifier
+    const string&   message                 // <I> - error message
+)
+{
+    if (m_option != Logger::LOGGER_OPTION::EAT_IT)
+    {
+        SmartDashboard::PutString( locationIdentifier.c_str(), message.c_str());
     }
 }
 
@@ -274,7 +173,7 @@ void Logger::LogError
 void Logger::OnDash
 (
     const string&   locationIdentifier,     // <I> - classname or object identifier
-    double          val                     // <I> - numerical value
+    bool            val                 // <I> - error message
 )
 {
     if (m_option != Logger::LOGGER_OPTION::EAT_IT)
