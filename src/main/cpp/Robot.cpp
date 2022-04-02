@@ -115,7 +115,7 @@ void Robot::AutonomousPeriodic()
 }
 
 void Robot::TeleopInit()
-{   
+{
     Logger::GetLogger()->Arrived_at(string(" TeleopInit"));
 
     if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
