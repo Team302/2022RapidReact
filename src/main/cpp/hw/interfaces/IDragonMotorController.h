@@ -124,6 +124,11 @@ class IDragonMotorController
             double  initialPosition
         ) = 0;
 
+        virtual void SetSelectedSensorPosition
+        (
+            double  initialPosition
+        ) = 0;
+
     protected:
 
 };
