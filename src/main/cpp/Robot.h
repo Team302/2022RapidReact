@@ -43,7 +43,6 @@ class Robot : public frc::TimedRobot
 
   IntakeStateMgr*       m_leftIntakeStateMgr;
   IntakeStateMgr*       m_rightIntakeStateMgr;
-  BallTransferStateMgr* m_ballTransferStateMgr;
   IndexerStateMgr*      m_indexerStateMgr;
   LiftStateMgr*         m_liftStateMgr;
   ShooterStateMgr*      m_shooterStateMgr;

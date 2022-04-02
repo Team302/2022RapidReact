@@ -30,7 +30,6 @@
 #include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
 #include <auton/primitives/IPrimitive.h>
-#include <states/balltransfer/BallTransferStateMgr.h>
 #include <states/indexer/IndexerStateMgr.h>
 #include <states/intake/LeftIntakeStateMgr.h>
 #include <states/intake/RightIntakeStateMgr.h>
@@ -92,12 +91,6 @@ void CyclePrimitives::Run()
 		if (shooterStateMgr != nullptr)
 		{
 			shooterStateMgr->RunCurrentState();
-		}
-
-		auto ballTransferStateMgr = BallTransferStateMgr::GetInstance();
-		if (ballTransferStateMgr != nullptr)
-		{
-			ballTransferStateMgr->RunCurrentState();
 		}
 
 		auto indexerStateMgr = IndexerStateMgr::GetInstance();
