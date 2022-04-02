@@ -71,8 +71,8 @@ void ClimberManualState::Init()
 
         m_climber->SetControlConstants(0, m_controlDataUpDown);
         m_climber->SetSecondaryControlConstants(0, m_controlDataRotate);
-        //m_climber->UpdateTargets(m_upDownMin, m_rotateMin);
-        m_climber->UpdateTargets(m_upDownMin, 0.0);
+        m_climber->UpdateTargets(m_upDownMin, m_rotateMin);
+        //m_climber->UpdateTargets(m_upDownMin, 0.0);
     }
 }
 
@@ -84,6 +84,8 @@ void ClimberManualState::Run()
         auto armDownPercent = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_DOWN);
         auto armUpPercent   = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_UP);
         auto upDownPercent = armUpPercent - armDownPercent;
+
+        auto rotatePercent = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_ROTATE);
 
         /**
         auto currentUpDown = m_reach.get()->GetRotations();
@@ -121,14 +123,16 @@ void ClimberManualState::Run()
         auto rotateTarget = armRotatePercent * m_rotateMax; 
         m_climber->UpdateTargets(upDowntarget, rotateTarget);
         **/
-       auto rotateTarget = 0.0;
-       auto testingZero = 0.0;
+       //auto rotateTarget = 0.0;
+       //auto testingZero = 0.0;
 
-        Logger::GetLogger()->LogError(string("Climber Manual State"), string("Down Percent: " + to_string(armDownPercent)));
-        Logger::GetLogger()->LogError(string("Climber Manual State"), string("Up Percent: " + to_string(armUpPercent)));
-        Logger::GetLogger()->LogError(string("Climber Manual State"), string("UpDown Percent: " + to_string(upDownPercent)));
+        Logger::GetLogger()->ToNtTable(string("Climber Manual State"), string("Down Percent: "), armDownPercent);
+        Logger::GetLogger()->ToNtTable(string("Climber Manual State"), string("Up Percent: "), armUpPercent);
+        Logger::GetLogger()->ToNtTable(string("Climber Manual State"), string("UpDown Percent: "), upDownPercent);
+        Logger::GetLogger()->ToNtTable(string("Climber Manual State"), string("Rotate Percent: "), upDownPercent);
         //m_climber->UpdateTargets(upDownPercent, rotateTarget);
-        m_climber->UpdateTargets(testingZero, rotateTarget);
+
+        m_climber->UpdateTargets(upDownPercent, rotatePercent);
         m_climber->Update();
         m_climber->LogData();
     }

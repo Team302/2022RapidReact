@@ -10,7 +10,6 @@
 
 #include <auton/CyclePrimitives.h>
 #include <gamepad/TeleopControl.h>
-#include <states/BallTransfer/BallTransferStateMgr.h>
 #include <states/chassis/SwerveDrive.h>
 #include <states/climber/ClimberStateMgr.h>
 #include <states/indexer/IndexerStateMgr.h>

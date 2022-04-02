@@ -53,7 +53,7 @@ DragonXBox::DragonXBox
     m_button[Y_BUTTON]            = new DigitalButton( m_xbox, 4  );
     m_button[LEFT_BUMPER]         = new DigitalButton( m_xbox, 5  );
     m_button[RIGHT_BUMPER]        = new DigitalButton( m_xbox, 6  );
-    m_button[BACK_BUTTON]         = new DigitalButton( m_xbox, 7  );
+    m_button[SELECT_BUTTON]       = new DigitalButton( m_xbox, 7  );
     m_button[START_BUTTON]        = new DigitalButton( m_xbox, 8  );
     m_button[LEFT_STICK_PRESSED]  = new DigitalButton( m_xbox, 9  );
     m_button[RIGHT_STICK_PRESSED] = new DigitalButton( m_xbox, 10 );

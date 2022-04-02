@@ -36,7 +36,6 @@
 #include <states/intake/RightIntakeStateMgr.h>
 #include <states/lift/LiftStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
-#include <subsys/BallTransfer.h>
 #include <subsys/Intake.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/Shooter.h>
@@ -155,11 +154,6 @@ void CyclePrimitives::GetNextPrim()
 		if (shooterStateMgr != nullptr)
 		{
 			shooterStateMgr->SetCurrentState(currentPrimParam->GetShooterState(), true);
-		}
-		auto ballTransferStateMgr = BallTransferStateMgr::GetInstance();
-		if (ballTransferStateMgr != nullptr)
-		{
-			ballTransferStateMgr->RunCurrentState();
 		}
 
 		auto indexerStateMgr = IndexerStateMgr::GetInstance();

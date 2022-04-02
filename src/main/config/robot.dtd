@@ -218,6 +218,8 @@
                                       SENSORSUM |  SENSORDIFFERENCE |  
                                       REMOTESENSOR0 |  REMOTESENSOR1 | SOFTWAREEMULATEDSENSOR ) "NONE"
           countsPerRev      		CDATA "0"
+          countsPerInch             CDATA "0"
+          countsPerDegree           CDATA "0"
           gearRatio         		CDATA "1"
           brakeMode         		( true | false ) "false"
           follow 					CDATA "-1"

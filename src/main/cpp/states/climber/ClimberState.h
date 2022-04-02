@@ -37,6 +37,7 @@ class ClimberState : public Mech2MotorState
 
         ClimberState() = delete;
         ~ClimberState() = default;
+        bool AtTarget() const override;
 
         double GetRobotPitch() const { return m_robotPitch; };
 

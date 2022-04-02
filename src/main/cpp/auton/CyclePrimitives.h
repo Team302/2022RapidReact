@@ -35,7 +35,6 @@ class PrimitiveParams;
 
 class LeftIntakeStateMgr;
 class RightIntakeStateMgr;
-class BallTransferStateMgr;
 class ShooterStateMgr;
 class LeftIndexerStateMgr;
 class RightIndexerStateMgr;

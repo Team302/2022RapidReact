@@ -40,4 +40,7 @@ Climber::Climber
 {
     reachMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
     rotateMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
+
+    reachMotor.get()->SetSelectedSensorPosition(0.0);
+    rotateMotor.get()->SetSelectedSensorPosition(0.0);
 }
