@@ -10,7 +10,6 @@
 
 #include <auton/CyclePrimitives.h>
 #include <gamepad/TeleopControl.h>
-#include <states/BallTransfer/BallTransferStateMgr.h>
 #include <states/chassis/SwerveDrive.h>
 #include <states/climber/ClimberStateMgr.h>
 #include <states/indexer/IndexerStates.h>
@@ -44,7 +43,6 @@ class Robot : public frc::TimedRobot
 
   IntakeStateMgr*       m_leftIntakeStateMgr;
   IntakeStateMgr*       m_rightIntakeStateMgr;
-  BallTransferStateMgr* m_ballTransferStateMgr;
   IndexerStates*        m_leftIndexerStateMgr;
   IndexerStates*        m_rightIndexerStateMgr;
   LiftStateMgr*         m_liftStateMgr;

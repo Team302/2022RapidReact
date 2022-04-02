@@ -62,6 +62,8 @@ class TeleopControl
 
             // added 2022 Geo3 2.13.22
             FINDTARGET,         //Rotate to point to target center
+            ENABLE_CLIMBER,     //Put into climb mode
+            PREP_MIDBAR_CLIMB,  //Go to the prepare for Midbar Climb
             CLIMBER_MAN_UP,     //Button Mapped needs calls at mgrs
             CLIMBER_MAN_DOWN,   //Button Mapped needs calls to mgrs
             CLIMBER_MAN_ROTATE,

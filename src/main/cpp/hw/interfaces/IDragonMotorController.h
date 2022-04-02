@@ -118,6 +118,11 @@ class IDragonMotorController
         virtual bool IsForwardLimitSwitchClosed() const = 0;
         virtual bool IsReverseLimitSwitchClosed() const = 0;
 
+        virtual void SetSelectedSensorPosition
+        (
+            double  initialPosition
+        ) = 0;
+
     protected:
 
 };

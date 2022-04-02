@@ -82,6 +82,8 @@ class DragonMotorControllerFactory
 			bool 											sensorInverted,			/// Sensor direction matches motor direction or not 
 			ctre::phoenix::motorcontrol::FeedbackDevice  	feedbackDevice,			/// Sensor type
 			int 											countsPerRev,			/// Number of pulses per revolution for the sensor
+			double											countsPerInch,
+			double											countsPerDegree,
 			float 											gearRatio,				/// Gear ratio (output to input ... see https://www.wikihow.com/Determine-Gear-Ratio)
 			bool 											brakeMode,				/// brake mode using back emf to resist motion when power is not applied
 			int 											followMotor,				/// CAN ID of the "master" motor controller if this is a follower motor controller (-1 indicates it is a master)

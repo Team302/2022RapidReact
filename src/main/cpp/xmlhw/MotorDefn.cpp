@@ -60,6 +60,8 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
     bool sensorInverted = false;
     ctre::phoenix::motorcontrol::FeedbackDevice  feedbackDevice = ctre::phoenix::motorcontrol::FeedbackDevice::QuadEncoder;
     int countsPerRev = 0;
+    double countsPerInch = 0;
+    double countsPerDeg = 0;
     float gearRatio = 1;
     bool brakeMode = false;
     int follow = -1;
@@ -178,6 +180,14 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
         {
             countsPerRev = attr.as_int();
         }
+        else if ( strcmp( attr.name(), "countsPerInch" ) == 0 )
+        {
+            countsPerInch = attr.as_double();
+        }
+        else if ( strcmp( attr.name(), "countsPerDegree" ) == 0 )
+        {
+            countsPerDeg = attr.as_double();
+        }
 		// gear ratio
         else if ( strcmp( attr.name(), "gearRatio" ) == 0 )
         {
@@ -250,6 +260,8 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
                                                                                          sensorInverted,
                                                                                          feedbackDevice,
                                                                                          countsPerRev,
+                                                                                         countsPerInch,
+                                                                                         countsPerDeg,
                                                                                          gearRatio,
                                                                                          brakeMode,
                                                                                          follow,

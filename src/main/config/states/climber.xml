@@ -18,6 +18,13 @@
 				 feedforward="0.045"/>
 
 	<mechanismTarget stateIdentifier="STARTING_CONFIG"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="0.0"
+					 secondValue="0.0"
+					 robotPitch="0.0"/>
+
+	<mechanismTarget stateIdentifier="STARTING_CONFIG"
 	                 controlDataIdentifier="closedloopposinches"
 	                 controlDataIdentifier2="closedloopposdegrees"
 					 value="0.0"
