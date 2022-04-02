@@ -13,12 +13,15 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+#include <cmath>
+
 #include <controllers/ControlData.h>
 #include <controllers/MechanismTargetData.h>
 #include <states/Climber/ClimberState.h>
 #include <states/Mech2MotorState.h>
 #include <subsys/MechanismFactory.h>
 
+using namespace std;
 
 ClimberState::ClimberState
 (
@@ -34,4 +37,9 @@ ClimberState::ClimberState
                      target2 ),
     m_robotPitch(robotPitch)
 {
+}
+
+bool ClimberState::AtTarget() const
+{
+    return Mech2MotorState::AtTarget() && abs(GetRobotPitch() - m_robotPitch) < 0.5;
 }

@@ -12,7 +12,6 @@
 #include <states/Intake/LeftIntakeStateMgr.h>
 #include <states/Intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
-#include <subsys/BallTransfer.h>
 #include <subsys/ChassisFactory.h>
 #include <subsys/Climber.h>
 #include <subsys/Intake.h>
@@ -46,7 +45,6 @@ void Robot::RobotInit()
     m_leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
     m_rightIndexerStateMgr = RightIndexerStateMgr::GetInstance();
     m_liftStateMgr = LiftStateMgr::GetInstance();
-    m_ballTransferStateMgr = BallTransferStateMgr::GetInstance();
     m_shooterStateMgr = ShooterStateMgr::GetInstance();
     m_climberStateMgr = ClimberStateMgr::GetInstance();
 
@@ -111,10 +109,6 @@ void Robot::TeleopInit()
     {
         m_rightIntakeStateMgr->RunCurrentState();
     }
-    if (m_ballTransferStateMgr != nullptr)
-    {
-        m_ballTransferStateMgr->RunCurrentState();
-    }
     if (m_shooterStateMgr != nullptr)
     {
         m_shooterStateMgr->SetCurrentState(ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT, true);
@@ -151,10 +145,6 @@ void Robot::TeleopPeriodic()
     if (m_rightIntakeStateMgr != nullptr)
     {
         m_rightIntakeStateMgr->RunCurrentState();
-    }
-    if (m_ballTransferStateMgr != nullptr)
-    {
-        m_ballTransferStateMgr->RunCurrentState();
     }
     if (m_shooterStateMgr != nullptr)
     {

@@ -44,7 +44,9 @@ class DragonTalon : public IDragonMotorController
             int deviceID, 
             int pdpID, 
             int countsPerRev, 
-            double gearRatio
+            double gearRatio,
+            double countsPerInch,
+            double countsPerDegree
         );
         virtual ~DragonTalon() = default;
 
@@ -134,6 +136,10 @@ class DragonTalon : public IDragonMotorController
         double GetGearRatio() const override { return m_gearRatio;}
         bool IsForwardLimitSwitchClosed() const override;
         bool IsReverseLimitSwitchClosed() const override;
+        void SetSelectedSensorPosition
+        (
+            double  initialPosition
+        ) override;
 
     private:
         std::shared_ptr<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>  m_talon;
@@ -146,6 +152,8 @@ class DragonTalon : public IDragonMotorController
         int m_tickOffset;
         double m_gearRatio;
         double m_diameter;
+        double m_countsPerInch;
+        double m_countsPerDegree;
 };
 
 typedef std::vector<DragonTalon*> DragonTalonVector;

@@ -25,8 +25,6 @@
 
 // Team 302 includes
 #include <controllers/MechanismTargetData.h>
-#include <states/BallTransfer/BallTransferState.h>
-#include <states/BallTransfer/BallTransferStateMgr.h>
 #include <states/climber/ClimberState.h>
 #include <states/climber/ClimberManualState.h>
 #include <states/indexer/IndexerState.h>
@@ -135,13 +133,6 @@ void StateMgr::Init
                                                                                                 secondaryTarget);
                         	    break;
                         	    
-                    	    case StateType::BALL_TRANSFER:
-                        	    thisState = new BallTransferState(controlData, 
-                                                                  controlData2, 
-                                                                  target, 
-                                                                  secondaryTarget);
-                        	    break;
-                    
                     	    case StateType::SHOOTER:
                        		    thisState = new ShooterState(controlData, 
                                                              controlData2, 
