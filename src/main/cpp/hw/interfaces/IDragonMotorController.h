@@ -119,6 +119,11 @@ class IDragonMotorController
         virtual bool IsReverseLimitSwitchClosed() const = 0;
         virtual void EnableVoltageCompensation( double fullvoltage) = 0;
 
+        virtual void SetSelectedSensorPosition
+        (
+            double  initialPosition
+        ) = 0;
+
     protected:
 
 };

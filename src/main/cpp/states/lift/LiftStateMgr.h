@@ -34,7 +34,7 @@
 class LiftStateMgr : public StateMgr
 {
     public:
-        /// @enum the various states of the BallTransfer
+        /// @enum the various states of the Lift
         enum LIFT_STATE
         {
             OFF,
