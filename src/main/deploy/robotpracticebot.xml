@@ -47,8 +47,8 @@
               controlFile="chassis.xml">
 			 
         <swervemodule type="RIGHT_BACK"
-                      turn_p="0.115"
-                      turn_i="0.008"
+                      turn_p="0.1"
+                      turn_i="0.005"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -99,8 +99,8 @@
 
        
         <swervemodule type="LEFT_BACK"
-                      turn_p="0.115"
-                      turn_i="0.0080"
+                      turn_p="0.1"
+                      turn_i="0.005"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -150,8 +150,8 @@
         </swervemodule>
 
         <swervemodule type="RIGHT_FRONT"
-                      turn_p="0.115"
-                      turn_i="0.008"
+                      turn_p="0.1"
+                      turn_i="0.005"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -200,8 +200,8 @@
                             offset="-144.668"/>
         </swervemodule>
         <swervemodule type="LEFT_FRONT"
-                      turn_p="0.115"
-                      turn_i="0.008"
+                      turn_p="0.1"
+                      turn_i="0.005"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -340,10 +340,10 @@
      Ball Transfer
      ====================================================  -->
 
-    <mechanism type="BALL_TRANSFER"
-               networkTable="BallTransferNT"
-               controlFile="balltransfer.xml">
-       <motor usage="BALL_TRANSFER_SPIN"
+    <mechanism type="LIFT"
+               networkTable="LiftNT"
+               controlFile="lift.xml">
+       <motor usage="LIFT"
               canId="3"
               pdpID="3"
               type="TALONSRX"
@@ -360,8 +360,13 @@
               forwardlimitswitch="false"
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
-              reverselimitswitchopen="true"/>
-       <motor usage="BALL_TRANSFER_LIFT"
+              reverselimitswitchopen="true"/>             
+    </mechanism>
+
+    <mechanism type="LEFT_INDEXER"
+              networkTable="IndexerNT"
+              controlFile="indexer.xml">
+       <motor usage="INDEXER"
               canId="4"
               pdpID="4"
               type="TALONSRX"
@@ -378,14 +383,37 @@
               forwardlimitswitch="true"
               forwardlimitswitchopen="true"
               reverselimitswitch="true"
-              reverselimitswitchopen="true"/>      
-       <digitalInput usage="BALL_PRESENT"
-                     digitalId="0"  
-                     reversed="true"/>      
-       <digitalInput usage="BALL_TRANSFER_FORWARD"
-                     digitalId="1"  
-                     reversed="true"/>      
-    </mechanism>
+              reverselimitswitchopen="true"/> 
+       <!-- digitalInput usage= "BALL_PRESENT"
+                     digitalId="1"
+                     reversed="false"/ -->
+  </mechanism>
+
+  <mechanism type="RIGHT_INDEXER"
+              networkTable="IndexerNT"
+              controlFile="indexer.xml">
+	<motor usage="INDEXER"
+              canId="7"
+              pdpID="7"
+              type="TALONSRX"
+              inverted="true"
+              sensorInverted="false"
+              feedbackDevice="NONE"
+              countsPerRev="0"
+              gearRatio="1.0"
+              brakeMode="true"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
+              currentLimiting="true" 
+              forwardlimitswitch="true"
+              forwardlimitswitchopen="true"
+              reverselimitswitch="true"
+              reverselimitswitchopen="true"/>
+       <!-- digitalInput usage="BALL_PRESENT"
+                     digitalId="1"
+                     reversed="false"/ -->
+  </mechanism>
 
 <!-- ====================================================
      Shooter
@@ -411,25 +439,20 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
-
-       <motor usage="SHOOTER_HOOD"
-              canId="7"
-              pdpID="7"
-              type="TALONSRX"
+       <motor usage="SHOOTER2"
+              canId="15"
+              pdpID="15"
+              type="FALCON"
               inverted="false"
               sensorInverted="false"
-              feedbackDevice="NONE"
-              countsPerRev="0"
+              feedbackDevice="INTERNAL"
+              countsPerRev="2048"
               gearRatio="1.0"
-              brakeMode="true"
+              brakeMode="false"
               peakCurrentDuration="50"
               continuousCurrentLimit="30"
               peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="true"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="true"
-              reverselimitswitchopen="true"/>
+              currentLimiting="true" />     
     </mechanism>
 
 <!-- ====================================================
@@ -446,7 +469,7 @@
               sensorInverted="false"
               feedbackDevice="INTERNAL"
               countsPerRev="2048"
-              gearRatio="1.0"
+              gearRatio="16.0"
               brakeMode="true"
               peakCurrentDuration="50"
               continuousCurrentLimit="30"
@@ -465,7 +488,7 @@
               sensorInverted="false"
               feedbackDevice="INTERNAL"
               countsPerRev="2048"
-              gearRatio="1.0"
+              gearRatio="16.0"
               brakeMode="true"
               peakCurrentDuration="50"
               continuousCurrentLimit="30"
@@ -475,6 +498,9 @@
               forwardlimitswitchopen="true"
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
+       <digitalInput usage= "CLIMBER_BACK"
+              digitalId="2"
+              reversed="false"/>
    </mechanism>
 
 </robot>
