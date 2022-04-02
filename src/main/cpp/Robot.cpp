@@ -39,6 +39,7 @@ void Robot::RobotInit()
     CameraServer::SetSize(CameraServer::kSize320x240);
     CameraServer::StartAutomaticCapture();
 
+    // Read the XML file to build the robot
     auto defn = new RobotDefn();
     defn->ParseXML();
 
@@ -47,7 +48,7 @@ void Robot::RobotInit()
     auto factory = ChassisFactory::GetChassisFactory();
     m_chassis = factory->GetIChassis();
     m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
-        
+
     m_leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
     m_rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
     m_indexerStateMgr = IndexerStateMgr::GetInstance();
@@ -111,7 +112,7 @@ void Robot::AutonomousPeriodic()
 }
 
 void Robot::TeleopInit()
-{   
+{
     Logger::GetLogger()->Arrived_at(string(" TeleopInit"));
 
     if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
