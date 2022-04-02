@@ -32,7 +32,9 @@
     <primitive id="DO_NOTHING"
                time="2.0"
                headingOption="TOWARD_GOAL"
-               shooter="SHOOT_HIGHGOAL_FAR"/>          
+               shooter="SHOOT_HIGHGOAL_FAR"/>  
+    <primitive id="RESET_POSITION"
+			   pathname="fiveBallRight6copy2.wpilib.json"/>        
     <primitive id="DRIVE_PATH"
                pathname="fiveBallRight6copy2.wpilib.json" 
                leftIntake="INTAKE_ON"
