@@ -32,17 +32,28 @@ class Climber : public Mech2IndMotors
         (
             std::shared_ptr<IDragonMotorController> reachMotor,
             std::shared_ptr<IDragonMotorController> rotateMotor,
-            std::shared_ptr<DragonDigitalInput>     armBackSw,
-            DragonAnalogInput*                      elevatorHeight
+            std::shared_ptr<DragonDigitalInput>     armBackSw//,
+            //DragonAnalogInput*                      elevatorHeight
         );
 
         Climber() = delete;
         virtual ~Climber() = default;
 
+        /// @brief update the output to the mechanism using the current controller and target value(s)
+        /// @return void 
+        void Update() override;
+
+        /// @brief log data to the network table if it is activated and time period has past
+        void LogData() override;
+
         double GetMinReach() const {return m_reachMin;}
         double GetMinRotate() const {return m_rotateMin;}
 
     private:
-        double m_reachMin;
-        double m_rotateMin;
+        double                              m_reachMin;
+        double                              m_reachMax;
+        double                              m_rotateMin;
+        double                              m_rotateMax;
+        std::shared_ptr<DragonDigitalInput> m_armBack;
+        //DragonAnalogInput*                  m_elevatorHeight;
 };

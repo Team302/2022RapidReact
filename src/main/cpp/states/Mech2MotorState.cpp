@@ -145,6 +145,9 @@ void Mech2MotorState::Run()
 {
     if ( m_mechanism != nullptr )
     {
+        Logger::GetLogger()->ToNtTable(m_mechanism->GetNetworkTableName(), string("target1"), m_primaryTarget);
+        Logger::GetLogger()->ToNtTable(m_mechanism->GetNetworkTableName(), string("target2"), m_secondaryTarget);
+        
         m_mechanism->Update();
         m_mechanism->LogData();
     }

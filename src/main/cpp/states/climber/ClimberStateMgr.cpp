@@ -140,9 +140,12 @@ void ClimberStateMgr::CheckForStateTransition()
         }
         else
         {
+            m_prevState = CLIMBER_STATE::OFF;
+            m_wasAutoClimb = false;
             targetState = CLIMBER_STATE::OFF;
         }
 
+        Logger::GetLogger()->ToNtTable(m_nt, string("state"), targetState);
         if (targetState != currentState)
         {
             Logger::GetLogger()->ToNtTable(m_nt, string("Changing climber State"), targetState);
