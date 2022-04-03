@@ -141,6 +141,9 @@ class DragonTalon : public IDragonMotorController
         (
             double  initialPosition
         ) override;
+        
+        double GetCountsPerInch() const override;
+        double GetCountsPerDegree() const override;
 
 
     private:

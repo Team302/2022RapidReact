@@ -970,4 +970,13 @@ void DragonFalcon::SetSelectedSensorPosition
 	m_talon.get()->SetSelectedSensorPosition(initialPosition, 0, 50);
 }
 
+        
+double DragonFalcon::GetCountsPerInch() const 
+{
+	return m_countsPerInch;
+}
+double DragonFalcon::GetCountsPerDegree() const 
+{
+	return m_countsPerDegree;
+}
 
