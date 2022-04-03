@@ -147,6 +147,8 @@ void ClimberStateMgr::CheckForStateTransition()
         }
         else
         {
+            m_prevState = CLIMBER_STATE::OFF;
+            m_wasAutoClimb = false;
             targetState = CLIMBER_STATE::OFF;
         }
 

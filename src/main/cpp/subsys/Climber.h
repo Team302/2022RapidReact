@@ -32,8 +32,8 @@ class Climber : public Mech2IndMotors
         (
             std::shared_ptr<IDragonMotorController> reachMotor,
             std::shared_ptr<IDragonMotorController> rotateMotor,
-            std::shared_ptr<DragonDigitalInput>     armBackSw,
-            DragonAnalogInput*                      elevatorHeight
+            std::shared_ptr<DragonDigitalInput>     armBackSw//,
+            //DragonAnalogInput*                      elevatorHeight
         );
 
         Climber() = delete;
@@ -55,15 +55,6 @@ class Climber : public Mech2IndMotors
         bool IsRotateStalled() const;
 
     private:
-        static double GetPositionInInches
-        (
-            std::shared_ptr<IDragonMotorController> motor
-        );
-        static double GetPositionInDegrees
-        (
-            std::shared_ptr<IDragonMotorController> motor
-        );
-
         double                              m_reachMin;
         double                              m_reachMax;
         double                              m_rotateMin;
