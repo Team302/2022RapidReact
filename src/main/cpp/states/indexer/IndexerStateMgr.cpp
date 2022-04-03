@@ -86,6 +86,47 @@ void IndexerStateMgr::CheckForStateTransition()
 
         Logger::GetLogger()->ToNtTable(m_indexer->GetNetworkTableName(), string("Ball Present"), ballPresent ? string("true") : string("false"));
 
+
+
+        if(!ballPresent)
+        {
+            if(IsIntakingLeft())
+            {
+                targetState = INDEXER_STATE::INDEX_LEFT;
+            }
+            else if(IsIntakingRight())
+            {
+                targetState = INDEXER_STATE::INDEX_RIGHT;
+            }
+            else if(m_shooterStateMgr != nullptr && m_shooterStateMgr->IsShooting())
+            {
+                targetState = INDEXER_STATE::INDEX_BOTH;
+            }
+            else
+            {
+                targetState = INDEXER_STATE::OFF;// Not indexing nor shooting, so no indexing needed
+            }
+            m_loopsWithBallPresent = 0;  
+        }
+        else if(m_loopsWithBallPresent<NUM_LOOPS_TO_CENTER_BALL)
+        {
+            m_loopsWithBallPresent++;
+
+            if(IsIntakingLeft())
+            {
+                targetState = INDEXER_STATE::INDEX_LEFT;
+            }
+            else if(IsIntakingRight())
+            {
+                targetState = INDEXER_STATE::INDEX_RIGHT;
+            }
+        }
+        else
+        {
+            targetState = INDEXER_STATE::OFF;  // have ball and not shooting, so no indexing needed
+            
+        }
+/*
         if (!ballPresent && m_prevIndexState != INDEXER_STATE::OFF)
         {
             m_loopsToCenterBall = 0;
@@ -166,7 +207,7 @@ void IndexerStateMgr::CheckForStateTransition()
         if (targetState != currentState)
         {
             SetCurrentState(targetState, true);
-        }
+        }*/
     }    
 	
 }

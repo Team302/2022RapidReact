@@ -41,7 +41,8 @@ class IndexerStateMgr : public StateMgr
             INDEX_LEFT,
             INDEX_RIGHT,
             EXPEL_LEFT,
-            EXPEL_RIGHT
+            EXPEL_RIGHT,
+            INDEX_BOTH
         };
 
         const std::string m_indexerOffXmlString = "INDEXER_OFF";
@@ -49,6 +50,7 @@ class IndexerStateMgr : public StateMgr
         const std::string m_indexerIndexRightXmlString = "INDEX_RIGHT";
         const std::string m_indexerExpelLeftXmlString = "EXPEL_LEFT";
         const std::string m_indexerExpelRightXmlString = "EXPEL_RIGHT";
+        const std::string m_indexerIndexBothXmlString = "INDEX_BOTH";
 
         
         const std::map<const std::string, INDEXER_STATE> m_indexerXmlStringToStateEnumMap
@@ -57,6 +59,7 @@ class IndexerStateMgr : public StateMgr
             {m_indexerIndexRightXmlString, INDEXER_STATE::INDEX_RIGHT},
             {m_indexerExpelLeftXmlString, INDEXER_STATE::EXPEL_LEFT},
             {m_indexerExpelRightXmlString, INDEXER_STATE::EXPEL_RIGHT},
+            {m_indexerIndexBothXmlString, INDEXER_STATE::INDEX_BOTH},
         };
 
 		/// @brief  Find or create the state manmanager
@@ -72,6 +75,7 @@ class IndexerStateMgr : public StateMgr
         const StateStruc  m_indexRightState = {INDEXER_STATE::INDEX_RIGHT, StateType::INDEXER, false};
         const StateStruc  m_expelLeftState = {INDEXER_STATE::EXPEL_LEFT, StateType::INDEXER, false};
         const StateStruc  m_expelRightState = {INDEXER_STATE::EXPEL_RIGHT, StateType::INDEXER, false};
+        const StateStruc  m_indexBothState = {INDEXER_STATE::INDEX_BOTH, StateType::INDEXER, false};
 
     private:
 		static IndexerStateMgr*	m_instance;

@@ -66,8 +66,9 @@ void ShooterStateAutoHigh::Init()
             inches = distance.to<double>();
         }
        
-        shooterTarget = 0.0034*inches*inches - 0.5314*inches + 67.569; //y = 0.0034x2 - 0.5314x + 67.569
-        shooterTarget2 = 0.0047*inches*inches - 0.7452*inches + 66.302; //y = 0.0047x2 - 0.7452x + 66.302
+        shooterTarget = 0.0019*inches*inches - 0.2762*inches + 52.784; //y = 0.0019x2 - 0.2762x + 54.784
+        shooterTarget2 = 0.0026*inches*inches - 0.4067*inches + 51.411; //y = 0.0026x2 - 0.4067x + 51.411
+
 
        /* if (inches > 110)
         {
