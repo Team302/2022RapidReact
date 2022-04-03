@@ -140,6 +140,9 @@ class DragonTalon : public IDragonMotorController
         (
             double  initialPosition
         ) override;
+        
+        double GetCountsPerInch() const override;
+        double GetCountsPerDegree() const override;
 
     private:
         std::shared_ptr<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>  m_talon;

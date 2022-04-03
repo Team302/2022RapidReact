@@ -47,8 +47,8 @@
               controlFile="chassis.xml">
 			 
         <swervemodule type="RIGHT_BACK"
-                      turn_p="0.115"
-                      turn_i="0.008"
+                      turn_p="0.1"
+                      turn_i="0.005"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -99,8 +99,8 @@
 
        
         <swervemodule type="LEFT_BACK"
-                      turn_p="0.115"
-                      turn_i="0.0080"
+                      turn_p="0.1"
+                      turn_i="0.005"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -150,8 +150,8 @@
         </swervemodule>
 
         <swervemodule type="RIGHT_FRONT"
-                      turn_p="0.115"
-                      turn_i="0.008"
+                      turn_p="0.1"
+                      turn_i="0.005"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -200,8 +200,8 @@
                             offset="-144.668"/>
         </swervemodule>
         <swervemodule type="LEFT_FRONT"
-                      turn_p="0.115"
-                      turn_i="0.008"
+                      turn_p="0.1"
+                      turn_i="0.005"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -466,10 +466,12 @@
               pdpID="9"
               type="FALCON"
               inverted="true"
-              sensorInverted="true"
+              sensorInverted="false"
               feedbackDevice="INTERNAL"
               countsPerRev="2048"
               gearRatio="16.0"
+              countsPerInch="8824.2"
+              countsPerDegree="0"
               brakeMode="true"
               peakCurrentDuration="50"
               continuousCurrentLimit="30"
@@ -481,10 +483,12 @@
               pdpID="8"
               type="FALCON"
               inverted="true"
-              sensorInverted="true"
+              sensorInverted="false"
               feedbackDevice="INTERNAL"
               countsPerRev="2048"
               gearRatio="16.0"
+              countsPerInch="0"
+              countsPerDegree="1563.9"
               brakeMode="true"
               peakCurrentDuration="50"
               continuousCurrentLimit="30"

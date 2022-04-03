@@ -261,13 +261,13 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_climber == nullptr)
 			{
-				auto liftHeight = GetAnalogInput(analogInputs, DragonAnalogInput::ANALOG_SENSOR_TYPE::ELEVATOR_HEIGHT);
+				//auto liftHeight = GetAnalogInput(analogInputs, DragonAnalogInput::ANALOG_SENSOR_TYPE::ELEVATOR_HEIGHT);
 				auto armBackSw = GetDigitalInput(digitalInputs, DigitalInputUsage::CLIMBER_BACK);
 				auto liftMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_LIFT );
 				auto rotateMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_ROTATE);
 				if ( liftMotor.get() != nullptr && rotateMotor.get() != nullptr )
 				{
-					m_climber = new Climber(liftMotor, rotateMotor, armBackSw, liftHeight);
+					m_climber = new Climber(liftMotor, rotateMotor, armBackSw);//, liftHeight);
 				}
 				else
 				{

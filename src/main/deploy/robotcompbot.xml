@@ -362,8 +362,8 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
        <motor usage="SHOOTER2"
-              canId="8"
-              pdpID="8"
+              canId="15"
+              pdpID="15"
               type="FALCON"
               inverted="false"
               sensorInverted="false"
@@ -478,8 +478,8 @@
               reverselimitswitchopen="true"/>
 
        <motor usage="CLIMBER_ROTATE"
-              canId="20"
-              pdpID="15"
+              canId="8"
+              pdpID="8"
               type="FALCON"
               inverted="true"
               sensorInverted="false"
