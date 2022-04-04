@@ -67,7 +67,6 @@ Logger* Logger::GetLogger()
     return Logger::m_instance;
 }
 
-
 /// @brief Display/select logging options/levels on dashboard
 void Logger::PutLoggingSelectionsOnDashboard()
 {
@@ -180,7 +179,7 @@ void Logger::Arrived_at
     const std::string&   message
 )
 {
-    LogError( LOGGER_LEVEL::PRINT, string("Arrived_at "), message );
+    LogError( LOGGER_LEVEL::PRINT, "Arrived_at ", message );
 }
 
 /// @brief set the option for where the logging messages should be displayed
