@@ -40,18 +40,5 @@ ShooterState::ShooterState
 
 bool ShooterState::AtTarget() const
 {
-    if (m_shooter != nullptr)
-    {
-        auto shootermotor = m_shooter->GetPrimaryMotor();
-        auto rps = shootermotor.get()->GetRPS();
-        auto target = m_shooter->GetPrimaryTarget();
-        auto shootermotor2 = m_shooter->GetSecondaryMotor();
-        auto rps2 = shootermotor2.get()->GetRPS();
-        auto target2 = m_shooter->GetSecondaryTarget();
-
-        //return (abs(rps - target) < 1.5 && abs(rps2 - target2) < 1.5);
-
-        return true;
-    }
     return true;
 }

@@ -68,6 +68,7 @@ IndexerStateMgr::IndexerStateMgr() : StateMgr(),
     stateMap[m_indexerIndexRightXmlString] = m_indexRightState;
     stateMap[m_indexerExpelLeftXmlString]  = m_expelLeftState;
     stateMap[m_indexerExpelRightXmlString] = m_expelRightState;
+    stateMap[m_indexerIndexBothXmlString] = m_indexBothState;
 
     Init(MechanismFactory::GetMechanismFactory()->GetIndexer(), stateMap);
 }   
@@ -126,88 +127,6 @@ void IndexerStateMgr::CheckForStateTransition()
             targetState = INDEXER_STATE::OFF;  // have ball and not shooting, so no indexing needed
             
         }
-/*
-        if (!ballPresent && m_prevIndexState != INDEXER_STATE::OFF)
-        {
-            m_loopsToCenterBall = 0;
-            targetState = m_prevIndexState;
-        }
-        else if (ballPresent && m_loopsToCenterBall < NUM_LOOPS_TO_CENTER_BALL)
-        {
-            m_loopsToCenterBall++;
-            targetState = m_prevIndexState;
-        }
-        else if (m_shooterStateMgr != nullptr && m_shooterStateMgr->IsShooting())
-        {
-            if (ballPresent)
-            {
-                auto isAtSpeed = m_shooterStateMgr->AtTarget();
-                if (isAtSpeed)
-                {
-                    if (currentState == INDEXER_STATE::INDEX_LEFT || 
-                        currentState == INDEXER_STATE::INDEX_RIGHT)
-                    {
-                        targetState = currentState; // stay in current state (we're shooting, so keep the current state to keep balls consistent)
-                        m_prevIndexState = targetState;
-                    }
-                    else
-                    {
-                        targetState = m_prevIndexState;
-                    }
-                    m_loopsWithBallPresent++;
-                    if (m_loopsWithBallPresent > NUM_LOOPS_TO_SHOOT_BALL)
-                    {
-                        m_loopsWithBallPresent = 0;
-                        if (currentState == INDEXER_STATE::INDEX_LEFT)
-                        {
-                            targetState = INDEXER_STATE::INDEX_RIGHT;
-                        }
-                        else if (currentState == INDEXER_STATE::INDEX_RIGHT)
-                        {
-                            targetState = INDEXER_STATE::INDEX_LEFT;
-                        }
-                    }
-                }
-                else
-                {
-                    targetState = INDEXER_STATE::OFF;  // have ball and not shooting, so no indexing needed
-                }
-            }
-            else if (currentState == INDEXER_STATE::INDEX_LEFT) 
-            {
-                targetState = INDEXER_STATE::INDEX_RIGHT;  // no ball, so switch side the indexer is indexing
-                m_prevIndexState = targetState;
-            }
-            else if (currentState == INDEXER_STATE::INDEX_RIGHT) 
-            {
-                targetState = INDEXER_STATE::INDEX_LEFT;  // no ball, so switch side the indexer is indexing
-                m_prevIndexState = targetState;
-            }
-            else 
-            {
-                targetState = INDEXER_STATE::INDEX_LEFT;  // no ball and indexer isn't indexing, so start indexing
-                m_prevIndexState = targetState;
-            }
-        }
-        else if (IsIntakingLeft())
-        {
-            targetState = INDEXER_STATE::INDEX_LEFT;
-            m_prevIndexState = targetState;
-        }
-        else if (IsIntakingRight())
-        {
-            targetState = INDEXER_STATE::INDEX_RIGHT;
-            m_prevIndexState = targetState;
-        }
-        else
-        {
-            targetState = INDEXER_STATE::OFF;
-        }
-       
-        if (targetState != currentState)
-        {
-            SetCurrentState(targetState, true);
-        }*/
     }    
 	
 }
