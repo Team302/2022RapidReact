@@ -176,3 +176,12 @@ void ShooterStateMgr::CheckForStateTransition()
     }
 }
 
+bool ShooterStateMgr::IsShooting() const
+{
+    auto shooterState = static_cast<SHOOTER_STATE>(GetCurrentState());
+    return (shooterState == ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL ||
+            shooterState == ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE ||
+            shooterState == ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR ||
+            shooterState == ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL);
+}
+

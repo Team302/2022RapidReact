@@ -168,12 +168,12 @@ void StateMgr::Init
                                                              secondaryTarget);
                                 break;
 
-                            case StateType::LEFT_INDEXER:
-                                thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetLeftIndexer(), controlData, target);
-                                break;
-
-                            case StateType::RIGHT_INDEXER:
-                                thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetRightIndexer(), controlData, target);
+                            case StateType::INDEXER:
+                                thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetIndexer(), 
+                                                             controlData, 
+                                                             controlData2,
+                                                             target,
+                                                             secondaryTarget);
                                 break;
                                 
                             case StateType::LIFT:

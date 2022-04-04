@@ -327,13 +327,27 @@
               gearRatio="1.0"
               brakeMode="true"
               peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
+              continuousCurrentLimit="50"
+              peakCurrentLimit="50"
               currentLimiting="true" 
               forwardlimitswitch="true"
               forwardlimitswitchopen="true"
               reverselimitswitch="true"
               reverselimitswitchopen="true"/>
+       <motor usage="SHOOTER2"
+              canId="15"
+              pdpID="15"
+              type="FALCON"
+              inverted="false"
+              sensorInverted="false"
+              feedbackDevice="INTERNAL"
+              countsPerRev="2048"
+              gearRatio="1.0"
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="50"
+              peakCurrentLimit="50"
+              currentLimiting="true" />
     </mechanism>
 
 <!-- ====================================================
@@ -356,17 +370,15 @@
               peakCurrentDuration="50"
               continuousCurrentLimit="30"
               peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="false"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="false"
-              reverselimitswitchopen="true"/>             
+              currentLimiting="true"
+              voltageCompensationSaturation="9.0"
+              voltageCompensationEnable="true"/> 
     </mechanism>
 
-    <mechanism type="LEFT_INDEXER"
+    <mechanism type="INDEXER"
               networkTable="IndexerNT"
               controlFile="indexer.xml">
-       <motor usage="INDEXER"
+       <motor usage="LEFT_INDEXER"
               canId="4"
               pdpID="4"
               type="TALONSRX"
@@ -375,24 +387,14 @@
               feedbackDevice="NONE"
               countsPerRev="0"
               gearRatio="1.0"
-              brakeMode="true"
+              brakeMode="false"
               peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="true"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="true"
-              reverselimitswitchopen="true"/> 
-       <!-- digitalInput usage= "BALL_PRESENT"
-                     digitalId="1"
-                     reversed="false"/ -->
-  </mechanism>
-
-  <mechanism type="RIGHT_INDEXER"
-              networkTable="IndexerNT"
-              controlFile="indexer.xml">
-	<motor usage="INDEXER"
+              continuousCurrentLimit="50"
+              peakCurrentLimit="50"
+              currentLimiting="true"
+              voltageCompensationSaturation="9.0"
+              voltageCompensationEnable="true"/> 
+	<motor usage="RIGHT_INDEXER"
               canId="7"
               pdpID="7"
               type="TALONSRX"
@@ -401,19 +403,18 @@
               feedbackDevice="NONE"
               countsPerRev="0"
               gearRatio="1.0"
-              brakeMode="true"
+              brakeMode="false"
               peakCurrentDuration="50"
-              continuousCurrentLimit="30"
-              peakCurrentLimit="40"
-              currentLimiting="true" 
-              forwardlimitswitch="true"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="true"
-              reverselimitswitchopen="true"/>
-       <!-- digitalInput usage="BALL_PRESENT"
+              continuousCurrentLimit="50"
+              peakCurrentLimit="50"
+              currentLimiting="true"
+              voltageCompensationSaturation="9.0"
+              voltageCompensationEnable="true"/> 
+       <digitalInput usage="BALL_PRESENT"
                      digitalId="1"
-                     reversed="false"/ -->
+                     reversed="true"/>
   </mechanism>
+
 
 <!-- ====================================================
      Shooter

@@ -155,7 +155,7 @@
 <!-- ========================================================================================================================================== -->
 <!ELEMENT mechanism (motor*, solenoid*, servo*, analogInput*, digitalInput*, cancoder*, colorsensor?)>
 <!ATTLIST mechanism
-          type              ( LEFT_INTAKE | RIGHT_INTAKE | BALL_TRANSFER | SHOOTER | CLIMBER | LEFT_INDEXER | RIGHT_INDEXER | LIFT) "SHOOTER"
+          type              ( LEFT_INTAKE | RIGHT_INTAKE | BALL_TRANSFER | SHOOTER | CLIMBER | INDEXER | LIFT) "SHOOTER"
           networkTable      CDATA #IMPLIED
           controlFile       CDATA #IMPLIED
 >
@@ -200,7 +200,7 @@
                                       DIFFERENTIAL_RIGHT_MAIN | DIFFERENTIAL_RIGHT_FOLLOWER |
                                       INTAKE_SPIN | INTAKE_EXTEND | 
                                       BALL_TRANSFER_SPIN | BALL_TRANSFER_LIFT | SHOOTER | SHOOTER_HOOD |
-                                      INDEXER | LIFT
+                                      LEFT_INDEXER | RIGHT_INDEXER | LIFT |
                                       CLIMBER_LIFT | CLIMBER_ROTATE  ) "DIFFERENTIAL_LEFT_MAIN"
           canId             		(  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 
                               		  10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 
@@ -229,6 +229,8 @@
           forwardlimitswitchopen    ( true | false ) "true"        
           reverselimitswitch        ( true | false ) "false" 
           reverselimitswitchopen    ( true | false ) "true"        
+          voltageCompensationSaturation CDATA "12.0"
+          voltageCompensationEnable (true | false)  "false"    
 >
 
 

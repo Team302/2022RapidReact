@@ -96,8 +96,7 @@ class MechanismFactory
 		inline Intake* GetLeftIntake() const { return m_leftIntake;};
 		inline Intake* GetRightIntake() const { return m_rightIntake;};
 		inline Shooter* GetShooter() const { return m_shooter;};
-		inline Indexer* GetLeftIndexer() const { return m_leftIndexer;};
-		inline Indexer* GetRightIndexer() const { return m_rightIndexer;};
+		inline Indexer* GetIndexer() const { return m_indexer;};
 		inline Lift* GetLift() const { return m_lift;};
 
 		IMech* GetMechanism
@@ -149,8 +148,7 @@ class MechanismFactory
 		BallTransfer*	m_ballTransfer;
 		Shooter* 		m_shooter;
 		Climber*		m_climber;
-		Indexer* 		m_leftIndexer;
-		Indexer* 		m_rightIndexer;
+		Indexer* 		m_indexer;
 		Lift* 			m_lift;
 		
 

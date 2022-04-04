@@ -56,6 +56,8 @@ class IntakeStateMgr : public StateMgr
 
         void CheckForStateTransition() override;
 
+        bool IsIntaking() const;
+
     protected:
 
         virtual Intake* GetIntake() const = 0;

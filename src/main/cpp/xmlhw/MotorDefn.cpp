@@ -71,7 +71,9 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
     bool forwardLimitSwitchNormallyOpen = false;
     bool reverseLimitSwitch = false;
     bool reverseLimitSwitchNormallyOpen = false;
-    
+    double voltageCompensationSaturation = 12.0;
+    bool enableVoltageCompensation = false;
+
 
     string mtype;
 
@@ -230,6 +232,14 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
         {
             reverseLimitSwitchNormallyOpen = attr.as_bool();
         }
+        else if (strcmp( attr.name(), "voltageCompensationSaturation"))
+        {
+            voltageCompensationSaturation = attr.as_double();
+        }
+        else if (strcmp( attr.name(), "voltageCompensationEnable"))
+        {
+            enableVoltageCompensation = attr.as_bool();
+        }
         else
         {
             string msg = "unknown attribute ";
@@ -260,7 +270,9 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
                                                                                          forwardLimitSwitch,
                                                                                          forwardLimitSwitchNormallyOpen,
                                                                                          reverseLimitSwitch,
-                                                                                         reverseLimitSwitchNormallyOpen );
+                                                                                         reverseLimitSwitchNormallyOpen,
+                                                                                         voltageCompensationSaturation,
+                                                                                         enableVoltageCompensation );
     }
     return controller;
 }

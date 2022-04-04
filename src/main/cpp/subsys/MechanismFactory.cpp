@@ -75,8 +75,7 @@ MechanismFactory::MechanismFactory() : 	m_leftIntake(nullptr),
 										m_ballTransfer(nullptr),
 										m_shooter(nullptr),
 										m_climber(nullptr),
-										m_leftIndexer(nullptr),
-										m_rightIndexer(nullptr),
+										m_indexer(nullptr),
 										m_lift(nullptr)
 {
 }
@@ -157,58 +156,31 @@ void MechanismFactory::CreateIMechanism
 		}
 		break;
 
-		case MechanismTypes::LEFT_INDEXER:
+		case MechanismTypes::INDEXER:
 		{
-			if (m_leftIndexer == nullptr)
+			if (m_indexer == nullptr)
 			{
-				//auto ballsensor = GetDigitalInput(digitalInputs, DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_PRESENT);
-				auto indexerMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INDEXER);
-				if (indexerMotor.get() != nullptr)
+				auto ballsensor = GetDigitalInput(digitalInputs, DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_PRESENT);
+				auto leftIndexer = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::LEFT_INDEXER);
+				auto rightIndexer = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::RIGHT_INDEXER);
+				if (leftIndexer.get() != nullptr && rightIndexer.get() != nullptr && ballsensor.get() != nullptr)
 				{
-					m_leftIndexer = new Indexer(MechanismTypes::MECHANISM_TYPE::LEFT_INDEXER,
+					m_indexer = new Indexer(MechanismTypes::MECHANISM_TYPE::INDEXER,
 												controlFileName,
 												networkTableName,
-												indexerMotor);
-												//,
-												//ballsensor);
-					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Left Indexer mechanism"));
+												leftIndexer,
+												rightIndexer,
+												ballsensor);
+					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Indexer mechanism"));
 				}
 				else
 				{
-					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Left indexer motor missing in XML"));
+					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("indexer motor missing in XML"));
 				}
 			}
 			else
 			{
-				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Left indexer already exists") );
-			}
-		}
-		break;
-
-		case MechanismTypes::RIGHT_INDEXER:
-		{
-			if (m_rightIndexer == nullptr)
-			{
-				//auto ballsensor = GetDigitalInput(digitalInputs, DigitalInputUsage::DIGITAL_SENSOR_USAGE::BALL_PRESENT);
-				auto indexerMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::INDEXER);
-				if (indexerMotor.get() != nullptr)
-				{
-					m_rightIndexer = new Indexer(MechanismTypes::MECHANISM_TYPE::RIGHT_INDEXER,
-												controlFileName,
-												networkTableName,
-												indexerMotor);
-												//,
-												//ballsensor);
-					Logger::GetLogger()->LogError( string("MechanismFactory::CreateIMechansim"), string("Created Right Indexer mechanism"));
-				}
-				else
-				{
-					Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Right indexer motor missing in XML"));
-				}
-			}
-			else
-			{
-				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("Right indexer already exists") );
+				Logger::GetLogger()->LogError( string("MechansimFactory::CreateIMechanism" ), string("indexer already exists") );
 			}
 		}
 		break;
@@ -357,14 +329,10 @@ IMech* MechanismFactory::GetMechanism
 			return GetBallTransfer();
 			break;
 
-		case MechanismTypes::MECHANISM_TYPE::LEFT_INDEXER:
-			return GetLeftIndexer();
+		case MechanismTypes::MECHANISM_TYPE::INDEXER:
+			return GetIndexer();
 			break;
-
-		case MechanismTypes::MECHANISM_TYPE::RIGHT_INDEXER:
-			return GetRightIndexer();
-			break;
-		
+	
 		case MechanismTypes::MECHANISM_TYPE::LIFT:
 			return GetLift();
 			break;

@@ -80,29 +80,14 @@ void LiftStateMgr::CheckForStateTransition()
 
             if (isAtSpeed)
             {
-                auto shooterState = static_cast<ShooterStateMgr::SHOOTER_STATE>(m_shooterStateMgr->GetCurrentState());
-                switch (shooterState)
+                auto isShooting = m_shooterStateMgr->IsShooting();
+                if (isShooting)
                 {
-                    case ShooterStateMgr::SHOOTER_STATE::SHOOT_MANUAL:
-                        [[fallthrough]]; //intentional fallthrough
-
-                    case ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE:
-                        [[fallthrough]]; //intentional fallthrough
-
-                    case ShooterStateMgr::SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR:
-                        [[fallthrough]]; //intentional fallthrough
-
-                    case ShooterStateMgr::SHOOTER_STATE::SHOOT_LOW_GOAL:
-                        targetState = LIFT_STATE::LIFT;
-                        break;
-
-                    case ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT:
-                        targetState = LIFT_STATE::OFF;
-                        break;
-
-                    default:
-                        targetState = LIFT_STATE::OFF;
-                        break;
+                    targetState = LIFT_STATE::LIFT;
+                }
+                else
+                {
+                    targetState = LIFT_STATE::OFF;
                 }
             }
             else

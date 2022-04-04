@@ -3,13 +3,36 @@
 <statedata>
 	<controlData identifier="openloop" 
 	             mode="PERCENT_OUTPUT"/>
-	<mechanismTarget stateIdentifier="INDEXER_INDEX"
+	<mechanismTarget stateIdentifier="INDEX_LEFT"
 	                 controlDataIdentifier="openloop"
-					 value="1.0"/>
-    <mechanismTarget stateIdentifier="INDEXER_EXPEL"
+                     controlDataIdentifier2="openloop"
+					 value="1.0"
+                     secondValue="0.0"/>
+	<mechanismTarget stateIdentifier="INDEX_RIGHT"
+	                 controlDataIdentifier="openloop"
+                     controlDataIdentifier2="openloop"
+					 value="0.0"
+                     secondValue="1.0"/>
+    <mechanismTarget stateIdentifier="EXPEL_LEFT"
                      controlDataIdentifier="openloop"
-                     value="-1.0"/>
+                     controlDataIdentifier2="openloop"
+                     value="-1.0"
+                     secondValue="0.0"/>
+    <mechanismTarget stateIdentifier="EXPEL_RIGHT"
+                     controlDataIdentifier="openloop"
+                     controlDataIdentifier2="openloop"
+                     value="0.0"
+                     secondValue="-1.0"/>
     <mechanismTarget stateIdentifier="INDEXER_OFF"
                      controlDataIdentifier="openloop"
-                     value="0.0"/>
+                     controlDataIdentifier2="openloop"
+                     value="0.0"
+                     secondValue="0.0"/>
+    <mechanismTarget stateIdentifier="INDEX_BOTH"
+                     controlDataIdentifier="openloop"
+                     controlDataIdentifier2="openloop"
+                     value="1.0"
+                     secondValue="1.0"/>
+                     
 </statedata>
+

@@ -134,6 +134,8 @@ class DragonTalon : public IDragonMotorController
         double GetGearRatio() const override { return m_gearRatio;}
         bool IsForwardLimitSwitchClosed() const override;
         bool IsReverseLimitSwitchClosed() const override;
+        void EnableVoltageCompensation( double fullvoltage) override;
+
 
     private:
         std::shared_ptr<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>  m_talon;

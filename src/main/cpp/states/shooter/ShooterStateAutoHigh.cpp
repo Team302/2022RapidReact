@@ -26,7 +26,6 @@
 #include <states/shooter/ShooterStateAutoHigh.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/Shooter.h>
-#include <states/indexer/LeftIndexerStateMgr.h>
 #include <utils/Logger.h>
 
 
@@ -56,51 +55,32 @@ void ShooterStateAutoHigh::Init()
     auto shooter = GetShooter();    
     if (shooter != nullptr)
     {
-        
-        auto currentLeftIndexerStateMgrState = IndexerStates::INDEXER_STATE::OFF;
-        auto leftIndexerStateMgr = LeftIndexerStateMgr::GetInstance();
-        if (leftIndexerStateMgr != nullptr)
-        {
-            currentLeftIndexerStateMgrState = static_cast<IndexerStates::INDEXER_STATE>(leftIndexerStateMgr->GetCurrentState());
-        }
-        //auto indexerOffset = currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX ? 0.0 : 2.0;
-        
+
         auto shooterTarget = GetPrimaryTarget();
         auto shooterTarget2 = GetSecondaryTarget();
 
-        double inches = 75.0;
+        double inches = 90.0;
         if (m_dragonLimeLight != nullptr)
         {
             auto distance = m_dragonLimeLight->EstimateTargetDistance();
             inches = distance.to<double>();
         }
        
-        if (inches > 110)
+        shooterTarget = 0.0019*inches*inches - 0.2762*inches + 52.784; //y = 0.0019x2 - 0.2762x + 54.784
+        shooterTarget2 = 0.0026*inches*inches - 0.4067*inches + 51.411; //y = 0.0026x2 - 0.4067x + 51.411
+
+
+       /* if (inches > 110)
         {
-            //if (currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX)
-            //{
-            //    shooterTarget = 50;
-            //    shooterTarget2 = 0.83;
-            //}
-            //else
-            //{
-                shooterTarget = 54;
-                shooterTarget2 = 0.65;
-            //}
+            shooterTarget = 54;
+            shooterTarget2 = 0.65;
         }
         else
         {
-           //if (currentLeftIndexerStateMgrState == IndexerStates::INDEXER_STATE::INDEX)
-            //{
-            //    shooterTarget = 44;
-            //    shooterTarget2 = 0.45;
-           // }
-            //else
-            //{
-                shooterTarget = 46.75; //46
-                shooterTarget2 = 0.35;
-             
-        }
+            shooterTarget = 46.75; //46
+            shooterTarget2 = 0.35
+            
+        }*/
         /**
         auto shooterTarget = m_primaryFunctionCoeff[0]*inches*inches + 
                              m_primaryFunctionCoeff[1]*inches + 

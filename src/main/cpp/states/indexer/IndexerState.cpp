@@ -15,20 +15,24 @@
 //====================================================================================================================================================
 
 #include <states/indexer/IndexerState.h>
-#include <states/Mech1MotorState.h>
+#include <states/Mech2MotorState.h>
 #include <subsys/MechanismFactory.h>
 #include <controllers/ControlData.h>
-#include <subsys/interfaces/IMech1IndMotor.h>
+#include <subsys/interfaces/IMech2IndMotors.h>
 #include <subsys/Indexer.h>
 
 IndexerState::IndexerState
 (
-    Indexer*      indexer,
+    Indexer*     indexer,
     ControlData* control,
-    double       target
-) : Mech1MotorState (indexer, 
-                     control,
-                     target),
+    ControlData* control2,
+    double       target,
+    double       target2
+) : Mech2MotorState(indexer, 
+                    control,
+                    control2,
+                    target,
+                    target2),
     m_indexer(indexer)
 {
 }
