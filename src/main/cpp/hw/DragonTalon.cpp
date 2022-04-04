@@ -843,3 +843,8 @@ double DragonTalon::GetCountsPerDegree() const
 {
 	return m_countsPerDegree;
 }
+
+ControlModes::CONTROL_TYPE DragonTalon::GetControlMode() const
+{
+	return m_controlMode;
+}
