@@ -441,8 +441,6 @@
                      digitalId="1"
                      reversed="true"/>
   </mechanism>
-
-
 <!-- ====================================================
      Climber
      ====================================================  -->
@@ -469,8 +467,8 @@
               reverselimitswitchopen="true"/>
 
        <motor usage="CLIMBER_ROTATE"
-              canId="8"
-              pdpID="8"
+              canId="20"
+              pdpID="15"
               type="FALCON"
               inverted="true"
               sensorInverted="false"
