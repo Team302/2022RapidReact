@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE auton SYSTEM "auton.dtd">
+<auton>
+    <primitive id="RESET_POSITION"
+			   pathname="OutOfWay1.wpilib.json"/>
+    <primitive id="DRIVE_PATH"
+               pathname="OutOfWay1.wpilib.json" 
+               rightIntake="INTAKE_ON"
+               headingOption="SPECIFIED_ANGLE"
+               heading="-90"/> 
+
+    <!-- primitive id="DO_NOTHING"
+               time="0.5"
+               rightIntake="INTAKE_ON"
+               headingOption="SPECIFIED_ANGLE"
+               heading="-90"/ -->
+               
+    <primitive id="DRIVE_PATH"
+               pathname="OutOfWay2.wpilib.json" 
+               headingOption="SPECIFIED_ANGLE"
+               heading="-90"/> 
+    <primitive id="DO_NOTHING"
+               time="10.0"
+               rightIntake="INTAKE_EXPEL"
+               headingOption="SPECIFIED_ANGLE"
+               heading="-90"/> 
+</auton>
