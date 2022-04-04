@@ -64,15 +64,53 @@ void Climber::Update()
     {
         auto liftTarget = GetPrimaryTarget();
         auto currentPos = GetPrimaryPosition();
-        if (currentPos <= m_reachMin && liftTarget <= 0.0)
+        auto atMin = false;
+        auto atMax = false;
+        auto mode = liftMotor.get()->GetControlMode();
+        if (currentPos <= m_reachMin)
         {
-            liftMotor.get()->GetSpeedController()->StopMotor();
-            liftMotor.get()->SetSelectedSensorPosition(0.0);
+            switch (mode)
+            {
+                case ControlModes::PERCENT_OUTPUT:
+                    [[fallthrough]];
+                case ControlModes::POSITION_INCH:
+                    [[fallthrough]];
+                case ControlModes::VELOCITY_INCH:
+                  if (liftTarget < 0.0 )
+                   {
+                       liftTarget = 0.0;
+                       atMin = true;
+                   }
+                   break;
+
+                default:
+                    break;
+            }
         }
-        else if (currentPos >= m_reachMax && liftTarget >= currentPos)
+        if (currentPos >= m_reachMax)
+        {
+            switch (mode)
+            {
+                case ControlModes::PERCENT_OUTPUT:
+                    [[fallthrough]];
+                case ControlModes::POSITION_INCH:
+                    [[fallthrough]];
+                case ControlModes::VELOCITY_INCH:
+                  if (liftTarget > 0.0 )
+                   {
+                       liftTarget = 0.0;
+                       atMax = true;
+                   }
+                   break;
+
+                default:
+                    break;
+            }
+        }
+
+        if (atMin || atMax)
         {
             liftMotor.get()->GetSpeedController()->StopMotor();
-            liftMotor.get()->SetSelectedSensorPosition(0.0);
         }
         else
         {
@@ -84,22 +122,64 @@ void Climber::Update()
     if ( rotateMotor.get() != nullptr)
     {
         auto currentPos = GetPrimaryPosition();
-        
         auto rotateTarget = GetSecondaryTarget();
-        auto isRotateBack = m_armBack.get()->Get();
-        if ((isRotateBack || currentPos <= m_rotateMin) && rotateTarget >= currentPos )
+        auto atMin = false;
+        auto atMax = false;
+        auto mode = liftMotor.get()->GetControlMode();
+        if (currentPos <= m_rotateMin)
         {
-            rotateMotor.get()->GetSpeedController()->StopMotor();
-            rotateMotor.get()->SetSelectedSensorPosition(0.0);
+            switch (mode)
+            {
+                case ControlModes::PERCENT_OUTPUT:
+                    [[fallthrough]];
+                case ControlModes::POSITION_INCH:
+                    [[fallthrough]];
+                case ControlModes::VELOCITY_INCH:
+                  if (rotateTarget < 0.0 )
+                   {
+                       rotateTarget = 0.0;
+                       atMin = true;
+                   }
+                   break;
+
+                default:
+                    break;
+            }
         }
-        else if ((isRotateBack || currentPos <= m_rotateMin) && rotateTarget < currentPos )
+        if (currentPos >= m_reachMax)
+        {
+            switch (mode)
+            {
+                case ControlModes::PERCENT_OUTPUT:
+                    [[fallthrough]];
+                case ControlModes::POSITION_INCH:
+                    [[fallthrough]];
+                case ControlModes::VELOCITY_INCH:
+                  if (rotateTarget > 0.0 )
+                   {
+                       rotateTarget = 0.0;
+                       atMax = true;
+                   }
+                   break;
+
+                default:
+                    break;
+            }
+        }
+        atMin = atMin || m_armBack.get()->Get();
+        if (atMin || atMax)
         {
             rotateMotor.get()->GetSpeedController()->StopMotor();
-            rotateMotor.get()->SetSelectedSensorPosition(0.0);
         }
         else
         {
             rotateMotor.get()->Set(table, rotateTarget);
+        }
+        if (m_armBack.get()->Get())
+        {
+            rotateMotor.get()->SetSelectedSensorPosition(0.0);
+            m_rotateMin = 0.0;
+            m_rotateMax = rotateMotor.get()->GetCountsPerDegree()*95.0;
         }
     }
 
