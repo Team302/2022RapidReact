@@ -87,8 +87,6 @@ void IndexerStateMgr::CheckForStateTransition()
 
         Logger::GetLogger()->ToNtTable(m_indexer->GetNetworkTableName(), string("Ball Present"), ballPresent ? string("true") : string("false"));
 
-
-
         if(!ballPresent)
         {
             if(IsIntakingLeft())
@@ -126,6 +124,10 @@ void IndexerStateMgr::CheckForStateTransition()
         {
             targetState = INDEXER_STATE::OFF;  // have ball and not shooting, so no indexing needed
             
+        }
+        if(targetState != currentState)
+        {
+            SetCurrentState(targetState,true);
         }
     }    
 	

@@ -91,7 +91,6 @@ class IndexerStateMgr : public StateMgr
         bool                            m_keepCurrentState;
 
         const int NUM_LOOPS_TO_CENTER_BALL = 10;
-        const int NUM_LOOPS_TO_SHOOT_BALL = 5;
 
         bool IsIntakingLeft() const;
         bool IsIntakingRight() const;
