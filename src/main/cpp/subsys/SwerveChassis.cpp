@@ -475,27 +475,51 @@ void SwerveChassis::DriveToPointTowardGoal
 {
     auto myPose = robotPose;
     auto targetPose = goalPose;
+    frc::Pose2d driveToPose;
+
     auto distanceError = m_shootingDistance - m_limelight->EstimateTargetDistance();
+
+    //Finding Target pose on feild based on current position
+    double theta = abs(atan((targetPose.X()-myPose.X()).to<double>()/((targetPose.Y()-myPose.Y()).to<double>())));
+    double xComp = sin(theta)*(m_shootingDistance.to<double>() + 24.0)*0.0254;//adding 24 inches offset for the center of goal, converting to meters
+    double yComp = cos(theta)*(m_shootingDistance.to<double>() + 24.0)*0.0254;//adding 24 inches offset for the center of goal, converting to meters
 
     if (m_limelight != nullptr && m_limelight->HasTarget())
     { 
-        auto speedCorrection = abs(distanceError.to<double>()) > 30.0 ? kPDistance : kPDistance*0.35;
+        auto speedCorrection = abs(distanceError.to<double>()) > 30.0 ? kPDistance : kPDistance*0.5;
+
         if (abs(distanceError.to<double>()) > 20.0)
         {
             AdjustRotToPointTowardGoal(robotPose, rot);
-            auto deltaX = (myPose.X()- targetPose.X());
-            auto deltaY = (myPose.Y()- targetPose.Y());
 
-            if (distanceError.to<double>() < 0)
+            //adding or subrtacting deltaX/deltay based on quadrant 
+            //  What quadruarnt is the robot in based on center of target      +=Center Target
+            //                  |
+            //               II |   I
+            //             -----+------
+            //              III |   IV
+            //                  |
+
+            if((targetPose.X()-myPose.X()).to<double>()  <= 0 && (targetPose.Y()-myPose.Y()).to<double>()  >= 0)//Quad 1
             {
-                xSpeed -= deltaX/1_s*speedCorrection; 
-                ySpeed -= deltaY/1_s*speedCorrection; 
-            }
-            else
+                driveToPose = frc::Pose2d(targetPose.X() + units::length::meter_t{xComp}, targetPose.Y() - units::length::meter_t{yComp},0_deg);   
+            }   
+            else if((targetPose.X()-myPose.X()).to<double>()  <= 0 && (targetPose.Y()-myPose.Y()).to<double>()  <= 0)//Quad 2
             {
-                xSpeed += deltaX/1_s*speedCorrection; 
-                ySpeed += deltaY/1_s*speedCorrection; 
+                driveToPose = frc::Pose2d(targetPose.X() + units::length::meter_t{xComp}, targetPose.Y() + units::length::meter_t{yComp},0_deg);  
             }
+            else if((targetPose.X()-myPose.X()).to<double>() >= 0 && (targetPose.Y()-myPose.Y()).to<double>() >= 0)//Quad 3
+            {
+                driveToPose = frc::Pose2d(targetPose.X() - units::length::meter_t{xComp}, targetPose.Y() + units::length::meter_t{yComp},0_deg);  
+            }
+            else //Quad 4
+            {
+                driveToPose = frc::Pose2d(targetPose.X() - units::length::meter_t{xComp}, targetPose.Y() - units::length::meter_t{yComp},0_deg); 
+            }
+            auto deltaX = (driveToPose.X()-myPose.X());
+            auto deltaY = (driveToPose.Y()-myPose.Y());
+            xSpeed += deltaX/1_s*speedCorrection; 
+            ySpeed += deltaY/1_s*speedCorrection; 
 
             m_hold = false;
         }
@@ -524,7 +548,7 @@ void SwerveChassis::AdjustRotToPointTowardGoal
 {
     if (m_limelight != nullptr && m_limelight->HasTarget())
     { 
-        double rotCorrection = abs(m_limelight->GetTargetHorizontalOffset().to<double>()) > 10.0 ? kPGoalHeadingControl : kPDistance*2;
+        double rotCorrection = abs(m_limelight->GetTargetHorizontalOffset().to<double>()) > 10.0 ? kPGoalHeadingControl : kPGoalHeadingControl*2.5;
         rot += (m_limelight->GetTargetHorizontalOffset())/1_s*rotCorrection;         
     }
     else
