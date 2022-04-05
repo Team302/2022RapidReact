@@ -49,9 +49,9 @@ class Logger
         /// @brief Define where the items being logged should be sent
         enum LOGGER_OPTION
         {
-            CONSOLE,    ///< write to the RoboRio Console                                                      0
-            DASHBOARD,  ///< write to the SmartDashboard                                                       1
-            EAT_IT      ///< don't write anything (useful at comps where we want to minimize network traffic)  2
+            CONSOLE,    ///< write to the RoboRio Console
+            DASHBOARD,  ///< write to the SmartDashboard
+            EAT_IT      ///< don't write anything (useful at comps where we want to minimize network traffic)
         };
 
         /// @enum LOGGER_LEVEL
@@ -59,13 +59,13 @@ class Logger
         /// @brief  of a certain level or worse.
         /// @brief The enum is ordered from worse to better and corresponds to the driver's station levels.
         enum LOGGER_LEVEL
-        {                                                                                   // numerical value
-            ERROR_ONCE,     ///< this is catastrophic that we only want to see once                 0
-            ERROR,          ///< this is catastrophic                                               1
-            WARNING_ONCE,   ///< this is a medium level error we only want to see once              2
-            WARNING,        ///< this is a medium level error                                       3
-            PRINT_ONCE,     ///< this is an information/debug message we only want to see once      4
-            PRINT           ///< this is an information/debug message                               5
+        {
+            ERROR_ONCE,     ///< this is catastrophic that we only want to see once
+            ERROR,          ///< this is catastrophic
+            WARNING_ONCE,   ///< this is a medium level error we only want to see once
+            WARNING,        ///< this is a medium level error
+            PRINT_ONCE,     ///< this is an information/debug message we only want to see once
+            PRINT           ///< this is an information/debug message
         };
 
         /// @brief Find or create the singleton logger
@@ -77,13 +77,6 @@ class Logger
 
         /// @brief Read logging option from dashboard, but not every 20ms
         void PeriodicLog();
-
-        /// @brief Log a message indicating the code has reached a given point
-        /// @param [in] std::string: message indicating location in code
-        void Arrived_at
-        (
-            const std::string&   message
-        );
 
         /// @brief set the option for where the logging messages should be displayed
         /// @param [in] LOGGER_OPTION:  logging option for where to log messages
@@ -119,19 +112,42 @@ class Logger
             const std::string&      message
         );
 
+
+        /// @brief Log a message indicating the code has reached a given point
+        /// @param [in] std::string: message indicating location in code
+        void Arrived_at
+        (
+            const std::string&   message
+        );
+
+        //
+        //  The overloaded 'OnDash' functions display a value on the dashboard, regardless of the LOGGER_OPTION
+        //
         /// @brief Write a message and value to the dashboard, for monitoring the value
         /// @param [in] std::string: classname or object identifier
-        /// @param [in] double: value that should be written (int or bool could also be 'doubled' and sent)
+        /// @param [in] data that should be written
         void OnDash
         (
-            const std::string&   locationIdentifier,
-            double               value
+            const std::string&  locationIdentifier, // <I> - classname or object identifier
+            bool                val                 // <I> - data
+        );
+
+        void OnDash
+        (
+            const std::string&  locationIdentifier, // <I> - classname or object identifier
+            int                 val                 // <I> - data
+        );
+
+        void OnDash
+        (
+            const std::string&  locationIdentifier, // <I> - classname or object identifier
+            double              val                 // <I> - data
         );
 
 
         //
-        //  ToNtTable() sends an identifier and information (string or value) to the specified network table.
-        //  Anything on the network can then read the message.
+        //  The overloaded 'ToNtTable' functions send an identifier and information (string or value)
+        //  to the specified network table. Anything on the network can then read the message.
         //
         void ToNtTable
         (
