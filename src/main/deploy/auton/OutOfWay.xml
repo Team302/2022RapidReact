@@ -14,14 +14,19 @@
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="-90"/ -->
-               
+
     <primitive id="DRIVE_PATH"
                pathname="OutOfWay2.wpilib.json" 
+               rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="-90"/> 
+    <primitive id="DO_NOTHING"
+               time="0.5"
+               headingOption="SPECIFIED_ANGLE"
+               heading="0"/> 
     <primitive id="DO_NOTHING"
                time="10.0"
                rightIntake="INTAKE_EXPEL"
                headingOption="SPECIFIED_ANGLE"
-               heading="-90"/> 
+               heading="0"/>
 </auton>
