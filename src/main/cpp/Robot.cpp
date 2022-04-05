@@ -150,6 +150,11 @@ void Robot::TeleopPeriodic()
     {
         m_liftStateMgr->RunCurrentState();
     }
+    auto climber = MechanismFactory::GetMechanismFactory()->GetClimber();
+    if (climber != nullptr)
+    {
+        climber->LogData();
+    }
 }
 
 void Robot::DisabledInit() 

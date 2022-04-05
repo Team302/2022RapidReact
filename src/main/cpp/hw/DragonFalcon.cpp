@@ -28,6 +28,7 @@
 // Team 302 includes
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/DragonFalcon.h>
+#include <hw/factories/PDPFactory.h>
 //#include <hw/DragonPDP.h>
 #include <hw/usages/MotorControllerUsage.h>
 #include <utils/Logger.h>
@@ -52,7 +53,8 @@ DragonFalcon::DragonFalcon
 	int countsPerRev, 
 	double gearRatio,
 	double countsPerInch,
-	double countsPerDegree 
+	double countsPerDegree,
+	MOTOR_TYPE motorType 
 ) : m_talon( make_shared<WPI_TalonFX>(deviceID)),
 	m_controlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT),
 	m_type(deviceType),
@@ -63,7 +65,8 @@ DragonFalcon::DragonFalcon
 	m_gearRatio(gearRatio),
 	m_diameter( 1.0 ),
 	m_countsPerInch(countsPerInch),
-	m_countsPerDegree(countsPerDegree)
+	m_countsPerDegree(countsPerDegree),
+	m_motorType(motorType)
 {
 	// for all calls if we get an error log it; for key items try again
 	auto prompt = string("Dragon Falcon");
@@ -317,9 +320,12 @@ shared_ptr<MotorController> DragonFalcon::GetSpeedController() const
 
 double DragonFalcon::GetCurrent() const
 {
+	auto pdp = PDPFactory::GetFactory()->GetPDP();
+	if (pdp != nullptr)
+	{
+		return pdp->GetCurrent(m_pdp);
+	}
 	return 0.0;
-	//PowerDistributionPanel* pdp = DragonPDP::GetInstance()->GetPDP();
-    //return ( pdp != nullptr ) ? pdp->GetCurrent( m_pdp ) : 0.0;
 }
 
 void DragonFalcon::UpdateFramePeriods
@@ -984,4 +990,14 @@ double DragonFalcon::GetCountsPerDegree() const
 ControlModes::CONTROL_TYPE DragonFalcon::GetControlMode() const
 {
 	return m_controlMode;
+}
+
+double DragonFalcon::GetCounts() const 
+{
+	return m_talon.get()->GetSelectedSensorPosition();
+}
+
+IDragonMotorController::MOTOR_TYPE DragonFalcon::GetMotorType() const
+{
+	return m_motorType;
 }

@@ -46,7 +46,9 @@ class DragonTalon : public IDragonMotorController
             int countsPerRev, 
             double gearRatio,
             double countsPerInch,
-            double countsPerDegree
+            double countsPerDegree,
+            IDragonMotorController::MOTOR_TYPE motortype
+
         );
         virtual ~DragonTalon() = default;
 
@@ -58,6 +60,7 @@ class DragonTalon : public IDragonMotorController
         int GetID() const override;
         std::shared_ptr<frc::MotorController> GetSpeedController() const override;
         double GetCurrent() const override;
+        IDragonMotorController::MOTOR_TYPE GetMotorType() const override;
 
         // Setters (override)
         void SetControlMode(ControlModes::CONTROL_TYPE mode) override; //:D
@@ -145,6 +148,7 @@ class DragonTalon : public IDragonMotorController
         double GetCountsPerInch() const override;
         double GetCountsPerDegree() const override;
         ControlModes::CONTROL_TYPE GetControlMode() const override;
+        double GetCounts() const override;
 
 
     private:
@@ -160,6 +164,7 @@ class DragonTalon : public IDragonMotorController
         double m_diameter;
         double m_countsPerInch;
         double m_countsPerDegree;
+        IDragonMotorController::MOTOR_TYPE m_motorType;
 };
 
 typedef std::vector<DragonTalon*> DragonTalonVector;

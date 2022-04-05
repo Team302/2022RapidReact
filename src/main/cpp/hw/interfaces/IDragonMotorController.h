@@ -47,6 +47,27 @@ class IDragonMotorController
             LOW
         };
 
+        enum MOTOR_TYPE
+        {
+            FALCON500,
+            NEOMOTOR,
+            NEO500MOTOR,  
+            CIMMOTOR,
+            MINICIMMOTOR,
+            BAGMOTOR, 
+            PRO775,
+            ANDYMARK9015,
+            ANDYMARKNEVEREST,
+            ANDYMARKRS775125,
+            ANDYMARKREDLINEA, 
+            REVROBOTICSHDHEXMOTOR,
+            BANEBOTSRS77518V,
+            BANEBOTSRS550,
+            MODERNROBOTICS12VDCMOTOR,
+            JOHNSONELECTRICALGEARMOTOR,
+            TETRIXMAXTORQUENADOMOTOR,
+            NONE
+        };
         // Getters
         /// @brief  Return the number of revolutions the output shaft has spun
         /// @return double number of revolutions
@@ -59,6 +80,10 @@ class IDragonMotorController
         /// @brief  Return the usage of the motor
         /// @return MotorControllerUsage::MOTOR_CONTROLLER_USAGE - what the motor is used for
         virtual MotorControllerUsage::MOTOR_CONTROLLER_USAGE GetType() const = 0;
+        
+        /// @brief  Return the type of  motor
+        /// @return MotorControllerUsage::MOTOR_CONTROLLER_USAGE - what the motor type is
+        virtual IDragonMotorController::MOTOR_TYPE GetMotorType() const = 0;
 
         /// @brief  Return the current usage
         /// @return double - amperage usage for the controller
@@ -85,6 +110,7 @@ class IDragonMotorController
 		virtual void SetDiameter( double diameter ) = 0;
         virtual void SetVoltage(  units::volt_t output ) = 0;
         virtual ControlModes::CONTROL_TYPE GetControlMode() const = 0;
+        virtual double GetCounts() const = 0;
 
 
         /// @brief  Set the control constants (e.g. PIDF values).
