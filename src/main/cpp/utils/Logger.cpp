@@ -172,16 +172,6 @@ void Logger::PeriodicLog()
     }
 }
 
-/// @brief Log a message indicating the code has reached a given point
-/// @param [in] std::string: message indicating location in code
-void Logger::Arrived_at
-(
-    const std::string&   message
-)
-{
-    LogError( LOGGER_LEVEL::PRINT, "Arrived_at ", message );
-}
-
 /// @brief set the option for where the logging messages should be displayed
 /// @param [in] LOGGER_OPTION:  logging option for where to log messages
 void Logger::SetLoggingOption
@@ -207,8 +197,8 @@ void Logger::SetLoggingLevel
 /// @param [in] std::string: message
 void Logger::LogError       // calling LogError() without a LOGGER_LEVEL defaults to PRINT
 (
-    const string&   locationIdentifier,
-    const string&   message
+    const std::string&  locationIdentifier,
+    const std::string&  message
 )
 {
     LogError( LOGGER_LEVEL::PRINT, locationIdentifier, message );
@@ -221,8 +211,8 @@ void Logger::LogError       // calling LogError() without a LOGGER_LEVEL default
 void Logger::LogError
 (
     LOGGER_LEVEL    level,
-    const string&   locationIdentifier,
-    const string&   message
+    const std::string&  locationIdentifier,
+    const std::string&  message
 )
 {
     //  Is the level important enough to display?
@@ -267,13 +257,39 @@ void Logger::LogError
     }
 }
 
+
+/// @brief Log a message indicating the code has reached a given point
+/// @param [in] std::string: message indicating location in code
+void Logger::Arrived_at
+(
+    const std::string&   message
+)
+{
+    LogError( LOGGER_LEVEL::PRINT, "Arrived_at ", message );
+}
+
+//
+//  The overloaded 'OnDash' functions display a value on the dashboard, regardless of the LOGGER_OPTION
+//
 /// @brief Write a message and value to the dashboard, for monitoring the value
 /// @param [in] std::string: classname or object identifier
-/// @param [in] double: value that should be written (int or bool could also be 'doubled' and sent)
+/// @param [in] data that should be written
 void Logger::OnDash
 (
-    const string&   locationIdentifier,     // <I> - classname or object identifier
-    double          val                     // <I> - numerical value
+    const std::string&  locationIdentifier, // <I> - classname or object identifier
+    bool                val                 // <I> - data
+)
+{
+    if (m_option != Logger::LOGGER_OPTION::EAT_IT)
+    {
+        SmartDashboard::PutBoolean( locationIdentifier.c_str(), val );
+    }
+}
+
+void Logger::OnDash
+(
+    const std::string&  locationIdentifier, // <I> - classname or object identifier
+    int                 val                 // <I> - data
 )
 {
     if (m_option != Logger::LOGGER_OPTION::EAT_IT)
@@ -282,9 +298,22 @@ void Logger::OnDash
     }
 }
 
+void Logger::OnDash
+(
+    const std::string&  locationIdentifier, // <I> - classname or object identifier
+    double              val                 // <I> - data
+)
+{
+    if (m_option != Logger::LOGGER_OPTION::EAT_IT)
+    {
+        SmartDashboard::PutNumber( locationIdentifier.c_str(), val );
+    }
+}
+
+
 //
-//  ToNtTable() sends an identifier and information (string or value) to the specified network table.
-//  Anything on the network can then read the message.
+//  The overloaded 'ToNtTable' functions send an identifier and information (string or value)
+//  to the specified network table. Anything on the network can then read the message.
 //
 void Logger::ToNtTable
 (

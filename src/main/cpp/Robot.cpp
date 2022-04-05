@@ -26,8 +26,6 @@
 #include <subsys/Lift.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/Shooter.h>
-#include <states/indexer/LeftIndexerStateMgr.h>
-#include <states/indexer/RightIndexerStateMgr.h>
 #include <utils/Logger.h>
 #include <xmlhw/RobotDefn.h>
 
