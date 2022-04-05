@@ -85,9 +85,15 @@ void IndexerStateMgr::CheckForStateTransition()
 
         bool ballPresent = m_indexer->IsBallPresent();
 
+        auto controller = TeleopControl::GetInstance();
+
         Logger::GetLogger()->ToNtTable(m_indexer->GetNetworkTableName(), string("Ball Present"), ballPresent ? string("true") : string("false"));
 
-        if(!ballPresent)
+        if (controller != nullptr && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_INDEX))
+        {
+            targetState = INDEXER_STATE::INDEX_BOTH;
+        }
+        else if(!ballPresent)
         {
             if(IsIntakingLeft())
             {

@@ -48,6 +48,7 @@ class TeleopControl
             DRIVE_TO_LAUNCHPAD,
             INTAKE_LEFT,
             INTAKE_RIGHT,
+            MANUAL_INDEX,
             EXPEL_LEFT,
             EXPEL_RIGHT,
             INTAKE_RETRACT_LEFT,
