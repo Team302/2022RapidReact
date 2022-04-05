@@ -13,49 +13,55 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+#include <frc/Timer.h>
 
-#pragma once
-
-//Team 302 Includes
 #include <controllers/ControlData.h>
 #include <controllers/DragonPID.h>
-#include <controllers/MechanismTargetData.h>
-#include <states/Mech2MotorState.h>
-#include <subsys/Climber.h>
 
-class ControlData;
-
-
-class ClimberState : public Mech2MotorState
+DragonPID::DragonPID
+(
+    ControlData*        controlData
+) : m_kP(controlData->GetP()),
+    m_kI(controlData->GetI()),
+    m_kD(controlData->GetD()),
+    m_kF(controlData->GetF()),
+    m_accumError(0.0),
+    m_prevError(0.0),
+    m_timer(new frc::Timer())
 {
-    public:
-        ClimberState
-        (
-            ControlData*                    controlData,
-            ControlData*                    controlData2,
-            double                          target1,
-            double                          target2,
-            double                          robotPitch
-        );
+    m_timer->Start();
+}
 
-        ClimberState() = delete;
-        ~ClimberState() = default;
-        void Init() override;
-        void Run() override;
-        bool AtTarget() const override;
+void DragonPID::UpdateKP(double kP)
+{
+    m_kP = kP;
+}
+void DragonPID::UpdateKI(double kI)
+{
+    m_kI = kI;
+}
+void DragonPID::UpdateKD(double kD)
+{
+    m_kD = kD;
+}
+void DragonPID::UpdateKF(double kF)
+{
+    m_kF = kF;
+}
 
-        double GetRobotPitch() const { return m_robotPitch; };
+double DragonPID::Calculate
+(
+    double motorOutput,
+    double currentVal,
+    double targetVal
+)
+{
+    auto error = targetVal - currentVal;
+    m_accumError += error;
+    auto deltaT = m_timer->Get().to<double>();
+    m_timer->Reset();
+    auto deltaErr = error - m_prevError;
+    m_prevError = error;
 
-    private:
-        double GetLiftHeight() const;
-        double GetRotateAngle() const;
-
-        Climber*                            m_climber;
-        ControlData*                        m_liftControlData;
-        ControlData*                        m_rotateControlData;
-        double                              m_liftTarget;
-        double                              m_rotateTarget;
-        double                              m_robotPitch;
-        DragonPID*                          m_liftController;
-        DragonPID*                          m_rotateController;
-};
+    return motorOutput + m_kP*error + m_kI*m_accumError + m_kD*deltaErr/deltaT + m_kF;
+}

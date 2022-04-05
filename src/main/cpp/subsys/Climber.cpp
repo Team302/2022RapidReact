@@ -26,6 +26,7 @@
 #include <hw/DragonAnalogInput.h>
 #include <hw/DragonDigitalInput.h>
 #include <hw/interfaces/IDragonMotorController.h>
+#include <hw/MotorData.h>
 #include <subsys/Climber.h>
 #include <utils/Logger.h>
 
@@ -108,6 +109,14 @@ void Climber::Update()
             }
         }
 
+        auto ntName = GetNetworkTableName();
+        auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
+
+        Logger::GetLogger()->ToNtTable(table, string("lift at min"), to_string(atMin));
+        Logger::GetLogger()->ToNtTable(table, string("lift at max"), to_string(atMax));
+        Logger::GetLogger()->ToNtTable(table, string("lift target"), liftTarget);
+
+        /** **/
         if (atMin || atMax)
         {
             liftMotor.get()->GetSpeedController()->StopMotor();
@@ -116,8 +125,8 @@ void Climber::Update()
         {
             liftMotor.get()->Set(table, liftTarget);
         }
-    }
-    
+        /** **/    
+   }
     auto rotateMotor = GetSecondaryMotor();
     if ( rotateMotor.get() != nullptr)
     {
@@ -167,6 +176,15 @@ void Climber::Update()
             }
         }
         atMin = atMin || m_armBack.get()->Get();
+
+        auto ntName = GetNetworkTableName();
+        auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
+
+        Logger::GetLogger()->ToNtTable(table, string("rotate at min"), to_string(atMin));
+        Logger::GetLogger()->ToNtTable(table, string("rotate at max"), to_string(atMax));
+        Logger::GetLogger()->ToNtTable(table, string("rotate target"), rotateTarget);
+
+        /** **/
         if (atMin || atMax)
         {
             rotateMotor.get()->GetSpeedController()->StopMotor();
@@ -175,6 +193,7 @@ void Climber::Update()
         {
             rotateMotor.get()->Set(table, rotateTarget);
         }
+        /** **/
         if (m_armBack.get()->Get())
         {
             rotateMotor.get()->SetSelectedSensorPosition(0.0);
@@ -185,6 +204,27 @@ void Climber::Update()
 
     LogData();
 }
+bool Climber::IsLiftStalled() const
+{
+    auto liftMotor = GetPrimaryMotor();
+    if (liftMotor.get() != nullptr)
+    {
+        auto motorType = liftMotor.get()->GetMotorType();
+        return MotorData::GetInstance()->checkIfStall(liftMotor);
+    }
+    return false;
+}
+bool Climber::IsRotateStalled() const
+{
+    auto rotateMotor = GetSecondaryMotor();
+    if (rotateMotor.get() != nullptr)
+    {
+        auto motorType = rotateMotor.get()->GetMotorType();
+        return MotorData::GetInstance()->checkIfStall(rotateMotor);
+    }
+    return false;
+}
+
 
 
 /// @brief log data to the network table if it is activated and time period has past
@@ -195,5 +235,13 @@ void Climber::LogData()
     auto ntName = GetNetworkTableName();
     auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
 
-    Logger::GetLogger()->ToNtTable(table, "Arm Back Switch", m_armBack.get()->Get() ? "true" : "false");
+    Logger::GetLogger()->ToNtTable(table, string("Min Reach"), GetMinReach());
+    Logger::GetLogger()->ToNtTable(table, string("Max Reach"), GetMaxReach());
+    Logger::GetLogger()->ToNtTable(table, string("Current Reach"), GetPrimaryMotor().get()->GetCounts());
+
+    Logger::GetLogger()->ToNtTable(table, string("Min Rotate"), GetMinRotate());
+    Logger::GetLogger()->ToNtTable(table, string("Max Rotate"), GetMaxRotate());
+    Logger::GetLogger()->ToNtTable(table, string("Current Rotate"), GetSecondaryMotor().get()->GetCounts());
+
+    Logger::GetLogger()->ToNtTable(table, string("Arm Back Switch"), m_armBack.get()->Get() ? "true" : "false");
 }

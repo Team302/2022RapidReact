@@ -9,20 +9,16 @@
 #include <gamepad/TeleopControl.h>
 #include <states/chassis/SwerveDrive.h>
 #include <states/climber/ClimberStateMgr.h>
+#include <states/indexer/LeftIndexerStateMgr.h>
+#include <states/indexer/RightIndexerStateMgr.h>
 #include <states/Intake/LeftIntakeStateMgr.h>
 #include <states/Intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <subsys/ChassisFactory.h>
 #include <subsys/Climber.h>
-#include <subsys/Intake.h>
 #include <subsys/interfaces/IChassis.h>
 #include <subsys/MechanismFactory.h>
-#include <subsys/Shooter.h>
 #include <xmlhw/RobotDefn.h>
-#include <subsys/Indexer.h>
-#include <subsys/Lift.h>
-#include <states/indexer/LeftIndexerStateMgr.h>
-#include <states/indexer/RightIndexerStateMgr.h>
 
 
 void Robot::RobotInit() 
@@ -165,6 +161,11 @@ void Robot::TeleopPeriodic()
     if (m_liftStateMgr != nullptr)
     {
         m_liftStateMgr->RunCurrentState();
+    }
+    auto climber = MechanismFactory::GetMechanismFactory()->GetClimber();
+    if (climber != nullptr)
+    {
+        climber->LogData();
     }
 }
 

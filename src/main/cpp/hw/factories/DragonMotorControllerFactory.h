@@ -94,7 +94,8 @@ class DragonMotorControllerFactory
 			bool											forwardLimitSwitch,
 			bool											forwardLimitSwitchNormallyOpen,
 			bool											reverseLimitSwitch,
-			bool											reverseLimitSwitchNormallyOpen
+			bool											reverseLimitSwitchNormallyOpen,
+			IDragonMotorController::MOTOR_TYPE 				motorType
 		);
 
 	private:
