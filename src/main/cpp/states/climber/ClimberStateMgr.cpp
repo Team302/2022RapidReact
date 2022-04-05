@@ -113,10 +113,6 @@ void ClimberStateMgr::CheckForStateTransition()
 
         if (isClimbMode)
         {
-
-            auto isPrepMidbar = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::PREP_MIDBAR_CLIMB) : false;
-            auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
-
             if (isPrepMidbar)
             {
                 targetState = CLIMBER_STATE::PREP_MID_BAR;

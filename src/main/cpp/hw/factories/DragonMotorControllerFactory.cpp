@@ -66,7 +66,9 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     bool											reverseLimitSwitch,
     bool											reverseLimitSwitchNormallyOpen,
     double											voltageCompensationSaturation,
-    bool											enableVoltageCompensation
+    bool											enableVoltageCompensation,
+    IDragonMotorController::MOTOR_TYPE                                                          motorType
+
 )
 {
     shared_ptr<IDragonMotorController> controller;

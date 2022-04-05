@@ -83,14 +83,6 @@ void ClimberState::Run()
             {
                 liftOutput = m_liftController->Calculate(mc.get()->Get(), GetLiftHeight(), m_liftTarget);
                 liftOutput = clamp(liftOutput, -1.0, 1.0);
-                if (liftOutput > 0.05 && liftOutput < 0.2 )
-                {
-                    liftOutput = 0.35;
-                }
-                else if (liftOutput < -0.05 && liftOutput > -0.2 )
-                {
-                    liftOutput = -0.35;
-                }
             }
         }
 

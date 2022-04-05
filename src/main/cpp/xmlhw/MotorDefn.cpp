@@ -179,7 +179,7 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
                 Logger::GetLogger()->LogError( string("MotorDefn::ParseXML "), msg );
             }
         }
-        else if ( strcmp( attr.name(), "motorType" ) == 0 )
+        else if ( strcmp( attr.name(), "motortype" ) == 0 )
         {
             auto val = string( attr.value() );
             if ( val.compare( "FALCON500") == 0 )
@@ -369,7 +369,8 @@ shared_ptr<IDragonMotorController> MotorDefn::ParseXML
                                                                                          reverseLimitSwitch,
                                                                                          reverseLimitSwitchNormallyOpen,
                                                                                          voltageCompensationSaturation,
-                                                                                         enableVoltageCompensation );
+                                                                                         enableVoltageCompensation,
+                                                                                         motortype);
     }
     return controller;
 }
