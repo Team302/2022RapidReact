@@ -479,8 +479,8 @@ void SwerveChassis::DriveToPointTowardGoal
 
     if (m_limelight != nullptr && m_limelight->HasTarget())
     { 
-        auto speedCorrection = abs(distanceError.to<double>()) > 30.0 ? kPDistance : kPDistance*0.5;
-        if (abs(distanceError.to<double>()) > 5.0)
+        auto speedCorrection = abs(distanceError.to<double>()) > 30.0 ? kPDistance : kPDistance*0.35;
+        if (abs(distanceError.to<double>()) > 20.0)
         {
             AdjustRotToPointTowardGoal(robotPose, rot);
             auto deltaX = (myPose.X()- targetPose.X());
@@ -524,7 +524,8 @@ void SwerveChassis::AdjustRotToPointTowardGoal
 {
     if (m_limelight != nullptr && m_limelight->HasTarget())
     { 
-        rot += (m_limelight->GetTargetHorizontalOffset())/1_s*kPGoalHeadingControl;         
+        double rotCorrection = abs(m_limelight->GetTargetHorizontalOffset().to<double>()) > 10.0 ? kPGoalHeadingControl : kPDistance*2;
+        rot += (m_limelight->GetTargetHorizontalOffset())/1_s*rotCorrection;         
     }
     else
     {

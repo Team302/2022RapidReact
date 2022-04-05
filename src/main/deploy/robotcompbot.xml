@@ -467,8 +467,8 @@
               reverselimitswitchopen="true"/>
 
        <motor usage="CLIMBER_ROTATE"
-              canId="20"
-              pdpID="15"
+              canId="8"
+              pdpID="8"
               type="FALCON"
               inverted="true"
               sensorInverted="false"
