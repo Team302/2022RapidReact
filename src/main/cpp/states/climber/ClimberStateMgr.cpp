@@ -104,12 +104,15 @@ void ClimberStateMgr::CheckForStateTransition()
     {
         auto controller = TeleopControl::GetInstance();
         auto isClimbMode  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::ENABLE_CLIMBER) : false;
+        auto isPrepMidbar = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::PREP_MIDBAR_CLIMB) : false;
+        auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
+
+        Logger::GetLogger()->ToNtTable(m_nt, string("Climber in climb mode"), isClimbMode ? "true" : "false");
+        Logger::GetLogger()->ToNtTable(m_nt, string("Climber prep mid bar"), isPrepMidbar ? "true" : "false");
+        Logger::GetLogger()->ToNtTable(m_nt, string("Climber auto climb"), isAutoClimb ? "true" : "false");
+
         if (isClimbMode)
         {
-
-            auto isPrepMidbar = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::PREP_MIDBAR_CLIMB) : false;
-            auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
-
             if (isPrepMidbar)
             {
                 targetState = CLIMBER_STATE::PREP_MID_BAR;

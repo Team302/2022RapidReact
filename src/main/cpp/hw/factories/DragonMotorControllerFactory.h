@@ -96,7 +96,8 @@ class DragonMotorControllerFactory
 			bool											reverseLimitSwitch,
 			bool											reverseLimitSwitchNormallyOpen,
 			double											voltageCompensationSaturation,
-			bool											enableVoltageCompensation
+			bool											enableVoltageCompensation,
+			IDragonMotorController::MOTOR_TYPE                       				motorType
 		);
 
 	private:

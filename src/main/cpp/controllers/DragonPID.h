@@ -13,49 +13,42 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-
 #pragma once
 
-//Team 302 Includes
+#include <frc/Timer.h>
+
 #include <controllers/ControlData.h>
-#include <controllers/DragonPID.h>
-#include <controllers/MechanismTargetData.h>
-#include <states/Mech2MotorState.h>
-#include <subsys/Climber.h>
-
-class ControlData;
 
 
-class ClimberState : public Mech2MotorState
+class DragonPID
 {
     public:
-        ClimberState
+        DragonPID
         (
-            ControlData*                    controlData,
-            ControlData*                    controlData2,
-            double                          target1,
-            double                          target2,
-            double                          robotPitch
+            ControlData*                    controlData
         );
 
-        ClimberState() = delete;
-        ~ClimberState() = default;
-        void Init() override;
-        void Run() override;
-        bool AtTarget() const override;
+        DragonPID() = delete;
+        ~DragonPID() = default;
 
-        double GetRobotPitch() const { return m_robotPitch; };
+        void UpdateKP(double kP);
+        void UpdateKI(double kI);
+        void UpdateKD(double kD);
+        void UpdateKF(double kF);
+
+        double Calculate
+        (
+            double motorOutput,
+            double currentVal,
+            double targetVal
+        );
 
     private:
-        double GetLiftHeight() const;
-        double GetRotateAngle() const;
-
-        Climber*                            m_climber;
-        ControlData*                        m_liftControlData;
-        ControlData*                        m_rotateControlData;
-        double                              m_liftTarget;
-        double                              m_rotateTarget;
-        double                              m_robotPitch;
-        DragonPID*                          m_liftController;
-        DragonPID*                          m_rotateController;
+        double                              m_kP;
+        double                              m_kI;
+        double                              m_kD;
+        double                              m_kF;
+        double                              m_accumError;
+        double                              m_prevError;
+        frc::Timer*                         m_timer;
 };

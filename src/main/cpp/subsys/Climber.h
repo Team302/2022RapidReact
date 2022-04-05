@@ -47,7 +47,12 @@ class Climber : public Mech2IndMotors
         void LogData() override;
 
         double GetMinReach() const {return m_reachMin;}
+        double GetMaxReach() const {return m_reachMax;}
         double GetMinRotate() const {return m_rotateMin;}
+        double GetMaxRotate() const {return m_rotateMax;}
+
+        bool IsLiftStalled() const;
+        bool IsRotateStalled() const;
 
     private:
         double                              m_reachMin;
