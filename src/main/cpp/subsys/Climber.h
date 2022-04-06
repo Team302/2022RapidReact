@@ -64,6 +64,27 @@ class Climber : public Mech2IndMotors
             std::shared_ptr<IDragonMotorController> motor
         );
 
+        bool IsAtMaxReach
+        (
+            std::shared_ptr<IDragonMotorController> motor,
+            double                                  currentPos
+        ) const;
+        bool IsAtMinReach
+        (
+            std::shared_ptr<IDragonMotorController> motor,
+            double                                  currentPos
+        ) const;
+        bool IsAtMaxRotation
+        (
+            std::shared_ptr<IDragonMotorController> motor,
+            double                                  currentPos
+        ) const;
+        bool IsAtMinRotation
+        (
+            std::shared_ptr<IDragonMotorController> motor,
+            double                                  currentPos
+        ) const;
+
         double                              m_reachMin;
         double                              m_reachMax;
         double                              m_rotateMin;

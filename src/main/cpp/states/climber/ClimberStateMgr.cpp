@@ -107,11 +107,90 @@ void ClimberStateMgr::CheckForStateTransition()
         auto isPrepMidbar = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::PREP_MIDBAR_CLIMB) : false;
         auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
 
-        Logger::GetLogger()->ToNtTable(m_nt, string("Climber in climb mode"), isClimbMode ? "true" : "false");
-        Logger::GetLogger()->ToNtTable(m_nt, string("Climber prep mid bar"), isPrepMidbar ? "true" : "false");
-        Logger::GetLogger()->ToNtTable(m_nt, string("Climber auto climb"), isAutoClimb ? "true" : "false");
+        auto isClimbOff = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_OFF) : false;
+        auto isClimbManual = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MANUAL) : false;
+        auto isClimbStarting = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_STARTING) : false;
+        auto isClimbPrepMid = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_PREP_MID) : false;
+        auto isClimbMid = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MID) : false;
+        auto isClimbFrontPrep = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_PREP) : false;
+        auto isClimbFrontRotateA = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_A) : false;
+        auto isClimbFrontRotateB = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_B) : false;
+        auto isClimbFrontElevate = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ELEVATE) : false;
+        auto isClimbFrontRotateToHook = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_TO_HOOK) : false;
+        auto isClimbFrontLift = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_LIFT_ROBOT) : false;
+        auto isClimbFrontRotateArm = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_ROTATE_ARM) : false;
+        auto isClimbBackPrep = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_PREP) : false;
+        auto isClimbBackRotate = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_ROTATE_A) : false;
+        auto isClimbBackLift = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_LIFT) : false;
+        auto isClimbBackRest = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_REST) : false;
 
-        if (isClimbMode)
+        if (isClimbOff)
+        {
+            targetState = CLIMBER_STATE::OFF;
+        }
+        else if (isClimbManual)
+        {
+            targetState = CLIMBER_STATE::MANUAL;
+        }
+        else if (isClimbStarting)
+        {
+            targetState = CLIMBER_STATE::STARTING_CONFIG;
+        }
+        else if (isClimbPrepMid)
+        {
+            targetState = CLIMBER_STATE::PREP_MID_BAR;
+        }
+        else if (isClimbMid)
+        {
+            targetState = CLIMBER_STATE::CLIMB_MID_BAR;
+        }
+        else if (isClimbFrontPrep)
+        {
+            targetState = CLIMBER_STATE::FRONT_HOOK_PREP_FOR_NEXT_BAR;
+        }
+        else if (isClimbFrontRotateA)
+        {
+            targetState = CLIMBER_STATE::FRONT_HOOK_ROTATE_A;
+        }
+        else if (isClimbFrontRotateB)
+        {
+            targetState = CLIMBER_STATE::FRONT_HOOK_ROTATE_B;
+        }
+        else if (isClimbFrontElevate)
+        {
+            targetState = CLIMBER_STATE::FRONT_HOOK_ELEVATE;
+        }
+        else if (isClimbFrontRotateToHook)
+        {
+            targetState = CLIMBER_STATE::FRONT_HOOK_ROTATE_TO_HOOK;
+        }
+        else if (isClimbFrontLift)
+        {
+            targetState = CLIMBER_STATE::FRONT_HOOK_LIFT_ROBOT;
+        }
+        else if (isClimbFrontRotateArm)
+        {
+            targetState = CLIMBER_STATE::FRONT_HOOK_ROTATE_ARM;
+        }
+        else if (isClimbBackPrep)
+        {
+            targetState = CLIMBER_STATE::BACK_HOOK_PREP;
+        }
+        else if (isClimbBackRotate)
+        {
+            targetState = CLIMBER_STATE::BACK_HOOK_ROTATE_A;
+        }
+        else if (isClimbBackLift)
+        {
+            targetState = CLIMBER_STATE::BACK_HOOK_LIFT_ROBOT;
+        }
+        else if (isClimbBackRest)
+        {
+            targetState = CLIMBER_STATE::BACK_HOOK_REST;
+        }
+
+        //if (isClimbMode)
+        else if (isClimbMode)
         {
             if (isPrepMidbar)
             {

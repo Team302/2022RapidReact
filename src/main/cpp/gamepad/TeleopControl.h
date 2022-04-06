@@ -77,6 +77,25 @@ class TeleopControl
             SHOOTER_HOOD_MAN,   //Button Mapped needs calls to mgrs
             SELECT_CLIMBER_ARM, //Button Mapped needs calls to mgrs
 
+            // for testing
+            CLIMBER_STATE_OFF,
+            CLIMBER_STATE_MANUAL,
+            CLIMBER_STATE_STARTING,
+            CLIMBER_STATE_PREP_MID,
+            CLIMBER_STATE_MID,
+            CLIMBER_STATE_FRONT_PREP,
+            CLIMBER_STATE_FRONT_ROTATE_A,
+            CLIMBER_STATE_FRONT_ROTATE_B,
+            CLIMBER_STATE_FRONT_ELEVATE,
+            CLIMBER_STATE_FRONT_ROTATE_TO_HOOK,
+            CLIMBER_STATE_FRONT_LIFT_ROBOT,
+            CLIMBER_STATE_ROTATE_ARM,
+            CLIMBER_STATE_BACK_PREP,
+            CLIMBER_STATE_BACK_ROTATE_A,
+            CLIMBER_STATE_BACK_LIFT,
+            CLIMBER_STATE_BACK_REST,
+            // end of for testing
+            
             MAX_FUNCTIONS
         };
 
