@@ -20,8 +20,8 @@
 
 void Robot::RobotInit() 
 {
-    CameraServer::SetSize(CameraServer::kSize320x240);
-    CameraServer::StartAutomaticCapture();
+    //CameraServer::SetSize(CameraServer::kSize320x240);
+    //CameraServer::StartAutomaticCapture();
 
     // Read the XML file to build the robot 
     auto defn = new RobotDefn();
@@ -108,6 +108,7 @@ void Robot::TeleopInit()
     if (m_climberStateMgr != nullptr)
     {
         m_climberStateMgr->RunCurrentState();
+    //    m_climberStateMgr->SetCurrentState(ClimberStateMgr::CLIMBER_STATE::CLIMB_MID_BAR, true);
     }
     if (m_indexerStateMgr != nullptr)
     {
