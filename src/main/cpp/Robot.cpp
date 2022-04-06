@@ -19,13 +19,7 @@
 #include <states/Intake/RightIntakeStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <subsys/ChassisFactory.h>
-#include <subsys/Climber.h>
-#include <subsys/Indexer.h>
-#include <subsys/Intake.h>
 #include <subsys/interfaces/IChassis.h>
-#include <subsys/Lift.h>
-#include <subsys/MechanismFactory.h>
-#include <subsys/Shooter.h>
 #include <utils/Logger.h>
 #include <xmlhw/RobotDefn.h>
 
