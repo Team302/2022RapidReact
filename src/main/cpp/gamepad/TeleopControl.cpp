@@ -201,6 +201,29 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 	}
     else if ( m_controllers[ctrlNo] != nullptr )
     {
+		m_controllerIndex[CLIMBER_STATE_STARTING] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_STARTING] 			= IDragonGamePad::A_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_PREP_MID] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_PREP_MID] 			= IDragonGamePad::X_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_MID] 		= ctrlNo;  
+		m_buttonIDs[CLIMBER_STATE_MID] 				= IDragonGamePad::Y_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_FRONT_PREP] 			= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_FRONT_PREP] 				= IDragonGamePad::B_BUTTON;	
+
+		m_controllerIndex[CLIMBER_STATE_FRONT_ROTATE_A] 		= ctrlNo;
+ 		m_buttonIDs[CLIMBER_STATE_FRONT_ROTATE_A] 			= IDragonGamePad::POV_0;	
+ 		m_controllerIndex[CLIMBER_STATE_FRONT_ROTATE_B] 			= ctrlNo;
+ 		m_buttonIDs[CLIMBER_STATE_FRONT_ROTATE_B] 			= IDragonGamePad::POV_90;	
+ 		m_controllerIndex[CLIMBER_STATE_FRONT_ELEVATE] 			= ctrlNo;
+ 		m_buttonIDs[CLIMBER_STATE_FRONT_ELEVATE] 			= IDragonGamePad::POV_180;	
+ 		m_controllerIndex[CLIMBER_STATE_FRONT_ROTATE_TO_HOOK] 			= ctrlNo;
+ 		m_buttonIDs[CLIMBER_STATE_FRONT_ROTATE_TO_HOOK] 			= IDragonGamePad::POV_270;	
+
+
+		m_controllerIndex[CLIMBER_STATE_FRONT_LIFT_ROBOT] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_FRONT_LIFT_ROBOT]			= IDragonGamePad::LEFT_BUMPER;	
+		m_controllerIndex[CLIMBER_STATE_ROTATE_ARM] 	= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_ROTATE_ARM]			= IDragonGamePad::RIGHT_BUMPER;	
 	}
 	else
 	{
@@ -210,6 +233,19 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 	ctrlNo = 2;
     if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
+		m_controllerIndex[CLIMBER_STATE_BACK_PREP] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_BACK_PREP] 			= IDragonGamePad::A_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_BACK_ROTATE_A] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_BACK_ROTATE_A] 			= IDragonGamePad::X_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_BACK_LIFT] 		= ctrlNo;  
+		m_buttonIDs[CLIMBER_STATE_BACK_LIFT] 				= IDragonGamePad::Y_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_BACK_REST] 			= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_BACK_REST] 				= IDragonGamePad::B_BUTTON;	
+
+		m_controllerIndex[CLIMBER_STATE_OFF] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_OFF]			= IDragonGamePad::LEFT_BUMPER;	
+		m_controllerIndex[CLIMBER_STATE_MANUAL] 	= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_MANUAL]			= IDragonGamePad::RIGHT_BUMPER;		
 	}
     else if ( m_controllers[ctrlNo] != nullptr )
     {
