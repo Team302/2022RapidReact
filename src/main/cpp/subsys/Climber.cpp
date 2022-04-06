@@ -211,22 +211,12 @@ void Climber::Update()
 bool Climber::IsLiftStalled() const
 {
     auto liftMotor = GetPrimaryMotor();
-    if (liftMotor.get() != nullptr)
-    {
-        auto motorType = liftMotor.get()->GetMotorType();
-        return MotorData::GetInstance()->checkIfStall(liftMotor);
-    }
-    return false;
+    return liftMotor.get() != nullptr ? MotorData::GetInstance()->checkIfStall(liftMotor) : false;
 }
 bool Climber::IsRotateStalled() const
 {
     auto rotateMotor = GetSecondaryMotor();
-    if (rotateMotor.get() != nullptr)
-    {
-        auto motorType = rotateMotor.get()->GetMotorType();
-        return MotorData::GetInstance()->checkIfStall(rotateMotor);
-    }
-    return false;
+    return rotateMotor.get() != nullptr ? MotorData::GetInstance()->checkIfStall(rotateMotor) : false;
 }
 
 
