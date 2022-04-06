@@ -219,7 +219,7 @@ void Logger::ToNtTable
     }
 }
 
-Logger::Logger() : m_option( LOGGER_OPTION::CONSOLE ), 
+Logger::Logger() : m_option( LOGGER_OPTION::CONSOLE), 
                    m_level( LOGGER_LEVEL::PRINT ),
                    m_alreadyDisplayed()
 {
