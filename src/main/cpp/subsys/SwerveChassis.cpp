@@ -166,7 +166,7 @@ void SwerveChassis::Drive
     auto rot = speeds.omega;
     auto currentPose = GetPose();
     auto goalPose = m_targetFinder.GetPosCenterTarget();
-    m_hold = false;
+    //m_hold = false;
     switch (headingOption)
     {
         case HEADING_OPTION::MAINTAIN:
@@ -303,10 +303,7 @@ void SwerveChassis::Drive
 
             if(m_hold && !m_isMoving)
             {
-                m_flState.angle = {units::angle::degree_t(45)};
-                m_frState.angle = {units::angle::degree_t(-45)};
-                m_blState.angle = {units::angle::degree_t(135)};
-                m_brState.angle = {units::angle::degree_t(-135)};
+                HoldPosition();
             }
             
             m_frontLeft.get()->SetDesiredState(m_flState);
@@ -317,11 +314,22 @@ void SwerveChassis::Drive
             auto ay = m_accel.GetY();
             auto az = m_accel.GetZ();
 
+            Logger::GetLogger()->ToNtTable(std::string("Swerve Chassis"), std::string("AccelX"), ax);
+            Logger::GetLogger()->ToNtTable(std::string("Swerve Chassis"), std::string("AccelY"), ay);
+            Logger::GetLogger()->ToNtTable(std::string("Swerve Chassis"), std::string("AccelZ"), az);
+
             m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
         }
     }    
 }
 
+void SwerveChassis::HoldPosition()
+{
+    m_flState.angle = {units::angle::degree_t(45)};
+    m_frState.angle = {units::angle::degree_t(-45)};
+    m_blState.angle = {units::angle::degree_t(135)};
+    m_brState.angle = {units::angle::degree_t(-135)};
+}
 
 units::angle::degree_t SwerveChassis::UpdateForPolarDrive
 (
@@ -521,10 +529,6 @@ void SwerveChassis::DriveToPointTowardGoal
 
             m_hold = false;
         }
-        else if(abs(m_limelight->GetTargetHorizontalOffset().to<double>()) < 1.0)
-        {
-            m_hold = true;
-        }
         else
         {
             AdjustRotToPointTowardGoal(robotPose, rot);
@@ -544,16 +548,23 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     units::radians_per_second_t &rot     
 )
 {
-    if (m_limelight != nullptr && m_limelight->HasTarget())
+    if(abs(m_limelight->GetTargetHorizontalOffset().to<double>()) < 1.0)
+    {
+        m_hold = true;
+    }
+    else if (m_limelight != nullptr && m_limelight->HasTarget())
     { 
         double rotCorrection = abs(m_limelight->GetTargetHorizontalOffset().to<double>()) > 10.0 ? kPGoalHeadingControl : kPGoalHeadingControl*1.5;
-        rot += (m_limelight->GetTargetHorizontalOffset())/1_s*rotCorrection;   
+        rot += (m_limelight->GetTargetHorizontalOffset())/1_s*rotCorrection;
+        m_hold = false;   
     }
     else
     {
         auto targetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(robotPose));
-        rot -= CalcHeadingCorrection(targetAngle,kPGoalHeadingControl);;
+        rot -= CalcHeadingCorrection(targetAngle,kPGoalHeadingControl);
+        m_hold = false;
     }
+
     Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("TurnToGoal New ZSpeed: "), rot.to<double>());
 }
 

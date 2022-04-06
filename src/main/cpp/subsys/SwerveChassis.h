@@ -166,6 +166,8 @@ class SwerveChassis : public IChassis
 
         void ReZero();
 
+        void HoldPosition();
+
     private:
         frc::ChassisSpeeds GetFieldRelativeSpeeds
         (

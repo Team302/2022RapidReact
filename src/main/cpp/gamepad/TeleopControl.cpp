@@ -120,6 +120,9 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_buttonIDs[DRIVE_POLAR] 						= IDragonGamePad::RIGHT_BUMPER;		
 		m_controllerIndex[FINDTARGET] 					= ctrlNo;  
 		m_buttonIDs[FINDTARGET]	 						= IDragonGamePad::LEFT_BUMPER;	
+
+		m_controllerIndex[HOLD_POSITION]				= ctrlNo;
+		m_buttonIDs[HOLD_POSITION]						= IDragonGamePad::X_BUTTON;
 		
 		//TODO needs hook to states 
 		//Analog???
