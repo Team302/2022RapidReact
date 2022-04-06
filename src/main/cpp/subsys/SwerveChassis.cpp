@@ -43,7 +43,7 @@
 #include <subsys/SwerveChassis.h>
 #include <utils/AngleUtils.h>
 #include <utils/Logger.h>
-//#include <gamepad/TeleopControl.h>
+#include <gamepad/TeleopControl.h>
 
 // Third Party Includes
 #include <ctre/phoenix/sensors/CANCoder.h>
@@ -301,7 +301,7 @@ void SwerveChassis::Drive
                 m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, m_brState.angle), chassisSpeeds);
            }
 
-            if(m_hold)
+            if(m_hold && !m_isMoving)
             {
                 m_flState.angle = {units::angle::degree_t(45)};
                 m_frState.angle = {units::angle::degree_t(-45)};
@@ -486,9 +486,7 @@ void SwerveChassis::DriveToPointTowardGoal
 
     if (m_limelight != nullptr && m_limelight->HasTarget())
     { 
-        auto speedCorrection = abs(distanceError.to<double>()) > 30.0 ? kPDistance : kPDistance*0.5;
-
-        if (abs(distanceError.to<double>()) > 20.0)
+        if (abs(distanceError.to<double>()) > 10.0)
         {
             AdjustRotToPointTowardGoal(robotPose, rot);
 
@@ -518,12 +516,12 @@ void SwerveChassis::DriveToPointTowardGoal
             }
             auto deltaX = (driveToPose.X()-myPose.X());
             auto deltaY = (driveToPose.Y()-myPose.Y());
-            xSpeed += deltaX/1_s*speedCorrection; 
-            ySpeed += deltaY/1_s*speedCorrection; 
+            xSpeed += deltaX/1_s*kPDistance; 
+            ySpeed += deltaY/1_s*kPDistance; 
 
             m_hold = false;
         }
-        else if(abs(m_limelight->GetTargetHorizontalOffset().to<double>()) < 1.5)
+        else if(abs(m_limelight->GetTargetHorizontalOffset().to<double>()) < 1.0)
         {
             m_hold = true;
         }
@@ -548,8 +546,8 @@ void SwerveChassis::AdjustRotToPointTowardGoal
 {
     if (m_limelight != nullptr && m_limelight->HasTarget())
     { 
-        double rotCorrection = abs(m_limelight->GetTargetHorizontalOffset().to<double>()) > 10.0 ? kPGoalHeadingControl : kPGoalHeadingControl*2.5;
-        rot += (m_limelight->GetTargetHorizontalOffset())/1_s*rotCorrection;         
+        double rotCorrection = abs(m_limelight->GetTargetHorizontalOffset().to<double>()) > 10.0 ? kPGoalHeadingControl : kPGoalHeadingControl*1.5;
+        rot += (m_limelight->GetTargetHorizontalOffset())/1_s*rotCorrection;   
     }
     else
     {
