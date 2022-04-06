@@ -548,7 +548,7 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     units::radians_per_second_t &rot     
 )
 {
-    if(abs(m_limelight->GetTargetHorizontalOffset().to<double>()) < 1.0)
+    if(abs(m_limelight->GetTargetHorizontalOffset().to<double>()) < 1.0 && m_limelight->HasTarget())
     {
         m_hold = true;
     }
