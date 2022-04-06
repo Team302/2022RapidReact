@@ -471,7 +471,7 @@
               feedbackDevice="INTERNAL"
               countsPerRev="2048"
               gearRatio="16.0"
-              countsPerInch="9244.7"
+              countsPerInch="9145.0"
               countsPerDegree="0"
               brakeMode="true"
               peakCurrentDuration="50"
@@ -500,10 +500,10 @@
               continuousCurrentLimit="30"
               peakCurrentLimit="40"
               currentLimiting="true"
-              forwardlimitswitch="true"
-              forwardlimitswitchopen="true"
-              reverselimitswitch="true"
-              reverselimitswitchopen="true"/>
+              forwardlimitswitch="false"
+              forwardlimitswitchopen="false"
+              reverselimitswitch="false"
+              reverselimitswitchopen="false"/>
        <digitalInput usage= "CLIMBER_BACK"
               digitalId="2"
               reversed="false"/>
