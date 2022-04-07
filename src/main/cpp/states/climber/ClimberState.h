@@ -18,6 +18,7 @@
 
 //Team 302 Includes
 #include <controllers/ControlData.h>
+#include <controllers/DragonBangBang.h>
 #include <controllers/DragonPID.h>
 #include <controllers/MechanismTargetData.h>
 #include <states/Mech2MotorState.h>
@@ -58,4 +59,10 @@ class ClimberState : public Mech2MotorState
         double                              m_robotPitch;
         DragonPID*                          m_liftController;
         DragonPID*                          m_rotateController;
+        DragonBangBang*                     m_liftBangBang;
+        DragonBangBang*                     m_rotateBangBang;
+
+        const double                        m_liftTolerance = 0.25;
+        const double                        m_rotateTolerance = 2.0;
+        const double                        m_pitchTolerance = 2.0;
 };

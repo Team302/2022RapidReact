@@ -471,7 +471,7 @@
               type="FALCON"
               motorType="FALCON500"
               inverted="true"
-              sensorInverted="true"
+              sensorInverted="false"
               feedbackDevice="INTERNAL"
               countsPerRev="2048"
               gearRatio="16.0"

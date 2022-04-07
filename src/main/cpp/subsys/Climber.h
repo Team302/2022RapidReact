@@ -42,7 +42,7 @@ class Climber : public Mech2IndMotors
         /// @brief update the output to the mechanism using the current controller and target value(s)
         /// @return void 
         void Update() override;
-
+        
         /// @brief log data to the network table if it is activated and time period has past
         void LogData() override;
 
@@ -54,35 +54,29 @@ class Climber : public Mech2IndMotors
         bool IsLiftStalled() const;
         bool IsRotateStalled() const;
 
-    private:
-        static double GetPositionInInches
-        (
-            std::shared_ptr<IDragonMotorController> motor
-        );
-        static double GetPositionInDegrees
-        (
-            std::shared_ptr<IDragonMotorController> motor
-        );
+        double GetLiftTarget() const {return m_liftTarget;};
+        double GetRotateTarget() const {return m_rotateTarget;};
 
+        void SetTargetAngle(double angle);
+        void SetTargetHeight(double height);
+
+
+    private:
         bool IsAtMaxReach
         (
-            std::shared_ptr<IDragonMotorController> motor,
-            double                                  currentPos
+            std::shared_ptr<IDragonMotorController> motor
         ) const;
         bool IsAtMinReach
         (
-            std::shared_ptr<IDragonMotorController> motor,
-            double                                  currentPos
+            std::shared_ptr<IDragonMotorController> motor
         ) const;
         bool IsAtMaxRotation
         (
-            std::shared_ptr<IDragonMotorController> motor,
-            double                                  currentPos
+            std::shared_ptr<IDragonMotorController> motor
         ) const;
         bool IsAtMinRotation
         (
-            std::shared_ptr<IDragonMotorController> motor,
-            double                                  currentPos
+            std::shared_ptr<IDragonMotorController> motor
         ) const;
 
         double                              m_reachMin;
@@ -90,5 +84,7 @@ class Climber : public Mech2IndMotors
         double                              m_rotateMin;
         double                              m_rotateMax;
         std::shared_ptr<DragonDigitalInput> m_armBack;
+        double                              m_liftTarget;
+        double                              m_rotateTarget;
         //DragonAnalogInput*                  m_elevatorHeight;
 };

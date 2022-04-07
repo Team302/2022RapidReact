@@ -44,7 +44,9 @@ ClimberState::ClimberState
     m_rotateTarget(target2),
     m_robotPitch(robotPitch),
     m_liftController(new DragonPID(controlData)),
-    m_rotateController(new DragonPID(controlData2))
+    m_rotateController(new DragonPID(controlData2)),
+    m_liftBangBang(new DragonBangBang(0.01)),
+    m_rotateBangBang(new DragonBangBang(0.01))
 {
 }
 
@@ -70,11 +72,16 @@ void ClimberState::Run()
 {
     if (m_climber != nullptr)
     {
+        m_climber->SetTargetAngle(m_rotateTarget);
+        m_climber->SetTargetHeight(m_liftTarget);
+
+
         auto liftOutput = 0.0;
         auto rotateOutput = 0.0;
 
-        // currently using percent output and adjusting it.   Should probably switch to 
-        // SetVoltage() calls.
+        // currently adjusting percent output based on the error  
+        //liftOutput = m_liftBangBang->Calculate(GetLiftHeight(), m_liftTarget);
+        /** **/
         auto liftMotor = m_climber->GetPrimaryMotor();
         if (liftMotor.get() != nullptr)
         {
@@ -93,7 +100,10 @@ void ClimberState::Run()
                 }
             }
         }
+        /** **/
 
+        //rotateOutput = m_rotateBangBang->Calculate(GetRotateAngle(), m_rotateTarget);
+        /** **/
         auto rotateMotor = m_climber->GetSecondaryMotor();
         if (rotateMotor.get() != nullptr)
         {
@@ -104,6 +114,7 @@ void ClimberState::Run()
                 rotateOutput = clamp(rotateOutput, -1.0, 1.0);
             }
         }
+        /** **/
         m_climber->UpdateTargets(liftOutput, rotateOutput);
         m_climber->Update();
     }
@@ -114,9 +125,9 @@ bool ClimberState::AtTarget() const
     auto deltaAngle = GetRotateAngle()-m_rotateTarget;
     auto pigeon = PigeonFactory::GetFactory()->GetCenterPigeon();
     auto deltaPitch = pigeon != nullptr ? pigeon->GetPitch() - m_robotPitch : 0.0;
-    return abs(deltaHeight) < 0.25 &&
-           abs(deltaAngle) < 2.0 &&
-           abs(deltaPitch) < 2.0;
+    return abs(deltaHeight) < m_liftTolerance &&
+           abs(deltaAngle) < m_rotateTolerance &&
+           abs(deltaPitch) < m_pitchTolerance;
 }
 double ClimberState::GetLiftHeight() const
 {
@@ -125,7 +136,7 @@ double ClimberState::GetLiftHeight() const
         auto liftMotor = m_climber->GetPrimaryMotor();
         if (liftMotor.get() != nullptr)
         {
-            return liftMotor.get()->GetCounts() / liftMotor.get()->GetCountsPerInch();
+            return liftMotor.get()->GetInches();
         }
     }
     return 0.0;
@@ -137,7 +148,7 @@ double ClimberState::GetRotateAngle() const
         auto rotateMotor = m_climber->GetSecondaryMotor();
         if (rotateMotor.get() != nullptr)
         {
-            return rotateMotor.get()->GetCounts() / rotateMotor.get()->GetCountsPerDegree();
+            return rotateMotor.get()->GetDegrees();
         }
     }
     return 0.0;
