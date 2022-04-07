@@ -5,7 +5,7 @@
             type="REV"/>
        <pigeon canId="50"
                usage="SHOOTER_CENTER"
-               type="pigeon1"
+               type="pigeon2"
                rotation="0.0"/>
        <pigeon canId="0"
                usage="CENTER_OF_ROTATION"
@@ -362,19 +362,23 @@
               reverselimitswitch="false"
               reverselimitswitchopen="true"/>
        <motor usage="SHOOTER2"
-              canId="8"
-              pdpID="8"
+              canId="15"
+              pdpID="15"
               type="FALCON"
               inverted="false"
               sensorInverted="false"
               feedbackDevice="INTERNAL"
               countsPerRev="2048"
               gearRatio="1.0"
-              brakeMode="false"/>
+              brakeMode="false"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="50"
+              peakCurrentLimit="50"
+              currentLimiting="true" />
     </mechanism>
 
 <!-- ====================================================
-     Lift
+     Ball Transfer
      ====================================================  -->
 
     <mechanism type="LIFT"
@@ -444,8 +448,8 @@
                networkTable="climberNT"
                controlFile="climber.xml">
        <motor usage="CLIMBER_LIFT"
-              canId="8"
-              pdpID="8"
+              canId="9"
+              pdpID="9"
               type="FALCON"
               motorType="FALCON500"
               inverted="false"
@@ -466,8 +470,8 @@
               reverselimitswitchopen="true"/>
 
        <motor usage="CLIMBER_ROTATE"
-              canId="9"
-              pdpID="9"
+              canId="8"
+              pdpID="8"
               type="FALCON"
               motorType="FALCON500"
               inverted="true"
