@@ -124,6 +124,8 @@ void ClimberStateMgr::CheckForStateTransition()
         auto isClimbBackLift = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_LIFT) : false;
         auto isClimbBackRest = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_REST) : false;
 
+        
+
         if (isClimbOff)
         {
             targetState = CLIMBER_STATE::OFF;
