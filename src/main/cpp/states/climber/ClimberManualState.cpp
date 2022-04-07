@@ -79,15 +79,15 @@ void ClimberManualState::Init()
 
 void ClimberManualState::Run()           
 {
-    if (m_climber != nullptr && m_controller != nullptr && m_reach.get() != nullptr && m_rotate.get() != nullptr)
+    if (m_climber != nullptr && m_controller != nullptr )
     {
         auto armDownPercent = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_DOWN);
         auto armUpPercent   = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_UP);
         auto upDownPercent = armUpPercent - armDownPercent;
-        upDownPercent *= 0.25;
+        upDownPercent *= 0.50;
 
         auto rotatePercent = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_ROTATE);
-        rotatePercent *= 0.25;
+        rotatePercent *= 0.50;
         
         /**
         auto currentUpDown = m_reach.get()->GetRotations();
