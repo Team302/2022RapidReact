@@ -150,6 +150,9 @@ class DragonFalcon : public IDragonMotorController
         double GetCountsPerDegree() const override;
         ControlModes::CONTROL_TYPE GetControlMode() const override;
         double GetCounts() const override;
+        
+        double GetInches() const override;
+        double GetDegrees() const override;
 
     private:
         std::shared_ptr<ctre::phoenix::motorcontrol::can::WPI_TalonFX>  m_talon;

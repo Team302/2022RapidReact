@@ -152,6 +152,9 @@ class IDragonMotorController
         virtual double GetCountsPerInch() const = 0;
         virtual double GetCountsPerDegree() const = 0;
 
+        virtual double GetInches() const = 0;
+        virtual double GetDegrees() const = 0;
+
     protected:
 
 };

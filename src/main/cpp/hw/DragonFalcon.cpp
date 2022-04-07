@@ -1002,3 +1002,40 @@ IDragonMotorController::MOTOR_TYPE DragonFalcon::GetMotorType() const
 {
 	return m_motorType;
 }
+        
+double DragonFalcon::GetInches() const 
+{
+	auto cpi = GetCountsPerInch();
+	if (cpi > 0.0)
+	{
+		return GetCounts() / cpi;
+	}
+	else
+	{
+		auto cpr = GetCountsPerRev();
+		if (cpr > 0.0)
+		{
+			auto rev = GetCounts() / cpr;
+			return rev * m_diameter * wpi::numbers::pi;
+		}
+	}
+	return 0.0;
+}
+double DragonFalcon::GetDegrees() const 
+{
+	auto cpd = GetCountsPerDegree();
+	if (cpd > 0.0)
+	{
+		return GetCounts() / cpd;
+	}
+	else
+	{
+		auto cpr = GetCountsPerRev();
+		if (cpr > 0.0)
+		{
+			auto rev = GetCounts() / cpr;
+			return rev * 360.0;
+		}
+	}
+	return 0.0;
+}
