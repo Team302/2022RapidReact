@@ -301,10 +301,15 @@ void SwerveChassis::Drive
                 m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, m_brState.angle), chassisSpeeds);
            }
 
+            //Hold position / lock wheels in 'X' configuration
             if(m_hold && !m_isMoving)
             {
-                HoldPosition();
+                m_flState.angle = {units::angle::degree_t(45)};
+                m_frState.angle = {units::angle::degree_t(-45)};
+                m_blState.angle = {units::angle::degree_t(135)};
+                m_brState.angle = {units::angle::degree_t(-135)};
             }
+            //May need to add m_hold = false here if it gets stuck in hold position
             
             m_frontLeft.get()->SetDesiredState(m_flState);
             m_frontRight.get()->SetDesiredState(m_frState);
@@ -325,10 +330,7 @@ void SwerveChassis::Drive
 
 void SwerveChassis::HoldPosition()
 {
-    m_flState.angle = {units::angle::degree_t(45)};
-    m_frState.angle = {units::angle::degree_t(-45)};
-    m_blState.angle = {units::angle::degree_t(135)};
-    m_brState.angle = {units::angle::degree_t(-135)};
+    m_hold = true;
 }
 
 units::angle::degree_t SwerveChassis::UpdateForPolarDrive
