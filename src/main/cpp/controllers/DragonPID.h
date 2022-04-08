@@ -1,6 +1,5 @@
-
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302
+// Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -15,28 +14,41 @@
 //====================================================================================================================================================
 
 #pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    LEFT_INTAKE_MANUAL,
-    RIGHT_INTAKE,
-    RIGHT_INTAKE_MANUAL,
-    INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    SHOOTER_AUTO,
-    CLIMBER,
-    CLIMBER_MANUAL,
-    MAX_STATE_TYPES
-};
+
+#include <frc/Timer.h>
+
+#include <controllers/ControlData.h>
 
 
-struct StateStruc
+class DragonPID
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
+    public:
+        DragonPID
+        (
+            ControlData*                    controlData
+        );
+
+        DragonPID() = delete;
+        ~DragonPID() = default;
+
+        void UpdateKP(double kP);
+        void UpdateKI(double kI);
+        void UpdateKD(double kD);
+        void UpdateKF(double kF);
+
+        double Calculate
+        (
+            double motorOutput,
+            double currentVal,
+            double targetVal
+        );
+
+    private:
+        double                              m_kP;
+        double                              m_kI;
+        double                              m_kD;
+        double                              m_kF;
+        double                              m_accumError;
+        double                              m_prevError;
+        frc::Timer*                         m_timer;
 };

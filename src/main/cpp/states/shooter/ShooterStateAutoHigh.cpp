@@ -54,8 +54,7 @@ void ShooterStateAutoHigh::Init()
 {
     auto shooter = GetShooter();    
     if (shooter != nullptr)
-    {
-
+    {       
         auto shooterTarget = GetPrimaryTarget();
         auto shooterTarget2 = GetSecondaryTarget();
 

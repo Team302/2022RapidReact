@@ -17,8 +17,11 @@
 #pragma once
 
 //Team 302 Includes
-#include <states/Mech2MotorState.h>
+#include <controllers/ControlData.h>
+#include <controllers/DragonPID.h>
 #include <controllers/MechanismTargetData.h>
+#include <states/Mech2MotorState.h>
+#include <subsys/Climber.h>
 
 class ControlData;
 
@@ -31,9 +34,28 @@ class ClimberState : public Mech2MotorState
             ControlData*                    controlData,
             ControlData*                    controlData2,
             double                          target1,
-            double                          target2
+            double                          target2,
+            double                          robotPitch
         );
 
         ClimberState() = delete;
         ~ClimberState() = default;
+        void Init() override;
+        void Run() override;
+        bool AtTarget() const override;
+
+        double GetRobotPitch() const { return m_robotPitch; };
+
+    private:
+        double GetLiftHeight() const;
+        double GetRotateAngle() const;
+
+        Climber*                            m_climber;
+        ControlData*                        m_liftControlData;
+        ControlData*                        m_rotateControlData;
+        double                              m_liftTarget;
+        double                              m_rotateTarget;
+        double                              m_robotPitch;
+        DragonPID*                          m_liftController;
+        DragonPID*                          m_rotateController;
 };

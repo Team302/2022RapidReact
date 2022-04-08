@@ -49,6 +49,7 @@ class TeleopControl
             INTAKE_LEFT,
             INTAKE_RIGHT,
             MANUAL_INDEX,
+            HOLD_POSITION,
             EXPEL_LEFT,
             EXPEL_RIGHT,
             INTAKE_RETRACT_LEFT,
@@ -63,6 +64,8 @@ class TeleopControl
 
             // added 2022 Geo3 2.13.22
             FINDTARGET,         //Rotate to point to target center
+            ENABLE_CLIMBER,     //Put into climb mode
+            PREP_MIDBAR_CLIMB,  //Go to the prepare for Midbar Climb
             CLIMBER_MAN_UP,     //Button Mapped needs calls at mgrs
             CLIMBER_MAN_DOWN,   //Button Mapped needs calls to mgrs
             CLIMBER_MAN_ROTATE,
@@ -75,6 +78,25 @@ class TeleopControl
             SHOOTER_HOOD_MAN,   //Button Mapped needs calls to mgrs
             SELECT_CLIMBER_ARM, //Button Mapped needs calls to mgrs
 
+            // for testing
+            CLIMBER_STATE_OFF,
+            CLIMBER_STATE_MANUAL,
+            CLIMBER_STATE_STARTING,
+            CLIMBER_STATE_PREP_MID,
+            CLIMBER_STATE_MID,
+            CLIMBER_STATE_FRONT_PREP,
+            CLIMBER_STATE_FRONT_ROTATE_A,
+            CLIMBER_STATE_FRONT_ROTATE_B,
+            CLIMBER_STATE_FRONT_ELEVATE,
+            CLIMBER_STATE_FRONT_ROTATE_TO_HOOK,
+            CLIMBER_STATE_FRONT_LIFT_ROBOT,
+            CLIMBER_STATE_ROTATE_ARM,
+            CLIMBER_STATE_BACK_PREP,
+            CLIMBER_STATE_BACK_ROTATE_A,
+            CLIMBER_STATE_BACK_LIFT,
+            CLIMBER_STATE_BACK_REST,
+            // end of for testing
+            
             MAX_FUNCTIONS
         };
 

@@ -22,6 +22,8 @@
 #include <subsys/Mech2IndMotors.h>
 
 class IDragonMotorController;
+class DragonDigitalInput;
+class DragonAnalogInput;
 
 class Climber : public Mech2IndMotors
 {
@@ -29,16 +31,64 @@ class Climber : public Mech2IndMotors
         Climber
         (
             std::shared_ptr<IDragonMotorController> reachMotor,
-            std::shared_ptr<IDragonMotorController> rotateMotor
+            std::shared_ptr<IDragonMotorController> rotateMotor,
+            std::shared_ptr<DragonDigitalInput>     armBackSw//,
+            //DragonAnalogInput*                      elevatorHeight
         );
 
         Climber() = delete;
         virtual ~Climber() = default;
 
+        /// @brief update the output to the mechanism using the current controller and target value(s)
+        /// @return void 
+        void Update() override;
+
+        /// @brief log data to the network table if it is activated and time period has past
+        void LogData() override;
+
         double GetMinReach() const {return m_reachMin;}
+        double GetMaxReach() const {return m_reachMax;}
         double GetMinRotate() const {return m_rotateMin;}
+        double GetMaxRotate() const {return m_rotateMax;}
+
+        bool IsLiftStalled() const;
+        bool IsRotateStalled() const;
 
     private:
-        double m_reachMin;
-        double m_rotateMin;
+        static double GetPositionInInches
+        (
+            std::shared_ptr<IDragonMotorController> motor
+        );
+        static double GetPositionInDegrees
+        (
+            std::shared_ptr<IDragonMotorController> motor
+        );
+
+        bool IsAtMaxReach
+        (
+            std::shared_ptr<IDragonMotorController> motor,
+            double                                  currentPos
+        ) const;
+        bool IsAtMinReach
+        (
+            std::shared_ptr<IDragonMotorController> motor,
+            double                                  currentPos
+        ) const;
+        bool IsAtMaxRotation
+        (
+            std::shared_ptr<IDragonMotorController> motor,
+            double                                  currentPos
+        ) const;
+        bool IsAtMinRotation
+        (
+            std::shared_ptr<IDragonMotorController> motor,
+            double                                  currentPos
+        ) const;
+
+        double                              m_reachMin;
+        double                              m_reachMax;
+        double                              m_rotateMin;
+        double                              m_rotateMax;
+        std::shared_ptr<DragonDigitalInput> m_armBack;
+        //DragonAnalogInput*                  m_elevatorHeight;
 };

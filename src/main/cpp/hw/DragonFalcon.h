@@ -29,6 +29,7 @@
 #include <controllers/ControlModes.h>
 #include <hw/DragonFalcon.h>
 #include <hw/interfaces/IDragonMotorController.h>
+#include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/MotorControllerUsage.h>
 
 
@@ -49,7 +50,10 @@ class DragonFalcon : public IDragonMotorController
             int deviceID, 
             int pdpID, 
             int countsPerRev, 
-            double gearRatio
+            double gearRatio,
+            double countsPerInch,
+            double countsPerDegree,
+            IDragonMotorController::MOTOR_TYPE motortype
         );
         virtual ~DragonFalcon() = default;
 
@@ -61,6 +65,7 @@ class DragonFalcon : public IDragonMotorController
         int GetID() const override;
         std::shared_ptr<frc::MotorController> GetSpeedController() const override;
         double GetCurrent() const override;
+        IDragonMotorController::MOTOR_TYPE GetMotorType() const override;
 
         // Setters (override)
         void SetControlMode(ControlModes::CONTROL_TYPE mode) override; //:D
@@ -136,6 +141,15 @@ class DragonFalcon : public IDragonMotorController
         bool IsForwardLimitSwitchClosed() const override;
         bool IsReverseLimitSwitchClosed() const override;
         void EnableVoltageCompensation( double fullvoltage) override;
+        void SetSelectedSensorPosition
+        (
+            double  initialPosition
+        ) override;
+        
+        double GetCountsPerInch() const override;
+        double GetCountsPerDegree() const override;
+        ControlModes::CONTROL_TYPE GetControlMode() const override;
+        double GetCounts() const override;
 
     private:
         std::shared_ptr<ctre::phoenix::motorcontrol::can::WPI_TalonFX>  m_talon;
@@ -148,6 +162,8 @@ class DragonFalcon : public IDragonMotorController
         int m_tickOffset;
         double m_gearRatio;
 		double m_diameter;
-
+        double m_countsPerInch;
+        double m_countsPerDegree;
+        IDragonMotorController::MOTOR_TYPE m_motorType;
 };
 

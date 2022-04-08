@@ -51,6 +51,7 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
     string controllerIdentifier2;
     double target = 0.0;
     double secondTarget = 0.0;
+    double robotPitch = 0.0;
     MechanismTargetData::SOLENOID solenoid = MechanismTargetData::SOLENOID::NONE; 
     array<double,3> function1Coeff = {0.0, 0.0, 0.0};
     array<double,3> function2Coeff = {0.0, 0.0, 0.0};
@@ -78,6 +79,10 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
         else if ( strcmp( attr.name(), "secondValue") == 0 )
         {
             secondTarget = attr.as_double();
+        }
+        else if ( strcmp( attr.name(), "robotPitch") == 0 )
+        {
+            robotPitch = attr.as_double();
         }
         else if ( strcmp( attr.name(), "function1A") == 0 )
         {
@@ -139,6 +144,7 @@ MechanismTargetData*  MechanismTargetDefn::ParseXML
                                             controllerIdentifier2, 
                                             target, 
                                             secondTarget,
+                                            robotPitch,
                                             solenoid,
                                             function1Coeff,
                                             function2Coeff );

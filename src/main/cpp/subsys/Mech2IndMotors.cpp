@@ -31,10 +31,8 @@
 #include <controllers/ControlData.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <utils/Logger.h>
-#include <states/BallTransfer/BallTransferState.h>
 
 // Third Party Includes
-//#include <units/units.h>
 #include <units/time.h>
 
 using namespace std;
@@ -106,8 +104,8 @@ void Mech2IndMotors::LogData()
     Logger::GetLogger()->ToNtTable(table, "Position - Primary", GetPrimaryPosition() );
     Logger::GetLogger()->ToNtTable(table, "Position - Secondary", GetSecondaryPosition() );
     
-    Logger::GetLogger()->ToNtTable(table, "Target - Primary", GetPrimaryTarget() );
-    Logger::GetLogger()->ToNtTable(table, "Target - Secondary", GetSecondaryTarget() );
+    Logger::GetLogger()->ToNtTable(table, "Target - Primary", m_primaryTarget);
+    Logger::GetLogger()->ToNtTable(table, "Target - Secondary", m_secondaryTarget);
 }
 
 /// @brief update the output to the mechanism using the current controller and target value(s)

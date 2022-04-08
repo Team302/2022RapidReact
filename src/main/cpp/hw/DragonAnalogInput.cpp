@@ -13,30 +13,34 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
+   
+#include <hw/DragonAnalogInput.h>
 
-#pragma once
-       
-enum StateType
+DragonAnalogInput::DragonAnalogInput
+(
+	ANALOG_SENSOR_TYPE			type,
+	int 						analogID,
+	float						voltageMin,
+	float						voltageMax,
+	float 						outputMin,
+	float						outputMax
+) : AnalogInput( analogID),
+    m_type( type ),
+	m_voltMin( voltageMin ),
+	m_voltMax( voltageMax ),
+	m_outMin( outputMin ),
+	m_outMax( outputMax )
 {
-    LEFT_INTAKE,
-    LEFT_INTAKE_MANUAL,
-    RIGHT_INTAKE,
-    RIGHT_INTAKE_MANUAL,
-    INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    SHOOTER_AUTO,
-    CLIMBER,
-    CLIMBER_MANUAL,
-    MAX_STATE_TYPES
-};
+}
 
-
-struct StateStruc
+DragonAnalogInput::~DragonAnalogInput()
 {
-    int         id;
-    StateType   type;
-    bool        isDefault;
-};
+}
+
+float DragonAnalogInput::GetInterpolatedValue() const
+{
+    float output = 0.0;
+    float volts = GetVoltage();
+    output = ( volts / (m_voltMax - m_voltMin) ) * (m_outMax - m_outMin) + m_outMin;
+    return output;
+}
