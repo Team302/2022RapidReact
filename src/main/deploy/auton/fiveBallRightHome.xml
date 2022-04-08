@@ -18,12 +18,12 @@
                headingOption="SPECIFIED_ANGLE"
                heading="0"/> 
     <primitive id="DRIVE_PATH"
-               pathname="fiveBallRight9Compsplit.wpilib.json" 
+               pathname="fiveBallRight9split.wpilib.json" 
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="110"/> 
     <primitive id="DRIVE_PATH"
-               pathname="fiveBallRight9Compsplit2.wpilib.json" 
+               pathname="fiveBallRight9split2.wpilib.json" 
                leftIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="110"/> 
