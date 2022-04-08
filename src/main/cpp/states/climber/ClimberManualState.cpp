@@ -84,10 +84,18 @@ void ClimberManualState::Run()
         auto armDownPercent = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_DOWN);
         auto armUpPercent   = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_UP);
         auto upDownPercent = armUpPercent - armDownPercent;
-        upDownPercent *= 0.50;
 
         auto rotatePercent = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_ROTATE);
-        rotatePercent *= 0.50;
+        if (rotatePercent > 0.0)
+        {
+            rotatePercent *= 0.50;
+        }
+        else
+        {
+            rotatePercent *= 1.0; //Negative is here to flip input
+        }
+    
+        
         
         /**
         auto currentUpDown = m_reach.get()->GetRotations();

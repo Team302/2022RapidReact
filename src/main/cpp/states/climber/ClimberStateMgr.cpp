@@ -126,18 +126,19 @@ void ClimberStateMgr::CheckForStateTransition()
 
         
 
-        if (isClimbOff)
+        /*if (isClimbOff)
         {
             targetState = CLIMBER_STATE::OFF;
         }
-        else if (isClimbManual)
+        else*/ 
+        if (isClimbManual)
         {
             targetState = CLIMBER_STATE::MANUAL;
         }
-        else if (isClimbStarting)
+        /*else if (isClimbStarting)
         {
             targetState = CLIMBER_STATE::STARTING_CONFIG;
-        }
+        }*/
         else if (isClimbPrepMid)
         {
             targetState = CLIMBER_STATE::PREP_MID_BAR;
@@ -145,7 +146,7 @@ void ClimberStateMgr::CheckForStateTransition()
         else if (isClimbMid)
         {
             targetState = CLIMBER_STATE::CLIMB_MID_BAR;
-        }
+        }/*
         else if (isClimbFrontPrep)
         {
             targetState = CLIMBER_STATE::FRONT_HOOK_PREP_FOR_NEXT_BAR;
@@ -189,7 +190,7 @@ void ClimberStateMgr::CheckForStateTransition()
         else if (isClimbBackRest)
         {
             targetState = CLIMBER_STATE::BACK_HOOK_REST;
-        }
+        }*/
 
         //if (isClimbMode)
         else if (isClimbMode)

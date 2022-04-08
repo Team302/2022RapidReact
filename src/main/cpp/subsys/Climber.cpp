@@ -84,8 +84,8 @@ void Climber::Update()
     {
         auto rotateTarget = GetSecondaryTarget();
         auto currentPos = GetPositionInDegrees(rotateMotor);
-        auto atMinRot = IsAtMinReach(rotateMotor, currentPos);
-        auto atMaxRot = IsAtMaxReach(rotateMotor, currentPos);
+        auto atMinRot = IsAtMinRotation(rotateMotor, currentPos);
+        auto atMaxRot = IsAtMaxRotation(rotateMotor, currentPos);
         /** **/
         if ((atMinRot && rotateTarget <= currentPos) || (atMaxRot && rotateTarget >= currentPos))
         {
@@ -121,17 +121,17 @@ bool Climber::IsAtMinReach
     atMin = !atMin ? liftMotor.get()->IsReverseLimitSwitchClosed() : atMin;
     return atMin;
 }
-bool Climber::IsAtMaxRotation
+bool Climber::IsAtMinRotation
 (
     std::shared_ptr<IDragonMotorController> liftMotor,
     double                                  currentAngle
 ) const
 {
     auto atMin = currentAngle <= m_rotateMin;
-    atMin = atMin || m_armBack.get()->Get();
+    atMin = m_armBack.get()->Get();
     return atMin;
 }
-bool Climber::IsAtMinRotation
+bool Climber::IsAtMaxRotation
 (
     std::shared_ptr<IDragonMotorController> liftMotor,
     double                                  currentAngle
