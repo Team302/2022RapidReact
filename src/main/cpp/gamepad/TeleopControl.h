@@ -49,6 +49,7 @@ class TeleopControl
             INTAKE_LEFT,
             INTAKE_RIGHT,
             MANUAL_INDEX,
+            HOLD_POSITION,
             EXPEL_LEFT,
             EXPEL_RIGHT,
             INTAKE_RETRACT_LEFT,
