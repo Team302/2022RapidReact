@@ -28,6 +28,7 @@
 // Team 302 includes
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/DragonFalcon.h>
+#include <hw/factories/PDPFactory.h>
 //#include <hw/DragonPDP.h>
 #include <hw/usages/MotorControllerUsage.h>
 #include <utils/Logger.h>
@@ -50,7 +51,10 @@ DragonFalcon::DragonFalcon
 	int deviceID, 
     int pdpID, 
 	int countsPerRev, 
-	double gearRatio 
+	double gearRatio,
+	double countsPerInch,
+	double countsPerDegree,
+	MOTOR_TYPE motorType 
 ) : m_talon( make_shared<WPI_TalonFX>(deviceID)),
 	m_controlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT),
 	m_type(deviceType),
@@ -59,7 +63,10 @@ DragonFalcon::DragonFalcon
 	m_countsPerRev(countsPerRev),
 	m_tickOffset(0),
 	m_gearRatio(gearRatio),
-	m_diameter( 1.0 )
+	m_diameter( 1.0 ),
+	m_countsPerInch(countsPerInch),
+	m_countsPerDegree(countsPerDegree),
+	m_motorType(motorType)
 {
 	// for all calls if we get an error log it; for key items try again
 	auto prompt = string("Dragon Falcon");
@@ -285,11 +292,19 @@ DragonFalcon::DragonFalcon
 
 double DragonFalcon::GetRotations() const
 {
+	if (m_countsPerDegree > 0.01)
+	{
+		return m_talon.get()->GetSelectedSensorPosition() / (m_countsPerDegree * 360.0);
+	}
 	return (ConversionUtils::CountsToRevolutions( (m_talon.get()->GetSelectedSensorPosition()), m_countsPerRev) / m_gearRatio);
 }
 
 double DragonFalcon::GetRPS() const
 {
+	if (m_countsPerDegree > 0.01)
+	{
+		return m_talon.get()->GetSelectedSensorVelocity() * 10.0 / (m_countsPerDegree * 360.0);
+	}
 	return (ConversionUtils::CountsPer100msToRPS( m_talon.get()->GetSelectedSensorVelocity(), m_countsPerRev) / m_gearRatio);
 }
 
@@ -305,9 +320,12 @@ shared_ptr<MotorController> DragonFalcon::GetSpeedController() const
 
 double DragonFalcon::GetCurrent() const
 {
+	auto pdp = PDPFactory::GetFactory()->GetPDP();
+	if (pdp != nullptr)
+	{
+		return pdp->GetCurrent(m_pdp);
+	}
 	return 0.0;
-	//PowerDistributionPanel* pdp = DragonPDP::GetInstance()->GetPDP();
-    //return ( pdp != nullptr ) ? pdp->GetCurrent( m_pdp ) : 0.0;
 }
 
 void DragonFalcon::UpdateFramePeriods
@@ -440,24 +458,59 @@ void DragonFalcon::Set(std::shared_ptr<nt::NetworkTable> nt, double value)
 		switch (m_controlMode)
 		{
 			case ControlModes::CONTROL_TYPE::POSITION_DEGREES:
-				output = (ConversionUtils::DegreesToCounts(value,m_countsPerRev) * m_gearRatio);
+				if (m_countsPerDegree > 0.01)
+				{
+					output = m_countsPerDegree*value;
+				}
+				else
+				{
+					output = (ConversionUtils::DegreesToCounts(value,m_countsPerRev) * m_gearRatio);
+				}
 				break;
 
 			case ControlModes::CONTROL_TYPE::POSITION_INCH:
 			case ControlModes::CONTROL_TYPE::TRAPEZOID:
-				output = (ConversionUtils::InchesToCounts(value, m_countsPerRev, m_diameter) * m_gearRatio);
+				if (m_countsPerInch > 0.01)
+				{
+					output = m_countsPerInch*value;
+				}
+				else
+				{
+					output = (ConversionUtils::InchesToCounts(value, m_countsPerRev, m_diameter) * m_gearRatio);
+				}
 				break;
 			
 			case ControlModes::CONTROL_TYPE::VELOCITY_DEGREES:
-				output = (ConversionUtils::DegreesPerSecondToCounts100ms( value, m_countsPerRev ) * m_gearRatio);
+				if (m_countsPerDegree > 0.01)
+				{
+					output = m_countsPerDegree*value * 0.1;
+				}
+				else
+				{
+					output = (ConversionUtils::DegreesPerSecondToCounts100ms( value, m_countsPerRev ) * m_gearRatio);
+				}
 				break;
 
 			case ControlModes::CONTROL_TYPE::VELOCITY_INCH:
-				output = (ConversionUtils::InchesPerSecondToCounts100ms( value, m_countsPerRev, m_diameter ) * m_gearRatio);
+				if (m_countsPerInch > 0.01)
+				{
+					output = m_countsPerInch*value *0.1;
+				}
+				else
+				{
+					output = (ConversionUtils::InchesPerSecondToCounts100ms( value, m_countsPerRev, m_diameter ) * m_gearRatio);
+				}
 				break;
 
 			case ControlModes::CONTROL_TYPE::VELOCITY_RPS:
-				output = (ConversionUtils::RPSToCounts100ms( value, m_countsPerRev ) * m_gearRatio);
+				if (m_countsPerDegree > 0.01)
+				{
+					output = value * 360.0 * m_countsPerDegree * 0.1;
+				}
+				else
+				{
+					output = (ConversionUtils::RPSToCounts100ms( value, m_countsPerRev ) * m_gearRatio);
+				}
 				break;
 
 			default:
@@ -911,4 +964,40 @@ void DragonFalcon::EnableVoltageCompensation( double fullvoltage)
 {
 	m_talon.get()->ConfigVoltageCompSaturation(fullvoltage);
 	m_talon.get()->EnableVoltageCompensation(true);
+}
+
+
+
+void DragonFalcon::SetSelectedSensorPosition
+(
+	double  initialPosition
+) 
+{
+	m_talon.get()->SetSelectedSensorPosition(initialPosition, 0, 50);
+}
+
+        
+double DragonFalcon::GetCountsPerInch() const 
+{
+	return m_countsPerInch;
+}
+double DragonFalcon::GetCountsPerDegree() const 
+{
+	return m_countsPerDegree;
+}
+
+
+ControlModes::CONTROL_TYPE DragonFalcon::GetControlMode() const
+{
+	return m_controlMode;
+}
+
+double DragonFalcon::GetCounts() const 
+{
+	return m_talon.get()->GetSelectedSensorPosition();
+}
+
+IDragonMotorController::MOTOR_TYPE DragonFalcon::GetMotorType() const
+{
+	return m_motorType;
 }

@@ -20,8 +20,8 @@
 
 void Robot::RobotInit() 
 {
-    CameraServer::SetSize(CameraServer::kSize320x240);
-    CameraServer::StartAutomaticCapture();
+    //CameraServer::SetSize(CameraServer::kSize320x240);
+    //CameraServer::StartAutomaticCapture();
 
     // Read the XML file to build the robot 
     auto defn = new RobotDefn();
@@ -37,7 +37,6 @@ void Robot::RobotInit()
     m_rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
     m_indexerStateMgr = IndexerStateMgr::GetInstance();
     m_liftStateMgr = LiftStateMgr::GetInstance();
-    m_ballTransferStateMgr = BallTransferStateMgr::GetInstance();
     m_shooterStateMgr = ShooterStateMgr::GetInstance();
     m_climberStateMgr = ClimberStateMgr::GetInstance();
 
@@ -102,10 +101,6 @@ void Robot::TeleopInit()
     {
         m_rightIntakeStateMgr->RunCurrentState();
     }
-    if (m_ballTransferStateMgr != nullptr)
-    {
-        m_ballTransferStateMgr->RunCurrentState();
-    }
     if (m_shooterStateMgr != nullptr)
     {
         m_shooterStateMgr->SetCurrentState(ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT, true);
@@ -113,6 +108,7 @@ void Robot::TeleopInit()
     if (m_climberStateMgr != nullptr)
     {
         m_climberStateMgr->RunCurrentState();
+    //    m_climberStateMgr->SetCurrentState(ClimberStateMgr::CLIMBER_STATE::CLIMB_MID_BAR, true);
     }
     if (m_indexerStateMgr != nullptr)
     {
@@ -138,10 +134,6 @@ void Robot::TeleopPeriodic()
     if (m_rightIntakeStateMgr != nullptr)
     {
         m_rightIntakeStateMgr->RunCurrentState();
-    }
-    if (m_ballTransferStateMgr != nullptr)
-    {
-        m_ballTransferStateMgr->RunCurrentState();
     }
     if (m_shooterStateMgr != nullptr)
     {

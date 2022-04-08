@@ -32,13 +32,13 @@
 // Team 302 includes
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
-//#include <hw/usages/AnalogInputMap.h>
+#include <hw/usages/AnalogInputMap.h>
 #include <hw/usages/DigitalInputMap.h>
 #include <hw/usages/DragonSolenoidMap.h>
 #include <hw/usages/ServoMap.h>
 #include <hw/DragonSolenoid.h>
 #include <hw/DragonServo.h>
-//#include <hw/DragonAnalogInput.h>
+#include <hw/DragonAnalogInput.h>
 #include <hw/DragonDigitalInput.h>
 
 #include <subsys/MechanismFactory.h>
@@ -72,7 +72,6 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 
 MechanismFactory::MechanismFactory() : 	m_leftIntake(nullptr),
 										m_rightIntake(nullptr),
-										m_ballTransfer(nullptr),
 										m_shooter(nullptr),
 										m_climber(nullptr),
 										m_indexer(nullptr),
@@ -96,6 +95,7 @@ void MechanismFactory::CreateIMechanism
 	const DragonSolenoidMap&                solenoids,
 	const ServoMap&						    servos,
 	const DigitalInputMap&					digitalInputs,
+	const AnalogInputMap&					analogInputs,
 	shared_ptr<CANCoder>					canCoder
 )
 {
@@ -210,21 +210,6 @@ void MechanismFactory::CreateIMechanism
 		}
 		break;
 
-		case MechanismTypes::BALL_TRANSFER:
-		{
-			if (m_ballTransfer == nullptr)
-			{
-				auto spin = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_LIFT);
-				auto lift = GetMotorController(motorControllers, MotorControllerUsage::BALL_TRANSFER_SPIN);
-				auto ballPresentSw = GetDigitalInput(digitalInputs, DigitalInputUsage::BALL_PRESENT);
-				auto liftForwardSw = GetDigitalInput(digitalInputs, DigitalInputUsage::BALL_TRANSFER_FORWARD);
-				if ((lift.get() != nullptr) && spin.get() != nullptr && ballPresentSw.get() != nullptr && liftForwardSw.get() != nullptr)
-				{
-					m_ballTransfer = new BallTransfer(networkTableName, controlFileName, spin, lift, ballPresentSw, liftForwardSw);
-				}
-			}
-		}
-		break;
 
 		case MechanismTypes::MECHANISM_TYPE::SHOOTER:
 		{
@@ -248,11 +233,13 @@ void MechanismFactory::CreateIMechanism
 		{
 			if (m_climber == nullptr)
 			{
+				//auto liftHeight = GetAnalogInput(analogInputs, DragonAnalogInput::ANALOG_SENSOR_TYPE::ELEVATOR_HEIGHT);
+				auto armBackSw = GetDigitalInput(digitalInputs, DigitalInputUsage::CLIMBER_BACK);
 				auto liftMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_LIFT );
 				auto rotateMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_ROTATE);
 				if ( liftMotor.get() != nullptr && rotateMotor.get() != nullptr )
 				{
-					m_climber = new Climber(liftMotor, rotateMotor);
+					m_climber = new Climber(liftMotor, rotateMotor, armBackSw);//, liftHeight);
 				}
 				else
 				{
@@ -323,10 +310,6 @@ IMech* MechanismFactory::GetMechanism
 
 		case MechanismTypes::MECHANISM_TYPE::RIGHT_INTAKE:
 			return GetRightIntake();
-			break;
-			
-		case MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER:
-			return GetBallTransfer();
 			break;
 
 		case MechanismTypes::MECHANISM_TYPE::INDEXER:
@@ -433,14 +416,13 @@ shared_ptr<DragonDigitalInput> MechanismFactory::GetDigitalInput
 	return dio;
 }
 	
-/**
-shared_ptr<DragonAnalogInput> MechanismFactory::GetAnalogInput
+DragonAnalogInput* MechanismFactory::GetAnalogInput
 (
 	const AnalogInputMap&							analogInputs,
-	AnalogInputUsage::ANALOG_SENSOR_USAGE			usage
+	DragonAnalogInput::ANALOG_SENSOR_TYPE			usage
 )
 {
-	shared_ptr<DragonAnalogInput> anIn;
+	DragonAnalogInput* anIn = nullptr;
 	auto it = analogInputs.find( usage );
 	if ( it != analogInputs.end() )  // found it
 	{
@@ -453,7 +435,7 @@ shared_ptr<DragonAnalogInput> MechanismFactory::GetAnalogInput
 		Logger::GetLogger()->LogError( string( "MechanismFactory::GetAnalogInput" ), msg );
 	}
 	
-	if ( anIn.get() == nullptr )
+	if ( anIn == nullptr )
 	{
 		string msg = "analog input is nullptr; usage = ";
 		msg += to_string( usage );
@@ -461,7 +443,6 @@ shared_ptr<DragonAnalogInput> MechanismFactory::GetAnalogInput
 	}
 	return anIn;
 }
-**/
 
 
 

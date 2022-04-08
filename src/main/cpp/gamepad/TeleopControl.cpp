@@ -131,8 +131,10 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_axisIDs[CLIMBER_MAN_ROTATE]	 				= IDragonGamePad::RIGHT_JOYSTICK_Y;	
 		// used to enable climber and disable what right-stick Y might be mapped to.
 		// used with CLIMBER_MAN_UP and CLIMBER_MAN_DOWN
-		m_controllerIndex[SELECT_CLIMBER_ARM]			= ctrlNo;  
-		m_buttonIDs[SELECT_CLIMBER_ARM]	 				= IDragonGamePad::START_BUTTON;
+		m_controllerIndex[PREP_MIDBAR_CLIMB]			= ctrlNo;  
+		m_buttonIDs[PREP_MIDBAR_CLIMB]	 				= IDragonGamePad::START_BUTTON;
+		m_controllerIndex[ENABLE_CLIMBER]				= ctrlNo;
+		m_buttonIDs[ENABLE_CLIMBER]						= IDragonGamePad::LEFT_STICK_PRESSED;
 
 		//m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
 		//m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::A_BUTTON;
@@ -199,6 +201,7 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 	}
     else if ( m_controllers[ctrlNo] != nullptr )
     {
+
 	}
 	else
 	{
@@ -208,6 +211,29 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 	ctrlNo = 2;
     if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
+		m_controllerIndex[CLIMBER_STATE_STARTING] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_STARTING] 			= IDragonGamePad::A_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_PREP_MID] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_PREP_MID] 			= IDragonGamePad::X_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_MID] 		= ctrlNo;  
+		m_buttonIDs[CLIMBER_STATE_MID] 				= IDragonGamePad::Y_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_FRONT_PREP] 			= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_FRONT_PREP] 				= IDragonGamePad::B_BUTTON;	
+
+		m_controllerIndex[CLIMBER_STATE_FRONT_ROTATE_A] 		= ctrlNo;
+ 		m_buttonIDs[CLIMBER_STATE_FRONT_ROTATE_A] 			= IDragonGamePad::POV_0;	
+ 		m_controllerIndex[CLIMBER_STATE_FRONT_ROTATE_B] 			= ctrlNo;
+ 		m_buttonIDs[CLIMBER_STATE_FRONT_ROTATE_B] 			= IDragonGamePad::POV_90;	
+ 		m_controllerIndex[CLIMBER_STATE_FRONT_ELEVATE] 			= ctrlNo;
+ 		m_buttonIDs[CLIMBER_STATE_FRONT_ELEVATE] 			= IDragonGamePad::POV_180;	
+ 		m_controllerIndex[CLIMBER_STATE_FRONT_ROTATE_TO_HOOK] 			= ctrlNo;
+ 		m_buttonIDs[CLIMBER_STATE_FRONT_ROTATE_TO_HOOK] 			= IDragonGamePad::POV_270;	
+
+
+		m_controllerIndex[CLIMBER_STATE_FRONT_LIFT_ROBOT] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_FRONT_LIFT_ROBOT]			= IDragonGamePad::LEFT_BUMPER;	
+		m_controllerIndex[CLIMBER_STATE_ROTATE_ARM] 	= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_ROTATE_ARM]			= IDragonGamePad::RIGHT_BUMPER;	
 	}
     else if ( m_controllers[ctrlNo] != nullptr )
     {
@@ -220,6 +246,19 @@ TeleopControl::TeleopControl() : m_axisIDs(),
     ctrlNo = 3;
     if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
+		m_controllerIndex[CLIMBER_STATE_BACK_PREP] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_BACK_PREP] 			= IDragonGamePad::A_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_BACK_ROTATE_A] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_BACK_ROTATE_A] 			= IDragonGamePad::X_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_BACK_LIFT] 		= ctrlNo;  
+		m_buttonIDs[CLIMBER_STATE_BACK_LIFT] 				= IDragonGamePad::Y_BUTTON;	
+		m_controllerIndex[CLIMBER_STATE_BACK_REST] 			= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_BACK_REST] 				= IDragonGamePad::B_BUTTON;	
+
+		m_controllerIndex[CLIMBER_STATE_OFF] 		= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_OFF]			= IDragonGamePad::LEFT_BUMPER;	
+		m_controllerIndex[CLIMBER_STATE_MANUAL] 	= ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_MANUAL]			= IDragonGamePad::RIGHT_BUMPER;		
 	}
     else if ( m_controllers[ctrlNo] != nullptr )
     {

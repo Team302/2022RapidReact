@@ -52,6 +52,8 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     bool 											sensorInverted,
     FeedbackDevice  	                            feedbackDevice,
     int 											countsPerRev,
+    double                                          countsPerInch,
+    double                                          countsPerDegree,
     float 											gearRatio,
     bool 											brakeMode,
     int 											followMotor,
@@ -64,7 +66,9 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     bool											reverseLimitSwitch,
     bool											reverseLimitSwitchNormallyOpen,
     double											voltageCompensationSaturation,
-    bool											enableVoltageCompensation
+    bool											enableVoltageCompensation,
+    IDragonMotorController::MOTOR_TYPE                                                          motorType
+
 )
 {
     shared_ptr<IDragonMotorController> controller;
@@ -74,7 +78,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     auto type = m_typeMap.find(mtype)->second;
     if ( type == MOTOR_TYPE::TALONSRX )
     {
-        auto talon = new DragonTalon( MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, countsPerRev, gearRatio );
+        auto talon = new DragonTalon( MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, countsPerRev, gearRatio, countsPerInch, countsPerDegree, motorType);
         talon->EnableBrakeMode( brakeMode );
         talon->Invert( inverted );
         talon->SetSensorInverted( sensorInverted );
@@ -107,7 +111,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     }
     else if ( type == MOTOR_TYPE::FALCON )
     {
-        auto talon = new DragonFalcon( MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, countsPerRev, gearRatio );
+        auto talon = new DragonFalcon( MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, countsPerRev, gearRatio, countsPerInch, countsPerDegree, motorType);
         talon->EnableBrakeMode( brakeMode );
         talon->Invert( inverted );
         /**

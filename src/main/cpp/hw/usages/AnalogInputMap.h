@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
@@ -15,28 +14,10 @@
 //====================================================================================================================================================
 
 #pragma once
-       
-enum StateType
-{
-    LEFT_INTAKE,
-    LEFT_INTAKE_MANUAL,
-    RIGHT_INTAKE,
-    RIGHT_INTAKE_MANUAL,
-    INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    SHOOTER_AUTO,
-    CLIMBER,
-    CLIMBER_MANUAL,
-    MAX_STATE_TYPES
-};
 
+#include <memory>
+#include <map>
 
-struct StateStruc
-{
-    int         id;
-    StateType   type;
-    bool        isDefault;
-};
+#include <hw/DragonAnalogInput.h>
+
+typedef std::map <DragonAnalogInput::ANALOG_SENSOR_TYPE, DragonAnalogInput*> AnalogInputMap;
