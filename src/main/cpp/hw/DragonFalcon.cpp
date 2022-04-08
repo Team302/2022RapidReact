@@ -988,7 +988,6 @@ double DragonFalcon::GetCountsPerDegree() const
 
 
 ControlModes::CONTROL_TYPE DragonFalcon::GetControlMode() const
-ControlModes::CONTROL_TYPE DragonFalcon::GetControlMode() const
 {
 	return m_controlMode;
 }
