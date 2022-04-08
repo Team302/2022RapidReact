@@ -1,54 +1,33 @@
-See file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
-compiling PrimitiveParams.cpp successful.
-
-<<<<<<< main
-<<<<<<< main
-compiling FieldMeasurement.cpp successful.
-
-compiling FieldDefn.cpp successful.
-
-compiling AutonSelector.cpp successful.
-
-compiling PrimitiveParser.cpp successful.
-
-compiling CyclePrimitives.cpp successful.
-
-compiling DriveTime.cpp successful.
-
-compiling DriveToTarget.cpp successful.
-
-<<<<<<< HEAD
-Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.
-=======
-compiling AutonSelector.cpp successful.
-
-=======
->>>>>>> Added nullptr checks
-compiling FieldMeasurement.cpp successful.
-
-compiling FieldDefn.cpp successful.
-
-compiling PrimitiveParser.cpp successful.
-
+See file:///C:/Users/Team302/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
 compiling AutonSelector.cpp successful.
 
 compiling CyclePrimitives.cpp successful.
 
+compiling DoNothing.cpp successful.
+
+compiling DriveDistance.cpp successful.
+
+compiling PrimitiveFactory.cpp successful.
+
 compiling DriveTime.cpp successful.
 
 compiling DriveToTarget.cpp successful.
-
-=======
->>>>>>> VisionML
-compiling HoldPosition.cpp successful.
 
 compiling DriveToWall.cpp successful.
 
-compiling ControlData.cpp successful.
+compiling HoldPosition.cpp successful.
+
+compiling DrivePath.cpp successful.
 
 compiling SuperDrive.cpp successful.
 
+compiling ControlData.cpp successful.
+
 compiling MechanismTargetData.cpp successful.
+
+compiling TurnAngle.cpp successful.
+
+compiling AnalogAxis.cpp successful.
 
 compiling CubedProfile.cpp successful.
 
@@ -56,108 +35,121 @@ compiling DeadbandValue.cpp successful.
 
 compiling LinearProfile.cpp successful.
 
-compiling TurnAngle.cpp successful.
-
 compiling FlippedAxis.cpp successful.
 
 compiling NoDeadbandValue.cpp successful.
 
 compiling PiecewiseLinearProfile.cpp successful.
 
-compiling SquaredProfile.cpp successful.
+compiling ScaledAxis.cpp successful.
 
 compiling ScaledDeadbandValue.cpp successful.
 
-compiling AnalogAxis.cpp successful.
-
-compiling ScaledAxis.cpp successful.
+compiling SquaredProfile.cpp successful.
 
 compiling ButtonDecorator.cpp successful.
 
 compiling DebouncedButton.cpp successful.
 
+compiling AnalogButton.cpp successful.
+
+compiling ResetPosition.cpp successful.
+
 compiling ToggleButton.cpp successful.
 
 compiling POVButton.cpp successful.
 
-compiling AnalogButton.cpp successful.
+compiling DigitalButton.cpp successful.
 
 compiling DragonXBox.cpp successful.
 
-compiling DigitalButton.cpp successful.
-
-compiling PrimitiveFactory.cpp successful.
-
 compiling DragonGamepad.cpp successful.
-
-compiling DragonDigitalInput.cpp successful.
 
 compiling FunctionMap.cpp successful.
 
+compiling AddToShuffleboard.cpp successful.
+
 compiling TeleopControl.cpp successful.
 
-compiling DragonPigeon.cpp successful.
+compiling DragonDigitalInput.cpp successful.
 
 compiling DragonPDP.cpp successful.
-
-compiling DragonServo.cpp successful.
 
 compiling DragonLimelight.cpp successful.
 
 compiling DragonFalcon.cpp successful.
 
-compiling DigitalInputFactory.cpp successful.
+compiling DragonPigeon.cpp successful.
+
+compiling DragonServo.cpp successful.
+
+compiling DragonVision.cpp successful.
 
 compiling DragonSolenoid.cpp successful.
 
-compiling DragonVision.cpp successful.
+compiling DigitalInputFactory.cpp successful.
 
 compiling DragonTalon.cpp successful.
 
 compiling DragonServoFactory.cpp successful.
 
-compiling PDPFactory.cpp successful.
-
-compiling DrivePath.cpp successful.
-
 compiling DragonMotorControllerFactory.cpp successful.
-
-compiling ResetPosition.cpp successful.
 
 compiling LimelightFactory.cpp successful.
 
-compiling PigeonFactory.cpp successful.
-
-compiling MotorControllerUsage.cpp successful.
+compiling PDPFactory.cpp successful.
 
 compiling DigitalInputUsage.cpp successful.
 
+compiling MotorControllerUsage.cpp successful.
+
 compiling ServoUsage.cpp successful.
+
+compiling PigeonFactory.cpp successful.
 
 compiling SolenoidUsage.cpp successful.
 
+compiling BallTransferState.cpp successful.
+
+compiling BallTransferStateMgr.cpp successful.
+
 compiling DragonTargetFinder.cpp successful.
-C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\DragonTargetFinder.cpp: In member function 'double DragonTargetFinder::GetAngle2Target(frc::Pose2d)':
-C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\DragonTargetFinder.cpp:105:21: warning: variable 'Dist2TargetR' set but not used [-Wunused-but-set-variable]
-     frc::Rotation2d Dist2TargetR = Distance2Target.Rotation();
-                     ^~~~~~~~~~~~
-C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\DragonTargetFinder.cpp:114:9: warning: variable 'iQuadrantsLoc' set but not used [-Wunused-but-set-variable]
-     int iQuadrantsLoc = 0; // Quadrants I,II,III,IV.  Standard radians rotation counter clockwise
-         ^~~~~~~~~~~~~
+
+compiling Robot.cpp successful.
+
+compiling ClimberManualState.cpp successful.
+
+compiling SwerveDrive.cpp successful.
 
 compiling ClimberState.cpp successful.
 
-compiling IntakeState.cpp successful.
+compiling TurnToAngle.cpp successful.
+
+compiling IndexerState.cpp successful.
 
 compiling ClimberStateMgr.cpp successful.
 
+compiling IndexerStateMgr.cpp successful.
+
+compiling IntakeStateMgr.cpp successful.
+
+compiling IntakeState.cpp successful.
+
+compiling ManualLeftIntakeState.cpp successful.
+
 compiling LeftIntakeStateMgr.cpp successful.
+
+compiling ManualRightIntakeState.cpp successful.
+
+compiling LiftState.cpp successful.
 
 compiling RightIntakeStateMgr.cpp successful.
 
-compiling Mech1IndMotorSolenoidState.cpp successful.
+compiling LiftStateMgr.cpp successful.
 
 compiling Mech1MotorState.cpp successful.
+
+compiling Mech1IndMotorSolenoidState.cpp successful.
 
 compiling Mech2MotorState.cpp successful.
 
@@ -165,61 +157,49 @@ compiling MechSolenoidState.cpp successful.
 
 compiling ShooterState.cpp successful.
 
-compiling StateMgr.cpp successful.
+compiling ShooterStateAutoHigh.cpp successful.
+
+compiling ShooterStateManual.cpp successful.
 
 compiling ShooterStateMgr.cpp successful.
 
+compiling StateMgr.cpp successful.
+
+compiling BallTransfer.cpp successful.
+
 compiling Climber.cpp successful.
 
+compiling Indexer.cpp successful.
+
 compiling Intake.cpp successful.
+
+compiling Lift.cpp successful.
 
 compiling Mech.cpp successful.
 
 compiling Mech1IndMotor.cpp successful.
 
-compiling Mech1Servo.cpp successful.
-
 compiling Mech1IndMotorSolenoid.cpp successful.
 
-compiling Mech1Solenoid.cpp successful.
+compiling Mech1Servo.cpp successful.
 
 compiling Mech2IndMotors.cpp successful.
 
-compiling MechanismFactory.cpp successful.
+compiling Mech1Solenoid.cpp successful.
 
 compiling Shooter.cpp successful.
 
-compiling Robot.cpp successful.
-
-compiling SwerveDrive.cpp successful.
-In file included from C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\SwerveDrive.cpp:26:0:
-C:\GitRepos\2022RapidReact\src\main\cpp/states/chassis/SwerveDrive.h: In constructor 'SwerveDrive::SwerveDrive()':
-C:\GitRepos\2022RapidReact\src\main\cpp/states/chassis/SwerveDrive.h:55:22: warning: 'SwerveDrive::m_clsTurnToAngle' will be initialized after [-Wreorder]
-         TurnToAngle* m_clsTurnToAngle;
-                      ^~~~~~~~~~~~~~~~
-C:\GitRepos\2022RapidReact\src\main\cpp/states/chassis/SwerveDrive.h:50:45: warning:   'bool SwerveDrive::m_lastDown' [-Wreorder]
-         bool                                m_lastDown;
-                                             ^~~~~~~~~~
-C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\SwerveDrive.cpp:39:1: warning:   when initialized here [-Wreorder]
- SwerveDrive::SwerveDrive() : IState(),
- ^~~~~~~~~~~
-C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\SwerveDrive.cpp: In member function 'virtual void SwerveDrive::Run()':
-C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\SwerveDrive.cpp:186:25: warning: deleting object of polymorphic class type 'TurnToAngle' which has non-virtual destructor might cause undefined behavior [-Wdelete-non-virtual-dtor]
-                  delete m_clsTurnToAngle;
-                         ^~~~~~~~~~~~~~~~
-C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\SwerveDrive.cpp:160:29: warning: variable 'R2DTargetAtAngle' set but not used [-Wunused-but-set-variable]
-             frc::Rotation2d R2DTargetAtAngle = m_ClsTargetFinder.GetTargetAngleR2d(MyPose);
-                             ^~~~~~~~~~~~~~~~
-C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\SwerveDrive.cpp:162:29: warning: variable 'xCurRot2d' set but not used [-Wunused-but-set-variable]
-             frc::Rotation2d xCurRot2d = m_ClsTargetFinder.GetCurrentRotaion(MyPose);
-                             ^~~~~~~~~
-C:\GitRepos\2022RapidReact\src\main\cpp\states\chassis\SwerveDrive.cpp:164:17: warning: unused variable 'iFieldQuadrant' [-Wunused-variable]
-             int iFieldQuadrant = m_ClsTargetFinder.GetFieldQuadrant(MyPose);
-                 ^~~~~~~~~~~~~~
-
-compiling TurnToAngle.cpp successful.
+compiling MechanismFactory.cpp successful.
 
 compiling ChassisFactory.cpp successful.
+
+compiling EtherDirtySwerve.cpp successful.
+
+compiling EtherFieldSwerve.cpp successful.
+
+compiling WPIDirtySwerve.cpp successful.
+
+compiling WPIFieldSwerve.cpp successful.
 
 compiling AngleUtils.cpp successful.
 
@@ -229,9 +209,7 @@ compiling Logger.cpp successful.
 
 compiling NetworkTableReader.cpp successful.
 
-compiling EtherDirtySwerve.cpp successful.
-
-compiling EtherFieldSwerve.cpp successful.
+compiling SwerveChassis.cpp successful.
 
 compiling UsageValidation.cpp successful.
 
@@ -243,25 +221,17 @@ compiling DigitalInputDefn.cpp successful.
 
 compiling LimelightDefn.cpp successful.
 
-compiling MechanismDefn.cpp successful.
-
-compiling MotorDefn.cpp successful.
-C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\MotorDefn.cpp: In member function 'std::shared_ptr<IDragonMotorController> MotorDefn::ParseXML(pugi::xml_node)':
-C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\MotorDefn.cpp:68:9: warning: variable 'continuousCurrentLimit' set but not used [-Wunused-but-set-variable]
-     int continuousCurrentLimit = 0;
-         ^~~~~~~~~~~~~~~~~~~~~~
-
 compiling SwerveModule.cpp successful.
 
-compiling WPIDirtySwerve.cpp successful.
+compiling MotorDefn.cpp successful.
+
+compiling MechanismDefn.cpp successful.
 
 compiling PCMDefn.cpp successful.
 
-compiling WPIFieldSwerve.cpp successful.
+compiling PDPDefn.cpp successful.
 
 compiling PigeonDefn.cpp successful.
-
-compiling PDPDefn.cpp successful.
 
 compiling ServoDefn.cpp successful.
 
@@ -269,9 +239,11 @@ compiling RobotDefn.cpp successful.
 
 compiling SolenoidDefn.cpp successful.
 
+compiling ThroughBoreEncoderDefn.cpp successful.
+
 compiling ControlDataDefn.cpp successful.
 
-compiling ThroughBoreEncoderDefn.cpp successful.
+compiling ChassisDefn.cpp successful.
 
 compiling MechanismTargetDefn.cpp successful.
 
@@ -279,23 +251,10 @@ compiling StateDataDefn.cpp successful.
 
 compiling pugixml.cpp successful.
 
-compiling ChassisDefn.cpp successful.
-C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\ChassisDefn.cpp: In member function 'IChassis* ChassisDefn::ParseXML(pugi::xml_node)':
-C:\GitRepos\2022RapidReact\src\main\cpp\xmlhw\ChassisDefn.cpp:84:26: warning: variable 'speedCalcOption' set but not used [-Wunused-but-set-variable]
-     ChassisSpeedCalcEnum speedCalcOption = ChassisSpeedCalcEnum::ETHER;
-                          ^~~~~~~~~~~~~~~
-
 compiling SwerveModuleDefn.cpp successful.
 
-compiling DriveDistance.cpp successful.
+compiling PrimitiveParser.cpp successful.
 
-compiling SwerveChassis.cpp successful.
+compiling PrimitiveParams.cpp successful.
 
-compiling DoNothing.cpp successful.
-
-<<<<<<< main
-Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///D:/Github/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.
->>>>>>> Added network table reader
-=======
-Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.
->>>>>>> Added nullptr checks
+Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/Team302/Documents/GitHub/2022RapidReact/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.

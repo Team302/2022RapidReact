@@ -40,6 +40,7 @@ void Robot::RobotInit()
     m_ballTransferStateMgr = BallTransferStateMgr::GetInstance();
     m_shooterStateMgr = ShooterStateMgr::GetInstance();
     m_climberStateMgr = ClimberStateMgr::GetInstance();
+    m_shuffleBoardAdd = AddToShuffleBoard::GetInstance();
 
     m_cyclePrims = new CyclePrimitives();
 }
@@ -57,6 +58,9 @@ void Robot::RobotPeriodic()
     if (m_chassis != nullptr)
     {
         m_chassis->UpdateOdometry();
+    }
+    if(m_shuffleBoardAdd!=nullptr){
+        m_shuffleBoardAdd->writeWidgets();
     }
 }
 

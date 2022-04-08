@@ -18,6 +18,7 @@
 #include <states/lift/LiftStateMgr.h>
 #include <states/shooter/ShooterStateMgr.h>
 #include <subsys/interfaces/IChassis.h>
+#include <hw/AddToShuffleboard.h>
 
 
 
@@ -49,4 +50,5 @@ class Robot : public frc::TimedRobot
   LiftStateMgr*         m_liftStateMgr;
   ShooterStateMgr*      m_shooterStateMgr;
   ClimberStateMgr*      m_climberStateMgr;
+  AddToShuffleBoard*   m_shuffleBoardAdd;
 };
