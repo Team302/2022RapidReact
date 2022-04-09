@@ -24,6 +24,7 @@
 #include <subsys/Intake.h>
 #include <subsys/Mech2IndMotors.h>
 #include <hw/interfaces/IDragonMotorController.h>
+#include <hw/MotorData.h>
 
 // Third Party Includes
 
@@ -66,6 +67,10 @@ bool Intake::StopIfRetracted() const
     if (motor.get() != nullptr)
     {
         auto fullyRetracted = motor.get()->IsReverseLimitSwitchClosed();
+        /*if (!fullyRetracted)
+        {
+            fullyRetracted = MotorData::GetInstance()->checkIfStall(motor);
+        }*/
         if (fullyRetracted)
         {
             motor.get()->Set(0.0);
