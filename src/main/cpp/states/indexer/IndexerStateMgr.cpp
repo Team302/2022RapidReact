@@ -121,7 +121,11 @@ void IndexerStateMgr::CheckForStateTransition()
         {
             m_loopsWithBallPresent++;
 
-            if(IsIntakingLeft())
+            if (IsIntakingLeft() && IsIntakingRight())
+            {
+                targetState = INDEXER_STATE::INDEX_BOTH;
+            }
+            else if(IsIntakingLeft())
             {
                 targetState = INDEXER_STATE::INDEX_LEFT;
             }
