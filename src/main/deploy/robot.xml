@@ -94,7 +94,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="17"
-                            offset="-174.72"/>
+                            offset="-171.738"/>
         </swervemodule>
 
        
@@ -146,7 +146,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="18"
-                            offset="-95.2731247"/>
+                            offset="-95.625"/>
         </swervemodule>
 
         <swervemodule type="RIGHT_FRONT"
@@ -197,7 +197,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="13"
-                            offset="-174.199"/>
+                            offset="-175.957"/>
         </swervemodule>
         <swervemodule type="LEFT_FRONT"
                       turn_p="0.1"
@@ -247,7 +247,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="10"
-                            offset="176.133"/>
+                            offset="175.955"/>
         </swervemodule>
 
        </chassis>  
@@ -268,8 +268,8 @@
               countsPerRev="0"
               gearRatio="1.0"
               brakeMode="false"
-              peakCurrentDuration="60"
-              continuousCurrentLimit="60"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="50"
               peakCurrentLimit="50"
               currentLimiting="true" 
               forwardlimitswitch="false"
@@ -482,7 +482,7 @@
               countsPerInch="0"
               countsPerDegree="1442.0"
               brakeMode="true"
-              peakCurrentDuration="4750"
+              peakCurrentDuration="4500"
               continuousCurrentLimit="40"
               peakCurrentLimit="60"
               currentLimiting="true"

@@ -1,4 +1,6 @@
 
+#include <gamepad/TeleopControl.h>
+#include <hw/interfaces/IDragonMotorController.h>
 #include <states/intake/IntakeStateMgr.h>
 #include <subsys/Intake.h>
 
@@ -21,6 +23,20 @@ void IntakeStateMgr::CheckForStateTransition()
 
         auto currentState = static_cast<INTAKE_STATE>(GetCurrentState());
         auto targetState = currentState;
+
+        auto controller = TeleopControl::GetInstance();
+        auto disableLimitSws = controller != nullptr && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_DISABLE_LIMIT_SWITCHES);
+
+        auto intake = GetIntake();
+        if (intake != nullptr)
+        {
+            auto extendMotor = intake->GetSecondaryMotor();
+            if (extendMotor.get() != nullptr)
+            {
+                extendMotor.get()->EnableDisableLimitSwitches(!disableLimitSws);
+            }
+        }
+        
 
         if (intakePressed  &&  currentState != INTAKE_STATE::INTAKE)
         {

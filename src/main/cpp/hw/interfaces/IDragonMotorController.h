@@ -152,6 +152,10 @@ class IDragonMotorController
         ) = 0;
         virtual double GetCountsPerInch() const = 0;
         virtual double GetCountsPerDegree() const = 0;
+        virtual void EnableDisableLimitSwitches
+        (
+            bool enable
+        ) = 0;
 
     protected:
 

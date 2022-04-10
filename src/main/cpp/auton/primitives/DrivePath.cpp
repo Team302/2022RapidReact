@@ -41,8 +41,8 @@ DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChas
                          m_trajectory(),
                          m_runHoloController(true),
                          m_ramseteController(),
-                         m_holoController(frc2::PIDController{1.5, 0, 0},
-                                          frc2::PIDController{1.5, 0, 0},
+                         m_holoController(frc2::PIDController{2.0, 0, 0},
+                                          frc2::PIDController{2.0, 0, 0},
                                           frc::ProfiledPIDController<units::radian>{0.1, 0, 0,
                                                                                     frc::TrapezoidProfile<units::radian>::Constraints{0_rad_per_s, 0_rad_per_s / 1_s}}),
                          //max velocity of 1 rotation per second and a max acceleration of 180 degrees per second squared.
@@ -259,7 +259,7 @@ bool DrivePath::IsDone() //Default primitive function to determine if the primit
                 // or because we went past the target (in this case, we are done)
                 // Assume that once we get within a third of a meter (just under 12 inches), if we get
                 // farther away we are passing the target, so we should stop.  Otherwise, keep trying.
-                isDone = ((abs(m_deltaX) < 0.23&& abs(m_deltaY) < 0.3));  //These values were updated to .3 from .1
+                isDone = ((abs(m_deltaX) < 0.3&& abs(m_deltaY) < 0.3));  //These values were updated to .3 from .1
                 if ((abs(m_deltaX) < 0.3 && abs(m_deltaY) < 0.3))
                 {
                     whyDone = "Within 12 inches of target or getting farther away from target";

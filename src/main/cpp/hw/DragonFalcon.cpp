@@ -960,6 +960,14 @@ bool DragonFalcon::IsReverseLimitSwitchClosed() const
 	return closed == 1;
 }
 
+void DragonFalcon::EnableDisableLimitSwitches
+(
+	bool enable
+)
+{
+	m_talon.get()->OverrideLimitSwitchesEnable(enable);
+}
+
 void DragonFalcon::EnableVoltageCompensation( double fullvoltage) 
 {
 	m_talon.get()->ConfigVoltageCompSaturation(fullvoltage);
