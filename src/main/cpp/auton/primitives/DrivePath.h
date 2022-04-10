@@ -82,6 +82,7 @@ private:
     IChassis::HEADING_OPTION                m_headingOption;
     double                                  m_heading;
     DragonTargetFinder                      m_targetFinder;
+    double                                  m_maxTime;
 
  
 };
