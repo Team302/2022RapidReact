@@ -10,6 +10,12 @@
                headingOption="SPECIFIED_ANGLE"
                heading="-90"/> 
     <primitive id="DO_NOTHING"
+               time="1.0"
+               rightIntake="INTAKE_ON"
+               headingOption="SPECIFIED_ANGLE"
+               heading="-90"/> 
+    <primitive id="DO_NOTHING"
+               time="3.0"
                rightIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL_DRIVE"/> 
     <primitive id="DO_NOTHING"

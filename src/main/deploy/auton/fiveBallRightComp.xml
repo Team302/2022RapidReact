@@ -13,6 +13,7 @@
                shooter="SHOOT_HIGHGOAL_FAR"
                headingOption="TOWARD_GOAL"/>
     <primitive id="DRIVE_PATH"
+               time="1.0"
                pathname="fiveBallRight3.wpilib.json" 
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
@@ -22,7 +23,7 @@
                leftIntake="INTAKE_ON"
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
-               heading="60"/> 
+               heading="52.5"/> 
     <primitive id="DO_NOTHING"
                time="1.0"
                leftIntake="INTAKE_ON"

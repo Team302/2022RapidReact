@@ -263,7 +263,7 @@
               pdpID="1"
               type="TALONSRX"
               inverted="false"
-              sensorInverted="false"
+              sensorInverted="true"
               feedbackDevice="NONE"
               countsPerRev="0"
               gearRatio="1.0"
