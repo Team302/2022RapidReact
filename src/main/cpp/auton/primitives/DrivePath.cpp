@@ -41,8 +41,8 @@ DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChas
                          m_trajectory(),
                          m_runHoloController(true),
                          m_ramseteController(),
-                         m_holoController(frc2::PIDController{1.5, 0, 0},
-                                          frc2::PIDController{1.5, 0, 0},
+                         m_holoController(frc2::PIDController{2.0, 0, 0},
+                                          frc2::PIDController{2.0, 0, 0},
                                           frc::ProfiledPIDController<units::radian>{0.1, 0, 0,
                                                                                     frc::TrapezoidProfile<units::radian>::Constraints{0_rad_per_s, 0_rad_per_s / 1_s}}),
                          //max velocity of 1 rotation per second and a max acceleration of 180 degrees per second squared.
@@ -55,7 +55,8 @@ DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChas
                          m_trajectoryStates(),
                          m_desiredState(),
                          m_headingOption(IChassis::HEADING_OPTION::MAINTAIN),
-                         m_heading(0.0)
+                         m_heading(0.0),
+                         m_maxTime(-1.0)
 
 {
     m_trajectoryStates.clear();
@@ -65,6 +66,7 @@ void DrivePath::Init(PrimitiveParams *params)
     m_pathname = params->GetPathName(); //Grabs path name from auton xml
     m_headingOption = params->GetHeadingOption();
     m_heading = params->GetHeading();
+    m_maxTime = params->GetTime();
 
     Logger::GetLogger()->LogError(string("DrivePathInit"), string(m_pathname));
 
@@ -232,13 +234,19 @@ bool DrivePath::IsDone() //Default primitive function to determine if the primit
     
     if (!m_trajectoryStates.empty()) //If we have states... 
     {
-        // Check if the current pose and the trajectory's final pose are the same
         auto curPos = m_chassis.get()->GetPose();
-        //isDone = IsSamePose(curPos, m_targetPose, 100.0);
-        if (IsSamePose(curPos, m_targetPose, 100.0))
+        // allow a time out to be put into the xml
+        auto currentTime = m_timer.get()->Get().to<double>();
+        isDone = currentTime > m_maxTime && m_maxTime > 0.0;
+        if (!isDone)
         {
-            isDone = true;
-            whyDone = "Current Pose = Trajectory final pose";
+            // Check if the current pose and the trajectory's final pose are the same
+            //isDone = IsSamePose(curPos, m_targetPose, 100.0);
+            if (IsSamePose(curPos, m_targetPose, 100.0))
+            {
+                isDone = true;
+                whyDone = "Current Pose = Trajectory final pose";
+            }
         }
         
 
@@ -259,7 +267,7 @@ bool DrivePath::IsDone() //Default primitive function to determine if the primit
                 // or because we went past the target (in this case, we are done)
                 // Assume that once we get within a third of a meter (just under 12 inches), if we get
                 // farther away we are passing the target, so we should stop.  Otherwise, keep trying.
-                isDone = ((abs(m_deltaX) < 0.23&& abs(m_deltaY) < 0.3));  //These values were updated to .3 from .1
+                isDone = ((abs(m_deltaX) < 0.3&& abs(m_deltaY) < 0.3));  //These values were updated to .3 from .1
                 if ((abs(m_deltaX) < 0.3 && abs(m_deltaY) < 0.3))
                 {
                     whyDone = "Within 12 inches of target or getting farther away from target";

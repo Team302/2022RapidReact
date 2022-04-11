@@ -870,3 +870,11 @@ IDragonMotorController::MOTOR_TYPE DragonTalon::GetMotorType() const
 {
 	return m_motorType;
 }
+
+void DragonTalon::EnableDisableLimitSwitches
+(
+	bool enable
+)
+{
+	m_talon.get()->OverrideLimitSwitchesEnable(enable);
+}

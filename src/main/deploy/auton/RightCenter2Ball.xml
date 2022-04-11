@@ -2,22 +2,22 @@
 <!DOCTYPE auton SYSTEM "auton.dtd">
 <auton>
     <primitive id="RESET_POSITION"
-			   pathname="LeftHigh1.wpilib.json"
-               shooter="PREPARETOSHOOT"/>
+			   pathname="RightMiddle2Ball.wpilib.json"/>
     <primitive id="DRIVE_PATH"
-               pathname="LeftHigh1.wpilib.json" 
+               pathname="MiddleHigh1.wpilib.json" 
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
-               heading="-90"/> 
+               heading="-90"
+               shooter="PREPARETOSHOOT"/> 
     <primitive id="DO_NOTHING"
-               time="1.0"
+               time="0.5"
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
-               heading="-90"/> 
-    <primitive id="DO_NOTHING"
-               time="3.0"
+               heading="-90"/>
+    <primitive id="DRIVE_PATH"
+               pathname="RightMiddle2Ball2.wpilib.json" 
                rightIntake="INTAKE_ON"
-               headingOption="TOWARD_GOAL_DRIVE"/> 
+               headingOption="TOWARD_GOAL"/> 
     <primitive id="DO_NOTHING"
                time="10.0"
                headingOption="TOWARD_GOAL"

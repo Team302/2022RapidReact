@@ -149,6 +149,10 @@ class DragonTalon : public IDragonMotorController
         double GetCountsPerDegree() const override;
         ControlModes::CONTROL_TYPE GetControlMode() const override;
         double GetCounts() const override;
+        void EnableDisableLimitSwitches
+        (
+            bool enable
+        ) override;
 
 
     private:

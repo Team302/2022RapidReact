@@ -177,6 +177,7 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_buttonIDs[EXPEL_LEFT] 			= IDragonGamePad::POV_270;	
 		m_controllerIndex[EXPEL_RIGHT] 		= ctrlNo;
 		m_buttonIDs[EXPEL_RIGHT] 			= IDragonGamePad::POV_90;
+		
 
 		//Manual indexers in case ball gets stuck
 		m_controllerIndex[MANUAL_INDEX]		= ctrlNo;
@@ -185,8 +186,10 @@ TeleopControl::TeleopControl() : m_axisIDs(),
         //TODO needs hook for States
 		m_controllerIndex[AUTO_SHOOT_HIGH] 		= ctrlNo;
 		m_buttonIDs[AUTO_SHOOT_HIGH] 			= IDragonGamePad::A_BUTTON;	
-		m_controllerIndex[AUTO_SHOOT_LOW] 		= ctrlNo;
-		m_buttonIDs[AUTO_SHOOT_LOW] 			= IDragonGamePad::X_BUTTON;	
+		//m_controllerIndex[AUTO_SHOOT_LOW] 		= ctrlNo;
+		//m_buttonIDs[AUTO_SHOOT_LOW] 			= IDragonGamePad::X_BUTTON;	
+		m_controllerIndex[INTAKE_DISABLE_LIMIT_SWITCHES] 		= ctrlNo;
+		m_buttonIDs[INTAKE_DISABLE_LIMIT_SWITCHES] 			= IDragonGamePad::X_BUTTON;
 
 		m_controllerIndex[MANUAL_SHOOT] 		= ctrlNo;  
 		m_buttonIDs[MANUAL_SHOOT] 				= IDragonGamePad::Y_BUTTON;	
