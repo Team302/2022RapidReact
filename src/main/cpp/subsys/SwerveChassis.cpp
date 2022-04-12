@@ -166,7 +166,6 @@ void SwerveChassis::Drive
     auto rot = speeds.omega;
     auto currentPose = GetPose();
     auto goalPose = m_targetFinder.GetPosCenterTarget();
-    //m_hold = false;
     switch (headingOption)
     {
         case HEADING_OPTION::MAINTAIN:
@@ -309,7 +308,6 @@ void SwerveChassis::Drive
                 m_blState.angle = {units::angle::degree_t(135)};
                 m_brState.angle = {units::angle::degree_t(-135)};
             }
-            //May need to add m_hold = false here if it gets stuck in hold position
             
             m_frontLeft.get()->SetDesiredState(m_flState);
             m_frontRight.get()->SetDesiredState(m_frState);

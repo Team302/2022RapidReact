@@ -64,7 +64,7 @@ class IntakeStateMgr : public StateMgr
         virtual bool IsIntakePressed() const = 0;
         virtual bool IsExpelPressed() const = 0;
         virtual bool IsRetractSelected() const = 0;
-
+        bool m_canExtend = true;
 
         IntakeStateMgr();
         ~IntakeStateMgr() = default;
