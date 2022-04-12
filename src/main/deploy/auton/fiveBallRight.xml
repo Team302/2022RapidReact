@@ -17,13 +17,8 @@
                headingOption="SPECIFIED_ANGLE"
                heading="0"/> 
     <primitive id="DRIVE_PATH"
-               pathname="fiveBallRight9Compsplit.wpilib.json" 
+               pathname="fiveBallRight9copy.wpilib.json" 
                rightIntake="INTAKE_ON"
-               headingOption="SPECIFIED_ANGLE"
-               heading="45"/> 
-    <primitive id="DRIVE_PATH"
-               pathname="fiveBallRight9Compsplit2.wpilib.json" 
-               leftIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="45"/> 
     <primitive id="DO_NOTHING"
