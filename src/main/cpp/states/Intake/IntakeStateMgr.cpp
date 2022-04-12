@@ -27,14 +27,10 @@ void IntakeStateMgr::CheckForStateTransition()
         auto controller = TeleopControl::GetInstance();
         auto disableLimitSws = controller != nullptr && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_DISABLE_LIMIT_SWITCHES);
 
-        auto intake = GetIntake();
-        if (intake != nullptr)
+        auto extendMotor = intake->GetSecondaryMotor();
+        if (extendMotor.get() != nullptr)
         {
-            auto extendMotor = intake->GetSecondaryMotor();
-            if (extendMotor.get() != nullptr)
-            {
-                extendMotor.get()->EnableDisableLimitSwitches(!disableLimitSws);
-            }
+            extendMotor.get()->EnableDisableLimitSwitches(!disableLimitSws);
         }
         
 

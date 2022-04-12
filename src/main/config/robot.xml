@@ -146,7 +146,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="18"
-                            offset="-95.2731247"/>
+                            offset="-113.906"/>
         </swervemodule>
 
         <swervemodule type="RIGHT_FRONT"
