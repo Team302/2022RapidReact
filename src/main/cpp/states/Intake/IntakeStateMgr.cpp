@@ -59,16 +59,17 @@ void IntakeStateMgr::CheckForStateTransition()
         }
 
         m_canExtend = intake->GetSecondaryMotor().get()->IsForwardLimitSwitchClosed() ? false : m_canExtend;
-        m_canExtend = !retractIntake ? true : m_canExtend;
+        m_canExtend = retractIntake ? true : m_canExtend;
 
-        if(!m_canExtend )
-        {
-            intake->GetSecondaryMotor().get()->Set(0.0);
-        }
 
         if (targetState != currentState)
         {
             SetCurrentState(targetState, true);
+        }
+        
+        if(!m_canExtend )
+        {
+            intake->GetSecondaryMotor().get()->Set(0.0);
         }
         
     } 
