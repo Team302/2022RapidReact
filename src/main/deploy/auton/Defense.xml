@@ -28,7 +28,7 @@
                headingOption="TOWARD_GOAL"/> 
     <primitive id="DO_NOTHING"
                time="1.0"
-               rightIntake="INTAKE_ON"
+               leftIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"/> 
     <primitive id="DO_NOTHING"
                time="1.0"

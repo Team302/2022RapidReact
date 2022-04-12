@@ -40,7 +40,9 @@
                heading="-45"/> 
     <primitive id="DO_NOTHING"
                time="1.0"
-               rightIntake="INTAKE_ON"/>  
+               rightIntake="INTAKE_ON"
+               headingOption="SPECIFIED_ANGLE"
+               heading="-45"/>  
     <primitive id="DRIVE_PATH"
                pathname="fiveBallRight10.wpilib.json" 
                rightIntake="INTAKE_ON"
