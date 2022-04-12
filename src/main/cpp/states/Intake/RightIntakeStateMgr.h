@@ -41,11 +41,14 @@ class RightIntakeStateMgr : public IntakeStateMgr
         bool IsIntakePressed() const override;
         bool IsExpelPressed() const override;
         bool IsRetractSelected() const override;
+        bool CanExtend() const override;
+
 
         const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::RIGHT_INTAKE, true};
         const StateStruc  m_intakeState = {INTAKE_STATE::INTAKE, StateType::RIGHT_INTAKE, false};
         const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::RIGHT_INTAKE, false};
         const StateStruc  m_retractState = {INTAKE_STATE::RETRACT, StateType::RIGHT_INTAKE_MANUAL, false };
+        const StateStruc  m_spinState = {INTAKE_STATE::SPIN, StateType::RIGHT_INTAKE_MANUAL, false };
 
 
     private:

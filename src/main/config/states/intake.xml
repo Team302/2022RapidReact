@@ -12,15 +12,20 @@
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
 					 value="1.0"
-					 secondValue="0.0"/> <!--Was 1.0-->
+					 secondValue="-1.0"/> <!--Was 1.0-->
 	<mechanismTarget stateIdentifier="INTAKE_EXPEL"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
-					 value="-1.0"
-					 secondValue="1.0"/>
+					 value="-0.5"
+					 secondValue="-1.0"/>
 	<mechanismTarget stateIdentifier="INTAKE_RETRACT"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
 					 value="0.0"
+					 secondValue="0.0"/>
+	<mechanismTarget stateIdentifier="INTAKE_SPIN"
+	                 controlDataIdentifier="openloop"
+	                 controlDataIdentifier2="openloop"
+					 value="1.0"
 					 secondValue="0.0"/>
 </statedata>

@@ -41,13 +41,14 @@ class LeftIntakeStateMgr : public IntakeStateMgr
         bool IsIntakePressed() const override;
         bool IsExpelPressed() const override;
         bool IsRetractSelected() const override;
+        bool CanExtend() const override;
 
 
         const StateStruc  m_offState = {INTAKE_STATE::OFF, StateType::LEFT_INTAKE, true};
         const StateStruc  m_intakeState = {INTAKE_STATE::INTAKE, StateType::LEFT_INTAKE, false};
         const StateStruc  m_expelState = {INTAKE_STATE::EXPEL, StateType::LEFT_INTAKE, false};
         const StateStruc  m_retractState = {INTAKE_STATE::RETRACT, StateType::LEFT_INTAKE_MANUAL, false };
-
+        const StateStruc  m_spinState = {INTAKE_STATE::SPIN, StateType::LEFT_INTAKE};
     private:
         LeftIntakeStateMgr();
         ~LeftIntakeStateMgr() = default;

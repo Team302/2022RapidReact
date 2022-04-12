@@ -17,7 +17,7 @@
 
 <!ELEMENT mechanismTarget EMPTY>
 <!ATTLIST mechanismTarget 
-          stateIdentifier ( INTAKE_OFF | INTAKE_ON | INTAKE_EXPEL | INTAKE_RETRACT |
+          stateIdentifier ( INTAKE_OFF | INTAKE_ON | INTAKE_EXPEL | INTAKE_RETRACT | INTAKE_SPIN
                             SHOOTER_OFF | SHOOT_LOWGOAL | MANUAL_SHOOT | ADJUSTHOOD | PREPARETOSHOOT | SHOOT_HIGHGOAL_CLOSE | SHOOT_HIGHGOAL_FAR |
                             LIFT_LIFT | LIFT_LOWER | LIFT_OFF |
                             INDEXER_INDEX | INDEXER_EXPEL | INDEXER_OFF | 

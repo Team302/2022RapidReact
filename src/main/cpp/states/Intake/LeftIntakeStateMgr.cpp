@@ -55,6 +55,8 @@ LeftIntakeStateMgr::LeftIntakeStateMgr() : IntakeStateMgr()
     stateMap[m_intakeIntakeXmlString]   = m_intakeState;
     stateMap[m_intakeExpelXmlString]    = m_expelState;
     stateMap[m_intakeRetractXmlString]  = m_retractState;
+    stateMap[m_intakeSpinXmlString]        = m_spinState;
+
 
     Init(MechanismFactory::GetMechanismFactory()->GetLeftIntake(), stateMap);
 }   
@@ -77,4 +79,10 @@ bool LeftIntakeStateMgr::IsRetractSelected() const
 {
     auto controller = TeleopControl::GetInstance();
     return controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_LEFT) > 0.1 : false;
+}
+bool LeftIntakeStateMgr::CanExtend() const
+{
+    auto intake = GetIntake();
+    return intake->GetSecondaryMotor().get()->IsReverseLimitSwitchClosed() ? false : m_canExtend;
+
 }

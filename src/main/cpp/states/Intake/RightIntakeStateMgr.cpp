@@ -56,6 +56,7 @@ RightIntakeStateMgr::RightIntakeStateMgr() : IntakeStateMgr()
     stateMap[m_intakeIntakeXmlString]   = m_intakeState;
     stateMap[m_intakeExpelXmlString]    = m_expelState;
     stateMap[m_intakeRetractXmlString]  = m_retractState;
+    stateMap[m_intakeSpinXmlString]     = m_spinState;
 
     Init(MechanismFactory::GetMechanismFactory()->GetRightIntake(), stateMap);
 }   
@@ -63,7 +64,7 @@ RightIntakeStateMgr::RightIntakeStateMgr() : IntakeStateMgr()
 
 Intake* RightIntakeStateMgr::GetIntake() const 
 {
-    return MechanismFactory::GetMechanismFactory()->GetLeftIntake();
+    return MechanismFactory::GetMechanismFactory()->GetRightIntake();
 }
 bool RightIntakeStateMgr::IsIntakePressed() const 
 {
@@ -79,4 +80,10 @@ bool RightIntakeStateMgr::IsRetractSelected() const
 {
     auto controller = TeleopControl::GetInstance();
     return controller != nullptr ? controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_RETRACT_RIGHT) > 0.1 : false;
+}
+bool RightIntakeStateMgr::CanExtend() const
+{
+    auto intake = GetIntake();
+    return intake->GetSecondaryMotor().get()->IsForwardLimitSwitchClosed() ? false : m_canExtend;
+
 }

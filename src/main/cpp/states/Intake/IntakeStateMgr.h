@@ -40,6 +40,7 @@ class IntakeStateMgr : public StateMgr
             INTAKE,
             EXPEL,
             RETRACT,
+            SPIN,
             MAX_INTAKE_STATES
         };
 
@@ -47,11 +48,13 @@ class IntakeStateMgr : public StateMgr
         const std::string m_intakeIntakeXmlString = "INTAKE_ON";
         const std::string m_intakeExpelXmlString = "INTAKE_EXPEL";
         const std::string m_intakeRetractXmlString = "INTAKE_RETRACT";
+        const std::string m_intakeSpinXmlString = "INTAKE_SPIN";
         
         const std::map<const std::string, INTAKE_STATE> m_intakeXmlStringToStateEnumMap
         {   {m_intakeOffXmlString, INTAKE_STATE::OFF},
             {m_intakeIntakeXmlString, INTAKE_STATE::INTAKE},
-            {m_intakeExpelXmlString, INTAKE_STATE::EXPEL}
+            {m_intakeExpelXmlString, INTAKE_STATE::EXPEL},
+            {m_intakeSpinXmlString, INTAKE_STATE::SPIN}
         };
 
         void CheckForStateTransition() override;
@@ -64,6 +67,7 @@ class IntakeStateMgr : public StateMgr
         virtual bool IsIntakePressed() const = 0;
         virtual bool IsExpelPressed() const = 0;
         virtual bool IsRetractSelected() const = 0;
+        virtual bool CanExtend() const = 0;
         bool m_canExtend = true;
 
         IntakeStateMgr();
