@@ -56,8 +56,8 @@
                       turn_max_acc="20"
                       turn_cruise_vel="50">
             <motor  usage="SWERVE_DRIVE"
-                    canId="16"
-                    pdpID="16"
+                    canId="17"
+                    pdpID="17"
                     type="FALCON"
                     inverted="true"
                     sensorInverted="false"
@@ -75,8 +75,8 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
              <motor  usage="SWERVE_TURN"
-                    canId="17"
-                    pdpID="17"
+                    canId="16"
+                    pdpID="16"
                     type="FALCON"
                     inverted="false"
                     sensorInverted="false"
@@ -93,8 +93,8 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
-		    <cancoder canId="17"
-                            offset="-174.72"/>
+		    <cancoder canId="16"
+                            offset="140.449"/>
         </swervemodule>
 
        
@@ -146,7 +146,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="18"
-                            offset="-113.906"/>
+                            offset="-15.908"/>
         </swervemodule>
 
         <swervemodule type="RIGHT_FRONT"
@@ -197,7 +197,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="13"
-                            offset="-174.199"/>
+                            offset="33.750 "/>
         </swervemodule>
         <swervemodule type="LEFT_FRONT"
                       turn_p="0.1"
@@ -247,7 +247,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="10"
-                            offset="176.133"/>
+                            offset="-130.693"/>
         </swervemodule>
 
        </chassis>  
