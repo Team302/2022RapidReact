@@ -56,8 +56,8 @@
                       turn_max_acc="20"
                       turn_cruise_vel="50">
             <motor  usage="SWERVE_DRIVE"
-                    canId="16"
-                    pdpID="16"
+                    canId="17"
+                    pdpID="17"
                     type="FALCON"
                     inverted="true"
                     sensorInverted="false"
@@ -75,8 +75,8 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
              <motor  usage="SWERVE_TURN"
-                    canId="17"
-                    pdpID="17"
+                    canId="16"
+                    pdpID="16"
                     type="FALCON"
                     inverted="false"
                     sensorInverted="false"
@@ -93,8 +93,8 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
-		    <cancoder canId="17"
-                            offset="-171.738"/>
+		    <cancoder canId="16"
+                            offset="140.449"/>
         </swervemodule>
 
        
@@ -146,7 +146,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="18"
-                            offset="-113.906"/>
+                            offset="-15.908"/>
         </swervemodule>
 
         <swervemodule type="RIGHT_FRONT"
@@ -197,7 +197,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="13"
-                            offset="-175.957"/>
+                            offset="33.750 "/>
         </swervemodule>
         <swervemodule type="LEFT_FRONT"
                       turn_p="0.1"
@@ -247,7 +247,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="10"
-                            offset="175.955"/>
+                            offset="-130.693"/>
         </swervemodule>
 
        </chassis>  
@@ -263,7 +263,7 @@
               pdpID="1"
               type="TALONSRX"
               inverted="false"
-              sensorInverted="true"
+              sensorInverted="false"
               feedbackDevice="NONE"
               countsPerRev="0"
               gearRatio="1.0"
@@ -310,8 +310,8 @@
               gearRatio="1.0"
               brakeMode="false"
               peakCurrentDuration="50"
-              continuousCurrentLimit="50"
-              peakCurrentLimit="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
               currentLimiting="true" 
               forwardlimitswitch="false"
               forwardlimitswitchopen="true"
@@ -460,9 +460,9 @@
               countsPerInch="9145.0"
               countsPerDegree="0"
               brakeMode="true"
-              peakCurrentDuration="4750"
-              continuousCurrentLimit="40"
-              peakCurrentLimit="60"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
               currentLimiting="true"
               forwardlimitswitch="true"
               forwardlimitswitchopen="true"
@@ -482,9 +482,9 @@
               countsPerInch="0"
               countsPerDegree="1442.0"
               brakeMode="true"
-              peakCurrentDuration="4500"
-              continuousCurrentLimit="40"
-              peakCurrentLimit="60"
+              peakCurrentDuration="50"
+              continuousCurrentLimit="30"
+              peakCurrentLimit="40"
               currentLimiting="true"
               forwardlimitswitch="false"
               forwardlimitswitchopen="false"
