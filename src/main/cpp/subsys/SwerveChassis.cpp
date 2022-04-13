@@ -166,7 +166,6 @@ void SwerveChassis::Drive
     auto rot = speeds.omega;
     auto currentPose = GetPose();
     auto goalPose = m_targetFinder.GetPosCenterTarget();
-    //m_hold = false;
     switch (headingOption)
     {
         case HEADING_OPTION::MAINTAIN:
@@ -309,7 +308,8 @@ void SwerveChassis::Drive
                 m_blState.angle = {units::angle::degree_t(135)};
                 m_brState.angle = {units::angle::degree_t(-135)};
             }
-            //May need to add m_hold = false here if it gets stuck in hold position
+            //Set m_hold to false here as an "end all be all" fix to make sure it doesn't get stuck as true
+            m_hold = false;
             
             m_frontLeft.get()->SetDesiredState(m_flState);
             m_frontRight.get()->SetDesiredState(m_frState);
@@ -323,7 +323,7 @@ void SwerveChassis::Drive
             Logger::GetLogger()->ToNtTable(std::string("Swerve Chassis"), std::string("AccelY"), ay);
             Logger::GetLogger()->ToNtTable(std::string("Swerve Chassis"), std::string("AccelZ"), az);
 
-            m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
+            m_isMoving = (abs(ax) > 0.1 || abs(ay) > 0.1);
         }
     }    
 }
