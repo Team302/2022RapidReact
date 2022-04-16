@@ -556,7 +556,7 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     }
     else if (m_limelight != nullptr && m_limelight->HasTarget())
     { 
-        double rotCorrection = abs(m_limelight->GetTargetHorizontalOffset().to<double>()) > 10.0 ? kPGoalHeadingControl : kPGoalHeadingControl*1.5;
+        double rotCorrection = abs(m_limelight->GetTargetHorizontalOffset().to<double>()) > 10.0 ? kPGoalHeadingControl : kPGoalHeadingControl*2.0;
         rot += (m_limelight->GetTargetHorizontalOffset())/1_s*rotCorrection;
         m_hold = false;   
     }

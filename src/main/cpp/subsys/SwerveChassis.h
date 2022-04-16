@@ -274,8 +274,8 @@ class SwerveChassis : public IChassis
         const double kPMaintainHeadingControl = 1.5; //4.0, 3.0
         const double kPAutonSpecifiedHeading = 3.0;  // 4.0
         const double kPAutonGoalHeadingControl = 5.0;  // 2.0
-        const double kPGoalHeadingControl = 5.0; //10.0, 7.0
-        const double kPDistance = 7.0; //10.0, 7.0
+        const double kPGoalHeadingControl = 6.0; //10.0, 7.0
+        const double kPDistance = 10.0; //10.0, 7.0
         const double kIHeadingControl = 0.0; //not being used
         const double kDHeadingControl = 0.0; //not being used
         const double kFHeadingControl = 0.0; //not being used

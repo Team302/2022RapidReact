@@ -3,30 +3,38 @@
 <auton>
     <primitive id="RESET_POSITION"
 			   pathname="OutOfWay1.wpilib.json"/>
+    <primitive id="DO_NOTHING"
+               time="0.5"
+               headingOption="TOWARD_GOAL"
+               shooter="PREPARETOSHOOT"/> 
+    <primitive id="DO_NOTHING"
+               time="2.0"
+               headingOption="TOWARD_GOAL"
+               shooter="SHOOT_HIGHGOAL_FAR"/> 
     <primitive id="DRIVE_PATH"
                pathname="OutOfWay1.wpilib.json" 
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
-               heading="-90"/> 
-
-    <!-- primitive id="DO_NOTHING"
+               heading="-15"/> 
+    <primitive id="DO_NOTHING"
                time="0.5"
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
-               heading="-90"/ -->
+               heading="-75"/>
 
-    <primitive id="DRIVE_PATH"
+    <!-- primitive id="DRIVE_PATH"
                pathname="OutOfWay2.wpilib.json" 
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
-               heading="-90"/> 
+               heading="-90"/ --> 
+               
     <primitive id="DO_NOTHING"
                time="0.5"
                headingOption="SPECIFIED_ANGLE"
-               heading="0"/> 
+               heading="-145"/> 
     <primitive id="DO_NOTHING"
                time="10.0"
-               rightIntake="INTAKE_EXPEL"
                headingOption="SPECIFIED_ANGLE"
-               heading="0"/>
+               heading="-145"
+               shooter="SHOOT_LOW_GOAL"/>
 </auton>
