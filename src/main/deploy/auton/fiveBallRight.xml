@@ -5,6 +5,7 @@
 			   pathname="fiveBallRight4.wpilib.json"/>
     <primitive id="DRIVE_PATH"
                pathname="fiveBallRight4.wpilib.json" 
+               time="0.60"
                shooter="PREPARETOSHOOT"
                headingOption="TOWARD_GOAL"/>
     <primitive id="DO_NOTHING"
@@ -13,17 +14,14 @@
                headingOption="TOWARD_GOAL"/>
     <primitive id="DRIVE_PATH"
                pathname="fiveBallRight3.wpilib.json" 
+               time="2.0"
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="0"/> 
     <primitive id="DRIVE_PATH"
-               pathname="fiveBallRight9Compsplit.wpilib.json" 
+               pathname="fiveBallRight9copy.wpilib.json" 
+               time="3.0"
                rightIntake="INTAKE_ON"
-               headingOption="SPECIFIED_ANGLE"
-               heading="45"/> 
-    <primitive id="DRIVE_PATH"
-               pathname="fiveBallRight9Compsplit2.wpilib.json" 
-               leftIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="45"/> 
     <primitive id="DO_NOTHING"
@@ -41,6 +39,7 @@
                shooter="SHOOT_HIGHGOAL_FAR"/>
     <primitive id="DRIVE_PATH"
                pathname="fiveBallRight6copy2.wpilib.json" 
+               time="3.5"
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="-45"/> 
@@ -48,7 +47,8 @@
                time="0.5"
                rightIntake="INTAKE_ON"/>  
     <primitive id="DRIVE_PATH"
-               pathname="fiveBallRight10.wpilib.json" 
+               pathname="fiveBallRight10.wpilib.json"
+               time="3.5" 
                rightIntake="INTAKE_ON"
                shooter="PREPARETOSHOOT"
                headingOption="TOWARD_GOAL"/>         
