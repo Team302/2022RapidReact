@@ -494,6 +494,8 @@ void SwerveChassis::DriveToPointTowardGoal
     double xComp = sin(theta)*(m_shootingDistance.to<double>() + 24.0)*0.0254;//adding 24 inches offset for the center of goal, converting to meters
     double yComp = cos(theta)*(m_shootingDistance.to<double>() + 24.0)*0.0254;//adding 24 inches offset for the center of goal, converting to meters
 
+    double speedCorrection = (distanceError.to<double>() < 30.0) ? kPDistance*2.0 : kPDistance;
+
     if (m_limelight != nullptr && m_limelight->HasTarget())
     { 
         if (abs(distanceError.to<double>()) > 10.0)
@@ -526,8 +528,8 @@ void SwerveChassis::DriveToPointTowardGoal
             }
             auto deltaX = (driveToPose.X()-myPose.X());
             auto deltaY = (driveToPose.Y()-myPose.Y());
-            xSpeed += deltaX/1_s*kPDistance; 
-            ySpeed += deltaY/1_s*kPDistance; 
+            xSpeed += deltaX/1_s*speedCorrection; 
+            ySpeed += deltaY/1_s*speedCorrection; 
 
             m_hold = false;
         }
