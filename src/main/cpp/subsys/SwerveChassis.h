@@ -287,7 +287,7 @@ class SwerveChassis : public IChassis
         units::angle::degree_t m_targetHeading;
         DragonLimelight*        m_limelight;
 
-        const units::length::inch_t m_shootingDistance = units::length::inch_t(90.0); // was 105.0
+        const units::length::inch_t m_shootingDistance = units::length::inch_t(105.0); // was 105.0
 
 
 };
