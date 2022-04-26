@@ -13,7 +13,7 @@
 				 mode="VELOCITY_RPS"
 				 proportional="0.145"
 				 integral="0.00075"
-				 feedforward="0.0465"/>
+				 feedforward="0.0475"/>
 
 	<mechanismTarget stateIdentifier="SHOOTER_OFF"
 	                 controlDataIdentifier="openloop"

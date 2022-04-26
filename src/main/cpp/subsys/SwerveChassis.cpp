@@ -491,8 +491,8 @@ void SwerveChassis::DriveToPointTowardGoal
 
     //Finding Target pose on feild based on current position
     double theta = abs(atan((targetPose.X()-myPose.X()).to<double>()/((targetPose.Y()-myPose.Y()).to<double>())));
-    double xComp = sin(theta)*(m_shootingDistance.to<double>() + 24.0)*0.0254;//adding 24 inches offset for the center of goal, converting to meters
-    double yComp = cos(theta)*(m_shootingDistance.to<double>() + 24.0)*0.0254;//adding 24 inches offset for the center of goal, converting to meters
+    double xComp = sin(theta)*(m_limelight->EstimateTargetDistance().to<double>() + 24.0)*0.0254;//adding 24 inches offset for the center of goal, converting to meters
+    double yComp = cos(theta)*(m_limelight->EstimateTargetDistance().to<double>() + 24.0)*0.0254;//adding 24 inches offset for the center of goal, converting to meters
 
     double speedCorrection = (distanceError.to<double>() < 30.0) ? kPDistance*2.0 : kPDistance;
 

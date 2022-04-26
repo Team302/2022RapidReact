@@ -16,6 +16,7 @@
                headingOption="SPECIFIED_ANGLE"
                heading="-90"/> 
     <primitive id="DRIVE_PATH"
+               time="1.0"
                pathname="LeftHigh2.wpilib.json" 
                rightIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"
