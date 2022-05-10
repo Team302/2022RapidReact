@@ -180,6 +180,11 @@ void SwerveChassis::Drive
             Logger::GetLogger()->ToNtTable("Chassis Heading", "rot", rot.to<double>() );
             break;
 
+        case HEADING_OPTION::TOWARD_GOAL_AIM:
+            AdjustRotToPointTowardGoal(currentPose, rot);
+            Logger::GetLogger()->ToNtTable("Chassis Heading", "rot", rot.to<double>() );
+            break;
+
         case HEADING_OPTION::TOWARD_GOAL_DRIVE:
              [[fallthrough]]; // intentional fallthrough 
         case HEADING_OPTION::TOWARD_GOAL_LAUNCHPAD:
@@ -550,6 +555,40 @@ void SwerveChassis::AdjustRotToPointTowardGoal
     units::radians_per_second_t &rot     
 )
 {
+    if(abs(m_limelight->GetTargetHorizontalOffset().to<double>()) < 1.0 && m_limelight->HasTarget())
+    {
+        m_hold = true;
+    }
+    else if (m_limelight != nullptr && m_limelight->HasTarget())
+    { 
+        double rotCorrection = abs(m_limelight->GetTargetHorizontalOffset().to<double>()) > 10.0 ? kPGoalHeadingControl : kPGoalHeadingControl*1.5;
+        rot += (m_limelight->GetTargetHorizontalOffset())/1_s*rotCorrection;
+        m_hold = false;   
+    }
+    else
+    {
+        auto targetAngle = units::angle::degree_t(m_targetFinder.GetTargetAngleD(robotPose));
+        rot -= CalcHeadingCorrection(targetAngle,kPGoalHeadingControl);
+        m_hold = false;
+    }
+
+    Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("TurnToGoal New ZSpeed: "), rot.to<double>());
+}
+
+void SwerveChassis::AdjustRotToPointTowardGoalAim
+(   
+    Pose2d                      robotPose,
+    units::radians_per_second_t &rot     
+)
+{
+    PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_SHOOTER);
+    DragonPigeon* shooterPigeon;
+    double yaw = 0.0;
+    if(shooterPigeon != nullptr)
+    {
+        yaw = shooterPigeon->GetYaw();
+        
+    }
     if(abs(m_limelight->GetTargetHorizontalOffset().to<double>()) < 1.0 && m_limelight->HasTarget())
     {
         m_hold = true;

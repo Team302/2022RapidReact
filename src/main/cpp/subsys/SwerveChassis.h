@@ -136,6 +136,8 @@ class SwerveChassis : public IChassis
             const frc::Pose2d&       pose
         ) override;
 
+
+
         //static constexpr auto MaxSpeed = 3.0_mps; 
         //static constexpr units::angular_velocity::radians_per_second_t MaxAngularSpeed{wpi::math::pi};
 
@@ -195,6 +197,11 @@ class SwerveChassis : public IChassis
         );        
 
         void AdjustRotToPointTowardGoal
+        (
+            frc::Pose2d                  robotPose,
+            units::radians_per_second_t& rot
+        );
+        void AdjustRotToPointTowardGoalAim
         (
             frc::Pose2d                  robotPose,
             units::radians_per_second_t& rot
