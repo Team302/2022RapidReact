@@ -166,7 +166,6 @@ void SwerveChassis::Drive
     auto rot = speeds.omega;
     auto currentPose = GetPose();
     auto goalPose = m_targetFinder.GetPosCenterTarget();
-    //m_hold = false;
     switch (headingOption)
     {
         case HEADING_OPTION::MAINTAIN:
@@ -275,9 +274,8 @@ void SwerveChassis::Drive
             //Is moving check
             auto ax = m_accel.GetX();
             auto ay = m_accel.GetY();
-            auto az = m_accel.GetZ();
 
-            m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
+            m_isMoving = (abs(ax) > 0.25 || abs(ay) > 0.25);
         }
         else
         {
@@ -301,36 +299,33 @@ void SwerveChassis::Drive
                 m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, m_brState.angle), chassisSpeeds);
            }
 
+            auto ax = m_accel.GetX();
+            auto ay = m_accel.GetY();
+
+            m_isMoving = (abs(ax) > 0.15 || abs(ay) > 0.15);
+
+            Logger::GetLogger()->ToNtTable("Swerve Chassis", "Hold Position State", m_hold);
+
             //Hold position / lock wheels in 'X' configuration
-            if(m_hold && !m_isMoving)
+            if(m_hold)
             {
                 m_flState.angle = {units::angle::degree_t(45)};
                 m_frState.angle = {units::angle::degree_t(-45)};
                 m_blState.angle = {units::angle::degree_t(135)};
                 m_brState.angle = {units::angle::degree_t(-135)};
             }
-            //May need to add m_hold = false here if it gets stuck in hold position
             
             m_frontLeft.get()->SetDesiredState(m_flState);
             m_frontRight.get()->SetDesiredState(m_frState);
             m_backLeft.get()->SetDesiredState(m_blState);
             m_backRight.get()->SetDesiredState(m_brState);
-            auto ax = m_accel.GetX();
-            auto ay = m_accel.GetY();
-            auto az = m_accel.GetZ();
-
-            Logger::GetLogger()->ToNtTable(std::string("Swerve Chassis"), std::string("AccelX"), ax);
-            Logger::GetLogger()->ToNtTable(std::string("Swerve Chassis"), std::string("AccelY"), ay);
-            Logger::GetLogger()->ToNtTable(std::string("Swerve Chassis"), std::string("AccelZ"), az);
-
-            m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
         }
     }    
 }
 
-void SwerveChassis::HoldPosition()
+void SwerveChassis::HoldPosition(bool holdState)
 {
-    m_hold = true;
+    m_hold = holdState;
 }
 
 units::angle::degree_t SwerveChassis::UpdateForPolarDrive
@@ -735,9 +730,8 @@ ChassisSpeeds SwerveChassis::GetFieldRelativeSpeeds
     Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "rot (radians per sec)", rot.to<double>());
 
     units::angle::radian_t yaw{m_pigeon->GetYaw()*wpi::numbers::pi/180.0};
-    auto temp = xSpeed*cos(yaw.to<double>()) + ySpeed*sin(yaw.to<double>());
-    auto strafe = -1.0*xSpeed*sin(yaw.to<double>()) + ySpeed*cos(yaw.to<double>());
-    auto forward = temp;
+    auto forward = xSpeed*cos(yaw.to<double>()) + ySpeed*sin(yaw.to<double>());
+    auto strafe = -1.0 *xSpeed*sin(yaw.to<double>()) + ySpeed*cos(yaw.to<double>());
 
     ChassisSpeeds output{forward, strafe, rot};
 
