@@ -301,13 +301,15 @@ void SwerveChassis::Drive
 
             auto ax = m_accel.GetX();
             auto ay = m_accel.GetY();
+            auto az = m_accel.GetZ();
 
-            m_isMoving = (abs(ax) > 0.15 || abs(ay) > 0.15);
+            m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0);
+            //TODO: Fix by removing az and tuning deadbands, will never be false because az returns 1G while not moving
 
             Logger::GetLogger()->ToNtTable("Swerve Chassis", "Hold Position State", m_hold);
 
             //Hold position / lock wheels in 'X' configuration
-            if(m_hold)
+            if(m_hold && !frc::DriverStation::GetInstance().IsAutonomousEnabled() )
             {
                 m_flState.angle = {units::angle::degree_t(45)};
                 m_frState.angle = {units::angle::degree_t(-45)};
