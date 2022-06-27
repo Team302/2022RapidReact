@@ -55,19 +55,19 @@ void ClimberState::Init()
         auto liftMotor = m_climber->GetPrimaryMotor();
         if (liftMotor.get() != nullptr)
         {
-            liftMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT);
+            liftMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::POSITION_INCH);
         }
 
         auto rotateMotor = m_climber->GetSecondaryMotor();
         if (rotateMotor.get() != nullptr)
         {    
-            rotateMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT);
+            rotateMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::POSITION_DEGREES);
         }
     }
 }
 
 void ClimberState::Run()
-{
+{/*
     if (m_climber != nullptr)
     {
         auto liftOutput = 0.0;
@@ -106,6 +106,12 @@ void ClimberState::Run()
         }
         m_climber->UpdateTargets(liftOutput, rotateOutput);
         m_climber->Update();
+        
+    }*/
+
+    if(m_climber != nullptr)
+    {
+        auto liftPosition
     }
 }
 bool ClimberState::AtTarget() const
