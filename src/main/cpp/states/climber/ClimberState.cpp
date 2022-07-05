@@ -16,6 +16,9 @@
 #include <algorithm>
 #include <cmath>
 
+#include <units/length.h>
+#include <units/angle.h>
+
 #include <controllers/ControlData.h>
 #include <controllers/MechanismTargetData.h>
 #include <hw/factories/PigeonFactory.h>
@@ -43,8 +46,10 @@ ClimberState::ClimberState
     m_liftTarget(target1),
     m_rotateTarget(target2),
     m_robotPitch(robotPitch),
-    m_liftController(new DragonPID(controlData)),
-    m_rotateController(new DragonPID(controlData2))
+    m_liftController(new DragonBangBang(2.0)), //Fudge factor for tolerance, = 2 inches
+    m_rotateController(new DragonBangBang(5.0)), //Fudge factor for tolerance, = 5 degrees
+    m_liftMotor(m_climber->GetPrimaryMotor()),
+    m_rotateMotor(m_climber->GetSecondaryMotor())
 {
 }
 
@@ -52,66 +57,42 @@ void ClimberState::Init()
 {
     if (m_climber != nullptr)
     {
-        auto liftMotor = m_climber->GetPrimaryMotor();
-        if (liftMotor.get() != nullptr)
+        
+        if (m_liftMotor.get() != nullptr)
         {
-            liftMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::POSITION_INCH);
+            m_liftMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT);
         }
 
-        auto rotateMotor = m_climber->GetSecondaryMotor();
-        if (rotateMotor.get() != nullptr)
+        if (m_rotateMotor.get() != nullptr)
         {    
-            rotateMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::POSITION_DEGREES);
+            m_rotateMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT);
         }
     }
 }
 
 void ClimberState::Run()
-{/*
-    if (m_climber != nullptr)
+{
+    if(m_climber != nullptr)
     {
         auto liftOutput = 0.0;
         auto rotateOutput = 0.0;
-
-        // currently using percent output and adjusting it.   Should probably switch to 
-        // SetVoltage() calls.
-        auto liftMotor = m_climber->GetPrimaryMotor();
-        if (liftMotor.get() != nullptr)
+    
+        //Determine if lift needs to move to reach desired height
+        if(m_liftMotor.get() != nullptr)
         {
-            auto mc = liftMotor.get()->GetSpeedController();
-            if (mc.get() != nullptr)
-            {
-                liftOutput = m_liftController->Calculate(mc.get()->Get(), GetLiftHeight(), m_liftTarget);
-                liftOutput = clamp(liftOutput, -1.0, 1.0);
-                if (liftOutput > 0.05 && liftOutput < 0.2 )
-                {
-                    liftOutput = 0.35;
-                }
-                else if (liftOutput < -0.05 && liftOutput > -0.2 )
-                {
-                    liftOutput = -0.35;
-                }
-            }
+            liftOutput = m_liftController->Calculate(GetLiftHeight(), m_liftTarget);
         }
 
-        auto rotateMotor = m_climber->GetSecondaryMotor();
-        if (rotateMotor.get() != nullptr)
+        //Determine if rotating arm needs to rotate to reached desired angle
+        if(m_rotateMotor.get() != nullptr)
         {
-            auto mc = rotateMotor.get()->GetSpeedController();
-            if (mc.get() != nullptr)
-            {
-                rotateOutput = m_rotateController->Calculate(mc.get()->Get(), GetRotateAngle(), m_rotateTarget);
-                rotateOutput = clamp(rotateOutput, -1.0, 1.0);
-            }
+            rotateOutput = m_rotateController->Calculate(GetRotateAngle(), m_rotateTarget);
         }
+
+        //Update climber targets
         m_climber->UpdateTargets(liftOutput, rotateOutput);
+        //Update climber motor speeds
         m_climber->Update();
-        
-    }*/
-
-    if(m_climber != nullptr)
-    {
-        auto liftPosition
     }
 }
 bool ClimberState::AtTarget() const
@@ -120,9 +101,9 @@ bool ClimberState::AtTarget() const
     auto deltaAngle = GetRotateAngle()-m_rotateTarget;
     auto pigeon = PigeonFactory::GetFactory()->GetCenterPigeon();
     auto deltaPitch = pigeon != nullptr ? pigeon->GetPitch() - m_robotPitch : 0.0;
-    return abs(deltaHeight) < 0.25 &&
-           abs(deltaAngle) < 2.0 &&
-           abs(deltaPitch) < 2.0;
+    return abs(deltaHeight) < 0.25 && //Is lift within 1/4 of an inch of target?
+           abs(deltaAngle) < 2.0 && //Is rotating arm within 2 degrees of target?
+           abs(deltaPitch) < 2.0; //Is robot pitch within 2 degrees of target?
 }
 double ClimberState::GetLiftHeight() const
 {

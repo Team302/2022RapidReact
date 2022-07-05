@@ -75,20 +75,13 @@ ClimberStateMgr::ClimberStateMgr() : m_climber(MechanismFactory::GetMechanismFac
     map<string, StateStruc> stateMap;
     stateMap[m_climberOffXmlString] = m_offState;
     stateMap[m_climberManualXmlString] = m_manualState;
-    stateMap[m_climberStartingXmlString] = m_startingState;
-    stateMap[m_climberPrepMidBarXmlString] = m_prepMidBarState;
-    stateMap[m_climberClimbMidBarXmlString] = m_climbMidBarState;
-    stateMap[m_climberFrontHookPrepXmlString] = m_frontHookprepNextBarState;
-    stateMap[m_climberFrontHookRotateAXmlString] = m_frontHookRotateAState;
-    stateMap[m_climberFrontHookRotateBXmlString] = m_frontHookRotateBState;
-    stateMap[m_climberFrontHookElevateXmlString] = m_frontHookElevateState;
-    stateMap[m_climberFrontHookRotateToHookXmlString] = m_frontHookRotateToHookState;
-    stateMap[m_climberFrontHookLiftRobotXmlString] = m_frontHookLiftState;
-    stateMap[m_climberFrontHookRotateArmXmlString] = m_frontHookRotateArmState;
-    stateMap[m_climberBackHookPrepXmlString] = m_backHookPrepState;
-    stateMap[m_climberBackHookRotateAXmlString] = m_backHookRotateAState;
-    stateMap[m_climberBackHookLiftXmlString] = m_backHookLiftState;
-    stateMap[m_climberBackHookRestXmlString] = m_backHookRestState;
+    stateMap[m_climberInitialReachXmlString] = m_initialReachState;
+    stateMap[m_climberRetractXmlString] = m_retractState;
+    stateMap[m_climberReleaseXmlString] = m_releaseState;
+    stateMap[m_climberReachToBarXmlString] = m_reachToBarState;
+    stateMap[m_climberRotateOutXmlString] = m_rotateOutState;
+    stateMap[m_climberRotateInXmlString] = m_rotateInState;
+    stateMap[m_climberHoldXmlString] = m_holdState;
 
     Init(m_climber, stateMap);
 }
@@ -104,27 +97,10 @@ void ClimberStateMgr::CheckForStateTransition()
     {
         auto controller = TeleopControl::GetInstance();
         auto isClimbMode  = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::ENABLE_CLIMBER) : false;
-        auto isPrepMidbar = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::PREP_MIDBAR_CLIMB) : false;
+
         auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
 
-        auto isClimbOff = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_OFF) : false;
-        auto isClimbManual = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MANUAL) : false;
-        auto isClimbStarting = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_STARTING) : false;
-        auto isClimbPrepMid = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_PREP_MID) : false;
-        auto isClimbMid = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MID) : false;
-        auto isClimbFrontPrep = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_PREP) : false;
-        auto isClimbFrontRotateA = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_A) : false;
-        auto isClimbFrontRotateB = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_B) : false;
-        auto isClimbFrontElevate = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ELEVATE) : false;
-        auto isClimbFrontRotateToHook = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_TO_HOOK) : false;
-        auto isClimbFrontLift = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_LIFT_ROBOT) : false;
-        auto isClimbFrontRotateArm = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_ROTATE_ARM) : false;
-        auto isClimbBackPrep = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_PREP) : false;
-        auto isClimbBackRotate = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_ROTATE_A) : false;
-        auto isClimbBackLift = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_LIFT) : false;
-        auto isClimbBackRest = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_REST) : false;
-
-        
+        auto isClimbManual = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MANUAL) : false;    
 
         /*if (isClimbOff)
         {
@@ -139,80 +115,30 @@ void ClimberStateMgr::CheckForStateTransition()
         {
             targetState = CLIMBER_STATE::STARTING_CONFIG;
         }*/
-        else if (isClimbPrepMid)
-        {
-            targetState = CLIMBER_STATE::PREP_MID_BAR;
-        }
-        else if (isClimbMid)
-        {
-            targetState = CLIMBER_STATE::CLIMB_MID_BAR;
-        }/*
-        else if (isClimbFrontPrep)
-        {
-            targetState = CLIMBER_STATE::FRONT_HOOK_PREP_FOR_NEXT_BAR;
-        }
-        else if (isClimbFrontRotateA)
-        {
-            targetState = CLIMBER_STATE::FRONT_HOOK_ROTATE_A;
-        }
-        else if (isClimbFrontRotateB)
-        {
-            targetState = CLIMBER_STATE::FRONT_HOOK_ROTATE_B;
-        }
-        else if (isClimbFrontElevate)
-        {
-            targetState = CLIMBER_STATE::FRONT_HOOK_ELEVATE;
-        }
-        else if (isClimbFrontRotateToHook)
-        {
-            targetState = CLIMBER_STATE::FRONT_HOOK_ROTATE_TO_HOOK;
-        }
-        else if (isClimbFrontLift)
-        {
-            targetState = CLIMBER_STATE::FRONT_HOOK_LIFT_ROBOT;
-        }
-        else if (isClimbFrontRotateArm)
-        {
-            targetState = CLIMBER_STATE::FRONT_HOOK_ROTATE_ARM;
-        }
-        else if (isClimbBackPrep)
-        {
-            targetState = CLIMBER_STATE::BACK_HOOK_PREP;
-        }
-        else if (isClimbBackRotate)
-        {
-            targetState = CLIMBER_STATE::BACK_HOOK_ROTATE_A;
-        }
-        else if (isClimbBackLift)
-        {
-            targetState = CLIMBER_STATE::BACK_HOOK_LIFT_ROBOT;
-        }
-        else if (isClimbBackRest)
-        {
-            targetState = CLIMBER_STATE::BACK_HOOK_REST;
-        }*/
-
         //if (isClimbMode)
         else if (isClimbMode)
         {
-            if (isPrepMidbar)
+            if (isAutoClimb)
             {
-                targetState = CLIMBER_STATE::PREP_MID_BAR;
-                m_prevState = targetState;
-            }
-            else if (isAutoClimb)
-            {
-                m_wasAutoClimb = true;
-                auto currentStatePtr = GetCurrentStatePtr();
-                if (currentStatePtr != nullptr)
+                //Start at initial climb state by checking if this is the first loop the robot is auto climbing
+                if(!m_wasAutoClimb)
                 {
-                    auto done = currentStatePtr->AtTarget();
-                    if (done && currentState != BACK_HOOK_REST)
-                    {
-                        targetState = static_cast<CLIMBER_STATE>(static_cast<int>(currentState)+1);
-                    }
-                    m_prevState = targetState;
+                    targetState = CLIMBER_STATE::INITIAL_REACH;
                 }
+                else if(m_wasAutoClimb)
+                {
+                    auto currentStatePtr = GetCurrentStatePtr();
+                    if (currentStatePtr != nullptr)
+                    {
+                        auto done = currentStatePtr->AtTarget();
+                        if (done && currentState != HOLD) //Might need to make this max states, should be the last state for when we are at traversal bar
+                        {
+                            targetState = static_cast<CLIMBER_STATE>(static_cast<int>(currentState)+1);
+                        }
+                        m_prevState = targetState;
+                    }
+                }
+                m_wasAutoClimb = true;  
             }
             else if (m_wasAutoClimb)
             {
