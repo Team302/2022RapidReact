@@ -18,7 +18,7 @@
 
 //Team 302 Includes
 #include <controllers/ControlData.h>
-#include <controllers/DragonBangBang.h>
+#include <controllers/DragonPID.h>
 #include <controllers/MechanismTargetData.h>
 #include <states/Mech2MotorState.h>
 #include <subsys/Climber.h>
@@ -56,8 +56,8 @@ class ClimberState : public Mech2MotorState
         double                              m_liftTarget; //Target position of climber lift in inches
         double                              m_rotateTarget; //Target position of rotating arm in degrees
         double                              m_robotPitch;
-        DragonBangBang*                          m_liftController;
-        DragonBangBang*                          m_rotateController;
+        DragonPID*                          m_liftController;
+        DragonPID*                          m_rotateController;
         std::shared_ptr<IDragonMotorController>  m_liftMotor;
         std::shared_ptr<IDragonMotorController>  m_rotateMotor;
 };

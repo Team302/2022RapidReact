@@ -92,7 +92,7 @@ void ClimberManualState::Run()
         }
         else
         {
-            rotatePercent *= 1.0; //Negative is here to flip input
+            rotatePercent *= 1.0;
         }
     
         

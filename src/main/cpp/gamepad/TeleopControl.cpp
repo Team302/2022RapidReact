@@ -139,8 +139,8 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_controllerIndex[ENABLE_CLIMBER]				= ctrlNo;
 		m_buttonIDs[ENABLE_CLIMBER]						= IDragonGamePad::LEFT_STICK_PRESSED;
 
-		//m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
-		//m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::A_BUTTON;
+		m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
+		m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::Y_BUTTON;
     }
     else
     {

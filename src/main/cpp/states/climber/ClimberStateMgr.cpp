@@ -131,7 +131,11 @@ void ClimberStateMgr::CheckForStateTransition()
                     if (currentStatePtr != nullptr)
                     {
                         auto done = currentStatePtr->AtTarget();
-                        if (done && currentState != HOLD) //Might need to make this max states, should be the last state for when we are at traversal bar
+                        if (!done)
+                        {
+                            targetState = m_prevState;
+                        }
+                        else if (done && currentState != HOLD) //Might need to make this max states, should be the last state for when we are at traversal bar
                         {
                             targetState = static_cast<CLIMBER_STATE>(static_cast<int>(currentState)+1);
                         }
@@ -139,10 +143,6 @@ void ClimberStateMgr::CheckForStateTransition()
                     }
                 }
                 m_wasAutoClimb = true;  
-            }
-            else if (m_wasAutoClimb)
-            {
-                targetState = m_prevState;
             }
             else
             {

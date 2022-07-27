@@ -248,10 +248,8 @@ class SwerveChassis : public IChassis
         units::velocity::meters_per_second_t                        m_steer;
         units::angular_velocity::radians_per_second_t               m_rotate;
 
-      //  const double                                                m_deadband = 0.05;
         const double                                                m_deadband = 0.0;
-    //    const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.008);
-        const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.00);
+        const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.1); //6 degrees per second
         
         frc::Translation2d m_frontLeftLocation;
         frc::Translation2d m_frontRightLocation;
@@ -271,7 +269,7 @@ class SwerveChassis : public IChassis
                                                            {0.1, 0.1, 0.1},   // state standard deviations
                                                            {0.05},            // local measurement standard deviations
                                                            {0.1, 0.1, 0.1} }; // vision measurement standard deviations
-        const double kPMaintainHeadingControl = 1.5; //4.0, 3.0
+        const double kPMaintainHeadingControl = 2.0; //was 1.5 7/25/22
         const double kPAutonSpecifiedHeading = 3.0;  // 4.0
         const double kPAutonGoalHeadingControl = 5.0;  // 2.0
         const double kPGoalHeadingControl = 6.0; //10.0, 7.0

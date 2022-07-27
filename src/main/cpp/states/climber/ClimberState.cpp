@@ -26,6 +26,9 @@
 #include <states/Mech2MotorState.h>
 #include <subsys/MechanismFactory.h>
 
+//Debugging
+#include <utils/Logger.h>
+
 using namespace std;
 
 ClimberState::ClimberState
@@ -46,8 +49,8 @@ ClimberState::ClimberState
     m_liftTarget(target1),
     m_rotateTarget(target2),
     m_robotPitch(robotPitch),
-    m_liftController(new DragonBangBang(2.0)), //Fudge factor for tolerance, = 2 inches
-    m_rotateController(new DragonBangBang(5.0)), //Fudge factor for tolerance, = 5 degrees
+    m_liftController(new DragonPID(controlData)),
+    m_rotateController(new DragonPID(controlData2)),
     m_liftMotor(m_climber->GetPrimaryMotor()),
     m_rotateMotor(m_climber->GetSecondaryMotor())
 {
@@ -72,28 +75,45 @@ void ClimberState::Init()
 
 void ClimberState::Run()
 {
-    if(m_climber != nullptr)
-    {
-        auto liftOutput = 0.0;
-        auto rotateOutput = 0.0;
-    
-        //Determine if lift needs to move to reach desired height
-        if(m_liftMotor.get() != nullptr)
-        {
-            liftOutput = m_liftController->Calculate(GetLiftHeight(), m_liftTarget);
-        }
-
-        //Determine if rotating arm needs to rotate to reached desired angle
-        if(m_rotateMotor.get() != nullptr)
-        {
-            rotateOutput = m_rotateController->Calculate(GetRotateAngle(), m_rotateTarget);
-        }
-
-        //Update climber targets
-        m_climber->UpdateTargets(liftOutput, rotateOutput);
-        //Update climber motor speeds
-        m_climber->Update();
-    }
+    if (m_climber != nullptr) 
+    { 
+        auto liftOutput = 0.0; 
+        auto rotateOutput = 0.0; 
+ 
+        // currently using percent output and adjusting it.   Should probably switch to  
+        // SetVoltage() calls. 
+        auto liftMotor = m_climber->GetPrimaryMotor(); 
+        if (liftMotor.get() != nullptr) 
+        { 
+            auto mc = liftMotor.get()->GetSpeedController(); 
+            if (mc.get() != nullptr) 
+            { 
+                liftOutput = m_liftController->Calculate(mc.get()->Get(), GetLiftHeight(), m_liftTarget); 
+                liftOutput = clamp(liftOutput, -1.0, 1.0); 
+                if (liftOutput > 0.05 && liftOutput < 0.2 ) 
+                { 
+                    liftOutput = 0.35; 
+                } 
+                else if (liftOutput < -0.05 && liftOutput > -0.2 ) 
+                { 
+                    liftOutput = -0.35; 
+                } 
+            } 
+        } 
+ 
+        auto rotateMotor = m_climber->GetSecondaryMotor(); 
+        if (rotateMotor.get() != nullptr) 
+        { 
+            auto mc = rotateMotor.get()->GetSpeedController(); 
+            if (mc.get() != nullptr) 
+            { 
+                rotateOutput = m_rotateController->Calculate(mc.get()->Get(), GetRotateAngle(), m_rotateTarget); 
+                rotateOutput = clamp(rotateOutput, -1.0, 1.0); 
+            } 
+        } 
+        m_climber->UpdateTargets(liftOutput, rotateOutput); 
+        m_climber->Update(); 
+    } 
 }
 bool ClimberState::AtTarget() const
 {
