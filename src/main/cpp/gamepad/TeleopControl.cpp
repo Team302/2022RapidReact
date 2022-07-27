@@ -116,8 +116,8 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_buttonIDs[ DRIVE_TO_SHOOTING_SPOT ]			= IDragonGamePad::A_BUTTON;
 		m_controllerIndex[ REZERO_PIGEON ]				= ctrlNo;
 		m_buttonIDs[ REZERO_PIGEON ]					= IDragonGamePad::B_BUTTON;
-		m_controllerIndex[DRIVE_POLAR] 					= ctrlNo;  
-		m_buttonIDs[DRIVE_POLAR] 						= IDragonGamePad::RIGHT_BUMPER;		
+		//m_controllerIndex[DRIVE_POLAR] 					= ctrlNo;  
+		//m_buttonIDs[DRIVE_POLAR] 						= IDragonGamePad::RIGHT_BUMPER;		
 		m_controllerIndex[FINDTARGET] 					= ctrlNo;  
 		m_buttonIDs[FINDTARGET]	 						= IDragonGamePad::LEFT_BUMPER;	
 
@@ -141,6 +141,10 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 
 		m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
 		m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::Y_BUTTON;
+
+		//Debugging
+		m_controllerIndex[CLIMBER_STATE_INITIAL_REACH]  = ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_INITIAL_REACH]		= IDragonGamePad::RIGHT_BUMPER;
     }
     else
     {
@@ -219,8 +223,8 @@ TeleopControl::TeleopControl() : m_axisIDs(),
     {
 		m_controllerIndex[CLIMBER_STATE_STARTING] 		= ctrlNo;
 		m_buttonIDs[CLIMBER_STATE_STARTING] 			= IDragonGamePad::A_BUTTON;	
-		m_controllerIndex[CLIMBER_STATE_PREP_MID] 		= ctrlNo;
-		m_buttonIDs[CLIMBER_STATE_PREP_MID] 			= IDragonGamePad::X_BUTTON;	
+		//m_controllerIndex[CLIMBER_STATE_PREP_MID] 		= ctrlNo;
+		//m_buttonIDs[CLIMBER_STATE_PREP_MID] 			= IDragonGamePad::X_BUTTON;	
 		m_controllerIndex[CLIMBER_STATE_MID] 		= ctrlNo;  
 		m_buttonIDs[CLIMBER_STATE_MID] 				= IDragonGamePad::Y_BUTTON;	
 		m_controllerIndex[CLIMBER_STATE_FRONT_PREP] 			= ctrlNo;

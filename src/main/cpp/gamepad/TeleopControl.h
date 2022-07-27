@@ -83,7 +83,7 @@ class TeleopControl
             CLIMBER_STATE_OFF,
             CLIMBER_STATE_MANUAL,
             CLIMBER_STATE_STARTING,
-            CLIMBER_STATE_PREP_MID,
+            CLIMBER_STATE_INITIAL_REACH,
             CLIMBER_STATE_MID,
             CLIMBER_STATE_FRONT_PREP,
             CLIMBER_STATE_FRONT_ROTATE_A,

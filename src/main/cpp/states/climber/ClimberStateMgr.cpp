@@ -101,7 +101,7 @@ void ClimberStateMgr::CheckForStateTransition()
         auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
 
         auto isClimbManual = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MANUAL) : false;    
-
+        auto isClimbInitialReach = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_INITIAL_REACH) : false;
         /*if (isClimbOff)
         {
             targetState = CLIMBER_STATE::OFF;
@@ -118,6 +118,10 @@ void ClimberStateMgr::CheckForStateTransition()
         //if (isClimbMode)
         else if (isClimbMode)
         {
+            if (isClimbInitialReach)
+            {
+                targetState = CLIMBER_STATE::INITIAL_REACH;
+            }
             if (isAutoClimb)
             {
                 //Start at initial climb state by checking if this is the first loop the robot is auto climbing
