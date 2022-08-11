@@ -176,10 +176,9 @@ double Climber::GetPositionInInches
 {
     if (motor.get() != nullptr)
     {
-        auto rot = motor.get()->GetRotations();
-        auto countsPerRot = motor.get()->GetCountsPerRev();
+        auto counts = motor.get()->GetCounts();
         auto countsPerInch = motor.get()->GetCountsPerInch();
-        return ((rot * countsPerRot)/ countsPerInch);
+        return (counts / countsPerInch);
     }
     return 0.0;
 }
