@@ -162,24 +162,12 @@ void Climber::LogData()
     auto ntName = GetNetworkTableName();
     auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
 
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Min"), GetMinReach());
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Max"), GetMaxReach());
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Current"), GetPositionInInches(GetPrimaryMotor()));
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Target"), GetPrimaryTarget());
+    Logger::GetLogger()->ToNtTable(table, string("Lift - Current"), GetPositionInInches(GetPrimaryMotor()));
+    Logger::GetLogger()->ToNtTable(table, string("Lift - Target"), GetPrimaryTarget());
 
-    auto liftMotor = GetPrimaryMotor();
-    if (liftMotor.get() != nullptr)
-    {
-        Logger::GetLogger()->ToNtTable(table, string("Reach - Min Switch"), liftMotor.get()->IsReverseLimitSwitchClosed() ? "true" : "false");
-        Logger::GetLogger()->ToNtTable(table, string("Reach - Max Switch"), liftMotor.get()->IsForwardLimitSwitchClosed() ? "true" : "false");
-    }
-
-    Logger::GetLogger()->ToNtTable(table, string("Rotate - Min"), GetMinRotate());
-    Logger::GetLogger()->ToNtTable(table, string("Rotate - Max"), GetMaxRotate());
     Logger::GetLogger()->ToNtTable(table, string("Rotate - Current"), GetPositionInDegrees(GetSecondaryMotor()));
     Logger::GetLogger()->ToNtTable(table, string("Rotate - Target"), GetSecondaryTarget());
 
-    Logger::GetLogger()->ToNtTable(table, string("Rotate - Arm Back Switch"), m_armBack.get()->Get() ? "true" : "false");
 }
 double Climber::GetPositionInInches
 (
@@ -202,10 +190,17 @@ double Climber::GetPositionInDegrees
 {
     if (motor.get() != nullptr)
     {
-        auto rot = motor.get()->GetRotations();
-        auto countsPerRot = motor.get()->GetCountsPerRev();
+        //Debugging
+        //auto ntName = GetNetworkTableName();
+        //auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
+
+        auto counts = motor.get()->GetCounts();
         auto countsPerDegree = motor.get()->GetCountsPerDegree();
-        return ((rot * countsPerRot)/ countsPerDegree);
+
+        //Debugging
+        Logger::GetLogger()->ToNtTable("ClimberNT", string("Counts:"), counts);
+
+        return (counts / countsPerDegree);
     }
     return 0.0;
 

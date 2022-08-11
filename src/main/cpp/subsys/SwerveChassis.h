@@ -249,7 +249,7 @@ class SwerveChassis : public IChassis
         units::angular_velocity::radians_per_second_t               m_rotate;
 
         const double                                                m_deadband = 0.0;
-        const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.1); //6 degrees per second
+        const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.1); //3 degrees per second
         
         frc::Translation2d m_frontLeftLocation;
         frc::Translation2d m_frontRightLocation;

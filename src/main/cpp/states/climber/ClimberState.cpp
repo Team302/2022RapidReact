@@ -60,61 +60,21 @@ void ClimberState::Init()
 {
     if (m_climber != nullptr)
     {
-        
-        if (m_liftMotor.get() != nullptr)
-        {
-            m_liftMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT);
-        }
-
-        if (m_rotateMotor.get() != nullptr)
-        {    
-            m_rotateMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT);
-        }
+        m_climber->SetControlConstants(0, GetPrimaryControlData());
+        m_climber->SetSecondaryControlConstants(0, GetSecondaryControlData());
+        m_climber->UpdateTargets(m_liftTarget, m_rotateTarget);
     }
 }
 
 void ClimberState::Run()
 {
-    if (m_climber != nullptr) 
-    { 
-        auto liftOutput = 0.0; 
-        auto rotateOutput = 0.0; 
- 
-        // currently using percent output and adjusting it.   Should probably switch to  
-        // SetVoltage() calls. 
-        auto liftMotor = m_climber->GetPrimaryMotor(); 
-        if (liftMotor.get() != nullptr) 
-        { 
-            auto mc = liftMotor.get()->GetSpeedController(); 
-            if (mc.get() != nullptr) 
-            { 
-                liftOutput = m_liftController->Calculate(mc.get()->Get(), GetLiftHeight(), m_liftTarget); 
-                liftOutput = clamp(liftOutput, -1.0, 1.0); 
-                if (liftOutput > 0.05 && liftOutput < 0.2 ) 
-                { 
-                    liftOutput = 0.35; 
-                } 
-                else if (liftOutput < -0.05 && liftOutput > -0.2 ) 
-                { 
-                    liftOutput = -0.35; 
-                } 
-            } 
-        } 
- 
-        auto rotateMotor = m_climber->GetSecondaryMotor(); 
-        if (rotateMotor.get() != nullptr) 
-        { 
-            auto mc = rotateMotor.get()->GetSpeedController(); 
-            if (mc.get() != nullptr) 
-            { 
-                rotateOutput = m_rotateController->Calculate(mc.get()->Get(), GetRotateAngle(), m_rotateTarget); 
-                rotateOutput = clamp(rotateOutput, -1.0, 1.0); 
-            } 
-        } 
-        m_climber->UpdateTargets(liftOutput, rotateOutput); 
-        m_climber->Update(); 
-    } 
+    if (m_climber != nullptr)
+    {
+        Logger::GetLogger()->ToNtTable("climberNT", "Lift Height", GetLiftHeight());
+        Logger::GetLogger()->ToNtTable("climberNT", "Rotate Angle", GetRotateAngle());
+    }
 }
+
 bool ClimberState::AtTarget() const
 {
     auto deltaHeight = GetLiftHeight()-m_liftTarget;

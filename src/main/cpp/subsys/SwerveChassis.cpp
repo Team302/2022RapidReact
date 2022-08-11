@@ -163,7 +163,7 @@ void SwerveChassis::Drive
 {
     auto xSpeed = (abs(speeds.vx.to<double>()) < m_deadband) ? units::meters_per_second_t(0.0) : speeds.vx; 
     auto ySpeed = (abs(speeds.vy.to<double>()) < m_deadband) ? units::meters_per_second_t(0.0) : speeds.vy; 
-    auto rot = speeds.omega;
+    auto rot = (abs(speeds.omega.to<double>())) < m_angularDeadband.to<double>() ? units::radians_per_second_t(0.0) : speeds.omega;
     auto currentPose = GetPose();
     auto goalPose = m_targetFinder.GetPosCenterTarget();
     switch (headingOption)
@@ -216,7 +216,7 @@ void SwerveChassis::Drive
     
     if ( (abs(xSpeed.to<double>()) < m_deadband) && 
          (abs(ySpeed.to<double>()) < m_deadband) && 
-         (abs(rot.to<double>())    < m_angularDeadband.to<double>()))  //our angular deadband, only used once, equates to 10 degrees per second
+         (abs(rot.to<double>())    < m_angularDeadband.to<double>()))  //our angular deadband, only used once, equates to 3 degrees per second
     {
         m_frontLeft.get()->StopMotors();
         m_frontRight.get()->StopMotors();

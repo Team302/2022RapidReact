@@ -203,7 +203,7 @@ void StateMgr::Init
         	    }
         	    else
         	    {
-            	    Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("state not found"));
+            	    Logger::GetLogger()->LogError( string("StateMgr::StateMgr"), string("state not found: " + stateString));
                 }
             }
         }

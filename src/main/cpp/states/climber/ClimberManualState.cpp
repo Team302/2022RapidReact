@@ -73,14 +73,22 @@ void ClimberManualState::Init()
         m_climber->SetSecondaryControlConstants(0, m_controlDataRotate);
         m_climber->UpdateTargets(m_upDownMin, m_rotateMin);
         //m_climber->UpdateTargets(m_upDownMin, 0.0);
+
+        //Debugging
+        Logger::GetLogger()->LogError("ClimberManualState", "Initialized");
     }
 }
 
 
 void ClimberManualState::Run()           
 {
+    //Debugging
+    Logger::GetLogger()->LogError("ClimberManualState", "Running before nullcheck");
     if (m_climber != nullptr && m_controller != nullptr )
     {
+        //Debugging
+        Logger::GetLogger()->LogError("ClimberManualState", "Running");
+
         auto armDownPercent = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_DOWN);
         auto armUpPercent   = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_MAN_UP);
         auto upDownPercent = armUpPercent - armDownPercent;

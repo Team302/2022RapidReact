@@ -4,130 +4,67 @@
 	<controlData identifier="openloop" 
 	             mode="PERCENT_OUTPUT"/>
 				 
-	<controlData identifier="closedloopposdegrees"
-				 mode="POSITION_DEGREES"
-				 proportional="0.003"/>
-				 
-	<controlData identifier="closedloopposinches"
+	<controlData identifier="closedloop"
 				 mode="POSITION_INCH"
-				 proportional="0.03"/>
+				 proportional="0.155"/>
 
-	<controlData identifier="closedloopvel"
-				 mode="VELOCITY_RPS"
-				 proportional="0.155"
-				 feedforward="0.045"/>
+	<controlData identifier="closedloop2"
+				 mode="POSITION_DEGREES"
+				 proportional="0.155"/>
 
-	<mechanismTarget stateIdentifier="OFF"
+	<mechanismTarget stateIdentifier="CLIMBER_OFF"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
 					 value="0.0"
-					 secondValue="0.0"
-					 robotPitch="0.0"/>
+					 secondValue="0.0"/>
 
-	<mechanismTarget stateIdentifier="STARTING_CONFIG"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="0.0"
-					 secondValue="0.0"
-					 robotPitch="0.0"/>
-
-	<mechanismTarget stateIdentifier="MANUAL"
+	<mechanismTarget stateIdentifier="CLIMBER_MANUAL"
 	                 controlDataIdentifier="openloop"
 	                 controlDataIdentifier2="openloop"
+					 value="312.5"
+					 secondValue="312.5"/>
+	<!--These values for the automated climb are a WIP, need to be tested and tuned-->
+	<!--value has to be higher than mid bar (Not sure what exact value is yet), secondValue will be 0 since rotating arms don't need to move-->
+	<mechanismTarget stateIdentifier="CLIMBER_INITIALREACH"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="10.0"
+					 secondValue="20.0"/>
+	<!--value is 0 because the robot is pulling climber back down, secondvalue is still 0 because we dont need to rotate yet-->
+	<mechanismTarget stateIdentifier="CLIMBER_RETRACT"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
 					 value="0.0"
-					 secondValue="0.0"
-					 robotPitch="0.0"/>
-
-	<mechanismTarget stateIdentifier="PREP_MID_BAR"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="19.0"
-					 secondValue="0.0"
-					 robotPitch="0.0"/>
-
-	<mechanismTarget stateIdentifier="CLIMB_MID_BAR"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="1.0"
-					 secondValue="0.0"
-					 robotPitch="-12.1"/>
-
-	<mechanismTarget stateIdentifier="FRONT_HOOK_PREP_FOR_NEXT_BAR"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
+					 secondValue="0.0"/>
+    <!--value is 10 because the robot has to lift off the bar before rotating, secondValue is 5 so that the rotating arm has a guranteed hold on the bar-->                 
+	<mechanismTarget stateIdentifier="CLIMBER_RELEASE"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
 					 value="10.0"
-					 secondValue="0.0"
-					 robotPitch="-12.1"/>
-
-	<mechanismTarget stateIdentifier="FRONT_HOOK_ROTATE_A"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
+					 secondValue="5.0"/>
+	<!--value stays at 10 so lift doesn't move unneccessarily, second value is 30 so robot rotates toward next bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_ROTATEOUT"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
 					 value="10.0"
-					 secondValue="53.0"
-					 robotPitch="6.5"/>
-
-	<mechanismTarget stateIdentifier="FRONT_HOOK_ROTATE_B"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="1.0"
-					 secondValue="103.0"
-					 robotPitch="24.1"/>
-
-	<mechanismTarget stateIdentifier="FRONT_HOOK_ELEVATE"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="19.0"
-					 secondValue="103.0"
-					 robotPitch="24.1"/>
-
-	<mechanismTarget stateIdentifier="FRONT_HOOK_ROTATE_TO_HOOK"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="19.0"
-					 secondValue="80.0"
-					 robotPitch="16.8"/>
-
-	<mechanismTarget stateIdentifier="FRONT_HOOK_LIFT_ROBOT"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="10.0"
-					 secondValue="80.0"
-					 robotPitch="16.8"/>
-
-	<mechanismTarget stateIdentifier="FRONT_HOOK_ROTATE_ARM"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="10.0"
-					 secondValue="0.0"
-					 robotPitch="-12.1"/>
-
-	<mechanismTarget stateIdentifier="BACK_HOOK_PREP"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="19.0"
-					 secondValue="0.0"
-					 robotPitch="-12.1"/>
-
-	<mechanismTarget stateIdentifier="BACK_HOOK_ROTATE_A"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="19.0"
-					 secondValue="66.0"
-					 robotPitch="11.6"/>
-
-	<mechanismTarget stateIdentifier="BACK_HOOK_LIFT_ROBOT"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="5.0"
-					 secondValue="66.0"
-					 robotPitch="11.6"/>
-
-	<mechanismTarget stateIdentifier="BACK_HOOK_REST"
-	                 controlDataIdentifier="closedloopposinches"
-	                 controlDataIdentifier2="closedloopposdegrees"
-					 value="19.0"
-					 secondValue="66.0"
-					 robotPitch="11.6"/>
-
+					 secondValue="30.0"/>
+	<!--value goes to 30 to prepare to hook onto next bar, secondvalue stays at 30-->
+	<mechanismTarget stateIdentifier="CLIMBER_REACHTOBAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="30.0"
+					 secondValue="30.0"/>
+	<!--value stays at 30 so lift doesnt move, secondValue goes to 0 to rotate in-->
+	<mechanismTarget stateIdentifier="CLIMBER_ROTATEIN"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="30.0"
+					 secondValue="0.0"/>
+	<!--not sure if this state is needed yet-->
+	<mechanismTarget stateIdentifier="CLIMBER_HOLD"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="0.0"
+					 secondValue="0.0"/>
 
 </statedata> 

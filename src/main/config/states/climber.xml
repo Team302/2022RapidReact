@@ -5,13 +5,12 @@
 	             mode="PERCENT_OUTPUT"/>
 				 
 	<controlData identifier="closedloop"
-				 mode="POSITION_DEGREES"
+				 mode="POSITION_INCH"
 				 proportional="0.155"/>
 
 	<controlData identifier="closedloop2"
-				 mode="VELOCITY_RPS"
-				 proportional="0.155"
-				 feedforward="0.045"/>
+				 mode="POSITION_DEGREES"
+				 proportional="0.155"/>
 
 	<mechanismTarget stateIdentifier="CLIMBER_OFF"
 	                 controlDataIdentifier="openloop"
@@ -27,44 +26,44 @@
 	<!--These values for the automated climb are a WIP, need to be tested and tuned-->
 	<!--value has to be higher than mid bar (Not sure what exact value is yet), secondValue will be 0 since rotating arms don't need to move-->
 	<mechanismTarget stateIdentifier="CLIMBER_INITIALREACH"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="30.0"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="20.0"
 					 secondValue="0.0"/>
 	<!--value is 0 because the robot is pulling climber back down, secondvalue is still 0 because we dont need to rotate yet-->
 	<mechanismTarget stateIdentifier="CLIMBER_RETRACT"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
 					 value="0.0"
 					 secondValue="0.0"/>
     <!--value is 10 because the robot has to lift off the bar before rotating, secondValue is 5 so that the rotating arm has a guranteed hold on the bar-->                 
 	<mechanismTarget stateIdentifier="CLIMBER_RELEASE"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
 					 value="10.0"
 					 secondValue="5.0"/>
 	<!--value stays at 10 so lift doesn't move unneccessarily, second value is 30 so robot rotates toward next bar-->
 	<mechanismTarget stateIdentifier="CLIMBER_ROTATEOUT"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
 					 value="10.0"
 					 secondValue="30.0"/>
 	<!--value goes to 30 to prepare to hook onto next bar, secondvalue stays at 30-->
 	<mechanismTarget stateIdentifier="CLIMBER_REACHTOBAR"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
 					 value="30.0"
 					 secondValue="30.0"/>
 	<!--value stays at 30 so lift doesnt move, secondValue goes to 0 to rotate in-->
 	<mechanismTarget stateIdentifier="CLIMBER_ROTATEIN"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
 					 value="30.0"
 					 secondValue="0.0"/>
 	<!--not sure if this state is needed yet-->
 	<mechanismTarget stateIdentifier="CLIMBER_HOLD"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
 					 value="0.0"
 					 secondValue="0.0"/>
 

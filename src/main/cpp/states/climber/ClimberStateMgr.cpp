@@ -107,21 +107,12 @@ void ClimberStateMgr::CheckForStateTransition()
             targetState = CLIMBER_STATE::OFF;
         }
         else*/ 
-        if (isClimbManual)
-        {
-            targetState = CLIMBER_STATE::MANUAL;
-        }
         /*else if (isClimbStarting)
         {
             targetState = CLIMBER_STATE::STARTING_CONFIG;
         }*/
-        //if (isClimbMode)
-        else if (isClimbMode)
+        if (isClimbMode)
         {
-            if (isClimbInitialReach)
-            {
-                targetState = CLIMBER_STATE::INITIAL_REACH;
-            }
             if (isAutoClimb)
             {
                 //Start at initial climb state by checking if this is the first loop the robot is auto climbing
@@ -151,7 +142,11 @@ void ClimberStateMgr::CheckForStateTransition()
             else
             {
                 targetState = CLIMBER_STATE::MANUAL;      
-            }            
+            }  
+            if (isClimbInitialReach)
+            {
+                targetState = CLIMBER_STATE::INITIAL_REACH;
+            }          
         }
         else
         {
