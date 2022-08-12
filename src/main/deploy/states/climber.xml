@@ -23,48 +23,60 @@
 	                 controlDataIdentifier2="openloop"
 					 value="312.5"
 					 secondValue="312.5"/>
-	<!--These values for the automated climb are a WIP, need to be tested and tuned-->
-	<!--value has to be higher than mid bar (Not sure what exact value is yet), secondValue will be 0 since rotating arms don't need to move-->
+
+	<!--This will be activated manually, everything else will be automated by a separate button-->
 	<mechanismTarget stateIdentifier="CLIMBER_INITIALREACH"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
-					 value="10.0"
-					 secondValue="20.0"/>
-	<!--value is 0 because the robot is pulling climber back down, secondvalue is still 0 because we dont need to rotate yet-->
-	<mechanismTarget stateIdentifier="CLIMBER_RETRACT"
-	                 controlDataIdentifier="closedloop"
-	                 controlDataIdentifier2="closedloop2"
-					 value="0.0"
-					 secondValue="0.0"/>
-    <!--value is 10 because the robot has to lift off the bar before rotating, secondValue is 5 so that the rotating arm has a guranteed hold on the bar-->                 
-	<mechanismTarget stateIdentifier="CLIMBER_RELEASE"
-	                 controlDataIdentifier="closedloop"
-	                 controlDataIdentifier2="closedloop2"
-					 value="10.0"
-					 secondValue="5.0"/>
-	<!--value stays at 10 so lift doesn't move unneccessarily, second value is 30 so robot rotates toward next bar-->
-	<mechanismTarget stateIdentifier="CLIMBER_ROTATEOUT"
-	                 controlDataIdentifier="closedloop"
-	                 controlDataIdentifier2="closedloop2"
-					 value="10.0"
-					 secondValue="30.0"/>
-	<!--value goes to 30 to prepare to hook onto next bar, secondvalue stays at 30-->
-	<mechanismTarget stateIdentifier="CLIMBER_REACHTOBAR"
-	                 controlDataIdentifier="closedloop"
-	                 controlDataIdentifier2="closedloop2"
-					 value="30.0"
-					 secondValue="30.0"/>
-	<!--value stays at 30 so lift doesnt move, secondValue goes to 0 to rotate in-->
-	<mechanismTarget stateIdentifier="CLIMBER_ROTATEIN"
-	                 controlDataIdentifier="closedloop"
-	                 controlDataIdentifier2="closedloop2"
-					 value="30.0"
-					 secondValue="0.0"/>
-	<!--not sure if this state is needed yet-->
-	<mechanismTarget stateIdentifier="CLIMBER_HOLD"
-	                 controlDataIdentifier="closedloop"
-	                 controlDataIdentifier2="closedloop2"
-					 value="0.0"
+					 value="20.0"
 					 secondValue="0.0"/>
 
+	<!--Climb up to mid bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_CLIMB_MID_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="1.0"
+					 secondValue="-1.0"/>
+
+	<!--Raise lift slightly to rotate off mid bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_EXTEND_MID_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="7.0"
+					 secondValue="-1.0"/>
+
+	<!--Rotate off mid bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_ROTATE_MID_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="7.0"
+					 secondValue="120.0"/>
+
+	<!--Extend lift to climb onto high bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_REACH_HIGH_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="20.0"
+					 secondValue="138.0"/>
+
+	<!--Climb up to high bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_CLIMB_HIGH_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="1.0"
+					 secondValue="-1.0"/>
+
+	<!--Extend and rotate off high bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_EXTEND_HIGH_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="20.0"
+					 secondValue="90.0"/>
+
+	<!--Climb up to traversal bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_CLIMB_TRAVERSAL_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="10.0"
+					 secondValue="0.0"/>
 </statedata> 

@@ -76,12 +76,13 @@ ClimberStateMgr::ClimberStateMgr() : m_climber(MechanismFactory::GetMechanismFac
     stateMap[m_climberOffXmlString] = m_offState;
     stateMap[m_climberManualXmlString] = m_manualState;
     stateMap[m_climberInitialReachXmlString] = m_initialReachState;
-    stateMap[m_climberRetractXmlString] = m_retractState;
-    stateMap[m_climberReleaseXmlString] = m_releaseState;
-    stateMap[m_climberReachToBarXmlString] = m_reachToBarState;
-    stateMap[m_climberRotateOutXmlString] = m_rotateOutState;
-    stateMap[m_climberRotateInXmlString] = m_rotateInState;
-    stateMap[m_climberHoldXmlString] = m_holdState;
+    stateMap[m_climberClimbMidXmlString] = m_climbMidState;
+    stateMap[m_climberExtendMidXmlString] = m_extendMidState;
+    stateMap[m_climberRotateMidXmlString] = m_rotateMidState;
+    stateMap[m_climberReachHighXmlString] = m_reachHighState;
+    stateMap[m_climberClimbHighXmlString] = m_climbHighState;
+    stateMap[m_climberExtendHighXmlString] = m_extendHighState;
+    stateMap[m_climberClimbTraversalXmlString] = m_climbTraversalState;
 
     Init(m_climber, stateMap);
 }
@@ -130,7 +131,7 @@ void ClimberStateMgr::CheckForStateTransition()
                         {
                             targetState = m_prevState;
                         }
-                        else if (done && currentState != HOLD) //Might need to make this max states, should be the last state for when we are at traversal bar
+                        else if (done && currentState != MAX_STATES) //Might need to make this max states, should be the last state for when we are at traversal bar
                         {
                             targetState = static_cast<CLIMBER_STATE>(static_cast<int>(currentState)+1);
                         }

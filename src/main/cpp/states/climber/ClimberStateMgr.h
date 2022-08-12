@@ -42,24 +42,26 @@ class ClimberStateMgr : public StateMgr
             OFF,
             MANUAL,
             INITIAL_REACH,
-            RETRACT,
-            RELEASE,
-            REACH_TO_BAR,
-            ROTATE_OUT,
-            ROTATE_IN,
-            HOLD,
+            CLIMB_MID_BAR,
+            EXTEND_MID_BAR,
+            ROTATE_MID_BAR,
+            REACH_HIGH_BAR,
+            CLIMB_HIGH_BAR,
+            EXTEND_HIGH_BAR,
+            CLIMB_TRAVERSAL_BAR,
             MAX_STATES
         };
 
         const std::string m_climberOffXmlString = "CLIMBER_OFF";
         const std::string m_climberManualXmlString = "CLIMBER_MANUAL";
         const std::string m_climberInitialReachXmlString = "CLIMBER_INITIALREACH";
-        const std::string m_climberRetractXmlString = "CLIMBER_RETRACT";
-        const std::string m_climberReleaseXmlString = "CLIMBER_RELEASE";
-        const std::string m_climberReachToBarXmlString = "CLIMBER_REACHTOBAR";
-        const std::string m_climberRotateOutXmlString = "CLIMBER_ROTATEOUT";
-        const std::string m_climberRotateInXmlString = "CLIMBER_ROTATEIN";
-        const std::string m_climberHoldXmlString = "CLIMBER_HOLD";
+        const std::string m_climberClimbMidXmlString = "CLIMBER_CLIMB_MID_BAR";
+        const std::string m_climberExtendMidXmlString = "CLIMBER_EXTEND_MID_BAR";
+        const std::string m_climberRotateMidXmlString = "CLIMBER_ROTATE_MID_BAR";
+        const std::string m_climberReachHighXmlString = "CLIMBER_REACH_HIGH_BAR";
+        const std::string m_climberClimbHighXmlString = "CLIMBER_CLIMB_HIGH_BAR";
+        const std::string m_climberExtendHighXmlString = "CLIMBER_EXTEND_HIGH_BAR";
+        const std::string m_climberClimbTraversalXmlString = "CLIMBER_CLIMB_TRAVERSAL_BAR";
         
 		/// @brief  Find or create the state manmanager
 		/// @return ClimberStateMgr* pointer to the state manager
@@ -79,12 +81,13 @@ class ClimberStateMgr : public StateMgr
         const StateStruc    m_offState = {CLIMBER_STATE::OFF, StateType::CLIMBER, true};
         const StateStruc    m_manualState = {CLIMBER_STATE::MANUAL, StateType::CLIMBER_MANUAL, false};
         const StateStruc    m_initialReachState = {CLIMBER_STATE::INITIAL_REACH, StateType::CLIMBER, false};
-        const StateStruc    m_retractState = {CLIMBER_STATE::RETRACT, StateType::CLIMBER, false};
-        const StateStruc    m_releaseState = {CLIMBER_STATE::RELEASE, StateType::CLIMBER, false};
-        const StateStruc    m_reachToBarState = {CLIMBER_STATE::REACH_TO_BAR, StateType::CLIMBER, false};
-        const StateStruc    m_rotateOutState = {CLIMBER_STATE::ROTATE_OUT, StateType::CLIMBER, false};
-        const StateStruc    m_rotateInState = {CLIMBER_STATE::ROTATE_IN, StateType::CLIMBER, false};
-        const StateStruc    m_holdState = {CLIMBER_STATE::HOLD, StateType::CLIMBER, false};
+        const StateStruc    m_climbMidState = {CLIMBER_STATE::CLIMB_MID_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_extendMidState = {CLIMBER_STATE::EXTEND_MID_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_rotateMidState = {CLIMBER_STATE::ROTATE_MID_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_reachHighState = {CLIMBER_STATE::REACH_HIGH_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_climbHighState = {CLIMBER_STATE::CLIMB_HIGH_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_extendHighState = {CLIMBER_STATE::EXTEND_HIGH_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_climbTraversalState = {CLIMBER_STATE::CLIMB_TRAVERSAL_BAR, StateType::CLIMBER, false};
 
         ClimberStateMgr();
         ~ClimberStateMgr() = default;
