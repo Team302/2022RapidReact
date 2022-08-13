@@ -27,6 +27,7 @@
           controlDataIdentifier2        CDATA #IMPLIED
           value                         CDATA #REQUIRED
           secondValue                   CDATA #IMPLIED
+          robotPitch                    CDATA #IMPLIED
           function1A                    CDATA "0.0"
           function1B                    CDATA "0.0"
           function1C                    CDATA "0.0"

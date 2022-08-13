@@ -101,7 +101,7 @@ void ClimberStateMgr::CheckForStateTransition()
 
         auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
 
-        auto isClimbManual = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MANUAL) : false;    
+        //auto isClimbManual = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MANUAL) : false;    
         auto isClimbInitialReach = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_INITIAL_REACH) : false;
         /*if (isClimbOff)
         {
@@ -119,7 +119,7 @@ void ClimberStateMgr::CheckForStateTransition()
                 //Start at initial climb state by checking if this is the first loop the robot is auto climbing
                 if(!m_wasAutoClimb)
                 {
-                    targetState = CLIMBER_STATE::INITIAL_REACH;
+                    targetState = CLIMBER_STATE::CLIMB_MID_BAR;
                 }
                 else if(m_wasAutoClimb)
                 {
@@ -131,7 +131,7 @@ void ClimberStateMgr::CheckForStateTransition()
                         {
                             targetState = m_prevState;
                         }
-                        else if (done && currentState != MAX_STATES) //Might need to make this max states, should be the last state for when we are at traversal bar
+                        else if (done && currentState != MAX_STATES)
                         {
                             targetState = static_cast<CLIMBER_STATE>(static_cast<int>(currentState)+1);
                         }
