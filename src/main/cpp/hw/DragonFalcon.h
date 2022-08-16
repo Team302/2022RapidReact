@@ -77,6 +77,7 @@ class DragonFalcon : public IDragonMotorController
         void EnableBrakeMode(bool enabled) override; 
         void Invert(bool inverted) override; 
         void SetSensorInverted(bool inverted) override;
+        void SetIntegratedSensorPosition(double newPos, double timeoutMs) const override;
 
         /// @brief  Set the control constants (e.g. PIDF values).
         /// @param [in] int             slot - hardware slot to use

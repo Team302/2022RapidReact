@@ -50,6 +50,9 @@ class ClimberState : public Mech2MotorState
         double GetLiftHeight() const;
         double GetRotateAngle() const;
 
+        bool LiftTargetReached() const;
+        bool RotateTargetReached() const;
+
         Climber*                            m_climber;
         ControlData*                        m_liftControlData;
         ControlData*                        m_rotateControlData;

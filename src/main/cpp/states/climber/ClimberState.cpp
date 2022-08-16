@@ -81,10 +81,45 @@ bool ClimberState::AtTarget() const
     auto deltaAngle = GetRotateAngle()-m_rotateTarget;
     auto pigeon = PigeonFactory::GetFactory()->GetCenterPigeon();
     auto deltaPitch = pigeon != nullptr ? pigeon->GetPitch() - m_robotPitch : 0.0;
-    return abs(deltaHeight) < 0.25 && //Is lift within 1/4 of an inch of target?
-           abs(deltaAngle) < 2.0 && //Is rotating arm within 2 degrees of target?
-           abs(deltaPitch) < 2.0; //Is robot pitch within 2 degrees of target?
+    return LiftTargetReached() && //Is lift within 1/4 of an inch of target?
+           RotateTargetReached();
+           //Debugging
+           //&& //Is rotating arm within 2 degrees of target?
+           //abs(deltaPitch) < 2.0; //Is robot pitch within 2 degrees of target?
 }
+
+bool ClimberState::LiftTargetReached() const
+{
+    if (m_liftTarget >= m_climber->GetMaxReach())
+    {
+        return m_climber->IsAtMaxReach(m_climber->GetPrimaryMotor(), m_climber->GetPrimaryPosition());
+    }
+    else if (m_liftTarget <= m_climber->GetMinReach())
+    {
+        return m_climber->IsAtMinReach(m_climber->GetPrimaryMotor(), m_climber->GetPrimaryPosition());
+    }
+    else
+    {
+        return abs(GetLiftHeight()-m_liftTarget) < 0.25;
+    }
+}
+
+bool ClimberState::RotateTargetReached() const
+{
+    if (m_rotateTarget >= m_climber->GetMaxReach())
+    {
+        return m_climber->IsAtMaxRotation(m_climber->GetSecondaryMotor(), m_climber->GetSecondaryPosition());
+    }
+    else if (m_rotateTarget <= m_climber->GetMinReach())
+    {
+        return m_climber->IsAtMinRotation(m_climber->GetSecondaryMotor(), m_climber->GetSecondaryPosition());
+    }
+    else
+    {
+        return abs(GetRotateAngle()-m_rotateTarget) < 1.0;
+    }
+}
+
 double ClimberState::GetLiftHeight() const
 {
     if (m_climber != nullptr)

@@ -39,16 +39,19 @@ Climber::Climber
     shared_ptr<IDragonMotorController>      rotateMotor,
     std::shared_ptr<DragonDigitalInput>     armBackSw
 ) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::CLIMBER,  string("climber.xml"),  string("ClimberNT"), liftMotor, rotateMotor ),
-    m_reachMin(GetPositionInInches(liftMotor)),
-    m_reachMax(m_reachMin+19.25),
-    m_rotateMin(GetPositionInDegrees(rotateMotor)),
-    m_rotateMax(m_rotateMin+95.0),
+    m_reachMin(-1.0), //bottom of lift
+    m_reachMax(19.25), //top of lift
+    m_rotateMin(0.0), //start of rotation
+    m_rotateMax(140.0), //untested max rotation
     m_armBack(armBackSw)
 {
     liftMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
     rotateMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
-
-    liftMotor.get()->SetSelectedSensorPosition(0.0);
+    
+    //Set sensor position to 20 inches to allow climber to rise on its own, then reset when going into climb mode.
+    double TwentyInchesInCounts = 19 * liftMotor.get()->GetCountsPerInch();
+     
+    liftMotor.get()->SetSelectedSensorPosition(TwentyInchesInCounts);
     rotateMotor.get()->SetSelectedSensorPosition(0.0);
 }
 
@@ -119,16 +122,24 @@ bool Climber::IsAtMinReach
 {
     auto atMin = currentHeight <= m_reachMin;
     atMin = !atMin ? liftMotor.get()->IsReverseLimitSwitchClosed() : atMin;
+    if (liftMotor.get()->IsReverseLimitSwitchClosed())
+    {
+        liftMotor.get()->SetIntegratedSensorPosition(0.0, 0.0);
+    }
     return atMin;
 }
 bool Climber::IsAtMinRotation
 (
-    std::shared_ptr<IDragonMotorController> liftMotor,
+    std::shared_ptr<IDragonMotorController> rotateMotor,
     double                                  currentAngle
 ) const
 {
     auto atMin = currentAngle <= m_rotateMin;
-    atMin = m_armBack.get()->Get();
+    atMin = !atMin ? m_armBack.get()->Get() : atMin;
+    if (m_armBack.get()->Get())
+    {
+        rotateMotor.get()->SetIntegratedSensorPosition(0.0, 0.0);
+    }
     return atMin;
 }
 bool Climber::IsAtMaxRotation

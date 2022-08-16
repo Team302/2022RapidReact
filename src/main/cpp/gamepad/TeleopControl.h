@@ -57,7 +57,7 @@ class TeleopControl
             INTAKE_DISABLE_LIMIT_SWITCHES,
             AUTO_SHOOT_HIGH,  
             AUTO_SHOOT_LOW,   
-            AUTO_CLIMB_TRAVERSE,        //not used
+            AUTO_CLIMB_TEST,        //not used
             LIMELIGHT_FEED_TO_DASH,     //not used
             STOP_LIMELIGHT_FEED_TO_DASH,  //not used
             CAMERA_FEED_TO_DASH,        //not used

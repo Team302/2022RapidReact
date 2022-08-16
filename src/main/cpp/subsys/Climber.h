@@ -54,16 +54,6 @@ class Climber : public Mech2IndMotors
         bool IsLiftStalled() const;
         bool IsRotateStalled() const;
 
-    private:
-        static double GetPositionInInches
-        (
-            std::shared_ptr<IDragonMotorController> motor
-        );
-        static double GetPositionInDegrees
-        (
-            std::shared_ptr<IDragonMotorController> motor
-        );
-
         bool IsAtMaxReach
         (
             std::shared_ptr<IDragonMotorController> motor,
@@ -84,6 +74,16 @@ class Climber : public Mech2IndMotors
             std::shared_ptr<IDragonMotorController> motor,
             double                                  currentPos
         ) const;
+
+    private:
+        static double GetPositionInInches
+        (
+            std::shared_ptr<IDragonMotorController> motor
+        );
+        static double GetPositionInDegrees
+        (
+            std::shared_ptr<IDragonMotorController> motor
+        );
 
         double                              m_reachMin;
         double                              m_reachMax;

@@ -101,6 +101,9 @@ void ClimberStateMgr::CheckForStateTransition()
 
         auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
 
+        auto isTestState = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_CLIMB_TEST) : false;
+        
+
         //auto isClimbManual = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MANUAL) : false;    
         auto isClimbInitialReach = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_INITIAL_REACH) : false;
         /*if (isClimbOff)
@@ -120,6 +123,7 @@ void ClimberStateMgr::CheckForStateTransition()
                 if(!m_wasAutoClimb)
                 {
                     targetState = CLIMBER_STATE::CLIMB_MID_BAR;
+                    m_wasAutoClimb = true;
                 }
                 else if(m_wasAutoClimb)
                 {
@@ -137,8 +141,7 @@ void ClimberStateMgr::CheckForStateTransition()
                         }
                         m_prevState = targetState;
                     }
-                }
-                m_wasAutoClimb = true;  
+                }  
             }
             else
             {
@@ -147,6 +150,10 @@ void ClimberStateMgr::CheckForStateTransition()
             if (isClimbInitialReach)
             {
                 targetState = CLIMBER_STATE::INITIAL_REACH;
+            }
+            if (isTestState)
+            {
+                targetState = CLIMBER_STATE::CLIMB_MID_BAR;
             }          
         }
         else
