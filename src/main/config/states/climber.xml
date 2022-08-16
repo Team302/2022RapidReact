@@ -24,6 +24,12 @@
 					 value="312.5"
 					 secondValue="312.5"/>
 
+	<mechanismTarget stateIdentifier="CLIMBER_ZERO_BEFORE_CLIMB"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="0.0"
+					 secondValue="0.0"/>
+
 	<!--This will be activated manually, everything else will be automated by a separate button-->
 	<mechanismTarget stateIdentifier="CLIMBER_INITIALREACH"
 	                 controlDataIdentifier="closedloop"

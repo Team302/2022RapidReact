@@ -75,6 +75,7 @@ ClimberStateMgr::ClimberStateMgr() : m_climber(MechanismFactory::GetMechanismFac
     map<string, StateStruc> stateMap;
     stateMap[m_climberOffXmlString] = m_offState;
     stateMap[m_climberManualXmlString] = m_manualState;
+    stateMap[m_climberZeroClimbString] = m_zeroClimbState;
     stateMap[m_climberInitialReachXmlString] = m_initialReachState;
     stateMap[m_climberClimbMidXmlString] = m_climbMidState;
     stateMap[m_climberExtendMidXmlString] = m_extendMidState;
@@ -102,19 +103,10 @@ void ClimberStateMgr::CheckForStateTransition()
         auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
 
         auto isTestState = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_CLIMB_TEST) : false;
-        
 
-        //auto isClimbManual = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MANUAL) : false;    
+        auto isClimbManual = CheckForManualInput();
         auto isClimbInitialReach = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_INITIAL_REACH) : false;
-        /*if (isClimbOff)
-        {
-            targetState = CLIMBER_STATE::OFF;
-        }
-        else*/ 
-        /*else if (isClimbStarting)
-        {
-            targetState = CLIMBER_STATE::STARTING_CONFIG;
-        }*/
+
         if (isClimbMode)
         {
             if (isAutoClimb)
@@ -143,10 +135,15 @@ void ClimberStateMgr::CheckForStateTransition()
                     }
                 }  
             }
-            else
+            else if (CheckForManualInput())
             {
                 targetState = CLIMBER_STATE::MANUAL;      
+            }
+            else if (!CheckForManualInput())
+            {
+                targetState = CLIMBER_STATE::ZERO_BEFORE_CLIMB;
             }  
+
             if (isClimbInitialReach)
             {
                 targetState = CLIMBER_STATE::INITIAL_REACH;
@@ -170,4 +167,16 @@ void ClimberStateMgr::CheckForStateTransition()
             SetCurrentState(targetState, true);
         }
     }
+}
+
+bool ClimberStateMgr::CheckForManualInput()
+{
+    bool foundInput = false;
+    auto controller = TeleopControl::GetInstance();
+    
+    foundInput = controller != nullptr ? controller->IsButtonPressed(TeleopControl::CLIMBER_MAN_UP) : false;
+    foundInput = controller != nullptr ? controller->IsButtonPressed(TeleopControl::CLIMBER_MAN_DOWN) : false;
+    foundInput = controller != nullptr ? controller->GetAxisValue(TeleopControl::CLIMBER_MAN_ROTATE) > 0.05 : false;  //0.05 should remove any unintentional joystick input
+
+    return foundInput;
 }

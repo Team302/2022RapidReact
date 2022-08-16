@@ -77,8 +77,6 @@ void ClimberState::Run()
 
 bool ClimberState::AtTarget() const
 {
-    auto deltaHeight = GetLiftHeight()-m_liftTarget;
-    auto deltaAngle = GetRotateAngle()-m_rotateTarget;
     auto pigeon = PigeonFactory::GetFactory()->GetCenterPigeon();
     auto deltaPitch = pigeon != nullptr ? pigeon->GetPitch() - m_robotPitch : 0.0;
     return LiftTargetReached() && //Is lift within 1/4 of an inch of target?

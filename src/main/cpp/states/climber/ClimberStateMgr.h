@@ -41,6 +41,7 @@ class ClimberStateMgr : public StateMgr
         {
             OFF,
             MANUAL,
+            ZERO_BEFORE_CLIMB,
             INITIAL_REACH,
             CLIMB_MID_BAR,
             EXTEND_MID_BAR,
@@ -54,6 +55,7 @@ class ClimberStateMgr : public StateMgr
 
         const std::string m_climberOffXmlString = "CLIMBER_OFF";
         const std::string m_climberManualXmlString = "CLIMBER_MANUAL";
+        const std::string m_climberZeroClimbString = "ZERO_BEFORE_CLIMB";
         const std::string m_climberInitialReachXmlString = "CLIMBER_INITIALREACH";
         const std::string m_climberClimbMidXmlString = "CLIMBER_CLIMB_MID_BAR";
         const std::string m_climberExtendMidXmlString = "CLIMBER_EXTEND_MID_BAR";
@@ -70,6 +72,10 @@ class ClimberStateMgr : public StateMgr
         void CheckForStateTransition() override;
 
     private:
+        /// @brief Check to see if driver is trying to climb manually
+        /// @return Bool - if there is input or not
+        bool CheckForManualInput();
+
         Climber*                                m_climber;
         std::shared_ptr<nt::NetworkTable>       m_nt;     
         bool                                    m_wasAutoClimb;
@@ -80,6 +86,7 @@ class ClimberStateMgr : public StateMgr
 
         const StateStruc    m_offState = {CLIMBER_STATE::OFF, StateType::CLIMBER, true};
         const StateStruc    m_manualState = {CLIMBER_STATE::MANUAL, StateType::CLIMBER_MANUAL, false};
+        const StateStruc    m_zeroClimbState = {CLIMBER_STATE::ZERO_BEFORE_CLIMB, StateType::CLIMBER, false};
         const StateStruc    m_initialReachState = {CLIMBER_STATE::INITIAL_REACH, StateType::CLIMBER, false};
         const StateStruc    m_climbMidState = {CLIMBER_STATE::CLIMB_MID_BAR, StateType::CLIMBER, false};
         const StateStruc    m_extendMidState = {CLIMBER_STATE::EXTEND_MID_BAR, StateType::CLIMBER, false};
