@@ -102,10 +102,20 @@ void ClimberStateMgr::CheckForStateTransition()
 
         auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
 
-        auto isTestState = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::AUTO_CLIMB_TEST) : false;
+        
 
         auto isClimbManual = CheckForManualInput();
         auto isClimbInitialReach = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_INITIAL_REACH) : false;
+
+        //Debugging
+        auto isStateA = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MID) : false;
+        auto isStateB = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_PREP) : false;
+        auto isStateC = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_A) : false;
+        auto isStateD = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_B) : false;
+        auto isStateE = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ELEVATE) : false;
+        auto isStateF = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_TO_HOOK) : false;
+        auto isStateG = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_LIFT_ROBOT) : false;
+        auto isStateH = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_ROTATE_ARM) : false;
 
         if (isClimbMode)
         {
@@ -134,23 +144,55 @@ void ClimberStateMgr::CheckForStateTransition()
                         m_prevState = targetState;
                     }
                 }  
+            }      
+            else
+            {
+                targetState = CLIMBER_STATE::MANUAL;
             }
-            else if (CheckForManualInput())
+
+            //Needs testing
+            /*else if (CheckForManualInput())
             {
                 targetState = CLIMBER_STATE::MANUAL;      
             }
-            else if (!CheckForManualInput())
+            else if (!CheckForManualInput() && m_prevState == CLIMBER_STATE::OFF)
             {
                 targetState = CLIMBER_STATE::ZERO_BEFORE_CLIMB;
-            }  
+            }*/
 
             if (isClimbInitialReach)
             {
                 targetState = CLIMBER_STATE::INITIAL_REACH;
             }
-            if (isTestState)
+
+            //Debugging
+            if (isStateA)
             {
                 targetState = CLIMBER_STATE::CLIMB_MID_BAR;
+            } 
+            else if (isStateB)   
+            {
+                targetState = CLIMBER_STATE::EXTEND_MID_BAR;
+            }
+            else if (isStateC)   
+            {
+                targetState = CLIMBER_STATE::ROTATE_MID_BAR;
+            }   
+            else if (isStateD)   
+            {
+                targetState = CLIMBER_STATE::REACH_HIGH_BAR;
+            }   
+            else if (isStateE)   
+            {
+                targetState = CLIMBER_STATE::CLIMB_HIGH_BAR;
+            }   
+            else if (isStateF)   
+            {
+                targetState = CLIMBER_STATE::EXTEND_HIGH_BAR;
+            }   
+            else if (isStateG)   
+            {
+                targetState = CLIMBER_STATE::CLIMB_TRAVERSAL_BAR;
             }          
         }
         else
