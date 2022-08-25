@@ -104,17 +104,17 @@ bool ClimberState::LiftTargetReached() const
 
 bool ClimberState::RotateTargetReached() const
 {
-    if (m_rotateTarget >= m_climber->GetMaxReach())
+    if (m_rotateTarget >= m_climber->GetMaxRotate())
     {
         return m_climber->IsAtMaxRotation(m_climber->GetSecondaryMotor(), m_climber->GetSecondaryPosition());
     }
-    else if (m_rotateTarget <= m_climber->GetMinReach())
+    else if (m_rotateTarget <= m_climber->GetMinRotate())
     {
         return m_climber->IsAtMinRotation(m_climber->GetSecondaryMotor(), m_climber->GetSecondaryPosition());
     }
     else
     {
-        return abs(GetRotateAngle()-m_rotateTarget) < 1.0;
+        return abs(GetRotateAngle()-m_rotateTarget) < 0.5;
     }
 }
 

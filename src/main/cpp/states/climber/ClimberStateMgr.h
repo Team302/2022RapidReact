@@ -44,10 +44,12 @@ class ClimberStateMgr : public StateMgr
             ZERO_BEFORE_CLIMB,
             INITIAL_REACH,
             CLIMB_MID_BAR,
+            PREPARE_EXTEND_MID_BAR,
             EXTEND_MID_BAR,
             ROTATE_MID_BAR,
             REACH_HIGH_BAR,
             CLIMB_HIGH_BAR,
+            PREPARE_EXTEND_HIGH_BAR,
             EXTEND_HIGH_BAR,
             CLIMB_TRAVERSAL_BAR,
             MAX_STATES
@@ -55,13 +57,15 @@ class ClimberStateMgr : public StateMgr
 
         const std::string m_climberOffXmlString = "CLIMBER_OFF";
         const std::string m_climberManualXmlString = "CLIMBER_MANUAL";
-        const std::string m_climberZeroClimbString = "ZERO_BEFORE_CLIMB";
+        const std::string m_climberZeroClimbString = "CLIMBER_ZERO_BEFORE_CLIMB";
         const std::string m_climberInitialReachXmlString = "CLIMBER_INITIALREACH";
         const std::string m_climberClimbMidXmlString = "CLIMBER_CLIMB_MID_BAR";
         const std::string m_climberExtendMidXmlString = "CLIMBER_EXTEND_MID_BAR";
+        const std::string m_climberPrepareExtendMidXmlString = "CLIMBER_PREPARE_EXTEND_MID_BAR";
         const std::string m_climberRotateMidXmlString = "CLIMBER_ROTATE_MID_BAR";
         const std::string m_climberReachHighXmlString = "CLIMBER_REACH_HIGH_BAR";
         const std::string m_climberClimbHighXmlString = "CLIMBER_CLIMB_HIGH_BAR";
+        const std::string m_climberPrepareExtendHighXmlString = "CLIMBER_PREPARE_EXTEND_HIGH_BAR";
         const std::string m_climberExtendHighXmlString = "CLIMBER_EXTEND_HIGH_BAR";
         const std::string m_climberClimbTraversalXmlString = "CLIMBER_CLIMB_TRAVERSAL_BAR";
         
@@ -89,10 +93,12 @@ class ClimberStateMgr : public StateMgr
         const StateStruc    m_zeroClimbState = {CLIMBER_STATE::ZERO_BEFORE_CLIMB, StateType::CLIMBER, false};
         const StateStruc    m_initialReachState = {CLIMBER_STATE::INITIAL_REACH, StateType::CLIMBER, false};
         const StateStruc    m_climbMidState = {CLIMBER_STATE::CLIMB_MID_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_prepareExtendMidState = {CLIMBER_STATE::PREPARE_EXTEND_MID_BAR, StateType::CLIMBER, false};
         const StateStruc    m_extendMidState = {CLIMBER_STATE::EXTEND_MID_BAR, StateType::CLIMBER, false};
         const StateStruc    m_rotateMidState = {CLIMBER_STATE::ROTATE_MID_BAR, StateType::CLIMBER, false};
         const StateStruc    m_reachHighState = {CLIMBER_STATE::REACH_HIGH_BAR, StateType::CLIMBER, false};
         const StateStruc    m_climbHighState = {CLIMBER_STATE::CLIMB_HIGH_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_prepareExtendHighState = {CLIMBER_STATE::PREPARE_EXTEND_HIGH_BAR, StateType::CLIMBER, false};
         const StateStruc    m_extendHighState = {CLIMBER_STATE::EXTEND_HIGH_BAR, StateType::CLIMBER, false};
         const StateStruc    m_climbTraversalState = {CLIMBER_STATE::CLIMB_TRAVERSAL_BAR, StateType::CLIMBER, false};
 

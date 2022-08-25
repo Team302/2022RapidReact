@@ -147,6 +147,9 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 
 		m_controllerIndex[CLIMBER_STATE_INITIAL_REACH]  = ctrlNo;
 		m_buttonIDs[CLIMBER_STATE_INITIAL_REACH]		= IDragonGamePad::RIGHT_BUMPER;
+
+		m_controllerIndex[CLIMBER_STATE_BACK_ROTATE_A]  = ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_BACK_ROTATE_A]		= IDragonGamePad::POV_0;
     }
     else
     {
@@ -266,6 +269,8 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_buttonIDs[CLIMBER_STATE_FRONT_LIFT_ROBOT] = IDragonGamePad::POV_0;
 		m_controllerIndex[CLIMBER_STATE_ROTATE_ARM] = ctrlNo;
 		m_buttonIDs[CLIMBER_STATE_ROTATE_ARM] = IDragonGamePad::POV_90;
+		m_controllerIndex[CLIMBER_STATE_BACK_PREP] = ctrlNo;
+		m_buttonIDs[CLIMBER_STATE_BACK_PREP] = IDragonGamePad::RIGHT_BUMPER;
 	}
     else if ( m_controllers[ctrlNo] != nullptr )
     {

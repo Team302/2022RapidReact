@@ -42,7 +42,7 @@ Climber::Climber
     m_reachMin(-1.0), //bottom of lift
     m_reachMax(19.25), //top of lift
     m_rotateMin(0.0), //start of rotation
-    m_rotateMax(140.0), //untested max rotation
+    m_rotateMax(130.0), //untested max rotation
     m_armBack(armBackSw)
 {
     liftMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
