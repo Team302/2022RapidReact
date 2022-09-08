@@ -84,6 +84,8 @@ class ClimberStateMgr : public StateMgr
         std::shared_ptr<nt::NetworkTable>       m_nt;     
         bool                                    m_wasAutoClimb;
         CLIMBER_STATE                           m_prevState;
+        bool                                    m_hasZeroed;
+        CLIMBER_STATE                           m_currentAutoState;
 
 
 		static ClimberStateMgr*	m_instance;

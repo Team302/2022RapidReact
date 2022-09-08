@@ -10,8 +10,7 @@
 
 	<controlData identifier="closedloop2"
 				 mode="POSITION_DEGREES"
-				 proportional="0.015"
-				 integral="0.0015"/>
+				 proportional="0.075"/>
 
 	<mechanismTarget stateIdentifier="CLIMBER_OFF"
 	                 controlDataIdentifier="openloop"
@@ -29,35 +28,35 @@
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="0.0"
-					 secondValue="10.0"/>
+					 secondValue="0.0"/>
 
 	<!--This will be activated manually, everything else will be automated by a separate button-->
 	<mechanismTarget stateIdentifier="CLIMBER_INITIALREACH"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="20.0"
-					 secondValue="0.0"/>
+					 secondValue="10.0"/>
 
 	<!--Climb up to mid bar-->
 	<mechanismTarget stateIdentifier="CLIMBER_CLIMB_MID_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="2.5"
-					 secondValue="1.0"/>
+					 secondValue="2.0"/>
 
 	<!--Rotate to hook onto bar before lifting off-->
 	<mechanismTarget stateIdentifier="CLIMBER_PREPARE_EXTEND_MID_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="2.5"
-					 secondValue="2.0"/>
+					 secondValue="2.5"/>
 
 	<!--Raise lift slightly to rotate off mid bar-->				 
 	<mechanismTarget stateIdentifier="CLIMBER_EXTEND_MID_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="9.0"
-					 secondValue="2.5"/>
+					 secondValue="3.0"/>
 
 	<!--Rotate off mid bar-->
 	<mechanismTarget stateIdentifier="CLIMBER_ROTATE_MID_BAR"
@@ -78,14 +77,14 @@
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="2.5"
-					 secondValue="1.0"/>
+					 secondValue="2.0"/>
 
 	<!--Rotate before extending-->
 	<mechanismTarget stateIdentifier="CLIMBER_PREPARE_EXTEND_HIGH_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="2.5"
-					 secondValue="2.5"/>
+					 secondValue="3.0"/>
 
 	<!--Extend and rotate off high bar-->
 	<mechanismTarget stateIdentifier="CLIMBER_EXTEND_HIGH_BAR"
@@ -99,5 +98,5 @@
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="10.0"
-					 secondValue="0.0"/>
+					 secondValue="1.0"/>
 </statedata> 
