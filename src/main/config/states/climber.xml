@@ -6,11 +6,15 @@
 				 
 	<controlData identifier="closedloop"
 				 mode="POSITION_INCH"
-				 proportional="0.155"/>
+				 proportional="0.155"/> <!--Was 0.025 on 9/8-->
 
 	<controlData identifier="closedloop2"
 				 mode="POSITION_DEGREES"
-				 proportional="0.075"/>
+				 proportional="0.055"/>
+
+	<controlData identifier="closedloopZeroRotate"
+				 mode="POSITION_DEGREES"
+				 proportional="0.055"/> 
 
 	<mechanismTarget stateIdentifier="CLIMBER_OFF"
 	                 controlDataIdentifier="openloop"
@@ -26,7 +30,7 @@
 
 	<mechanismTarget stateIdentifier="CLIMBER_ZERO_BEFORE_CLIMB"
 	                 controlDataIdentifier="closedloop"
-	                 controlDataIdentifier2="closedloop2"
+	                 controlDataIdentifier2="closedloopZeroRotate" 
 					 value="0.0"
 					 secondValue="0.0"/>
 
@@ -41,8 +45,8 @@
 	<mechanismTarget stateIdentifier="CLIMBER_CLIMB_MID_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
-					 value="2.5"
-					 secondValue="2.0"/>
+					 value="3.0"
+					 secondValue="0.0"/> <!--Was value="2.5", secondValue="2.0" on 9/8-->
 
 	<!--Rotate to hook onto bar before lifting off-->
 	<mechanismTarget stateIdentifier="CLIMBER_PREPARE_EXTEND_MID_BAR"
@@ -77,14 +81,14 @@
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="2.5"
-					 secondValue="2.0"/>
+					 secondValue="0.0"/> <!--Was secondValue="2.0" on 9/8-->
 
 	<!--Rotate before extending-->
 	<mechanismTarget stateIdentifier="CLIMBER_PREPARE_EXTEND_HIGH_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="2.5"
-					 secondValue="3.0"/>
+					 secondValue="2.5"/> <!--Was secondValue="3.0" on 9/8-->
 
 	<!--Extend and rotate off high bar-->
 	<mechanismTarget stateIdentifier="CLIMBER_EXTEND_HIGH_BAR"
@@ -98,5 +102,5 @@
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="10.0"
-					 secondValue="1.0"/>
+					 secondValue="10.0"/> <!--Was secondValue="1.0" on 9/8-->
 </statedata> 

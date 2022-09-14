@@ -457,7 +457,7 @@
               feedbackDevice="INTERNAL"
               countsPerRev="2048"
               gearRatio="1.0"
-              countsPerInch="9072.26"
+              countsPerInch="9400.325"
               countsPerDegree="0"
               brakeMode="true"
               peakCurrentDuration="50"

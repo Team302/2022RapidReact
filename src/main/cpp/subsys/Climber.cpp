@@ -51,7 +51,7 @@ Climber::Climber
     //Set sensor position to 19 inches to allow climber to rise on its own, then reset when going into climb mode.
     double TwentyInchesInCounts = 19 * liftMotor.get()->GetCountsPerInch();
 
-    double TwentyDegreesInCounts = 20 * rotateMotor.get()->GetCountsPerDegree();
+    double TwentyDegreesInCounts = 15 * rotateMotor.get()->GetCountsPerDegree();
      
     liftMotor.get()->SetSelectedSensorPosition(TwentyInchesInCounts);
     rotateMotor.get()->SetSelectedSensorPosition(TwentyDegreesInCounts);

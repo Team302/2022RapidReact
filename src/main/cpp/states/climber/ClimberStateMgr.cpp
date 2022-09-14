@@ -59,9 +59,10 @@ ClimberStateMgr* ClimberStateMgr::GetInstance()
 ClimberStateMgr::ClimberStateMgr() : m_climber(MechanismFactory::GetMechanismFactory()->GetClimber()),
                                      m_nt(),
                                      m_wasAutoClimb(false),
-                                     m_prevState(CLIMBER_STATE::OFF),
+                                     m_prevState(CLIMBER_STATE::UNINITIALIZED),
                                      m_hasZeroed(false),
-                                     m_currentAutoState(CLIMBER_STATE::CLIMB_MID_BAR)
+                                     m_currentAutoState(CLIMBER_STATE::CLIMB_MID_BAR),
+                                     m_autoTimer()
 {
     if (m_climber != nullptr)
     {
@@ -76,6 +77,7 @@ ClimberStateMgr::ClimberStateMgr() : m_climber(MechanismFactory::GetMechanismFac
     // initialize the xml string to state map
     map<string, StateStruc> stateMap;
     stateMap[m_climberOffXmlString] = m_offState;
+    stateMap[m_climberUninitializedXmlString] = m_uninitializedState;
     stateMap[m_climberManualXmlString] = m_manualState;
     stateMap[m_climberZeroClimbString] = m_zeroClimbState;
     stateMap[m_climberInitialReachXmlString] = m_initialReachState;
@@ -106,8 +108,6 @@ void ClimberStateMgr::CheckForStateTransition()
 
         auto isAutoClimb = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMB_AUTO) : false;
 
-        
-
         auto isClimbManual = CheckForManualInput();
         auto isClimbInitialReach = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_INITIAL_REACH) : false;
 
@@ -137,27 +137,38 @@ void ClimberStateMgr::CheckForStateTransition()
                 }
                 else
                 {
-                    auto currentStatePtr = GetCurrentStatePtr();
-                    if (currentStatePtr != nullptr)
-                    {
-                        auto done = currentStatePtr->AtTarget();
-                        Logger::GetLogger()->ToNtTable(m_nt, string("AutoIsDone"), done);
-                        if (!done)
+                        auto currentStatePtr = GetCurrentStatePtr();
+                        if (currentStatePtr != nullptr)
                         {
-                            targetState = m_currentAutoState;
-                        }
-                        else if (done && currentState != CLIMB_TRAVERSAL_BAR)
-                        {
-                            targetState = static_cast<CLIMBER_STATE>(static_cast<int>(currentState)+1);
-                            m_currentAutoState = targetState;
-                        }
-                        m_prevState = targetState;
-                    }
+                            auto done = currentStatePtr->AtTarget();
+                            Logger::GetLogger()->ToNtTable(m_nt, string("AutoIsDone"), done);
+                            if (!done)
+                            {
+                                targetState = m_currentAutoState;
+                            }
+                            else if (done && currentState != CLIMB_TRAVERSAL_BAR)
+                            {
+                                m_autoTimer.Start();
+                                if(m_autoTimer.HasElapsed(units::time::second_t(0.5)))
+                                {
+                                    targetState = static_cast<CLIMBER_STATE>(static_cast<int>(currentState)+1);
+                                    m_currentAutoState = targetState;
+                                    m_autoTimer.Stop();
+                                    m_autoTimer.Reset();
+                                }
+                            }
+                            m_prevState = targetState;
+
+                            //Debugging
+                            Logger::GetLogger()->ToNtTable(m_nt, string("m_currentAutoState"), m_currentAutoState);
+                            Logger::GetLogger()->ToNtTable(m_nt, string("m_wasAutoClimb"), m_wasAutoClimb);
+                        }        
                 }  
             }  
             //Needs testing
-            else if (!m_hasZeroed)
+            else if (m_prevState == CLIMBER_STATE::UNINITIALIZED)
             {
+                /*
                 if (GetCurrentState() == CLIMBER_STATE::ZERO_BEFORE_CLIMB)
                 {
                     auto currentStatePtr = GetCurrentStatePtr();
@@ -169,6 +180,7 @@ void ClimberStateMgr::CheckForStateTransition()
                         }
                     }
                 }
+                */
                 targetState = CLIMBER_STATE::ZERO_BEFORE_CLIMB;
             }
             else

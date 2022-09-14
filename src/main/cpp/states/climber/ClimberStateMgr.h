@@ -24,6 +24,7 @@
 #include <networktables/NetworkTableInstance.h>
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableEntry.h>
+#include <frc/Timer.h>
 
 // Team 302 includes
 #include <states/IState.h>
@@ -40,6 +41,7 @@ class ClimberStateMgr : public StateMgr
         enum CLIMBER_STATE
         {
             OFF,
+            UNINITIALIZED,
             MANUAL,
             ZERO_BEFORE_CLIMB,
             INITIAL_REACH,
@@ -56,6 +58,7 @@ class ClimberStateMgr : public StateMgr
         };
 
         const std::string m_climberOffXmlString = "CLIMBER_OFF";
+        const std::string m_climberUninitializedXmlString = "CLIMBER_OFF";
         const std::string m_climberManualXmlString = "CLIMBER_MANUAL";
         const std::string m_climberZeroClimbString = "CLIMBER_ZERO_BEFORE_CLIMB";
         const std::string m_climberInitialReachXmlString = "CLIMBER_INITIALREACH";
@@ -87,10 +90,13 @@ class ClimberStateMgr : public StateMgr
         bool                                    m_hasZeroed;
         CLIMBER_STATE                           m_currentAutoState;
 
+        frc::Timer                              m_autoTimer;
+
 
 		static ClimberStateMgr*	m_instance;
 
-        const StateStruc    m_offState = {CLIMBER_STATE::OFF, StateType::CLIMBER, true};
+        const StateStruc    m_offState = {CLIMBER_STATE::OFF, StateType::CLIMBER, false};
+        const StateStruc    m_uninitializedState = {CLIMBER_STATE::UNINITIALIZED, StateType::CLIMBER, true};
         const StateStruc    m_manualState = {CLIMBER_STATE::MANUAL, StateType::CLIMBER_MANUAL, false};
         const StateStruc    m_zeroClimbState = {CLIMBER_STATE::ZERO_BEFORE_CLIMB, StateType::CLIMBER, false};
         const StateStruc    m_initialReachState = {CLIMBER_STATE::INITIAL_REACH, StateType::CLIMBER, false};
