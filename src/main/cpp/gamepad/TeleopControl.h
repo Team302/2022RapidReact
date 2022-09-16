@@ -57,7 +57,7 @@ class TeleopControl
             INTAKE_DISABLE_LIMIT_SWITCHES,
             AUTO_SHOOT_HIGH,  
             AUTO_SHOOT_LOW,   
-            AUTO_CLIMB_TRAVERSE,        //not used
+            AUTO_CLIMB_TEST,        //not used
             LIMELIGHT_FEED_TO_DASH,     //not used
             STOP_LIMELIGHT_FEED_TO_DASH,  //not used
             CAMERA_FEED_TO_DASH,        //not used
@@ -83,7 +83,7 @@ class TeleopControl
             CLIMBER_STATE_OFF,
             CLIMBER_STATE_MANUAL,
             CLIMBER_STATE_STARTING,
-            CLIMBER_STATE_PREP_MID,
+            CLIMBER_STATE_INITIAL_REACH,
             CLIMBER_STATE_MID,
             CLIMBER_STATE_FRONT_PREP,
             CLIMBER_STATE_FRONT_ROTATE_A,

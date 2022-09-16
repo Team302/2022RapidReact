@@ -50,12 +50,17 @@ class ClimberState : public Mech2MotorState
         double GetLiftHeight() const;
         double GetRotateAngle() const;
 
+        bool LiftTargetReached() const;
+        bool RotateTargetReached() const;
+
         Climber*                            m_climber;
         ControlData*                        m_liftControlData;
         ControlData*                        m_rotateControlData;
-        double                              m_liftTarget;
-        double                              m_rotateTarget;
+        double                              m_liftTarget; //Target position of climber lift in inches
+        double                              m_rotateTarget; //Target position of rotating arm in degrees
         double                              m_robotPitch;
         DragonPID*                          m_liftController;
         DragonPID*                          m_rotateController;
+        std::shared_ptr<IDragonMotorController>  m_liftMotor;
+        std::shared_ptr<IDragonMotorController>  m_rotateMotor;
 };

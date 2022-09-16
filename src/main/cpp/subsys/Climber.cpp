@@ -39,17 +39,22 @@ Climber::Climber
     shared_ptr<IDragonMotorController>      rotateMotor,
     std::shared_ptr<DragonDigitalInput>     armBackSw
 ) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::CLIMBER,  string("climber.xml"),  string("ClimberNT"), liftMotor, rotateMotor ),
-    m_reachMin(GetPositionInInches(liftMotor)),
-    m_reachMax(m_reachMin+19.25),
-    m_rotateMin(GetPositionInDegrees(rotateMotor)),
-    m_rotateMax(m_rotateMin+95.0),
+    m_reachMin(-1.0), //bottom of lift
+    m_reachMax(19.25), //top of lift
+    m_rotateMin(0.0), //start of rotation
+    m_rotateMax(130.0), //untested max rotation
     m_armBack(armBackSw)
 {
     liftMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
     rotateMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
+    
+    //Set sensor position to 19 inches to allow climber to rise on its own, then reset when going into climb mode.
+    double TwentyInchesInCounts = 19 * liftMotor.get()->GetCountsPerInch();
 
-    liftMotor.get()->SetSelectedSensorPosition(0.0);
-    rotateMotor.get()->SetSelectedSensorPosition(0.0);
+    double TwentyDegreesInCounts = 15 * rotateMotor.get()->GetCountsPerDegree();
+     
+    liftMotor.get()->SetSelectedSensorPosition(TwentyInchesInCounts);
+    rotateMotor.get()->SetSelectedSensorPosition(TwentyDegreesInCounts);
 }
 
 
@@ -119,16 +124,30 @@ bool Climber::IsAtMinReach
 {
     auto atMin = currentHeight <= m_reachMin;
     atMin = !atMin ? liftMotor.get()->IsReverseLimitSwitchClosed() : atMin;
+    //If we hit bottom limit switch, zero lift motor to get correct encoder counts for position
+    if (liftMotor.get()->IsReverseLimitSwitchClosed())
+    {
+        liftMotor.get()->SetIntegratedSensorPosition(0.0, 0.0);
+    }
+    //Failsafe in case we lose bottom limit switch, rely on stall code to zero lift motor
+    if (IsLiftStalled())
+    {
+        liftMotor.get()->SetIntegratedSensorPosition(0.0, 0.0);
+    }
     return atMin;
 }
 bool Climber::IsAtMinRotation
 (
-    std::shared_ptr<IDragonMotorController> liftMotor,
+    std::shared_ptr<IDragonMotorController> rotateMotor,
     double                                  currentAngle
 ) const
 {
     auto atMin = currentAngle <= m_rotateMin;
-    atMin = m_armBack.get()->Get();
+    atMin = !atMin ? m_armBack.get()->Get() : atMin;
+    if (m_armBack.get()->Get())
+    {
+        rotateMotor.get()->SetIntegratedSensorPosition(0.0, 0.0);
+    }
     return atMin;
 }
 bool Climber::IsAtMaxRotation
@@ -162,24 +181,12 @@ void Climber::LogData()
     auto ntName = GetNetworkTableName();
     auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
 
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Min"), GetMinReach());
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Max"), GetMaxReach());
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Current"), GetPositionInInches(GetPrimaryMotor()));
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Target"), GetPrimaryTarget());
+    Logger::GetLogger()->ToNtTable(table, string("Lift - Current"), GetPositionInInches(GetPrimaryMotor()));
+    Logger::GetLogger()->ToNtTable(table, string("Lift - Target"), GetPrimaryTarget());
 
-    auto liftMotor = GetPrimaryMotor();
-    if (liftMotor.get() != nullptr)
-    {
-        Logger::GetLogger()->ToNtTable(table, string("Reach - Min Switch"), liftMotor.get()->IsReverseLimitSwitchClosed() ? "true" : "false");
-        Logger::GetLogger()->ToNtTable(table, string("Reach - Max Switch"), liftMotor.get()->IsForwardLimitSwitchClosed() ? "true" : "false");
-    }
-
-    Logger::GetLogger()->ToNtTable(table, string("Rotate - Min"), GetMinRotate());
-    Logger::GetLogger()->ToNtTable(table, string("Rotate - Max"), GetMaxRotate());
     Logger::GetLogger()->ToNtTable(table, string("Rotate - Current"), GetPositionInDegrees(GetSecondaryMotor()));
     Logger::GetLogger()->ToNtTable(table, string("Rotate - Target"), GetSecondaryTarget());
 
-    Logger::GetLogger()->ToNtTable(table, string("Rotate - Arm Back Switch"), m_armBack.get()->Get() ? "true" : "false");
 }
 double Climber::GetPositionInInches
 (
@@ -188,10 +195,9 @@ double Climber::GetPositionInInches
 {
     if (motor.get() != nullptr)
     {
-        auto rot = motor.get()->GetRotations();
-        auto countsPerRot = motor.get()->GetCountsPerRev();
+        auto counts = motor.get()->GetCounts();
         auto countsPerInch = motor.get()->GetCountsPerInch();
-        return ((rot * countsPerRot)/ countsPerInch);
+        return (counts / countsPerInch);
     }
     return 0.0;
 }
@@ -202,10 +208,17 @@ double Climber::GetPositionInDegrees
 {
     if (motor.get() != nullptr)
     {
-        auto rot = motor.get()->GetRotations();
-        auto countsPerRot = motor.get()->GetCountsPerRev();
+        //Debugging
+        //auto ntName = GetNetworkTableName();
+        //auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
+
+        auto counts = motor.get()->GetCounts();
         auto countsPerDegree = motor.get()->GetCountsPerDegree();
-        return ((rot * countsPerRot)/ countsPerDegree);
+
+        //Debugging
+        Logger::GetLogger()->ToNtTable("ClimberNT", string("Counts:"), counts);
+
+        return (counts / countsPerDegree);
     }
     return 0.0;
 

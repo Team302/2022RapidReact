@@ -73,6 +73,7 @@ ControlData* ControlDataDefn::ParseXML
 	modeMap[string("PERCENT_OUTPUT")] = ControlModes::CONTROL_TYPE::PERCENT_OUTPUT;
     modeMap[string("POSITION_DEGREES")] = ControlModes::CONTROL_TYPE::POSITION_DEGREES;
     modeMap[string("POSITION_ABSOLUTE")] = ControlModes::CONTROL_TYPE::POSITION_DEGREES_ABSOLUTE;
+    modeMap[string("POSITION_INCH")] = ControlModes::CONTROL_TYPE::POSITION_INCH;
 	
 	map<string, ControlModes::CONTROL_RUN_LOCS> serverMap;
 	serverMap[string("MOTORCONTROLLER")] = ControlModes::CONTROL_RUN_LOCS::MOTOR_CONTROLLER;

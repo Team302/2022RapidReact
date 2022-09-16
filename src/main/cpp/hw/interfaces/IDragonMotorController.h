@@ -32,6 +32,7 @@
 // Third Party Includes
 #include <ctre/phoenix/motorcontrol/RemoteSensorSource.h>
 #include <ctre/phoenix/motorcontrol/StatusFrame.h>
+#include <ctre/phoenix/motorcontrol/TalonFXSensorCollection.h>
 
 /// @interface IDragonMotorController
 /// @brief The general interface to motor controllers so that the specific mechanisms that use motors,
@@ -92,6 +93,10 @@ class IDragonMotorController
         /// @brief  Return the CAN ID
         /// @return int - CAN ID
         virtual int GetID() const = 0;
+
+        /// @brief Return the motor's sensor collection
+        /// @return ctre::phoenix::motorcontrol::SensorCollection - SensorCollection
+        virtual void SetIntegratedSensorPosition(double newPos, double timeoutMs) const = 0;
 
         /// @brief  Return the speedcontroller 
         /// @return std::shared_ptr<frc::SpeedControll> - pointer to the speed controller object

@@ -328,6 +328,14 @@ double DragonFalcon::GetCurrent() const
 	return 0.0;
 }
 
+void DragonFalcon::SetIntegratedSensorPosition(double newPos, double timeoutMs) const
+{
+	if (m_talon != nullptr)
+	{
+		m_talon.get()->GetSensorCollection().SetIntegratedSensorPosition(newPos, timeoutMs);
+	}
+}
+
 void DragonFalcon::UpdateFramePeriods
 (
 	ctre::phoenix::motorcontrol::StatusFrameEnhanced	frame,

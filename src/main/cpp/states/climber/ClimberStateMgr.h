@@ -24,6 +24,7 @@
 #include <networktables/NetworkTableInstance.h>
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableEntry.h>
+#include <frc/Timer.h>
 
 // Team 302 includes
 #include <states/IState.h>
@@ -40,40 +41,36 @@ class ClimberStateMgr : public StateMgr
         enum CLIMBER_STATE
         {
             OFF,
+            UNINITIALIZED,
             MANUAL,
-            STARTING_CONFIG,
-            PREP_MID_BAR,
+            ZERO_BEFORE_CLIMB,
+            INITIAL_REACH,
             CLIMB_MID_BAR,
-            FRONT_HOOK_PREP_FOR_NEXT_BAR,
-            FRONT_HOOK_ROTATE_A,
-            FRONT_HOOK_ROTATE_B,
-            FRONT_HOOK_ELEVATE,
-            FRONT_HOOK_ROTATE_TO_HOOK,
-            FRONT_HOOK_LIFT_ROBOT,
-            FRONT_HOOK_ROTATE_ARM,
-            BACK_HOOK_PREP,
-            BACK_HOOK_ROTATE_A,
-            BACK_HOOK_LIFT_ROBOT,
-            BACK_HOOK_REST
+            PREPARE_EXTEND_MID_BAR,
+            EXTEND_MID_BAR,
+            ROTATE_MID_BAR,
+            REACH_HIGH_BAR,
+            CLIMB_HIGH_BAR,
+            PREPARE_EXTEND_HIGH_BAR,
+            EXTEND_HIGH_BAR,
+            CLIMB_TRAVERSAL_BAR,
+            MAX_STATES
         };
 
-        const std::string m_climberOffXmlString = "OFF";
-        const std::string m_climberManualXmlString = "MANUAL";
-        const std::string m_climberStartingXmlString = "STARTING_CONFIG";
-        const std::string m_climberPrepMidBarXmlString = "PREP_MID_BAR";
-        const std::string m_climberClimbMidBarXmlString = "CLIMB_MID_BAR";
-        const std::string m_climberFrontHookPrepXmlString = "FRONT_HOOK_PREP_FOR_NEXT_BAR";
-        const std::string m_climberFrontHookRotateAXmlString = "FRONT_HOOK_ROTATE_A";
-        const std::string m_climberFrontHookRotateBXmlString = "FRONT_HOOK_ROTATE_B";
-        const std::string m_climberFrontHookElevateXmlString = "FRONT_HOOK_ELEVATE";
-        const std::string m_climberFrontHookRotateToHookXmlString = "FRONT_HOOK_ROTATE_TO_HOOK";
-        const std::string m_climberFrontHookLiftRobotXmlString = "FRONT_HOOK_LIFT_ROBOT";
-        const std::string m_climberFrontHookRotateArmXmlString = "FRONT_HOOK_ROTATE_ARM";
-        const std::string m_climberBackHookPrepXmlString = "BACK_HOOK_PREP";
-        const std::string m_climberBackHookRotateAXmlString = "BACK_HOOK_ROTATE_A";
-        const std::string m_climberBackHookLiftXmlString = "BACK_HOOK_LIFT_ROBOT";
-        const std::string m_climberBackHookRestXmlString = "BACK_HOOK_REST";
-
+        const std::string m_climberOffXmlString = "CLIMBER_OFF";
+        const std::string m_climberUninitializedXmlString = "CLIMBER_OFF";
+        const std::string m_climberManualXmlString = "CLIMBER_MANUAL";
+        const std::string m_climberZeroClimbString = "CLIMBER_ZERO_BEFORE_CLIMB";
+        const std::string m_climberInitialReachXmlString = "CLIMBER_INITIALREACH";
+        const std::string m_climberClimbMidXmlString = "CLIMBER_CLIMB_MID_BAR";
+        const std::string m_climberExtendMidXmlString = "CLIMBER_EXTEND_MID_BAR";
+        const std::string m_climberPrepareExtendMidXmlString = "CLIMBER_PREPARE_EXTEND_MID_BAR";
+        const std::string m_climberRotateMidXmlString = "CLIMBER_ROTATE_MID_BAR";
+        const std::string m_climberReachHighXmlString = "CLIMBER_REACH_HIGH_BAR";
+        const std::string m_climberClimbHighXmlString = "CLIMBER_CLIMB_HIGH_BAR";
+        const std::string m_climberPrepareExtendHighXmlString = "CLIMBER_PREPARE_EXTEND_HIGH_BAR";
+        const std::string m_climberExtendHighXmlString = "CLIMBER_EXTEND_HIGH_BAR";
+        const std::string m_climberClimbTraversalXmlString = "CLIMBER_CLIMB_TRAVERSAL_BAR";
         
 		/// @brief  Find or create the state manmanager
 		/// @return ClimberStateMgr* pointer to the state manager
@@ -82,30 +79,36 @@ class ClimberStateMgr : public StateMgr
         void CheckForStateTransition() override;
 
     private:
+        /// @brief Check to see if driver is trying to climb manually
+        /// @return Bool - if there is input or not
+        bool CheckForManualInput();
+
         Climber*                                m_climber;
         std::shared_ptr<nt::NetworkTable>       m_nt;     
         bool                                    m_wasAutoClimb;
         CLIMBER_STATE                           m_prevState;
+        bool                                    m_hasZeroed;
+        CLIMBER_STATE                           m_currentAutoState;
+
+        frc::Timer                              m_autoTimer;
 
 
 		static ClimberStateMgr*	m_instance;
 
-        const StateStruc    m_offState = {CLIMBER_STATE::OFF, StateType::CLIMBER, true};
+        const StateStruc    m_offState = {CLIMBER_STATE::OFF, StateType::CLIMBER, false};
+        const StateStruc    m_uninitializedState = {CLIMBER_STATE::UNINITIALIZED, StateType::CLIMBER, true};
         const StateStruc    m_manualState = {CLIMBER_STATE::MANUAL, StateType::CLIMBER_MANUAL, false};
-        const StateStruc    m_startingState = {CLIMBER_STATE::STARTING_CONFIG, StateType::CLIMBER, false};
-        const StateStruc    m_prepMidBarState = {CLIMBER_STATE::PREP_MID_BAR, StateType::CLIMBER, false};
-        const StateStruc    m_climbMidBarState = {CLIMBER_STATE::CLIMB_MID_BAR, StateType::CLIMBER, false};
-        const StateStruc    m_frontHookprepNextBarState = {CLIMBER_STATE::FRONT_HOOK_PREP_FOR_NEXT_BAR, StateType::CLIMBER, false};
-        const StateStruc    m_frontHookRotateAState = {CLIMBER_STATE::FRONT_HOOK_ROTATE_A, StateType::CLIMBER, false};
-        const StateStruc    m_frontHookRotateBState = {CLIMBER_STATE::FRONT_HOOK_ROTATE_B, StateType::CLIMBER, false};
-        const StateStruc    m_frontHookElevateState = {CLIMBER_STATE::FRONT_HOOK_ELEVATE, StateType::CLIMBER, false};
-        const StateStruc    m_frontHookRotateToHookState = {CLIMBER_STATE::FRONT_HOOK_ROTATE_TO_HOOK, StateType::CLIMBER, false};
-        const StateStruc    m_frontHookLiftState = {CLIMBER_STATE::FRONT_HOOK_LIFT_ROBOT, StateType::CLIMBER, false};
-        const StateStruc    m_frontHookRotateArmState = {CLIMBER_STATE::FRONT_HOOK_ROTATE_ARM, StateType::CLIMBER, false};
-        const StateStruc    m_backHookPrepState = {CLIMBER_STATE::BACK_HOOK_PREP, StateType::CLIMBER, false};
-        const StateStruc    m_backHookRotateAState = {CLIMBER_STATE::BACK_HOOK_ROTATE_A, StateType::CLIMBER, false};
-        const StateStruc    m_backHookLiftState = {CLIMBER_STATE::BACK_HOOK_LIFT_ROBOT, StateType::CLIMBER, false};
-        const StateStruc    m_backHookRestState = {CLIMBER_STATE::BACK_HOOK_REST, StateType::CLIMBER, false};
+        const StateStruc    m_zeroClimbState = {CLIMBER_STATE::ZERO_BEFORE_CLIMB, StateType::CLIMBER, false};
+        const StateStruc    m_initialReachState = {CLIMBER_STATE::INITIAL_REACH, StateType::CLIMBER, false};
+        const StateStruc    m_climbMidState = {CLIMBER_STATE::CLIMB_MID_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_prepareExtendMidState = {CLIMBER_STATE::PREPARE_EXTEND_MID_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_extendMidState = {CLIMBER_STATE::EXTEND_MID_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_rotateMidState = {CLIMBER_STATE::ROTATE_MID_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_reachHighState = {CLIMBER_STATE::REACH_HIGH_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_climbHighState = {CLIMBER_STATE::CLIMB_HIGH_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_prepareExtendHighState = {CLIMBER_STATE::PREPARE_EXTEND_HIGH_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_extendHighState = {CLIMBER_STATE::EXTEND_HIGH_BAR, StateType::CLIMBER, false};
+        const StateStruc    m_climbTraversalState = {CLIMBER_STATE::CLIMB_TRAVERSAL_BAR, StateType::CLIMBER, false};
 
         ClimberStateMgr();
         ~ClimberStateMgr() = default;

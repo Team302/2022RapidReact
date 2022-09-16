@@ -163,7 +163,7 @@ void SwerveChassis::Drive
 {
     auto xSpeed = (abs(speeds.vx.to<double>()) < m_deadband) ? units::meters_per_second_t(0.0) : speeds.vx; 
     auto ySpeed = (abs(speeds.vy.to<double>()) < m_deadband) ? units::meters_per_second_t(0.0) : speeds.vy; 
-    auto rot = speeds.omega;
+    auto rot = (abs(speeds.omega.to<double>())) < m_angularDeadband.to<double>() ? units::radians_per_second_t(0.0) : speeds.omega;
     auto currentPose = GetPose();
     auto goalPose = m_targetFinder.GetPosCenterTarget();
     switch (headingOption)
@@ -208,6 +208,7 @@ void SwerveChassis::Drive
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "YSpeed", ySpeed.to<double>() );
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "ZSpeed", rot.to<double>() );
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "yaw", m_pigeon->GetYaw() );
+    Logger::GetLogger()->ToNtTable("Swerve Chassis", "pitch", m_pigeon->GetPitch());
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "angle error Degrees Per Second", m_yawCorrection.to<double>());
 
     Logger::GetLogger()->ToNtTable("Swerve Chassis", "Current X", GetPose().X().to<double>());
@@ -216,7 +217,7 @@ void SwerveChassis::Drive
     
     if ( (abs(xSpeed.to<double>()) < m_deadband) && 
          (abs(ySpeed.to<double>()) < m_deadband) && 
-         (abs(rot.to<double>())    < m_angularDeadband.to<double>()))  //our angular deadband, only used once, equates to 10 degrees per second
+         (abs(rot.to<double>())    < m_angularDeadband.to<double>()))  //our angular deadband, only used once, equates to 3 degrees per second
     {
         m_frontLeft.get()->StopMotors();
         m_frontRight.get()->StopMotors();
@@ -454,8 +455,9 @@ void SwerveChassis::AdjustRotToMaintainHeading
     units::radians_per_second_t& rot 
 )
 {
+    Logger::GetLogger()->ToNtTable("SwerveChassis", "RotBeforeMaintain", rot.to<double>());
     units::angular_velocity::degrees_per_second_t correction = units::angular_velocity::degrees_per_second_t(0.0);
-    if (abs(rot.to<double>()) < m_deadband) //this doesn't use angular deadband b/c it's a fix
+    if (abs(rot.to<double>()) < 0.2)
     {
         rot = units::radians_per_second_t(0.0);
         if (abs(xspeed.to<double>()) > 0.0 || abs(yspeed.to<double>() > 0.0))
@@ -467,8 +469,10 @@ void SwerveChassis::AdjustRotToMaintainHeading
     {
         m_storedYaw = GetPose().Rotation().Degrees();
     }
-
-    rot -= correction; //was negative
+    rot -= correction;
+    Logger::GetLogger()->ToNtTable("SwerveChassis", "RotAfterMaintain Radians Per Second", rot.to<double>());
+    Logger::GetLogger()->ToNtTable("SwerveChassis", "Stored Yaw Degrees", m_storedYaw.to<double>());
+    Logger::GetLogger()->ToNtTable("SwerveChassis", "Correction Degrees Per Second", correction.to<double>());
 }
 
 void SwerveChassis::DriveToPointTowardGoal
@@ -540,6 +544,7 @@ void SwerveChassis::DriveToPointTowardGoal
     {
         AdjustRotToPointTowardGoal(robotPose, rot);
     }
+    m_storedYaw = GetPose().Rotation().Degrees();
     Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("TurnToGoal New ZSpeed: "), rot.to<double>());
 }
 
@@ -565,6 +570,8 @@ void SwerveChassis::AdjustRotToPointTowardGoal
         rot -= CalcHeadingCorrection(targetAngle,kPGoalHeadingControl);
         m_hold = false;
     }
+
+    m_storedYaw = GetPose().Rotation().Degrees();
 
     Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("TurnToGoal New ZSpeed: "), rot.to<double>());
 }

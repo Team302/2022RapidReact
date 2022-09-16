@@ -5,13 +5,16 @@
 	             mode="PERCENT_OUTPUT"/>
 				 
 	<controlData identifier="closedloop"
-				 mode="POSITION_DEGREES"
-				 proportional="0.155"/>
+				 mode="POSITION_INCH"
+				 proportional="0.155"/> <!--Was 0.025 on 9/8-->
 
 	<controlData identifier="closedloop2"
-				 mode="VELOCITY_RPS"
-				 proportional="0.155"
-				 feedforward="0.045"/>
+				 mode="POSITION_DEGREES"
+				 proportional="0.055"/>
+
+	<controlData identifier="closedloopZeroRotate"
+				 mode="POSITION_DEGREES"
+				 proportional="0.055"/> 
 
 	<mechanismTarget stateIdentifier="CLIMBER_OFF"
 	                 controlDataIdentifier="openloop"
@@ -25,46 +28,79 @@
 					 value="312.5"
 					 secondValue="312.5"/>
 
+	<mechanismTarget stateIdentifier="CLIMBER_ZERO_BEFORE_CLIMB"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloopZeroRotate" 
+					 value="0.0"
+					 secondValue="0.0"/>
+
+	<!--This will be activated manually, everything else will be automated by a separate button-->
 	<mechanismTarget stateIdentifier="CLIMBER_INITIALREACH"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="20.0"
+					 secondValue="10.0"/>
 
-	<mechanismTarget stateIdentifier="CLIMBER_RETRACT"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
-                     
-	<mechanismTarget stateIdentifier="CLIMBER_RELEASE"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
+	<!--Climb up to mid bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_CLIMB_MID_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="3.0"
+					 secondValue="0.0"/> <!--Was value="2.5", secondValue="2.0" on 9/8-->
 
-	<mechanismTarget stateIdentifier="CLIMBER_REACHTOBAR"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
-                     
-	<mechanismTarget stateIdentifier="CLIMBER_ROTATEOUT"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
+	<!--Rotate to hook onto bar before lifting off-->
+	<mechanismTarget stateIdentifier="CLIMBER_PREPARE_EXTEND_MID_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="2.5"
+					 secondValue="2.5"/>
 
-	<mechanismTarget stateIdentifier="CLIMBER_ROTATEIN"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
+	<!--Raise lift slightly to rotate off mid bar-->				 
+	<mechanismTarget stateIdentifier="CLIMBER_EXTEND_MID_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="9.0"
+					 secondValue="3.0"/>
 
-	<mechanismTarget stateIdentifier="CLIMBER_HOLD"
-	                 controlDataIdentifier="openloop"
-	                 controlDataIdentifier2="openloop"
-					 value="0.0"
-					 secondValue="0.0"/>
+	<!--Rotate off mid bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_ROTATE_MID_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="9.0"
+					 secondValue="115.0"/>
 
+	<!--Extend lift to climb onto high bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_REACH_HIGH_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="20.0"
+					 secondValue="125.0"/>
+
+	<!--Climb up to high bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_CLIMB_HIGH_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="2.5"
+					 secondValue="0.0"/> <!--Was secondValue="2.0" on 9/8-->
+
+	<!--Rotate before extending-->
+	<mechanismTarget stateIdentifier="CLIMBER_PREPARE_EXTEND_HIGH_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="2.5"
+					 secondValue="2.5"/> <!--Was secondValue="3.0" on 9/8-->
+
+	<!--Extend and rotate off high bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_EXTEND_HIGH_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="20.0"
+					 secondValue="80.0"/>
+					 
+	<!--Climb up to traversal bar-->
+	<mechanismTarget stateIdentifier="CLIMBER_CLIMB_TRAVERSAL_BAR"
+	                 controlDataIdentifier="closedloop"
+	                 controlDataIdentifier2="closedloop2"
+					 value="10.0"
+					 secondValue="10.0"/> <!--Was secondValue="1.0" on 9/8-->
 </statedata> 

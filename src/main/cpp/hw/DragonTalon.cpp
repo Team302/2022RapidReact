@@ -309,6 +309,14 @@ shared_ptr<MotorController> DragonTalon::GetSpeedController() const
 	return m_talon;
 }
 
+void DragonTalon::SetIntegratedSensorPosition(double newPos, double timeoutMs) const
+{
+	if (m_talon != nullptr)
+	{
+		m_talon.get()->GetSensorCollection().SetQuadraturePosition(newPos, timeoutMs);
+	}
+}
+
 double DragonTalon::GetCurrent() const
 {
 	auto pdp = PDPFactory::GetFactory()->GetPDP();
