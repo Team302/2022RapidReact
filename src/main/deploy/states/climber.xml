@@ -6,15 +6,15 @@
 				 
 	<controlData identifier="closedloop"
 				 mode="POSITION_INCH"
-				 proportional="0.155"/> <!--Was 0.025 on 9/8-->
+				 proportional="0.155"/> <!--Changed from 0.155 to 0.025 because climber was broke, no load ruined testing-->
 
 	<controlData identifier="closedloop2"
 				 mode="POSITION_DEGREES"
-				 proportional="0.055"/>
+				 proportional="0.055"/> <!--Changed from 0.075 to 0.025 because climber was broke, no load ruined testing-->
 
 	<controlData identifier="closedloopZeroRotate"
 				 mode="POSITION_DEGREES"
-				 proportional="0.055"/> 
+				 proportional="0.055"/> <!--Changed from 0.075 to 0.025 because climber was broke, no load ruined testing-->
 
 	<mechanismTarget stateIdentifier="CLIMBER_OFF"
 	                 controlDataIdentifier="openloop"
@@ -30,7 +30,7 @@
 
 	<mechanismTarget stateIdentifier="CLIMBER_ZERO_BEFORE_CLIMB"
 	                 controlDataIdentifier="closedloop"
-	                 controlDataIdentifier2="closedloopZeroRotate" 
+	                 controlDataIdentifier2="closedloopZeroRotate"
 					 value="0.0"
 					 secondValue="0.0"/>
 
@@ -39,68 +39,68 @@
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="20.0"
-					 secondValue="10.0"/>
+					 secondValue="0.0"/>
 
 	<!--Climb up to mid bar-->
 	<mechanismTarget stateIdentifier="CLIMBER_CLIMB_MID_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="3.0"
-					 secondValue="0.0"/> <!--Was value="2.5", secondValue="2.0" on 9/8-->
+					 secondValue="0.0"/>
 
 	<!--Rotate to hook onto bar before lifting off-->
 	<mechanismTarget stateIdentifier="CLIMBER_PREPARE_EXTEND_MID_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
-					 value="2.5"
-					 secondValue="2.5"/>
+					 value="7.0"
+					 secondValue="5.0"/>
 
 	<!--Raise lift slightly to rotate off mid bar-->				 
 	<mechanismTarget stateIdentifier="CLIMBER_EXTEND_MID_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="9.0"
-					 secondValue="3.0"/>
+					 secondValue="130.0"/>
 
 	<!--Rotate off mid bar-->
 	<mechanismTarget stateIdentifier="CLIMBER_ROTATE_MID_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
-					 value="9.0"
-					 secondValue="115.0"/>
+					 value="20.0"
+					 secondValue="110.0"/>
 
 	<!--Extend lift to climb onto high bar-->
 	<mechanismTarget stateIdentifier="CLIMBER_REACH_HIGH_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
-					 value="20.0"
-					 secondValue="125.0"/>
+					 value="3.0"
+					 secondValue="0.0"/>
 
 	<!--Climb up to high bar-->
 	<mechanismTarget stateIdentifier="CLIMBER_CLIMB_HIGH_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
-					 value="2.5"
-					 secondValue="0.0"/> <!--Was secondValue="2.0" on 9/8-->
+					 value="5.0"
+					 secondValue="7.5"/>
 
 	<!--Rotate before extending-->
 	<mechanismTarget stateIdentifier="CLIMBER_PREPARE_EXTEND_HIGH_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
-					 value="2.5"
-					 secondValue="2.5"/> <!--Was secondValue="3.0" on 9/8-->
+					 value="20.0"
+					 secondValue="85.0"/>
 
 	<!--Extend and rotate off high bar-->
 	<mechanismTarget stateIdentifier="CLIMBER_EXTEND_HIGH_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
-					 value="20.0"
-					 secondValue="80.0"/>
+					 value="10.0"
+					 secondValue="10.0"/>
 					 
 	<!--Climb up to traversal bar-->
 	<mechanismTarget stateIdentifier="CLIMBER_CLIMB_TRAVERSAL_BAR"
 	                 controlDataIdentifier="closedloop"
 	                 controlDataIdentifier2="closedloop2"
 					 value="10.0"
-					 secondValue="10.0"/> <!--Was secondValue="1.0" on 9/8-->
+					 secondValue="10.0"/>
 </statedata> 
