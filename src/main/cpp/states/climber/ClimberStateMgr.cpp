@@ -228,8 +228,10 @@ void ClimberStateMgr::CheckForStateTransition()
             }    
             else if (isStateI)
             {
-                targetState = CLIMBER_STATE::CLIMB_TRAVERSAL_BAR;
+                //targetState = CLIMBER_STATE::CLIMB_TRAVERSAL_BAR;
+                targetState = CLIMBER_STATE::EXTEND_HIGH_BAR;
             }
+            
             if (isZeroState)
             {
                 targetState = CLIMBER_STATE::ZERO_BEFORE_CLIMB;

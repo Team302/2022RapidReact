@@ -130,6 +130,7 @@ bool Climber::IsAtMinReach
         liftMotor.get()->SetIntegratedSensorPosition(0.0, 0.0);
     }
     //Failsafe in case we lose bottom limit switch, rely on stall code to zero lift motor
+
     if (IsLiftStalled())
     {
         liftMotor.get()->SetIntegratedSensorPosition(0.0, 0.0);
