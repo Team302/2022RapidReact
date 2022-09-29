@@ -21,6 +21,8 @@
 //Team302 Includes
 #include <subsys/swerve/SwerveChassis.h>
 
+#include <utils/Logger.h>
+
 /// @brief Construct a swerve chassis
 /// @param [in] std::shared_ptr<SwerveModule>           frontleft:          front left swerve module
 /// @param [in] std::shared_ptr<SwerveModule>           frontright:         front right swerve module
@@ -77,74 +79,20 @@ SwerveChassis::SwerveChassis
     ZeroAlignSwerveModules();
 }
 
-/// @brief Drive the chassis
-/// @param [in] frc::ChassisSpeeds  speeds:         kinematics for how to move the chassis
-/// @param [in] CHASSIS_DRIVE_MODE  mode:           How the input chassis speeds are interpreted
-/// @param [in] HEADING_OPTION      headingOption:  How the robot top should be facing
 void SwerveChassis::Drive
 ( 
-    ChassisSpeeds               speeds, 
-    CHASSIS_DRIVE_MODE          mode,
-    HEADING_OPTION              headingOption
+    frc::ChassisSpeeds               speeds, 
+    bool                        isFieldRelative
 )
 {
-    auto xSpeed = (abs(speeds.vx.to<double>()) < m_deadband) ? units::meters_per_second_t(0.0) : speeds.vx; 
-    auto ySpeed = (abs(speeds.vy.to<double>()) < m_deadband) ? units::meters_per_second_t(0.0) : speeds.vy; 
-    auto rot = (abs(speeds.omega.to<double>())) < m_angularDeadband.to<double>() ? units::radians_per_second_t(0.0) : speeds.omega;
-    auto currentPose = GetPose();
-    auto goalPose = m_targetFinder.GetPosCenterTarget();
-    switch (headingOption)
-    {
-        case HEADING_OPTION::MAINTAIN:
-             [[fallthrough]]; // intentional fallthrough 
-        case HEADING_OPTION::POLAR_HEADING:
-            AdjustRotToMaintainHeading(xSpeed, ySpeed, rot);
-            break;
+    auto xSpeed = speeds.vx; 
+    auto ySpeed = speeds.vy; 
+    auto rot = speeds.omega;
 
-        case HEADING_OPTION::TOWARD_GOAL:
-            AdjustRotToPointTowardGoal(currentPose, rot);
-            Logger::GetLogger()->ToNtTable("Chassis Heading", "rot", rot.to<double>() );
-            break;
-
-        case HEADING_OPTION::TOWARD_GOAL_DRIVE:
-             [[fallthrough]]; // intentional fallthrough 
-        case HEADING_OPTION::TOWARD_GOAL_LAUNCHPAD:
-            DriveToPointTowardGoal(currentPose,goalPose,xSpeed,ySpeed,rot);
-            Logger::GetLogger()->ToNtTable("Chassis Heading", "rot", rot.to<double>() );
-            break;
-
-        case HEADING_OPTION::SPECIFIED_ANGLE:
-            rot -= CalcHeadingCorrection(m_targetHeading, kPAutonSpecifiedHeading);
-            Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("Specified Angle (Degrees): "), m_targetHeading.to<double>());
-            Logger::GetLogger()->ToNtTable(string("Chassis Heading"), string("Heading Correctioin"), rot.to<double>());
-            break;
-
-        case HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL:
-            // TODO: implement
-            break;
-
-        case HEADING_OPTION::RIGHT_INTAKE_TOWARD_BALL:
-            // TODO: implement
-            break;
-
-        default:
-            break;
-    }
-
-    Logger::GetLogger()->ToNtTable("Swerve Chassis", "XSpeed", xSpeed.to<double>() );
-    Logger::GetLogger()->ToNtTable("Swerve Chassis", "YSpeed", ySpeed.to<double>() );
-    Logger::GetLogger()->ToNtTable("Swerve Chassis", "ZSpeed", rot.to<double>() );
-    Logger::GetLogger()->ToNtTable("Swerve Chassis", "yaw", m_pigeon->GetYaw() );
-    Logger::GetLogger()->ToNtTable("Swerve Chassis", "pitch", m_pigeon->GetPitch());
-    Logger::GetLogger()->ToNtTable("Swerve Chassis", "angle error Degrees Per Second", m_yawCorrection.to<double>());
-
-    Logger::GetLogger()->ToNtTable("Swerve Chassis", "Current X", GetPose().X().to<double>());
-    Logger::GetLogger()->ToNtTable("Swerve Chassis", "Current Y", GetPose().Y().to<double>());
-    Logger::GetLogger()->ToNtTable("Swerve Chassis", "Current Rot(Degrees)", GetPose().Rotation().Degrees().to<double>());
-    
-    if ( (abs(xSpeed.to<double>()) < m_deadband) && 
+    //This if statement is probably needed, but should we declare the deadband in a different way? read from xml?
+    /*if ( (abs(xSpeed.to<double>()) < m_deadband) && 
          (abs(ySpeed.to<double>()) < m_deadband) && 
-         (abs(rot.to<double>())    < m_angularDeadband.to<double>()))  //our angular deadband, only used once, equates to 3 degrees per second
+         (abs(rot.to<double>())    < m_angularDeadband.to<double>()))
     {
         m_frontLeft.get()->StopMotors();
         m_frontRight.get()->StopMotors();
@@ -153,102 +101,42 @@ void SwerveChassis::Drive
         m_drive = units::velocity::meters_per_second_t(0.0);
         m_steer = units::velocity::meters_per_second_t(0.0);
         m_rotate = units::angular_velocity::radians_per_second_t(0.0);
-
-        m_isMoving = false;
     }
     else
-    {   
+    {*/   
         m_drive = units::velocity::meters_per_second_t(xSpeed);
         m_steer = units::velocity::meters_per_second_t(ySpeed);
         m_rotate = units::angular_velocity::radians_per_second_t(rot);
 
-        if ( m_runWPI )
-        {
-            units::degree_t yaw{m_pigeon->GetYaw()};
-            Rotation2d currentOrientation {yaw};
-            ChassisSpeeds chassisSpeeds = mode==IChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED ? 
-                                            ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rot, currentOrientation) : 
-                                            ChassisSpeeds{xSpeed, ySpeed, rot};
-
-            auto states = m_kinematics.ToSwerveModuleStates(chassisSpeeds);
-
-            m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
-
-            auto [fl, fr, bl, br] = states;
-
-            
-            // adjust wheel angles
-            if (mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE)
-            {
-                auto currentPose = GetPose();
-                auto goalPose = m_targetFinder.GetPosCenterTarget();
-
-                fr.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontRightLocation, fr.angle), chassisSpeeds);
-                bl.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backLeftLocation, bl.angle), chassisSpeeds);
-                br.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, br.angle), chassisSpeeds);
-                fl.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, fl.angle), chassisSpeeds);
-
-                Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Front Left Angle", fl.angle.Degrees().to<double>());
-                Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Front Right Angle", fr.angle.Degrees().to<double>());
-                Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Back Left Angle", bl.angle.Degrees().to<double>());
-                Logger::GetLogger()->ToNtTable("Polar Drive Calcs", "Back Right Angle", br.angle.Degrees().to<double>());
-           }
-        
-            m_frontLeft.get()->SetDesiredState(fl);
-            m_frontRight.get()->SetDesiredState(fr);
-            m_backLeft.get()->SetDesiredState(bl);
-            m_backRight.get()->SetDesiredState(br); 
-
-            //Is moving check
-            auto ax = m_accel.GetX();
-            auto ay = m_accel.GetY();
-
-            m_isMoving = (abs(ax) > 0.25 || abs(ay) > 0.25);
-        }
-        else
-        {
-            ChassisSpeeds chassisSpeeds = mode==IChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED ?
+            frc::ChassisSpeeds chassisSpeeds = isFieldRelative ?
                                                     GetFieldRelativeSpeeds(xSpeed,ySpeed, rot) : 
-                                                    ChassisSpeeds{xSpeed, ySpeed, rot};
+                                                    frc::ChassisSpeeds{xSpeed, ySpeed, rot};
             auto states = m_kinematics.ToSwerveModuleStates(chassisSpeeds);
             m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
 
             CalcSwerveModuleStates(chassisSpeeds);
-
-            // adjust wheel angles
-            if (mode == IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE)
-            {
-                auto currentPose = GetPose();
-                auto goalPose = m_targetFinder.GetPosCenterTarget();
-
-                m_flState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, m_flState.angle), chassisSpeeds);
-                m_frState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontRightLocation, m_frState.angle), chassisSpeeds);
-                m_blState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backLeftLocation, m_blState.angle), chassisSpeeds);
-                m_brState.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, m_brState.angle), chassisSpeeds);
-           }
-
-            auto ax = m_accel.GetX();
-            auto ay = m_accel.GetY();
-            auto az = m_accel.GetZ();
-
-            m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0);
-            //TODO: Fix by removing az and tuning deadbands, will never be false because az returns 1G while not moving
-
-            Logger::GetLogger()->ToNtTable("Swerve Chassis", "Hold Position State", m_hold);
-
-            //Hold position / lock wheels in 'X' configuration
-            if(m_hold && !frc::DriverStation::GetInstance().IsAutonomousEnabled() )
-            {
-                m_flState.angle = {units::angle::degree_t(45)};
-                m_frState.angle = {units::angle::degree_t(-45)};
-                m_blState.angle = {units::angle::degree_t(135)};
-                m_brState.angle = {units::angle::degree_t(-135)};
-            }
             
             m_frontLeft.get()->SetDesiredState(m_flState);
             m_frontRight.get()->SetDesiredState(m_frState);
             m_backLeft.get()->SetDesiredState(m_blState);
             m_backRight.get()->SetDesiredState(m_brState);
-        }
-    }    
+    //}    
+}
+
+
+frc::ChassisSpeeds SwerveChassis::GetFieldRelativeSpeeds
+(
+    units::meters_per_second_t xSpeed,
+    units::meters_per_second_t ySpeed,
+    units::radians_per_second_t rot        
+)
+{
+    //Should implement into SewrveOdometry, will still function the same as OLDSwerveChassis
+}
+
+void SwerveChassis::LogData()
+{
+    // Logger::GetLogger()->ToNtTable("Swerve Chassis", "XSpeed", xSpeed.to<double>() );
+    // Logger::GetLogger()->ToNtTable("Swerve Chassis", "YSpeed", ySpeed.to<double>() );
+    // Logger::GetLogger()->ToNtTable("Swerve Chassis", "ZSpeed", rot.to<double>() );
 }

@@ -19,6 +19,8 @@
 #include <frc/geometry/Translation2d.h>
 #include <frc/geometry/Rotation2d.h>
 
+#include <frc/kinematics/SwerveDriveKinematics.h>
+
 #include <units/angular_acceleration.h>
 #include <units/angular_velocity.h>
 #include <units/length.h>
@@ -89,6 +91,9 @@ class SwerveChassis : public IChassis
         /// @brief Sets of the motor encoders to zero
         void SetEncodersToZero();
 
+        /// @brief Log any data to netowrk tables or other locations
+        void LogData();
+
         /// @brief Get encoder values
         /// @param [in] std::shared_ptr<SwerveModule>   motor:  Motor to get encoder values from
         double GetEncoderValues(std::shared_ptr<SwerveModule> motor);
@@ -115,6 +120,17 @@ class SwerveChassis : public IChassis
         void CalcSwerveModuleStates
         (
             frc::ChassisSpeeds      chassisSpeeds
+        );
+
+        /// @brief Calculate speed and position of swerve modules for field relative driving
+        /// @param [in] units::meters_per_second_t  xSpeed: X speed of incoming chassis speeds
+        /// @param [in] units::meters_per_second_t  ySpeed: Y speed of incoming chassis speeds
+        /// @param [in] units::radians_per_second_t  rot: Z speed of incoming chassis speeds
+        frc::ChassisSpeeds GetFieldRelativeSpeeds
+        (
+            units::meters_per_second_t xSpeed,
+            units::meters_per_second_t ySpeed,
+            units::radians_per_second_t rot        
         );
 
         std::shared_ptr<SwerveModule>                               m_frontLeft;
@@ -144,5 +160,10 @@ class SwerveChassis : public IChassis
         frc::Translation2d m_frontRightLocation;
         frc::Translation2d m_backLeftLocation;
         frc::Translation2d m_backRightLocation;
+
+        frc::SwerveDriveKinematics<4> m_kinematics{m_frontLeftLocation, 
+                                                   m_frontRightLocation, 
+                                                   m_backLeftLocation, 
+                                                   m_backRightLocation};
 
 };
