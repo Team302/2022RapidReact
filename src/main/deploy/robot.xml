@@ -388,7 +388,7 @@
               canId="3" 
               pdpID="3" 
               type="TALONSRX" 
-              inverted="true" 
+              inverted="false" 
               sensorInverted="false" 
               feedbackDevice="NONE" 
               countsPerRev="0" 
