@@ -15,6 +15,15 @@
 
 #pragma once
 
+//FIRST Includes
+#include <frc/geometry/Translation2d.h>
+#include <frc/geometry/Rotation2d.h>
+
+#include <units/angular_acceleration.h>
+#include <units/angular_velocity.h>
+#include <units/length.h>
+#include <units/velocity.h>
+
 //Team302 Includes
 #include <subsys/swerve/SwerveModule.h>
 #include <subsys/interfaces/IChassis.h>
@@ -82,6 +91,7 @@ class SwerveChassis : public IChassis
         void SetEncodersToZero();
 
         /// @brief Get encoder values
+        /// @param [in] std::shared_ptr<SwerveModule>   motor:  Motor to get encoder values from
         double GetEncoderValues(std::shared_ptr<SwerveModule> motor);
 
         units::length::inch_t GetWheelDiameter() const {return m_wheelDiameter; }  
@@ -105,9 +115,35 @@ class SwerveChassis : public IChassis
         /// @param [in] frc::ChassisSpeeds  
         void CalcSwerveModuleStates
         (
-            frc::ChassisSpeeds 
+            frc::ChassisSpeeds      chassisSpeeds
         );
 
+        std::shared_ptr<SwerveModule>                               m_frontLeft;
+        std::shared_ptr<SwerveModule>                               m_frontRight;
+        std::shared_ptr<SwerveModule>                               m_backLeft;
+        std::shared_ptr<SwerveModule>                               m_backRight;
 
+        frc::SwerveModuleState                                      m_flState;
+        frc::SwerveModuleState                                      m_frState;
+        frc::SwerveModuleState                                      m_blState;
+        frc::SwerveModuleState                                      m_brState;
+
+        units::length::inch_t                                       m_wheelDiameter;       
+        units::length::inch_t                                       m_wheelBase;       
+        units::length::inch_t                                       m_track;
+
+        units::velocity::meters_per_second_t                        m_maxSpeed;
+        units::radians_per_second_t                                 m_maxAngularSpeed;
+        units::acceleration::meters_per_second_squared_t            m_maxAcceleration;
+        units::angular_acceleration::radians_per_second_squared_t   m_maxAngularAcceleration;
+
+        units::velocity::meters_per_second_t                        m_drive;
+        units::velocity::meters_per_second_t                        m_steer;
+        units::angular_velocity::radians_per_second_t               m_rotate;
+
+        frc::Translation2d m_frontLeftLocation;
+        frc::Translation2d m_frontRightLocation;
+        frc::Translation2d m_backLeftLocation;
+        frc::Translation2d m_backRightLocation;
 
 }
