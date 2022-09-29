@@ -53,7 +53,6 @@ class SwerveChassis : public IChassis
             units::length::inch_t                                       wheelDiameter,
 			units::length::inch_t                                       wheelBase,
 			units::length::inch_t                                       track,
-            double                                                      odometryComplianceCoefficient,
 			units::velocity::meters_per_second_t                        maxSpeed,
 			units::radians_per_second_t                                 maxAngularSpeed,
 			units::acceleration::meters_per_second_squared_t            maxAcceleration,
@@ -85,7 +84,7 @@ class SwerveChassis : public IChassis
         (
             frc::ChassisSpeeds speeds, 
             bool isFieldRelative
-        ) override;
+        );
 
         /// @brief Sets of the motor encoders to zero
         void SetEncodersToZero();
@@ -146,4 +145,4 @@ class SwerveChassis : public IChassis
         frc::Translation2d m_backLeftLocation;
         frc::Translation2d m_backRightLocation;
 
-}
+};

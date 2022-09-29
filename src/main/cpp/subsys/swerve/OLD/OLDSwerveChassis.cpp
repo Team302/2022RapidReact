@@ -40,7 +40,7 @@
 #include <hw/DragonLimelight.h>
 #include <hw/factories/LimelightFactory.h>
 #include <subsys/PoseEstimatorEnum.h>
-#include <subsys/SwerveChassis.h>
+#include <subsys/swerve/OLD/OLDSwerveChassis.h>
 #include <utils/AngleUtils.h>
 #include <utils/Logger.h>
 #include <gamepad/TeleopControl.h>
