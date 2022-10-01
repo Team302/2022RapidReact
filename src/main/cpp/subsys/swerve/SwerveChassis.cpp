@@ -275,32 +275,7 @@ double SwerveChassis::GetEncoderValues(std::shared_ptr<SwerveModule> motor)
     return motor.get()->GetEncoderValues();
 }
 
-frc::ChassisSpeeds SwerveChassis::GetFieldRelativeSpeeds
-(
-    units::meters_per_second_t xSpeed,
-    units::meters_per_second_t ySpeed,
-    units::radians_per_second_t rot        
-)
-{
-    /// @TODO:  Should implement into SwerveOdometry, will still function the same as OLDSwerveChassis
-    /*Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "xSpeed (mps)", xSpeed.to<double>());
-    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "ySpeed (mps)", ySpeed.to<double>());
-    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "rot (radians per sec)", rot.to<double>());
-
-    units::angle::radian_t yaw{m_pigeon->GetYaw()*wpi::numbers::pi/180.0};
-    auto forward = xSpeed*cos(yaw.to<double>()) + ySpeed*sin(yaw.to<double>());
-    auto strafe = -1.0 *xSpeed*sin(yaw.to<double>()) + ySpeed*cos(yaw.to<double>());
-
-    ChassisSpeeds output{forward, strafe, rot};
-
-    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "yaw (radians)", yaw.to<double>());
-    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "forward (mps)", forward.to<double>());
-    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "stafe (mps)", strafe.to<double>());
-
-    return output;*/
-}
-
-/// @TODO: Add into SwerveOdometry and implement a getter for m_kinematics
+/// @TODO: Add into SwerveUtils and implement a getter for m_kinematics
 
 /// @brief Provide the current chassis speed information
 /*ChassisSpeeds SwerveChassis::GetChassisSpeeds() const

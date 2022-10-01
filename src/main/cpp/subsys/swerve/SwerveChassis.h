@@ -96,6 +96,7 @@ class SwerveChassis : public IChassis
 
         /// @brief Get encoder values
         /// @param [in] std::shared_ptr<SwerveModule>   motor:  Motor to get encoder values from
+        /// @returns double - Encoder values
         double GetEncoderValues(std::shared_ptr<SwerveModule> motor);
 
         units::length::inch_t GetWheelDiameter() const {return m_wheelDiameter; }  
@@ -110,6 +111,10 @@ class SwerveChassis : public IChassis
         std::shared_ptr<SwerveModule> GetBackLeft() const { return m_backLeft;}
         std::shared_ptr<SwerveModule> GetBackRight() const { return m_backRight;}
 
+        /// @brief Gets chassis kinematics object
+        /// @returns frc::SwerveDriveKinematics<4> - Swerve Drive Kinematics
+        frc::SwerveDriveKinematics<4> GetSwerveKinematics() const {return m_kinematics;}
+
         //Dummy functions for IChassis Implementation
         inline IChassis::CHASSIS_TYPE GetType() const override {return IChassis::CHASSIS_TYPE::SWERVE;};
         inline void Initialize() override {};
@@ -120,17 +125,6 @@ class SwerveChassis : public IChassis
         void CalcSwerveModuleStates
         (
             frc::ChassisSpeeds      chassisSpeeds
-        );
-
-        /// @brief Calculate speed and position of swerve modules for field relative driving
-        /// @param [in] units::meters_per_second_t  xSpeed: X speed of incoming chassis speeds
-        /// @param [in] units::meters_per_second_t  ySpeed: Y speed of incoming chassis speeds
-        /// @param [in] units::radians_per_second_t  rot: Z speed of incoming chassis speeds
-        frc::ChassisSpeeds GetFieldRelativeSpeeds
-        (
-            units::meters_per_second_t xSpeed,
-            units::meters_per_second_t ySpeed,
-            units::radians_per_second_t rot        
         );
 
         std::shared_ptr<SwerveModule>                               m_frontLeft;
