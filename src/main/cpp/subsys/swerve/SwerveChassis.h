@@ -28,6 +28,7 @@
 
 //Team302 Includes
 #include <subsys/swerve/SwerveModule.h>
+#include <subsys/swerve/SwerveUtils.h>
 #include <subsys/interfaces/IChassis.h>
 
 class SwerveChassis : public IChassis
@@ -159,5 +160,7 @@ class SwerveChassis : public IChassis
                                                    m_frontRightLocation, 
                                                    m_backLeftLocation, 
                                                    m_backRightLocation};
+
+        SwerveUtils*                    m_utils = new SwerveUtils();
 
 };

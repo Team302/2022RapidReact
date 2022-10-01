@@ -28,9 +28,7 @@
 
 SwerveUtils::SwerveUtils
 (
-    double                                                      odometryComplianceCoefficient
-) : m_odometryComplianceCoefficient(odometryComplianceCoefficient),
-    m_pigeon(PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)),
+) : m_pigeon(PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)),
     m_accel(frc::BuiltInAccelerometer()),
     m_isMoving(false),
     m_poseOpt(PoseEstimatorEnum::WPI),

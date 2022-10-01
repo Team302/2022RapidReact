@@ -1,0 +1,15 @@
+What do we want Swerve to do:
+    Drive in both axis' (x and y), turn around third (z)
+        -Standard Ether Code
+    Turn About Point/Wheel
+        -Addition to Ether Code
+    Maintain Heading
+    Odometry/Position information
+    "Re-zero" if Odometry is messed update
+    Turn To Heading
+
+Classes:
+    SwerveChassis: Houses Ether Code and any low level swerve module stuff, sends module states to motors
+    SwerveDrive: Forwards all swerve functions to SwerveChassis
+    SwerveUtils: Handles all position information and helper functions
+    SwerveSpecial: Handles any special swerve functions (Turn about point, turn to heading?, drive to point, etc.), sends to SwerveDrive

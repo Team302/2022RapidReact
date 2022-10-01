@@ -34,7 +34,7 @@
 class SwerveUtils
 {
     public:
-        SwerveUtils(double odometryComplianceCoefficient);
+        SwerveUtils();
 
         /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
         void UpdateOdometry();
@@ -98,7 +98,7 @@ class SwerveUtils
         );
 
     private:
-        double                                                      m_odometryComplianceCoefficient;
+        double                                                      m_odometryComplianceCoefficient = 1.0;  //May change in the future, hopefully remove entirely
 
         DragonPigeon*                                               m_pigeon;
         frc::BuiltInAccelerometer                                   m_accel;

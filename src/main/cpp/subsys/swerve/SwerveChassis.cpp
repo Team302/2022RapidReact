@@ -117,7 +117,7 @@ void SwerveChassis::Drive
         m_rotate = units::angular_velocity::radians_per_second_t(rot);
 
             frc::ChassisSpeeds chassisSpeeds = isFieldRelative ?
-                                                    GetFieldRelativeSpeeds(xSpeed,ySpeed, rot) : 
+                                                    m_utils->GetFieldRelativeSpeeds(xSpeed,ySpeed, rot) : 
                                                     frc::ChassisSpeeds{xSpeed, ySpeed, rot};
             auto states = m_kinematics.ToSwerveModuleStates(chassisSpeeds);
             m_kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);

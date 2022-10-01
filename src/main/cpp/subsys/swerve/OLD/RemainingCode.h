@@ -1,11 +1,6 @@
         // If still used, SwerveDrive
         void SetTargetHeading(units::angle::degree_t targetYaw) override;
 
-        
-
-        //  SwerveSpecial
-        void HoldPosition(bool holdState);
-
     private:
         /// @TODO:  Should be in SwerveDrive
         units::angular_velocity::degrees_per_second_t CalcHeadingCorrection
@@ -29,16 +24,7 @@
             units::radians_per_second_t& rot
         );
 
-        /// @TODO: Add to SwerveSpecial, possibly make it drive to point??  More general
-        void DriveToPointTowardGoal
-        (
-            frc::Pose2d              robotPose,
-            frc::Pose2d              goalPose, 
-            units::meters_per_second_t&  xspeed,
-            units::meters_per_second_t&  yspeed,
-            units::radians_per_second_t& rot
-            
-        );
+        
 
         /// @TODO: Remove or try to repurpose for turn about point?
         units::angle::degree_t UpdateForPolarDrive
