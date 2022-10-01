@@ -65,72 +65,15 @@ using namespace frc;
 /// @param [in] double                                  maxAcceleration:    maximum acceleration in meters_per_second_squared
 SwerveChassis::SwerveChassis
 (
-    shared_ptr<SwerveModule>                                    frontLeft, 
-    shared_ptr<SwerveModule>                                    frontRight,
-    shared_ptr<SwerveModule>                                    backLeft, 
-    shared_ptr<SwerveModule>                                    backRight, 
-    units::length::inch_t                                       wheelDiameter,
-    units::length::inch_t                                       wheelBase,
-    units::length::inch_t                                       track,
-    double                                                      odometryComplianceCoefficient,
-    units::velocity::meters_per_second_t                        maxSpeed,
-    units::radians_per_second_t                                 maxAngularSpeed,
-    units::acceleration::meters_per_second_squared_t            maxAcceleration,
-    units::angular_acceleration::radians_per_second_squared_t   maxAngularAcceleration
-) : m_frontLeft(frontLeft), 
-    m_frontRight(frontRight), 
-    m_backLeft(backLeft), 
-    m_backRight(backRight), 
-    m_flState(),
-    m_frState(),
-    m_blState(),
-    m_brState(),
-    m_wheelDiameter(wheelDiameter),
-    m_wheelBase(wheelBase),
-    m_track(track),
-    m_odometryComplianceCoefficient(odometryComplianceCoefficient),
-    m_maxSpeed(maxSpeed),
-    m_maxAngularSpeed(maxAngularSpeed), 
-    m_maxAcceleration(maxAcceleration), //Not used at the moment
-    m_maxAngularAcceleration(maxAngularAcceleration), //Not used at the moment
-    m_pigeon(PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)),
-    m_accel(BuiltInAccelerometer()),
-    m_isMoving(false),
-    m_runWPI(false),
-    m_poseOpt(PoseEstimatorEnum::WPI),
-    m_pose(),
-    m_offsetPoseAngle(0_deg),  //not used at the moment
-    m_timer(),
-    m_drive(units::velocity::meters_per_second_t(0.0)),
-    m_steer(units::velocity::meters_per_second_t(0.0)),
-    m_rotate(units::angular_velocity::radians_per_second_t(0.0)),
-    m_frontLeftLocation(wheelBase/2.0, track/2.0),
-    m_frontRightLocation(wheelBase/2.0, -1.0*track/2.0),
-    m_backLeftLocation(-1.0*wheelBase/2.0, track/2.0),
-    m_backRightLocation(-1.0*wheelBase/2.0, -1.0*track/2.0),
+    
+) : 
     m_storedYaw(m_pigeon->GetYaw()),
     m_yawCorrection(units::angular_velocity::degrees_per_second_t(0.0)),
     m_targetHeading(units::angle::degree_t(0)),
     m_limelight(LimelightFactory::GetLimelightFactory()->GetLimelight())
 {
-    m_timer.Reset();
-    m_timer.Start();
-
-    frontLeft.get()->Init( wheelDiameter, maxSpeed, maxAngularSpeed, maxAcceleration, maxAngularAcceleration, m_frontLeftLocation );
-    frontRight.get()->Init( wheelDiameter, maxSpeed, maxAngularSpeed, maxAcceleration, maxAngularAcceleration, m_frontRightLocation );
-    backLeft.get()->Init( wheelDiameter, maxSpeed, maxAngularSpeed, maxAcceleration, maxAngularAcceleration, m_backLeftLocation );
-    backRight.get()->Init( wheelDiameter, maxSpeed, maxAngularSpeed, maxAcceleration, maxAngularAcceleration, m_backRightLocation );
-
-    ZeroAlignSwerveModules();
 }
-/// @brief Align all of the swerve modules to point forward
-void SwerveChassis::ZeroAlignSwerveModules()
-{
-    m_frontLeft.get()->ZeroAlignModule();
-    m_frontRight.get()->ZeroAlignModule();
-    m_backLeft.get()->ZeroAlignModule();
-    m_backRight.get()->ZeroAlignModule();
-}
+
 
 units::angular_velocity::degrees_per_second_t SwerveChassis::CalcHeadingCorrection
 (
@@ -591,68 +534,7 @@ units::angle::degree_t SwerveChassis::GetYaw() const
     return yaw;
 }
 
-/// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
-void SwerveChassis::UpdateOdometry() 
-{
-    units::degree_t yaw{m_pigeon->GetYaw()};
-    Rotation2d rot2d {yaw}; //used to add m_offsetAngle but now we update pigeon yaw in ResetPosition.cpp
 
-    if (m_poseOpt == PoseEstimatorEnum::WPI)
-    {
-        auto currentPose = m_poseEstimator.GetEstimatedPosition();
-        Logger::GetLogger()->ToNtTable("Robot Odometry", "Current X", currentPose.X().to<double>());
-        Logger::GetLogger()->ToNtTable("Robot Odometry", "Current Y", currentPose.Y().to<double>());
-
-        m_poseEstimator.Update(rot2d, m_frontLeft.get()->GetState(),
-                                      m_frontRight.get()->GetState(), 
-                                      m_backLeft.get()->GetState(),
-                                      m_backRight.get()->GetState());
-
-        auto updatedPose = m_poseEstimator.GetEstimatedPosition();
-        Logger::GetLogger()->ToNtTable("Robot Odometry", "Updated X", updatedPose.X().to<double>());
-        Logger::GetLogger()->ToNtTable("Robot Odometry", "Updated Y", updatedPose.Y().to<double>());
-    }
-    else if (m_poseOpt==PoseEstimatorEnum::EULER_AT_CHASSIS)
-    {
-        // get change in time
-        auto deltaT = m_timer.Get();
-        m_timer.Reset();
-
-        // get the information from the last pose 
-        auto startX = m_pose.X();
-        auto startY = m_pose.Y();
-
-        // xk+1 = xk + vk cos θk T
-        // yk+1 = yk + vk sin θk T
-        // Thetak+1 = Thetagyro,k+1
-        units::angle::radian_t rads = yaw;          // convert angle to radians
-        double cosAng = cos(rads.to<double>());
-        double sinAng = sin(rads.to<double>());
-        auto vx = m_drive * cosAng + m_steer * sinAng;
-        auto vy = m_drive * sinAng + m_steer * cosAng;
-
-        units::length::meter_t currentX = startX + m_odometryComplianceCoefficient*(vx * deltaT);
-        units::length::meter_t currentY = startY + m_odometryComplianceCoefficient*(vy * deltaT);
-
-        Pose2d currPose{currentX, currentY, rot2d};
-        auto trans = currPose - m_pose;
-        m_pose = m_pose + trans;
-    }
-    else if (m_poseOpt==PoseEstimatorEnum::EULER_USING_MODULES ||
-             m_poseOpt==PoseEstimatorEnum::POSE_EST_USING_MODULES)
-    {
-        auto flPose = m_frontLeft.get()->GetCurrentPose(m_poseOpt);
-        auto frPose = m_frontRight.get()->GetCurrentPose(m_poseOpt);
-        auto blPose = m_backLeft.get()->GetCurrentPose(m_poseOpt);
-        auto brPose = m_backRight.get()->GetCurrentPose(m_poseOpt);
-
-        auto chassisX = (flPose.X() + frPose.X() + blPose.X() + brPose.X()) / 4.0;
-        auto chassisY = (flPose.Y() + frPose.Y() + blPose.Y() + brPose.Y()) / 4.0;
-        Pose2d currPose{chassisX, chassisY, rot2d};
-        auto trans = currPose - m_pose;
-        m_pose = m_pose + trans;
-    }
-}
 
 /// @brief set all of the encoders to zero
 void SwerveChassis::SetEncodersToZero()
@@ -726,31 +608,6 @@ void SwerveChassis::ResetPosition
 
     ResetPosition(pose, angle);
 }
-
-ChassisSpeeds SwerveChassis::GetFieldRelativeSpeeds
-(
-    units::meters_per_second_t xSpeed,
-    units::meters_per_second_t ySpeed,
-    units::radians_per_second_t rot        
-)
-{
-    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "xSpeed (mps)", xSpeed.to<double>());
-    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "ySpeed (mps)", ySpeed.to<double>());
-    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "rot (radians per sec)", rot.to<double>());
-
-    units::angle::radian_t yaw{m_pigeon->GetYaw()*wpi::numbers::pi/180.0};
-    auto forward = xSpeed*cos(yaw.to<double>()) + ySpeed*sin(yaw.to<double>());
-    auto strafe = -1.0 *xSpeed*sin(yaw.to<double>()) + ySpeed*cos(yaw.to<double>());
-
-    ChassisSpeeds output{forward, strafe, rot};
-
-    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "yaw (radians)", yaw.to<double>());
-    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "forward (mps)", forward.to<double>());
-    Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "stafe (mps)", strafe.to<double>());
-
-    return output;
-}
-
 
 void SwerveChassis::SetTargetHeading(units::angle::degree_t targetYaw) 
 {

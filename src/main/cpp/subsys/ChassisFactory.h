@@ -28,8 +28,8 @@
 #include <subsys/interfaces/IChassis.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
-#include <subsys/SwerveModule.h>
-#include <subsys/SwerveChassis.h>
+#include <subsys/swerve/SwerveModule.h>
+#include <subsys/swerve/SwerveChassis.h>
 
 namespace ctre
 {

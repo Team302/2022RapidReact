@@ -52,6 +52,9 @@
         // If anywhere, SwerveChassis/SwerveDrive
         const double                                                m_deadband = 0.0;
         const units::angular_velocity::radians_per_second_t         m_angularDeadband = units::angular_velocity::radians_per_second_t(0.1); //3 degrees per second
+
+        //SwerveDrive
+        units::angular_velocity::degrees_per_second_t m_yawCorrection;
     
 
         // Probably in SwerveSpecial, or SwerveDrive

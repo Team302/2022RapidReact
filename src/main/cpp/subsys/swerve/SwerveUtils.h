@@ -106,6 +106,8 @@ class SwerveUtils
         PoseEstimatorEnum                                           m_poseOpt;
         frc::Pose2d                                                 m_pose;
 
+        SwerveChassis*                                              m_chassis;
+
         // Gains are for example purposes only - must be determined for your own robot!
         //Clean up to get clearer information
         frc::SwerveDriveKinematics<4> m_kinematics;
@@ -126,6 +128,9 @@ class SwerveUtils
         const double kFHeadingControl = 0.0; //not being used
         bool m_hold = false;
         units::angle::degree_t m_storedYaw;
-        units::angular_velocity::degrees_per_second_t m_yawCorrection;
-        
+
+        std::shared_ptr<SwerveModule>                               m_frontLeft;
+        std::shared_ptr<SwerveModule>                               m_frontRight;
+        std::shared_ptr<SwerveModule>                               m_backLeft;
+        std::shared_ptr<SwerveModule>                               m_backRight;        
 };

@@ -20,6 +20,10 @@
 #include <subsys/swerve/SwerveUtils.h>
 #include <subsys/swerve/SwerveChassis.h>
 
+#include <subsys/ChassisFactory.h>
+
+#include <utils/Logger.h>
+
 //C++ Includes
 
 SwerveUtils::SwerveUtils
@@ -31,13 +35,20 @@ SwerveUtils::SwerveUtils
     m_isMoving(false),
     m_poseOpt(PoseEstimatorEnum::WPI),
     m_pose(),
-    m_kinematics(SwerveChassis::GetSwerveKinematics())
+    m_chassis(ChassisFactory::GetChassisFactory()->GetSwerveChassis()),
+    m_kinematics(m_chassis->GetSwerveKinematics()),
+    m_storedYaw(m_pigeon->GetYaw()),
+    m_frontLeft(m_chassis->GetFrontLeft()),
+    m_frontRight(m_chassis->GetFrontRight()),
+    m_backLeft(m_chassis->GetBackLeft()),
+    m_backRight(m_chassis->GetBackRight())
+
 {
 
 }
 
 
-ChassisSpeeds SwerveChassis::GetFieldRelativeSpeeds
+frc::ChassisSpeeds SwerveUtils::GetFieldRelativeSpeeds
 (
     units::meters_per_second_t xSpeed,
     units::meters_per_second_t ySpeed,
@@ -52,11 +63,79 @@ ChassisSpeeds SwerveChassis::GetFieldRelativeSpeeds
     auto forward = xSpeed*cos(yaw.to<double>()) + ySpeed*sin(yaw.to<double>());
     auto strafe = -1.0 *xSpeed*sin(yaw.to<double>()) + ySpeed*cos(yaw.to<double>());
 
-    ChassisSpeeds output{forward, strafe, rot};
+    frc::ChassisSpeeds output{forward, strafe, rot};
 
     Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "yaw (radians)", yaw.to<double>());
     Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "forward (mps)", forward.to<double>());
     Logger::GetLogger()->ToNtTable("Field Oriented Calcs", "stafe (mps)", strafe.to<double>());
 
     return output;
+}
+
+
+void SwerveUtils::UpdateOdometry() 
+{
+    units::degree_t yaw{m_pigeon->GetYaw()};
+    frc::Rotation2d rot2d {yaw}; //used to add m_offsetAngle but now we update pigeon yaw in ResetPosition.cpp
+
+    if (m_poseOpt == PoseEstimatorEnum::WPI)
+    {
+        auto currentPose = m_poseEstimator.GetEstimatedPosition();
+        Logger::GetLogger()->ToNtTable("Robot Odometry", "Current X", currentPose.X().to<double>());
+        Logger::GetLogger()->ToNtTable("Robot Odometry", "Current Y", currentPose.Y().to<double>());
+
+        m_poseEstimator.Update(rot2d, m_frontLeft->GetState(),
+                                      m_frontRight->GetState(), 
+                                      m_backLeft->GetState(),
+                                      m_backRight->GetState());
+
+        auto updatedPose = m_poseEstimator.GetEstimatedPosition();
+        Logger::GetLogger()->ToNtTable("Robot Odometry", "Updated X", updatedPose.X().to<double>());
+        Logger::GetLogger()->ToNtTable("Robot Odometry", "Updated Y", updatedPose.Y().to<double>());
+    }
+
+    /// @TODO:  Are these other pose estimation options needed?
+
+    /*
+    else if (m_poseOpt==PoseEstimatorEnum::EULER_AT_CHASSIS)
+    {
+        // get change in time
+        auto deltaT = m_timer.Get();
+        m_timer.Reset();
+
+        // get the information from the last pose 
+        auto startX = m_pose.X();
+        auto startY = m_pose.Y();
+
+        // xk+1 = xk + vk cos θk T
+        // yk+1 = yk + vk sin θk T
+        // Thetak+1 = Thetagyro,k+1
+        units::angle::radian_t rads = yaw;          // convert angle to radians
+        double cosAng = cos(rads.to<double>());
+        double sinAng = sin(rads.to<double>());
+        auto vx = m_drive * cosAng + m_steer * sinAng;
+        auto vy = m_drive * sinAng + m_steer * cosAng;
+
+        units::length::meter_t currentX = startX + m_odometryComplianceCoefficient*(vx * deltaT);
+        units::length::meter_t currentY = startY + m_odometryComplianceCoefficient*(vy * deltaT);
+
+        frc::Pose2d currPose{currentX, currentY, rot2d};
+        auto trans = currPose - m_pose;
+        m_pose = m_pose + trans;
+    }
+    else if (m_poseOpt==PoseEstimatorEnum::EULER_USING_MODULES ||
+             m_poseOpt==PoseEstimatorEnum::POSE_EST_USING_MODULES)
+    {
+        auto flPose = m_frontLeft.get()->GetCurrentPose(m_poseOpt);
+        auto frPose = m_frontRight.get()->GetCurrentPose(m_poseOpt);
+        auto blPose = m_backLeft.get()->GetCurrentPose(m_poseOpt);
+        auto brPose = m_backRight.get()->GetCurrentPose(m_poseOpt);
+
+        auto chassisX = (flPose.X() + frPose.X() + blPose.X() + brPose.X()) / 4.0;
+        auto chassisY = (flPose.Y() + frPose.Y() + blPose.Y() + brPose.Y()) / 4.0;
+        frc::Pose2d currPose{chassisX, chassisY, rot2d};
+        auto trans = currPose - m_pose;
+        m_pose = m_pose + trans;
+    }
+    */
 }

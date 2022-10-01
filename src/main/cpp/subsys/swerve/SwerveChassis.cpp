@@ -79,6 +79,14 @@ SwerveChassis::SwerveChassis
     ZeroAlignSwerveModules();
 }
 
+void SwerveChassis::ZeroAlignSwerveModules()
+{
+    m_frontLeft.get()->ZeroAlignModule();
+    m_frontRight.get()->ZeroAlignModule();
+    m_backLeft.get()->ZeroAlignModule();
+    m_backRight.get()->ZeroAlignModule();
+}
+
 void SwerveChassis::Drive
 ( 
     frc::ChassisSpeeds               speeds, 

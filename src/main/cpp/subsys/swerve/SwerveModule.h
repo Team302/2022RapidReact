@@ -37,7 +37,7 @@
 // Team 302 Includes
 #include <hw/DragonFalcon.h>
 #include <hw/interfaces/IDragonMotorController.h>
-#include <subsys/PoseEstimatorEnum.h>
+#include <subsys/swerve/PoseEstimatorEnum.h>
 
 // Third Party Includes
 #include <ctre/phoenix/sensors/CANCoder.h>
