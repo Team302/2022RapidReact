@@ -61,14 +61,13 @@ AnalogAxis::AnalogAxis
 ) : m_gamepad( gamepad ),                                   
     m_axis( axisID ),
     m_profile( LinearProfile::GetInstance() ),  
-    m_deadband( DeadbandValue::GetInstance() ), 
+    m_deadband( NoDeadbandValue::GetInstance() ), 
     m_scale( new ScaledAxis()  )
 {
     if ( flipAxis )
     {
         m_scale->SetScaleFactor( -1.0 );
     }
-    m_deadband->ApplyDeadband(0.05);
 }
 
 //================================================================================================

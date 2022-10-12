@@ -77,7 +77,7 @@ ClimberStateMgr::ClimberStateMgr() : m_climber(MechanismFactory::GetMechanismFac
     // initialize the xml string to state map
     map<string, StateStruc> stateMap;
     stateMap[m_climberOffXmlString] = m_offState;
-    //stateMap[m_climberUninitializedXmlString] = m_uninitializedState;
+    stateMap[m_climberUninitializedXmlString] = m_uninitializedState;
     stateMap[m_climberManualXmlString] = m_manualState;
     stateMap[m_climberZeroClimbString] = m_zeroClimbState;
     stateMap[m_climberInitialReachXmlString] = m_initialReachState;
@@ -251,7 +251,7 @@ bool ClimberStateMgr::CheckForManualInput()
     
     foundInput = controller != nullptr ? controller->IsButtonPressed(TeleopControl::CLIMBER_MAN_UP) : false;
     foundInput = controller != nullptr && !foundInput ? controller->IsButtonPressed(TeleopControl::CLIMBER_MAN_DOWN) : foundInput;
-    foundInput = controller != nullptr && !foundInput ? controller->GetAxisValue(TeleopControl::CLIMBER_MAN_ROTATE) > 0.0 : foundInput;  //0.05 should remove any unintentional joystick input
+    foundInput = controller != nullptr && !foundInput ? abs(controller->GetAxisValue(TeleopControl::CLIMBER_MAN_ROTATE)) > 0.05 : foundInput;  //0.05 should remove any unintentional joystick input
 
     return foundInput;
 }
