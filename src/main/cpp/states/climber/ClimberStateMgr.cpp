@@ -249,8 +249,8 @@ bool ClimberStateMgr::CheckForManualInput()
     bool foundInput = false;
     auto controller = TeleopControl::GetInstance();
     
-    foundInput = controller != nullptr ? controller->IsButtonPressed(TeleopControl::CLIMBER_MAN_UP) : false;
-    foundInput = controller != nullptr && !foundInput ? controller->IsButtonPressed(TeleopControl::CLIMBER_MAN_DOWN) : foundInput;
+    foundInput = controller != nullptr ? abs(controller->GetAxisValue(TeleopControl::CLIMBER_MAN_UP)) > 0.05: false;
+    foundInput = controller != nullptr && !foundInput ? abs(controller->GetAxisValue(TeleopControl::CLIMBER_MAN_DOWN)) > 0.05 : foundInput;
     foundInput = controller != nullptr && !foundInput ? abs(controller->GetAxisValue(TeleopControl::CLIMBER_MAN_ROTATE)) > 0.05 : foundInput;  //0.05 should remove any unintentional joystick input
 
     return foundInput;
