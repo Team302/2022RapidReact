@@ -111,62 +111,52 @@ void ClimberStateMgr::CheckForStateTransition()
         auto isClimbManual = CheckForManualInput();
         auto isClimbInitialReach = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_INITIAL_REACH) : false;
 
-        //Debugging
-        auto isStateA = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_MID) : false;
-        auto isStateB = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_PREP) : false;
-        auto isStateC = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_A) : false;
-        auto isStateD = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_B) : false;
-        auto isStateE = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ELEVATE) : false;
-        auto isStateF = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_ROTATE_TO_HOOK) : false;
-        auto isStateG = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_FRONT_LIFT_ROBOT) : false;
-        auto isStateH = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_ROTATE_ARM) : false;
-        auto isStateI = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_PREP) : false;
-        //Debugging
+        
         auto isZeroState = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::CLIMBER_STATE_BACK_ROTATE_A) : false;
 
         if (isClimbMode)
         {
-            if (isAutoClimb)
-            {
-                //Start at initial climb state by checking if this is the first loop the robot is auto climbing
-                if(!m_wasAutoClimb)
-                {
-                    m_currentAutoState = CLIMBER_STATE::CLIMB_MID_BAR;
-                    targetState = m_currentAutoState;
-                    m_wasAutoClimb = true;
-                }
-                else
-                {
-                        auto currentStatePtr = GetCurrentStatePtr();
-                        if (currentStatePtr != nullptr)
-                        {
-                            auto done = currentStatePtr->AtTarget();
-                            Logger::GetLogger()->ToNtTable(m_nt, string("AutoIsDone"), done);
-                            if (!done)
-                            {
-                                targetState = m_currentAutoState;
-                            }
-                            else if (done && currentState != CLIMB_TRAVERSAL_BAR)
-                            {
-                                m_autoTimer.Start();
-                                if(m_autoTimer.HasElapsed(units::time::second_t(0.5)))
-                                {
-                                    targetState = static_cast<CLIMBER_STATE>(static_cast<int>(currentState)+1);
-                                    m_currentAutoState = targetState;
-                                    m_autoTimer.Stop();
-                                    m_autoTimer.Reset();
-                                }
-                            }
-                            m_prevState = targetState;
+            // if (isAutoClimb)
+            // {
+            //     //Start at initial climb state by checking if this is the first loop the robot is auto climbing
+            //     if(!m_wasAutoClimb)
+            //     {
+            //         m_currentAutoState = CLIMBER_STATE::CLIMB_MID_BAR;
+            //         targetState = m_currentAutoState;
+            //         m_wasAutoClimb = true;
+            //     }
+            //     else
+            //     {
+            //             auto currentStatePtr = GetCurrentStatePtr();
+            //             if (currentStatePtr != nullptr)
+            //             {
+            //                 auto done = currentStatePtr->AtTarget();
+            //                 Logger::GetLogger()->ToNtTable(m_nt, string("AutoIsDone"), done);
+            //                 if (!done)
+            //                 {
+            //                     targetState = m_currentAutoState;
+            //                 }
+            //                 else if (done && currentState != CLIMB_TRAVERSAL_BAR)
+            //                 {
+            //                     m_autoTimer.Start();
+            //                     if(m_autoTimer.HasElapsed(units::time::second_t(0.5)))
+            //                     {
+            //                         targetState = static_cast<CLIMBER_STATE>(static_cast<int>(currentState)+1);
+            //                         m_currentAutoState = targetState;
+            //                         m_autoTimer.Stop();
+            //                         m_autoTimer.Reset();
+            //                     }
+            //                 }
+            //                 m_prevState = targetState;
 
-                            //Debugging
-                            Logger::GetLogger()->ToNtTable(m_nt, string("m_currentAutoState"), m_currentAutoState);
-                            Logger::GetLogger()->ToNtTable(m_nt, string("m_wasAutoClimb"), m_wasAutoClimb);
-                        }        
-                }  
-            }  
+            //                 //Debugging
+            //                 Logger::GetLogger()->ToNtTable(m_nt, string("m_currentAutoState"), m_currentAutoState);
+            //                 Logger::GetLogger()->ToNtTable(m_nt, string("m_wasAutoClimb"), m_wasAutoClimb);
+            //             }        
+            //     }  
+            // }  
             //Needs testing
-            else if (m_prevState == CLIMBER_STATE::UNINITIALIZED)
+            if (m_prevState == CLIMBER_STATE::UNINITIALIZED)
             {
                 /*
                 if (GetCurrentState() == CLIMBER_STATE::ZERO_BEFORE_CLIMB)
@@ -183,7 +173,12 @@ void ClimberStateMgr::CheckForStateTransition()
                 */
                 targetState = CLIMBER_STATE::ZERO_BEFORE_CLIMB;
             }
-            else
+            // else
+            // {
+            //     targetState = CLIMBER_STATE::MANUAL;
+            // }
+
+            if(isClimbManual)
             {
                 targetState = CLIMBER_STATE::MANUAL;
             }
@@ -194,46 +189,43 @@ void ClimberStateMgr::CheckForStateTransition()
             }
 
             //Debugging
-            if (isStateA)
-            {
-                targetState = CLIMBER_STATE::CLIMB_MID_BAR;
-            } 
-            else if (isStateB)   
-            {
-                targetState = CLIMBER_STATE::PREPARE_EXTEND_MID_BAR;
-            }
-            else if (isStateC)   
-            {
-                targetState = CLIMBER_STATE::EXTEND_MID_BAR;
-            }   
-            else if (isStateD)   
-            {
-                targetState = CLIMBER_STATE::ROTATE_MID_BAR;
-            }   
-            else if (isStateE)   
-            {
-                targetState = CLIMBER_STATE::REACH_HIGH_BAR;    
-            }   
-            else if (isStateF)   
-            {
-                targetState = CLIMBER_STATE::CLIMB_HIGH_BAR;
-            }   
-            else if (isStateG)   
-            {
-                targetState = CLIMBER_STATE::PREPARE_EXTEND_HIGH_BAR;
-            }    
-            else if (isStateH)  
-            {
-                targetState = CLIMBER_STATE::EXTEND_HIGH_BAR;
-            }    
-            else if (isStateI)
-            {
-                targetState = CLIMBER_STATE::CLIMB_TRAVERSAL_BAR;
-            }
-            if (isZeroState)
-            {
-                targetState = CLIMBER_STATE::ZERO_BEFORE_CLIMB;
-            }
+            // if (isStateA)
+            // {
+            //     targetState = CLIMBER_STATE::CLIMB_MID_BAR;
+            // } 
+            // else if (isStateB)   
+            // {
+            //     targetState = CLIMBER_STATE::PREPARE_EXTEND_MID_BAR;
+            // }
+            // else if (isStateC)   
+            // {
+            //     targetState = CLIMBER_STATE::EXTEND_MID_BAR;
+            // }   
+            // else if (isStateD)   
+            // {
+            //     targetState = CLIMBER_STATE::ROTATE_MID_BAR;
+            // }   
+            // else if (isStateE)   
+            // {
+            //     targetState = CLIMBER_STATE::REACH_HIGH_BAR;    
+            // }   
+            // else if (isStateF)   
+            // {
+            //     targetState = CLIMBER_STATE::CLIMB_HIGH_BAR;
+            // }   
+            // else if (isStateG)   
+            // {
+            //     targetState = CLIMBER_STATE::PREPARE_EXTEND_HIGH_BAR;
+            // }    
+            // else if (isStateH)  
+            // {
+            //     targetState = CLIMBER_STATE::EXTEND_HIGH_BAR;
+            // }    
+            // else if (isStateI)
+            // {
+            //     //targetState = CLIMBER_STATE::CLIMB_TRAVERSAL_BAR;
+            //     targetState = CLIMBER_STATE::EXTEND_HIGH_BAR;
+            // }
         }
         else
         {
@@ -257,9 +249,9 @@ bool ClimberStateMgr::CheckForManualInput()
     bool foundInput = false;
     auto controller = TeleopControl::GetInstance();
     
-    foundInput = controller != nullptr ? controller->IsButtonPressed(TeleopControl::CLIMBER_MAN_UP) : false;
-    foundInput = controller != nullptr && !foundInput ? controller->IsButtonPressed(TeleopControl::CLIMBER_MAN_DOWN) : foundInput;
-    foundInput = controller != nullptr && !foundInput ? controller->GetAxisValue(TeleopControl::CLIMBER_MAN_ROTATE) > 0.05 : foundInput;  //0.05 should remove any unintentional joystick input
+    foundInput = controller != nullptr ? abs(controller->GetAxisValue(TeleopControl::CLIMBER_MAN_UP)) > 0.05: false;
+    foundInput = controller != nullptr && !foundInput ? abs(controller->GetAxisValue(TeleopControl::CLIMBER_MAN_DOWN)) > 0.05 : foundInput;
+    foundInput = controller != nullptr && !foundInput ? abs(controller->GetAxisValue(TeleopControl::CLIMBER_MAN_ROTATE)) > 0.05 : foundInput;  //0.05 should remove any unintentional joystick input
 
     return foundInput;
 }

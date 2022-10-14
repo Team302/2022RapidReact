@@ -48,12 +48,12 @@ Climber::Climber
     liftMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
     rotateMotor.get()->SetFramePeriodPriority(IDragonMotorController::MOTOR_PRIORITY::LOW);
     
-    //Set sensor position to 19 inches to allow climber to rise on its own, then reset when going into climb mode.
-    double TwentyInchesInCounts = 19 * liftMotor.get()->GetCountsPerInch();
+    //Set sensor position to 50 inches to allow climber to rise on its own, then reset when going into climb mode.
+    double FiftyInchesInCounts = 50 * liftMotor.get()->GetCountsPerInch();
 
     double TwentyDegreesInCounts = 15 * rotateMotor.get()->GetCountsPerDegree();
      
-    liftMotor.get()->SetSelectedSensorPosition(TwentyInchesInCounts);
+    liftMotor.get()->SetSelectedSensorPosition(FiftyInchesInCounts);
     rotateMotor.get()->SetSelectedSensorPosition(TwentyDegreesInCounts);
 }
 
@@ -130,6 +130,7 @@ bool Climber::IsAtMinReach
         liftMotor.get()->SetIntegratedSensorPosition(0.0, 0.0);
     }
     //Failsafe in case we lose bottom limit switch, rely on stall code to zero lift motor
+
     if (IsLiftStalled())
     {
         liftMotor.get()->SetIntegratedSensorPosition(0.0, 0.0);
