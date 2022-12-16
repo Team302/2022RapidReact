@@ -389,7 +389,7 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
         //=============================================================================
         // 5592 counts on the falcon for 76.729 degree change on the CANCoder (wheel)
         //=============================================================================
-        double deltaTicks = (deltaAngle.to<double>() * 5592 / 76.729); 
+        double deltaTicks = (deltaAngle.to<double>() * 5592 / 76.729) / 1.67; 
         double currentTicks = sensors.GetIntegratedSensorPosition();
         double desiredTicks = currentTicks + deltaTicks;
 
