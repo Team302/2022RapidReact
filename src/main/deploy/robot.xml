@@ -25,10 +25,10 @@
               maxAngularAcceleration="24"
               networkTable="ChassisNT"
               controlFile="chassis.xml">
-			 
+
         <swervemodule type="RIGHT_BACK"
                       turn_p="0.1"
-                      turn_i="0.005"
+                      turn_i="0.0"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -53,7 +53,9 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>                  
+                    reverselimitswitchopen="true"
+                    voltageCompensationSaturation="10.0"
+                   voltageCompensationEnable="true"/>                  
              <motor  usage="SWERVE_TURN"
                     canId="0"
                     pdpID="0"
@@ -61,6 +63,7 @@
                     inverted="false"
                     sensorInverted="false"
                     feedbackDevice="INTERNAL"
+                    countsPerRev="2048"
                     gearRatio="1.0"
                     brakeMode="true"
                     follow="-1"
@@ -71,14 +74,16 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>        
+                    reverselimitswitchopen="true"
+                    voltageCompensationSaturation="10.0"
+                   voltageCompensationEnable="true"/>        
 		    <cancoder canId="0"
                             offset="157.763"/>
         </swervemodule>
-       
+			 
         <swervemodule type="LEFT_BACK"
                       turn_p="0.1"
-                      turn_i="0.005"
+                      turn_i="0.0"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -102,7 +107,9 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>                  
+                    reverselimitswitchopen="true"
+                    voltageCompensationSaturation="10.0"
+                   voltageCompensationEnable="true"/>                  
              <motor usage="SWERVE_TURN"
                     canId="19"
                     pdpID="19"
@@ -110,6 +117,7 @@
                     inverted="false"
                     sensorInverted="false"
                     feedbackDevice="INTERNAL"
+                    countsPerRev="2048"
                     gearRatio="1.0"
                     brakeMode="true"
                     follow="-1"
@@ -120,14 +128,16 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>        
+                    reverselimitswitchopen="true"
+                    voltageCompensationSaturation="10.0"
+                   voltageCompensationEnable="true"/>        
 		    <cancoder canId="19"
                             offset="-53.525"/>
         </swervemodule>
 
         <swervemodule type="RIGHT_FRONT"
                       turn_p="0.1"
-                      turn_i="0.005"
+                      turn_i="0.0"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -152,7 +162,9 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>                  
+                    reverselimitswitchopen="true"
+                    voltageCompensationSaturation="10.0"
+                   voltageCompensationEnable="true"/>                  
              <motor  usage="SWERVE_TURN"
                     canId="9"
                     pdpID="9"
@@ -160,7 +172,8 @@
                     inverted="false"
                     sensorInverted="false"
                     feedbackDevice="INTERNAL"
-                    gearRatio="1.0"
+                    countsPerRev="2048"
+                    gearRatio="6.75"
                     brakeMode="true"
                     follow="-1"
                     peakCurrentDuration="25.0"
@@ -170,13 +183,15 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>        
+                    reverselimitswitchopen="true"
+                    voltageCompensationSaturation="10.0"
+                   voltageCompensationEnable="true"/>        
 		    <cancoder canId="9"
                             offset="41.045"/>
         </swervemodule>
         <swervemodule type="LEFT_FRONT"
                       turn_p="0.1"
-                      turn_i="0.005"
+                      turn_i="0.0"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -201,7 +216,9 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>                  
+                    reverselimitswitchopen="true"
+                    voltageCompensationSaturation="10.0"
+                   voltageCompensationEnable="true"/>                  
              <motor usage="SWERVE_TURN"
                     canId="11"
                     pdpID="11"
@@ -209,9 +226,8 @@
                     inverted="false"
                     sensorInverted="false"
                     feedbackDevice="INTERNAL"
-                    countsPerDegree="18.077"
                     countsPerRev="2048"
-                    gearRatio="1.0"
+                    gearRatio="21.429"
                     brakeMode="true"
                     follow="-1"
                     peakCurrentDuration="25.0"
@@ -221,259 +237,11 @@
                     forwardlimitswitch="false"
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
-                    reverselimitswitchopen="true"/>        
+                    reverselimitswitchopen="true"
+                    voltageCompensationSaturation="10.0"
+                   voltageCompensationEnable="true"/>        
 		    <cancoder canId="11"
                             offset="-106.347"/>
         </swervemodule>
-       </chassis>   
- <!--
-<!-- ==================================================== 
-     Intakes 
-     ====================================================  --> 
-    <mechanism type="LEFT_INTAKE" 
-               networkTable="LeftIntakeNT" 
-               controlFile="intake.xml"> 
-       <motor usage="INTAKE_SPIN" 
-              canId="1" 
-              pdpID="1" 
-              type="TALONSRX" 
-              inverted="false" 
-              sensorInverted="false" 
-              feedbackDevice="NONE" 
-              countsPerRev="0" 
-              gearRatio="1.0" 
-              brakeMode="false" 
-              peakCurrentDuration="50" 
-              continuousCurrentLimit="50" 
-              peakCurrentLimit="50" 
-              currentLimiting="true"  
-              forwardlimitswitch="false" 
-              forwardlimitswitchopen="true" 
-              reverselimitswitch="false" 
-              reverselimitswitchopen="true"/> 
-       <motor usage="INTAKE_EXTEND" 
-              canId="0" 
-              pdpID="0" 
-              type="TALONSRX" 
-              inverted="false" 
-              sensorInverted="false" 
-              feedbackDevice="NONE" 
-              countsPerRev="0" 
-              gearRatio="1.0" 
-              brakeMode="true" 
-              peakCurrentDuration="50.0" 
-              continuousCurrentLimit="20.0" 
-              peakCurrentLimit="35.0" 
-              currentLimiting="true"  
-              forwardlimitswitch="true" 
-              forwardlimitswitchopen="true" 
-              reverselimitswitch="true" 
-              reverselimitswitchopen="true"/> 
-    </mechanism> 
-     
-    <mechanism type="RIGHT_INTAKE" 
-               networkTable="RightIntakeNT" 
-               controlFile="intake.xml"> 
-       <motor usage="INTAKE_SPIN" 
-              canId="5" 
-              pdpID="5" 
-              type="TALONSRX" 
-              inverted="true" 
-              sensorInverted="false" 
-              feedbackDevice="NONE" 
-              countsPerRev="0" 
-              gearRatio="1.0" 
-              brakeMode="false" 
-              peakCurrentDuration="50" 
-              continuousCurrentLimit="30" 
-              peakCurrentLimit="40" 
-              currentLimiting="true"  
-              forwardlimitswitch="false" 
-              forwardlimitswitchopen="true" 
-              reverselimitswitch="false" 
-              reverselimitswitchopen="true"/> 
-       <motor usage="INTAKE_EXTEND" 
-              canId="2" 
-              pdpID="2" 
-              type="TALONSRX" 
-              inverted="true" 
-              sensorInverted="false" 
-              feedbackDevice="NONE" 
-              countsPerRev="0" 
-              gearRatio="1.0" 
-              brakeMode="true" 
-              peakCurrentDuration="50.0" 
-              continuousCurrentLimit="20.0" 
-              peakCurrentLimit="35.0" 
-              currentLimiting="true"  
-              forwardlimitswitch="true" 
-              forwardlimitswitchopen="true" 
-              reverselimitswitch="true" 
-              reverselimitswitchopen="true"/> 
-    </mechanism> 
- 
-<!-- ==================================================== 
-     Shooter 
-     ====================================================  --> 
-    <mechanism type="SHOOTER" 
-               networkTable="shooterNT" 
-               controlFile="shooter.xml"> 
-       <motor usage="SHOOTER" 
-              canId="14" 
-              pdpID="14" 
-              type="FALCON" 
-              inverted="false" 
-              sensorInverted="false" 
-              feedbackDevice="INTERNAL" 
-              countsPerRev="2048" 
-              gearRatio="1.0" 
-              brakeMode="false" 
-              peakCurrentDuration="50" 
-              continuousCurrentLimit="50" 
-              peakCurrentLimit="50" 
-              currentLimiting="true"  
-              forwardlimitswitch="false" 
-              forwardlimitswitchopen="true" 
-              reverselimitswitch="false" 
-              reverselimitswitchopen="true"/> 
-       <motor usage="SHOOTER2" 
-              canId="15" 
-              pdpID="15" 
-              type="FALCON" 
-              inverted="false" 
-              sensorInverted="false" 
-              feedbackDevice="INTERNAL" 
-              countsPerRev="2048" 
-              gearRatio="1.0" 
-              brakeMode="false" 
-              peakCurrentDuration="50" 
-              continuousCurrentLimit="50" 
-              peakCurrentLimit="50" 
-              currentLimiting="true" /> 
-    </mechanism> 
- 
-<!-- ==================================================== 
-     Ball Transfer 
-     ====================================================  --> 
- 
-    <mechanism type="LIFT" 
-               networkTable="LiftNT" 
-               controlFile="lift.xml"> 
-       <motor usage="LIFT" 
-              canId="3" 
-              pdpID="3" 
-              type="TALONSRX" 
-              inverted="true" 
-              sensorInverted="false" 
-              feedbackDevice="NONE" 
-              countsPerRev="0" 
-              gearRatio="1.0" 
-              brakeMode="false" 
-              peakCurrentDuration="50" 
-              continuousCurrentLimit="30" 
-              peakCurrentLimit="40" 
-              currentLimiting="true" 
-              voltageCompensationSaturation="9.0" 
-              voltageCompensationEnable="true"/>  
-    </mechanism> 
- 
-    <mechanism type="INDEXER" 
-              networkTable="IndexerNT" 
-              controlFile="indexer.xml"> 
-       <motor usage="LEFT_INDEXER" 
-              canId="4" 
-              pdpID="4" 
-              type="TALONSRX" 
-              inverted="false" 
-              sensorInverted="false" 
-              feedbackDevice="NONE" 
-              countsPerRev="0" 
-              gearRatio="1.0" 
-              brakeMode="false" 
-              peakCurrentDuration="50" 
-              continuousCurrentLimit="50" 
-              peakCurrentLimit="50" 
-              currentLimiting="true" 
-              voltageCompensationSaturation="9.0" 
-              voltageCompensationEnable="true"/>  
-	<motor usage="RIGHT_INDEXER" 
-              canId="7" 
-              pdpID="7" 
-              type="TALONSRX" 
-              inverted="true" 
-              sensorInverted="false" 
-              feedbackDevice="NONE" 
-              countsPerRev="0" 
-              gearRatio="1.0" 
-              brakeMode="false" 
-              peakCurrentDuration="50" 
-              continuousCurrentLimit="50" 
-              peakCurrentLimit="50" 
-              currentLimiting="true" 
-              voltageCompensationSaturation="9.0" 
-              voltageCompensationEnable="true"/>  
-       <digitalInput usage="BALL_PRESENT" 
-                     digitalId="1" 
-                     reversed="true"/> 
-  </mechanism> 
-<!-- ==================================================== 
-     Climber 
-     ====================================================  --> 
-   <mechanism type="CLIMBER" 
-               networkTable="climberNT" 
-               controlFile="climber.xml"> 
-       <motor usage="CLIMBER_LIFT" 
-              canId="9" 
-              pdpID="9" 
-              type="FALCON" 
-              motorType="FALCON500" 
-              inverted="false" 
-              sensorInverted="true" 
-              feedbackDevice="INTERNAL" 
-              countsPerRev="2048" 
-              gearRatio="1.0" 
-              countsPerInch="9400.325" 
-              countsPerDegree="0" 
-              brakeMode="true" 
-              peakCurrentDuration="50" 
-              continuousCurrentLimit="30" 
-              peakCurrentLimit="40" 
-              currentLimiting="true" 
-              forwardlimitswitch="true" 
-              forwardlimitswitchopen="true" 
-              reverselimitswitch="true" 
-              reverselimitswitchopen="true"/> 
- 
-       <motor usage="CLIMBER_ROTATE" 
-              canId="8" 
-              pdpID="8" 
-              type="FALCON" 
-              motorType="FALCON500" 
-              inverted="true" 
-              sensorInverted="true" 
-              feedbackDevice="INTERNAL" 
-              countsPerRev="2048" 
-              gearRatio="16.0" 
-              countsPerInch="0" 
-              countsPerDegree="1442.0" 
-              brakeMode="true" 
-              peakCurrentDuration="50" 
-              continuousCurrentLimit="30" 
-              peakCurrentLimit="40" 
-              currentLimiting="true" 
-              forwardlimitswitch="false" 
-              forwardlimitswitchopen="false" 
-              reverselimitswitch="false" 
-              reverselimitswitchopen="false"/> 
-       <digitalInput usage= "CLIMBER_BACK" 
-              digitalId="2" 
-              reversed="false"/> 
-       <!--analogInput type="ELEVATOR_HEIGHT" 
-                    analogId="0" 
-                    voltageMin="0.0" 
-                    voltageMax="5.0" 
-                    outputMin="0.0" 
-                    outputMax="27.0"/ --> 
-   </mechanism> 
-   -->
+      </chassis>   
 </robot>
