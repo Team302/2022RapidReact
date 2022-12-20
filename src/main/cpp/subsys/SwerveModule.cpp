@@ -370,6 +370,9 @@ void SwerveModule::SetDriveSpeed( units::velocity::meters_per_second_t speed )
 /// @returns void
 void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
 {
+    /// DEBUG
+    //targetAngle = units::angle::degree_t(0.0);
+
     m_activeState.angle = targetAngle;
 
     Logger::GetLogger()->ToNtTable(m_nt, string("turn motor id"), m_turnMotor.get()->GetID() );
@@ -389,7 +392,13 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
         //=============================================================================
         // 5592 counts on the falcon for 76.729 degree change on the CANCoder (wheel)
         //=============================================================================
-        double deltaTicks = (deltaAngle.to<double>() * 5592 / 76.729) / 1.67; 
+        //double deltaTicks = (deltaAngle.to<double>() * 5592 / 76.729); 
+
+        /// DEBUG
+        //double deltaTicks = deltaAngle.to<double>()/360.0 * m_turnMotor.get()->GetCountsPerRev() * m_turnMotor.get()->GetGearRatio();
+        double deltaTicks = (deltaAngle.to<double>()) * -7589 / 62.754;
+
+
         double currentTicks = sensors.GetIntegratedSensorPosition();
         double desiredTicks = currentTicks + deltaTicks;
 
